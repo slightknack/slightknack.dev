@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@500;700&family=Fraunces:wght@400;700&display=swap');
+
+:root {
+    --bg:   #223;
+    --text: #fff;
+    --pop:  #afb;
+  
+    --font: "Fira Mono", monospace;
+    --title: "Fraunces", serif;
+    --line: 4px;
+    --size: 16px;
+    --big:  16px; /* added to size */
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: var(--size);
+    line-height: 1.4;
+    margin-bottom: 64px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: calc(var(--size) + var(--big));
+  margin-bottom: var(--size);
+  font-weight: bold;
+  font-family: var(--title);
+}
+
+h1 { font-size: calc(var(--size) + var(--big)) }
+h2 { font-size: calc(var(--size) + var(--big) * 0.8) }
+h3 { font-size: calc(var(--size) + var(--big) * 0.6) }
+h4 { font-size: calc(var(--size) + var(--big) * 0.4) }
+h5 { font-size: calc(var(--size) + var(--big) * 0.2) }
+h6 { font-size: var(--size) }
+
+p {
+  margin-top: var(--size);
+  margin-bottom: var(--size);
+}
+
+a {
+  color: var(--pop);
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+.hero {
+  width: 100%;
+  height: calc(100vh - var(--size));
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.card, .column {
+  max-width: 512px;
+  padding: var(--size);
+  margin: auto;
+}
+
+.card {
+  background-color: var(--text);
+  color: var(--bg);
+  border-radius: var(--line); 
+  text-align: center;
+  margin: var(--size);
+}
+
+canvas {
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: inherit;
+}
+
