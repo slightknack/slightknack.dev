@@ -81,3 +81,9 @@ canvas {
     height: inherit;
 }
 
+@media only screen and (max-width: 512px) {
+    canvas {
+        display: none;
+        background-color: #000;
+    }
+}
