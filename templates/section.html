@@ -6,7 +6,7 @@
         {{ section.title }}
     </h1>
     {{ section.content | safe }}
-    {% for page in section.pages | reverse %}
+    {% for page in section.pages %}
     <li style="list-style: none;"><a href="{{ page.permalink | safe }}"><div class="boxed">
         <h1 style="margin-top: 2vh">{{ page.title }}</h1>
         <p class="tag">{{ page.date }} · About {{ page.reading_time }} minute{{ page.reading_time | pluralize }} long</p>
@@ -55,7 +55,7 @@
 
 {% block next_link %}
     {% if section.pages %}
-        {% set next_page = section.pages | last %}
+        {% set next_page = section.pages | first %}
         <div class="prev tag">
             <a href="{{ next_page.permalink }}">
                 <div class="boxed">next page</div>

@@ -70,7 +70,7 @@
                                         </div>
                                     </summary>
                                     {% if subsection.pages %}
-                                        {% for page in subsection.pages | reverse %}
+                                        {% for page in subsection.pages %}
                                             <div class="subpage">
                                                 <a class="tag" href="{{ page.permalink }}">
                                                     {% if current_path == page.path %}<strong>{% endif %}

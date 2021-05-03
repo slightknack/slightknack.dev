@@ -11,9 +11,9 @@
 {% endblock content %}
 
 {% block prev_link %}
-    {% if page.earlier %}
+    {% if page.later %}
     <div class="prev tag">
-        <a href="{{ page.earlier.permalink }}">
+        <a href="{{ page.later.permalink }}">
             <div class="boxed">back</div>
         </a>
     </div>
@@ -29,9 +29,9 @@
 {% endblock prev_link %}
 
 {% block next_link %}
-    {% if page.later %}
+    {% if page.earlier %}
         <div class="next tag">
-            <a href="{{ page.later.permalink }}">
+            <a href="{{ page.earlier.permalink }}">
                 <div class="boxed">next page</div>
             </a>
         </div>
