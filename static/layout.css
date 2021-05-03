@@ -124,7 +124,7 @@
 }
 
 .subpage {
-    margin-left: calc(var(--font-base) * 2);
+    margin-left: calc(2 * var(--font-base));
 }
 
 
