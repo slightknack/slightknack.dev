@@ -1,6 +1,6 @@
 base_url = "https://slightknack.dev"
 title = "Isaac Clayton"
-description = "A little knowledgebase built in a cozy corner of the web."
+description = "A little knowledgebase base in a cozy corner of the web."
 generate_feed = true
 compile_sass = false
 build_search_index = true
@@ -13,7 +13,6 @@ external_links_no_follow = true
 smart_punctuation = true
 
 [search]
-
 
 [extra]
 # Put all your custom variables here
