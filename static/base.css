@@ -23,6 +23,7 @@
 }
 
 body {
+    width: 100vw;
     background-color: var(--bg-fill);
     color: var(--text-fill);
     font-family: var(--font-body);
