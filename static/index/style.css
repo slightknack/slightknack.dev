@@ -1,13 +1,9 @@
 body {
     background: #7ac3cf;
-    /* background: #fff; */
-    /* color: #000; */
+    
     --half-fill: #000000aa;
     --bg-fill:   #eee;
     --text-fill: #000;
-    /* --soft-fill: #00000022; */
-
-    /* --half-fill: #ffffffaa; */
     --soft-fill: #ffffff88;
 }
 
