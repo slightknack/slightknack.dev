@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="narrow">
+    <h1 class="title">
+        {{ section.title }}
+    </h1>
+    {{ section.content | safe }}
+    {% for page in section.pages | reverse %}
+    <li style="list-style: none;"><a href="{{ page.permalink | safe }}"><div class="boxed">
+        <h1 style="margin-top: 2vh">{{ page.title }}</h1>
+        <p class="tag">{{ page.date }} · About {{ page.reading_time }} minute{{ page.reading_time | pluralize }} long</p>
+        {% if page.description %}
+            <p>{{ page.description }}<p>
+        {% elif page.summary %}
+            {{ page.summary | safe }}
+            <p class="tag"><a href="{{ page.permalink | safe}}#continue-reading">Continue reading...</a></p>
+        {% endif %}
+    </div></a></li>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+{% block prev_link %}
+    {# need to find the last page of the previous section or the previous section directly
+     if there isn't any pages in it #}
+    {% set index = get_section(path="_index.md") %}
+    {% set found_current = false %}
+    {% for s in index.subsections | reverse %}
+        {% set subsection = get_section(path=s) %}
+        {% if subsection.permalink == section.permalink %}
+            {% set_global found_current = true %}
+        {% else %}
+            {% if found_current %}
+                {% if subsection.pages %}
+                    {% set last_page = subsection.pages | last %}
+                    <div class="prev tag">
+                        <a href="{{ last_page.permalink }}">
+                            <div class="boxed">back</div>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="prev tag">
+                        <a href="{{ subsection.permalink }}">
+                            <div class="boxed">back up</div>
+                        </a>
+                    </div>
+                {% endif %}
+                {# no break #}
+                {% set_global found_current = false %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endblock prev_link %}
+
+{% block next_link %}
+    {% if section.pages %}
+        {% set next_page = section.pages | last %}
+        <div class="prev tag">
+            <a href="{{ next_page.permalink }}">
+                <div class="boxed">next page</div>
+            </a>
+        </div>
+    {% else %}
+        {# No page in the section, find the link for the following section #}
+        {% set index = get_section(path="_index.md") %}
+        {% set found_current = false %}
+        {% for s in index.subsections %}
+            {% set subsection = get_section(path=s) %}
+            {% if found_current %}
+                <div class="prev tag">
+                    <a href="{{ subsection.permalink }}">
+                        <div class="boxed">next section</div>
+                    </a>
+                </div>
+                {# no break #}
+                {% set_global found_current = false %}
+            {% endif %}
+            {% if subsection.permalink == section.permalink %}
+                {% set_global found_current = true %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock next_link %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="/index/style.css">
+    <link rel="stylesheet" href="/index/index.css">
+    <script src="/index/index.js"></script>
+{% endblock extra_head %}
+
+{% block content %}
+
+<div class="body">
+<div class="parallax" id="counter" hidden>0</div>
+<img class="parallax" style="visibility: hidden;" id="mountain-1" src="/index/mountain.svg">
+<img class="parallax" style="visibility: hidden;" id="mountain-2" src="/index/mountain.svg">
+<img class="parallax" style="visibility: hidden;" id="cloud-1" src="/index/cloud.png">
+<img class="parallax" style="visibility: hidden;" id="cloud-2" src="/index/cloud.png">
+
+<div class="narrow" style="padding-top: 0; padding-bottom: 0;">
+    <div style="min-height: 200vh;">
+    <div class="interlude">
+    <div>
+    <p class="tag">Hello and <strong>welcome</strong>! You've just <strong>discovered</strong> the wonderful website of</p>
+    <h1 style="font-size: calc(var(--font-base) + 9vw); margin: 0">Isaac Clayton</h1>
+    <p class="tag">He's a Student, Compiler Engineer, and Software Architect.<br>(Among other things.)</p>
+    </div>
+    </div>
+    </div>
+
+    <div class="boxed">
+    <h1>An Introduction</h1>
+    <p class="tag">Right, hello, perfect! Now that that third-person introduction is out of the way, I think it's appropriate to introduce myself in the first:</p>
+    <p>Hello, How are you doing? Welcome to my cozy little corner of the web.</p>
+
+    <p>I'm Isaac Clayton, an aspiring Software Architect interested in Reinforcement Learning, Programming Language Design, and Graphics Programming.</p>
+    <p>I was born in Provo, Utah, in 2004, but have lived around the world. Ever since a young age, I've been interested in the tools we've used to build our modern technological reality.</p>
+    <p>What I find more incredible than the <em>stuff</em> we've created is <em>how</em> we've created it. Pulling back the layers drives my insatiate curiosity, and I hope to use this website to document what I've come to know.</p>
+    <p class="tag">By the way: I went all out for this page, but I promise the rest of this website is more sane.</p>
+    </div>
+
+    <!-- <div class="boxed">
+    <h1>So, what is this site for?</h1>
+    <p class="tag">Right, hello, perfect! Now that that third-person introduction is out of the way, I think it's appropriate to introduce myself in the first:</p>
+    <p>Hello, How are you doing? I'm Isaac Clayton, an aspiring Software Architect interested in Reinforcement Learning, Programming Language Design, and Graphics Programming.</p>
+    <p class="tag">That's rather generic 🤔... Let's try again:</p>
+    <p>Ever since a young age, I've been interested in the tools we've used to build our modern technological reality. We're alive</p>
+    </div> -->
+
+    <div style="min-height: 200vh;">
+    <div class="interlude">
+    <div>
+    <a href="https://github.com/slightknack">
+    <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0">Past Work & Projects</h1>
+    <p class="tag">Can be found on GitHub. (All this text is a link to GitHub fwiw.)</p>
+    </a>
+    </div>
+    </div>
+    </div>
+
+    <div class="boxed">
+    <h1>So, what have you worked on?</h1>
+    <p>That's a good question! Here are a few projects I'm particularly proud of:</p>
+    <ul>
+    <li>
+    <p><a href="https://www.passerine.io"><strong>Passerine</strong></a> is a small extensible programming language designed for concise expression with little code. <a href="https://github.com/vrtbl/passerine"> Take a look at the implementation on GitHub.</a></p>
+    </li>
+    <li>
+    <p><a href="https://github.com/slightknack/keikan"><strong>Keikan (警官)</strong></a> is an elegant rendering engine written in Rust. It supports ray-marching and path-tracing.</p>
+    </li>
+    <li>
+    <p><a href="https://github.com/solidarity-browser"><strong>Solidarity</strong></a> is a distributed platform built for communication and collaboration. (Currently a work in progress. The backend datastore, <a href="https://github.com/solidarity-browser/kitbag">Kitbag, can be found here</a>.)</p>
+    </li>
+    </ul>
+    </div>
+
+    <div class="boxed">
+    <h1>By the way, I'm looking for an internship for the Summer of 2021!</h1>
+    <p>I'm looking for a technical internship, full- or part-time. Here's a quick HN-esque rundown of my skillset:</p>
+    <h2>Tools</h2>
+    <p>I primarily use:
+    <ol>
+    <li><strong>Rust</strong> (Embedded, WASM, Systems)</li>
+    <li><strong>Python</strong> (Tensorflow, Pytorch, Numpy, Pandas, Flask).</li>
+    </ol>
+    <p>I also know C, Java, Go (libp2p), Ruby, OCaml, Lisp (Scheme, Clojure, Common Lisp), JavaScript (Node, Vanilla, Svelte), and a myriad of other languages/technologies. Needless to say, I know my way around the UNIX command line.</p>
+    <h2>Résumé/CV</h2>
+    <p>Full CV available on request. Have worked as an <a href="https://hebervalleyartisancheese.com/">Apprentice Cheesemaker</a>.</p>
+    <h2>Email</h2>
+    <p><a href="mailto:work@slightknack.dev"><code>work@slightknack.dev</code></a></p>
+    <h2>Github</h2>
+    <p><a href="https://github.com/slightknack"><code>https://github.com/slightknack</code></a></p>
+    <h2>Languages</h2>
+    <p>Fluent in both English and Spanish.</p>
+    <h2>Eligibility</h2>
+    <p>I can work in the United States (Citizen, age 17), or remote internationally (preferred). Please send me an email if interested.</p>
+    </div>
+
+    <div style="min-height: 200vh;">
+    <div class="interlude">
+    <div>
+    <a href="https://github.com/slightknack">
+    <p class="tag">Well, you've asked for it. Up next:</p>
+    <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0"><a href="/blog">Here's my Blog</a></h1>
+    </a>
+    </div>
+    </div>
+    </div>
+
+</div>
+{% endblock content %}

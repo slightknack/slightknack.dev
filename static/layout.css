@@ -1,0 +1,156 @@
+.container {
+    display: grid;
+    grid-template-columns: 3fr minmax(0, 7fr);
+}
+
+.sidebar {
+    height: 100%;
+    color: #fff;
+
+    --half-fill: #ffffffaa;
+    --bg-fill:   #111;
+    --text-fill: #fff;
+    --soft-fill: #ffffff11;
+
+    background-color: #4d3ee6;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.sidebar-inner {
+    padding: 2vh;
+    height: 96vh;
+    position: sticky;
+    top: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.content {
+    min-width: 0;
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+
+.navigation {
+    margin-top: 0vh;
+    margin-bottom: 20vh;
+}
+
+@media only screen and (max-width: 1100px) {
+    .container {
+        grid-template-columns: 300px minmax(0, 1fr);
+    }
+}
+.profile {
+    width:  calc((var(--font-base) + var(--font-heading)) * 1.5);
+    height: calc((var(--font-base) + var(--font-heading)) * 1.5);
+    /* border: 3px solid var(--text-fill); */
+    border-radius: 3px;
+}
+
+#search {
+    width: 100%;
+}
+
+.narrow {
+    min-width: 0;
+    max-width: 700px;
+    padding: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20vh;
+}
+
+.tag {
+    color: var(--half-fill);
+    font-family: var(--font-title);
+}
+
+.search-container input {
+    color: var(--bg-fill);
+    background-color: var(--half-fill);
+    font-family: var(--font-title);
+    font-size: var(--font-base);
+    padding: 1vh;
+    border: none;
+    border-radius: 3px;
+}
+
+.search-results__items li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.search-results__item, .boxed {
+    padding: 2vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    background-color: var(--soft-fill);
+    border-radius: 3px;
+}
+
+.title-container {
+    margin-top: 4vh;
+    margin-bottom: 2vh;
+    display: flex;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
+
+.title-container * {
+    margin: 0;
+    padding: 0;
+}
+
+.title-text {
+    margin-left: 2vh;
+}
+
+.lateral {
+    display: grid;
+    column-gap: 2vh;
+    align-items: stretch;
+    justify-items: stretch;
+    min-height: 2vh;
+}
+
+.prev, .next {
+    width: 100%;
+    grid-row-start: 1;
+    align-self: stretch;
+    justify-self: stretch;
+}
+
+.subpage {
+    margin-left: calc(var(--font-base) * 2);
+}
+
+
+@media only screen and (max-width: 700px) {
+    .container {
+        display: initial;
+    }
+
+    .sidebar, .content {
+        height: auto;
+        overflow: initial;
+    }
+
+    .sidebar-inner {
+        height: auto;
+        position: initial;
+        top: none;
+        overflow: initial;
+        padding-bottom: 0vh;
+    }
+
+    .navigation {
+        margin-bottom: 0vh;
+    }
+
+    .menu {
+        display: none;
+    }
+}
