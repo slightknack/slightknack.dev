@@ -1,5 +1,5 @@
 body {
-    background: #7ac3cf;
+    background: linear-gradient(#eaeed0, #7ac3cf);
 
     --half-fill: #000000aa;
     --bg-fill:   #eee;
