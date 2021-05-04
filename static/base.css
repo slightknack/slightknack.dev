@@ -71,6 +71,7 @@ code {
     font-family: var(--font-mono), monospace;
     background-color: var(--soft-fill);
     overflow: scroll;
+    overflow-wrap: break-all;
     white-space: pre-wrap;
     hyphens: none;
     padding: 3px;
