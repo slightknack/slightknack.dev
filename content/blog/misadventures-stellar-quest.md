@@ -14,7 +14,7 @@ In my opinion, Stellar doesn't have the usual crypto-dystopia-air about it. Some
 Of course, I sound like just another Stellar shill. And that's fine! I think it's a cool project. If you're looking for a longer-form introduction to the rationale behind Stellar, good ol' [`patio11` can hook you up](https://www.kalzumeus.com/2014/08/05/harry-potter-and-the-cryptocurrency-of-stars/).
 
 # Anyway, What's Stellar Quest?
-The *Stellar Development Foundation* (you know, the governing body responsible for the development of Stellar) does a lot of things to help people familiarize people with Stellar, and usually have something to do with giving away free *Lumens* (XLM).
+The *Stellar Development Foundation* (you know, the governing body responsible for the development of Stellar) does a lot of things to help people familiarize themselves with Stellar, and these things usually have something to do with giving away free *Lumens* (XLM).
 
 One such thing is a competition/challenge called [Stellar Quest](https://quest.stellar.org/). Quest teaches people how to use Stellar's API ([Horizon](https://github.com/stellar/go/tree/master/services/horizon), for the pedantic) through a set of developer-oriented challenges that increase in difficulty as time goes on. (Don't worry, it's all done on the test network.)
 
