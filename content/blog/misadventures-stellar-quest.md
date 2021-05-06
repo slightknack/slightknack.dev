@@ -7,9 +7,9 @@ Good evening fellow Lumenauts!
 
 For those of you who don't know what [Stellar](https://stellar.org) is yet, it's a cryptocurrency that's been around since about 2015 by the same guys who made Ripple. I personally find it notable for a couple of reasons:
 
-1. Instead of using [Proof-of-Work](https://en.bitcoin.it/wiki/Proof_of_work) or [Proof-of-Stake](https://en.bitcoin.it/wiki/Proof_of_Stake), Stellar uses the [Stellar Consensus Protocol](https://www.stellar.org/papers/stellar-consensus-protocol), which is a construction of Federated Byzantine Agreement. I've written more about (and am working on an implementation of) SCP [here](https://github.com/slightknack/drop-in-fba), for those interested. Stellar is *really* fast (e.g. closing times are <5s on average) and environmentally friendly (no [mining](https://news.ycombinator.com/item?id=26386741) or [farming](https://www.tomsguide.com/news/what-is-chia-cryptocurrency-and-why-is-it-bad-news-for-hard-drives)).
+Instead of using [Proof-of-Work](https://en.bitcoin.it/wiki/Proof_of_work) or [Proof-of-Stake](https://en.bitcoin.it/wiki/Proof_of_Stake), Stellar uses the [Stellar Consensus Protocol](https://www.stellar.org/papers/stellar-consensus-protocol), which is a construction of Federated Byzantine Agreement. I've written more about (and am working on an implementation of) SCP [here](https://github.com/slightknack/drop-in-fba), for those interested. Stellar is *really* fast (e.g. closing times are <5s on average) and environmentally friendly (no [mining](https://news.ycombinator.com/item?id=26386741) or [farming](https://www.tomsguide.com/news/what-is-chia-cryptocurrency-and-why-is-it-bad-news-for-hard-drives)).
 <!-- more -->
-2. In my opinion, Stellar doesn't have the usual crypto-dystopia-air about it. Some may see this as a bad thing, but I see it as the opposite: extreme decentralization is just bad centralization (I mean, just look at bitcoin exchanges if you need an example), so by building the protocol with federation in mind, Stellar feels like email, but for money, and Just Works™️. It's all about finding that balance, and Stellar hits the sweet spot.
+In my opinion, Stellar doesn't have the usual crypto-dystopia-air about it. Some may see this as a bad thing, but I see it as the opposite: extreme decentralization is just bad centralization (I mean, just look at bitcoin exchanges if you need an example), so by building the protocol with federation in mind, Stellar feels like email, but for money, and Just Works™️. It's all about finding that balance, and Stellar hits the sweet spot.
 
 Of course, I sound like just another Stellar shill. And that's fine! I think it's a cool project. If you're looking for a longer-form introduction to the rationale behind Stellar, good ol' [`patio11` can hook you up](https://www.kalzumeus.com/2014/08/05/harry-potter-and-the-cryptocurrency-of-stars/).
 
@@ -22,7 +22,9 @@ As of writing, there are two finished Quest Series; the third is in progress rig
 
 ![Series 3 begins May 3rd](/content/series-3.png)
 
-I've participated in Quest in the past, but always *after* they happened; Series 3 is a bit different than previous series for two reasons:
+I've participated in Quest in the past, but always *after* they happened. I didn't want to miss out again, so I made sure to be prepared.
+
+Series 3 is a bit different than previous series for two reasons:
 
 1. Stellar Quest is now only accessible through an app. In the past, you could also do it in-browser. I'm personally not a fan, because it means you have to email the public/private keys they give you to yourself. This is also the first time the app is being used, so it's buggy as *heck*. I mean, it's impressive the developers build it off as quickly as they did, but it definitely needs some polish.
 
@@ -51,7 +53,7 @@ There are generally two ways to complete Stellar Quest Challenges: RunKit (JS en
 
 The alarm on my phone went off, it was time to start!
 
-## Challenge 1 — You've been rate limited
+## Off to the races!
 
 > This post is a Work in Progress
 
@@ -79,6 +81,8 @@ The alarm on my phone went off, it was time to start!
 - Rate limited!
 - have to go
 
+# 429: You're been rate limited
+
 - later, check back
 - still rate limited
 - invited to secret stellar club
@@ -86,21 +90,24 @@ The alarm on my phone went off, it was time to start!
 - others use it and it works
 - still waiting
 - reinstall the app
-- announcement on main discord server: don't reinstall the app!
-- lost all my progress registration is closed
+- announcement on main discord server: rate limiting fixed, don't reinstall the app!
+- lost all my progress, registration is closed
 - but solution works!
 - Arghhghgh!
+
+# It's not all bad
 
 - It's not all bad
 - people I helped on secret server gave me a portion of their winnings for helping them.
 - In the future, wait out all bugs!
+- Making friends is a good thing!
 - Hope that thursday goes better.
 - The end
 
 - Closing thoughts
 
 > ## Don't Buy me a Coffee!
-> Because don't drink coffee! ... but, if you want to, idk, buy me a *half-gallon of crypto-funded chocolate milk*, I'm game. My stellar address is `slightknack*stellarx.com`; alternatively, my public key is:
+> Because I don't drink coffee! ... but, if you want to, idk, buy me a *half-gallon of crypto-funded chocolate milk*, I'm game. My stellar address is `slightknack*stellarx.com`; alternatively, my public key is:
 > ```
 > GBKDWR2YMORRJVKLJGVWBOBVFWCBJEITSGNFQLKS6O6E2RYE364UBK6I
 > ```

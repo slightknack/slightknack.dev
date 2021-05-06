@@ -38,10 +38,6 @@ p {
     margin-bottom: 2vh;
 }
 
-p, ol, ul {
-    overflow: hidden;
-}
-
 h1, h2, h3, h4, h5, h6 {
     line-height: 1;
     letter-spacing: 0.05em;
@@ -75,7 +71,8 @@ code {
     font-family: var(--font-mono), monospace;
     background-color: var(--soft-fill);
     overflow: scroll;
-    overflow-wrap: break-all;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
     white-space: pre-wrap;
     hyphens: none;
     padding: 3px;
