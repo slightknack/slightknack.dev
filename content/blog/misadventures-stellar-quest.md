@@ -424,4 +424,4 @@ GBKDWR2YMORRJVKLJGVWBOBVFWCBJEITSGNFQLKS6O6E2RYE364UBK6I
 ```
 I usually don't do this, but since I've adopted the role of a crypto-shill for one article, I may as well.
 
-If you enjoyed this article, consider [subscribing to this website's RSS feed](/atom.xml), checking out [my work on Github](https://github.com/slightknack), or sharing it with a friend.
+If you enjoyed this article, consider [subscribing to this website's RSS feed](/atom.xml), checking out [my work on Github](https://github.com/slightknack), or sharing this post with a friend.
