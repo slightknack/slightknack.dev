@@ -36,7 +36,7 @@ Anyway, let's talk prizes. Currently, 1 stellar XLM is about 0.56 USD, so that *
 
 So, hearing that the Series 3 challenge would be starting soon, I decided to practice and prepare so I could secure that top spot. As you'll soon see, it didn't go entirely to plan...
 
-# Fly me to the moon!
+# Some Background
 (Un)Luckily enough, I have exams over these next two weeks, which means... **Study Leave!** I had no exams today, so, after reviewing some calculus this morning, my afternoon was completely free to follow my stellar aspirations.
 
 Installing the app and setting up an account with [Albedo](https://albedo.link/) was simple enough — it's the same process as that of the other challenges, so no surprise here. I double-checked the countdown timer, then set an alarm on my phone. Shortly thereafter, I fired up Discord, opened a fresh browser pane, made sure everything was in order, then...
@@ -118,7 +118,7 @@ In Progress - Error
 
 What!? That *can't* be...
 
-In a rush of panic, I wrap up a new transaction, and bump again...
+In a rush of panic, I wrap up a new transaction, and bumped again...
 
 ```
 "status": 400,
