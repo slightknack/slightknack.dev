@@ -139,7 +139,7 @@ So obviously, something *is* wrong with my solution. I looked at the prompt agai
 
 > ...
 >
-> Imagive a scenario where you have two potential outcomes but only one of them should actually execute. Rather than having both transactions compete for the samesequence number you can control the outcome by bumping the sequene number to support whichever of the two scenarios you wish.
+> Imagine a scenario where you have two potential outcomes but only one of them should actually execute. Rather than having both transactions compete for the same sequence number you can control the outcome by bumping the sequence number to support whichever of the two scenarios you wish.
 >
 > ...
 
