@@ -123,11 +123,6 @@
     justify-self: stretch;
 }
 
-.subpage {
-    margin-left: calc(2 * var(--font-base));
-}
-
-
 @media only screen and (max-width: 700px) {
     .container {
         display: initial;

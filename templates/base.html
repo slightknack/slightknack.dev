@@ -70,15 +70,17 @@
                                         </div>
                                     </summary>
                                     {% if subsection.pages %}
+                                        <ul>
                                         {% for page in subsection.pages %}
-                                            <div class="subpage">
-                                                <a class="tag" href="{{ page.permalink }}">
+                                            <li class="tag">
+                                                <a href="{{ page.permalink }}">
                                                     {% if current_path == page.path %}<strong>{% endif %}
                                                     {{ page.title }}
                                                     {% if current_path == page.path %}</strong>{% endif %}
                                                 </a>
-                                            </div>
+                                            </li>
                                         {% endfor %}
+                                        </ul>
                                     {% endif %}
                                 </details>
                             {% endfor %}
