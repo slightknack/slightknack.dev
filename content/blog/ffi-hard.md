@@ -1,5 +1,5 @@
 +++
-title = "FFI's [Were] Hard"
+title = "FFIs [Were] Hard"
 date = 2020-12-12
 +++
 
