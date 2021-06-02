@@ -66,7 +66,7 @@ syntax 'if cond then ..remaining {
 }
 ```
 
-`syntax match` has a number of match arms, each one taking the form `<argpat> { <body> }`. Unlike base match statements, the argpats in match arms don't have to have a unique pseudokeyword. the first arm that matches is expanded.
+`syntax match` has a number of match arms, each one taking the form `<argpat> { <body> }`. Unlike base match statements, the argpats in match arms don't have to have a unique pseudokeyword. The first arm that matches is expanded.
 
 In the above `if` example, if we chain `if`s, `<a>` is expanded. If we include a single `else` clause, body `<b>` is expanded; by default, we expand body `<c>`.
 
