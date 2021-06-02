@@ -138,7 +138,7 @@ Second, the operators inside of the macro must not be quoted, as they are not un
 
 In addition to `=`, it's now possible to match inside functions, blocks, typedefs, macrodefs, etc. Just remember to use `..` to collect multiple arguments, say in the case of functions (`..a -> b`) or blocks (`{ ..a }`).
 
-The only thing you can *not* match inside of are forms. to match inside a form, you must lay it out:
+The only thing you can *not* match inside of are forms. To match inside a form, you must lay it out:
 
 ```
 -- note, instead of two macros
