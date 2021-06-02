@@ -3,7 +3,7 @@ title = "Types, Algebraic Effects, and Next Steps"
 date = 2021-06-01
 +++
 
-Passerine is at an interesting point: we've established a few language features, and build this easily extinsible functional core on which to base the rest of the language. We currently have two implementations of the language, one written in Rust, the other in D, and it's imperative we set the course of the language before divergence occurs.
+Passerine is at an interesting point: we've established a few language features, and built this easily extensible functional core on which to base the rest of the language. We currently have two implementations of the language, one written in Rust, the other in D, and it's imperative we set the course of the language before divergence occurs.
 
 # Revisiting Macros
 
@@ -46,7 +46,7 @@ Inside the body of a macro, `syntax <comptime> ...` may be used to invoke a comp
 - `syntax if`, for checking conditions at compile time
 - `syntax eval`, for evaluating expressions at compile time.
 
-It's important to remember that these constructs are only availiable *inside* macro bodies. Let's expand on all of these: let's first talk about `syntax match`. Earlier, we introduced a macro to match a match statement:
+It's important to remember that these constructs are only available *inside* macro bodies. Let's expand on all of these: let's first talk about `syntax match`. Earlier, we introduced a macro to match a match statement:
 
 ```
 syntax 'if cond then 'else otherwise {
@@ -104,7 +104,7 @@ These three `syntax` bodies, `match`, `if`, and `eval`, should fill about 75% of
 
 ## Read-style Matching
 
-Currently, matching on forms is *very* powerful, but we've neglected all other syntax! let's say we want to declare a `display` macro that prints the expression assigned to it. In other words:
+Currently, matching on forms is *very* powerful, but we've neglected all other syntax! Let's say we want to declare a `display` macro that prints the expression assigned to it. In other words:
 
 ```
 display x = 3 + 4
@@ -136,7 +136,7 @@ First, this does not remove the need for a unique pseudokeyword. You can't redef
 
 Second, the operators inside of the macro must not be quoted, as they are not uniquely identifying pseudokeywords.
 
-In addition to `=`, it's now possible to match inside functions, blocks, typedefs, macrodefs, etc. Just remember to use `..` to collect mutliple arguments, say in the case of functions (`..a -> b`) or blocks (`{ ..a }`).
+In addition to `=`, it's now possible to match inside functions, blocks, typedefs, macrodefs, etc. Just remember to use `..` to collect multiple arguments, say in the case of functions (`..a -> b`) or blocks (`{ ..a }`).
 
 The only thing you can *not* match inside of are forms. to match inside a form, you must lay it out:
 
@@ -146,7 +146,7 @@ The only thing you can *not* match inside of are forms. to match inside a form, 
 
 syntax 'eval fun ..args { fun * eval ..args }
 syntax 'eval var = form {
-    -- lay out form to match inside it
+    -- lay out form to match inside it
     var = eval ..form
 }
 
@@ -156,7 +156,7 @@ eval y = 3 x
 ```
 
 > ### A quick note on the `..` notation
-> Currently, we use `..` to match extra arguments in tuples/records, or to splat lists. Using the same syntax in macros might be ambiguious, so I'm thinking of alternatives. If you have any suggestions, let me know.
+> Currently, we use `..` to match extra arguments in tuples/records, or to splat lists. Using the same syntax in macros might be ambiguous, so I'm thinking of alternatives. If you have any suggestions, let me know.
 
 With these two features, it should be easier to embed domain-specific-languages, make alternative evaluation schemes, or just write more expressive macros overall.
 
@@ -164,7 +164,7 @@ I'm trying to figure out how to unify operator representation, so it'll become e
 
 These are my plans for macros. Next up, we'll talk types.
 
-# So, Algebraic Datatypes
+# So, Algebraic Data Types
 
 Passerine primarily uses a structural type system, meaning types are represented by structure rather than by name. This works a lot of the time, but breaks down when we have two things that are structurally the same but conceptually distinct. As an example, both fractions and complex numbers can be represented as tuples of two numbers:
 
@@ -183,7 +183,7 @@ square my_fraction -- ok, is 1/16
 square my_complex  -- Aaaahhh! 16+9i is not correct!
 ```
 
-To deal with this, Passerine already has the concept of *Labels*. Like atoms in other languages, these currently serve as markers, i.e. loose nominal types. In other words, a *Label* gives us a way to seperate types that would otherwise look exactly the alike. With the above example in mind, using labels we get:
+To deal with this, Passerine already has the concept of *Labels*. Like atoms in other languages, these currently serve as markers, i.e. loose nominal types. In other words, a *Label* gives us a way to separate types that would otherwise look exactly alike. With the above example in mind, using labels we get:
 
 ```
 my_fraction = Fraction (1, 4) -- 1/4
@@ -202,7 +202,7 @@ This is all well and good, and works well in practice. There are two downsides t
 
 2. They are strictly nominal. If your function expects a `Message (a, b)`, and I have my own label `Message (c, d)`, I could pass by `Message` to your function, whether or not it even means the same thing. In this case, we're back where we started.
 
-To get around this, I'm finally introduced a fully-formed notion of nominal types. Types must be declared, so a misspelling is a compile-time error; additionally, types are now *scoped*, so it's possible to have two types with the same label, while still preserving uniqueness.
+To get around this, I've finally introduced a fully-formed notion of nominal types. Types must be declared, so a misspelling is a compile-time error; additionally, types are now *scoped*, so it's possible to have two types with the same label, while still preserving uniqueness.
 
 So how to define types? Types will follow the form of macros, in essence: `type <name> <definition>`. `<name>`, of course, is a label, and must be capitalized. `<definition>` looks similar to a pattern, but in place of bindings, we have types. I'll get to what this looks like in a second.
 
@@ -233,7 +233,7 @@ Here, you can see we have a skill `T`. This is a generic parameter. All generic 
 
 # Native over Magic
 
-Currently, to use FFI functions, we have use a hack that I'm not particularly proud of: the `magic` keyword. For those not familiar with it, while compiling a passerine module we can specify an FFI, which is a map from string names to Rust functions. For instance, if we have the following function in the FFI:
+Currently, to use FFI functions, we have used a hack that I'm not particularly proud of: the `magic` keyword. For those not familiar with it, while compiling a passerine module we can specify an FFI, which is a map from string names to Rust functions. For instance, if we have the following function in the FFI:
 
 ```rust
 // bound to string "add_seven" in FFI
