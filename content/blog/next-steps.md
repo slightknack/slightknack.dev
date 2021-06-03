@@ -32,135 +32,57 @@ if (n < 2) {
 }
 ```
 
-This is neat and all, but we can't do things like compile-time loop unrolling, or matching in forms to leverage existing syntax. To address the two issues I raised earlier, I'm going to expand syntactic macros on two fronts.
+This is neat and all, but we can't do things like repeating some code a variable number of times at compile time, or matching in forms to leverage existing syntax. To address the two issues I raised earlier, I think it's time to introduce a generalized mechanism through which we can build macros in the future.
 
-But before we do that, a quick reminder. **Macros must respect lexical scope**. A macro defined in a function body is only accessible inside that body. It's not possible to return a macro from a function, but it is from a module. We'll discuss this more later.
+But before we do that, a quick reminder. **Macros must respect lexical scope and hygiene**. A macro defined in a function body is only accessible inside that body. It's not possible to return a macro from a function, but it is from a module. We'll discuss this more later.
 
-## Generalized `syntax`
+## Token Based Macros
 
-To do something like compile-time loop unrolling, we need methods to do computation at compile-time. To do this, I'm going to introduce general syntax forms that allow for more general macro expansion.
+Token based macros are powerful enough to represent the syntax-based macros we currently have in the language. The core idea is pretty simple: a macro is a function that is run at compile time: it takes a list of tokens, and produces a new list of tokens, which is then compiled.
 
-Inside the body of a macro, `syntax <comptime> ...` may be used to invoke a compile-time check. Here are the first few I think we should start out with:
-
-- `syntax match`, for matching multiple argument patterns
-- `syntax if`, for checking conditions at compile time
-- `syntax eval`, for evaluating expressions at compile time.
-
-It's important to remember that these constructs are only available *inside* macro bodies. Let's expand on all of these: let's first talk about `syntax match`. Earlier, we introduced a macro to match a match statement:
+So, what does that look like? We need a way to embed Passerine's token stream in the language itself: for that, we'll declare a few union types:
 
 ```
-syntax 'if cond then 'else otherwise {
-    ...
-}
-```
-
-This only matches macros with an else clause. Say we want to introduce an `if` statement without that clause. We *could* implement two separate macros; but with `syntax match`, we can now do:
-
-```
-syntax 'if cond then ..remaining {
-    syntax match remaining {
-       'else 'if cond2 ..remaining { <a> }
-       'else otherwise { <b> }
-       { <c> }
+type Token {
+    Iden String,
+    Op   String,
+    Data Data,
+    Group {
+        delim: Delim,
+        tokens: [Token],
     }
-}
-```
-
-`syntax match` has a number of match arms, each one taking the form `<argpat> { <body> }`. Unlike base match statements, the argpats in match arms don't have to have a unique pseudokeyword. The first arm that matches is expanded.
-
-In the above `if` example, if we chain `if`s, `<a>` is expanded. If we include a single `else` clause, body `<b>` is expanded; by default, we expand body `<c>`.
-
-If statements are similar to `match`. We can use them to implement something like compile-time loop unrolling:
-
-```
--- repeats a block of code value times
--- binding var from 0 to value, exclusive
-syntax 'unroll var 'until value body {    
-    syntax if value != 0 {
-        unroll var until {
-            syntax eval (value - 1)
-        } body
-    }
-    var = value; body
+    Sep,
+    -- and so on...
 }
 
-unroll x until 3 {
-    print x
+type Delim {
+    Paren,  -- ()
+    Curly,  -- {}
+    Square, -- []
 }
 
--- becomes:
-x = 0; print x
-x = 1; print x
-x = 2; print x
+-- etc...
 ```
 
-The above example introduces the next two `syntax` forms: first, let's address `syntax eval`. This expands the body, and immediately evaluates it, inserting the result of the evaluation. We'll get into this later, but the effect type of the expansion expression must be `total`. In this case, we decrement value until it reaches zero; this allows us to build up a list of statements, and most importantly, terminate.
+> If you're not familiar with union types, we'll discuss them later on in the ADT section.
 
-Why does `syntax eval` seem so verbose? In my opinion, the more idiomatic something is, the easier it should be to write out. Compile-time evaluation is cool and all, but its use should be limited. Although it can't produce arbitrary side effects (by definition), it's unidiomatic *in spirit*, which is why it's slightly verbose.
+So, for example, the variable `hello` would be the token `Iden "hello"`. The most important things to note are as follows:
 
-Onto `syntax if`. This expression is just like an if statement, but evaluated at compile time. All conditions are evaluated at compile-time (think of it as wrapped in a `syntax eval`), and only the first branch with a `true` condition is expanded. **What's important to note about compile-time evaluation is that it must be `total`.**
+1. Delimiters, such as parenthesis `()`, curly braces `{}`, or square brackets `[]` are defined via the `Group` variant. This means that these tokens must be balanced.
 
-These three `syntax` bodies, `match`, `if`, and `eval`, should fill about 75% of use cases for macros; the next feature (just about) fills the remaining 25%.
+2. Macro transformations occur *before* the AST is constructed. This reduces the complexity implementation-wise, and allows for more flexible macros.
 
-## Read-style Matching
-
-Currently, matching on forms is *very* powerful, but we've neglected all other syntax! Let's say we want to declare a `display` macro that prints the expression assigned to it. In other words:
+with `Token` in place, let's look at a sample token macro. These macros are denoted with the `macro` keyword, and take the following form:
 
 ```
-display x = 3 + 4
--- prints 7
+macro <keyword> = <function>
 ```
 
-The best we can do with traditional form-based macros is the following:
+What's important to note is that the `<function>` must be of type `[Token] -> comptime [Token]`. `comptime` is an algebraic effect representing a compile-time transformation. This transformation must be `pure`, in the haskell sense. Borrowing from Koka:
 
-```
-syntax 'display 'set var expr {
-    val = expr -- to only evaluate once
-    print val  -- display the value
-    var = val  -- assign the value
-}
+> 
 
-display set x (3 + 4)
--- prints 7
-```
-
-This next change remedies that. With *read-based matching*, it's possible to match any AST element:
-
-```
-syntax 'display var = expr { ... }
-```
-
-The new argument pattern is `'display var = expr`. There are two things that are important to note about this:
-
-First, this does not remove the need for a unique pseudokeyword. You can't redefine addition everywhere by implementing a bare macro for `a + b` (use methods instead! (we'll get to methods later)).
-
-Second, the operators inside of the macro must not be quoted, as they are not uniquely identifying pseudokeywords.
-
-In addition to `=`, it's now possible to match inside functions, blocks, typedefs, macrodefs, etc. Just remember to use `..` to collect multiple arguments, say in the case of functions (`..a -> b`) or blocks (`{ ..a }`).
-
-The only thing you can *not* match inside of are forms. To match inside a form, you must lay it out:
-
-```
--- note, instead of two macros
--- we could use a `syntax match`
-
-syntax 'eval fun ..args { fun * eval ..args }
-syntax 'eval var = form {
-    -- lay out form to match inside it
-    var = eval ..form
-}
-
-x = 7
-eval y = 3 x
--- y is 21
-```
-
-> ### A quick note on the `..` notation
-> Currently, we use `..` to match extra arguments in tuples/records, or to splat lists. Using the same syntax in macros might be ambiguous, so I'm thinking of alternatives. If you have any suggestions, let me know.
-
-With these two features, it should be easier to embed domain-specific-languages, make alternative evaluation schemes, or just write more expressive macros overall.
-
-I'm trying to figure out how to unify operator representation, so it'll become easier to match inside of all macros. One such option are token classes inside argument patterns, but I'd prefer we don't get too far ahead of ourselves.
+So, how do we preserve hygiene?
 
 These are my plans for macros. Next up, we'll talk types.
 
