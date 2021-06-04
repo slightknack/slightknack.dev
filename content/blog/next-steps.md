@@ -78,11 +78,165 @@ with `Token` in place, let's look at a sample token macro. These macros are deno
 macro <keyword> = <function>
 ```
 
-What's important to note is that the `<function>` must be of type `[Token] -> comptime [Token]`. `comptime` is an algebraic effect representing a compile-time transformation. This transformation must be `pure`, in the haskell sense. Borrowing from Koka:
+What's important to note is that the `<function>` must be of type `[Token] -> comptime [Token]`. `comptime` is an algebraic effect representing a compile-time transformation. We'll get into the meaning of `comptime` more when we discuss algebraic effects later on.
 
-> 
+Here's what a token macro looks like:
 
-So, how do we preserve hygiene?
+```
+-- import token variants
+use Token::*
+use Delim::*
+
+macro while = [
+    Iden "while",
+    ..cond,
+    Group {
+        delim: Curly,
+        tokens: body,
+    },
+] -> [
+    Iden "loop", Op "=",
+    Iden "_", Op "->" Iden "if",
+    Group { delim: Paren, tokens: cond },
+    Group { delim: Curly, tokens: ... }
+    -- and so on...
+]
+```
+
+In this case, we're using pattern matching to match the incoming token stream, then immediately filling in an output token stream. It's important to remember that a macro is just a function, so just about *any* strategy for writing functions can be used for writing macros.
+
+When you think about it though, the above token macro implementing a while loop is a lot more verbose compared to its syntax equivalent:
+
+```
+syntax 'while cond body {
+    loop = _ -> if cond {
+        body
+        loop ()
+    } else {
+        ()
+    }
+    loop ()
+}
+```
+
+To improve the quality-of-life of using token macros, we can write a few utilities — which are also token macros — the first of which is `quote`:
+
+```
+x = Data (Int 3)
+tokens = quote [1, 2, splice x]
+```
+
+`quote` takes some passerine code, and expands it into a token stream, splicing in other variables using `splice`. For instance, the above example expands to:
+
+```
+tokens == [
+    Group {
+        delim: Square,
+        tokens: [
+            Data (Int 1),
+            Data (Int 2),
+            Data (Int 3),
+        ]
+    }
+]
+```
+
+This makes it easier to write the bodies of token macros - for instance, our incomplete while-loop body now becomes:
+
+```
+... -> quote {
+    loop = _ -> if (splice cond) {
+        splice body
+        loop ()
+    } else {
+        ()
+    }
+    loop ()
+}
+```
+
+Which is a lot nicer. The second utility we can introduce is `argpat`, which is used for pattern matching on macros:
+
+```
+argpat { 'while cond body } = tokens
+```
+
+This expands to something like this:
+
+```
+[Iden "while", cond, body] = tokens
+```
+
+argpat is useful because it allows us to quickly match on token streams to extract useful data. What's important to remember is that both `quote` and `argpat` can be implemented using token macros: we're not introducing any new syntax here.
+
+As Passerine currently has two implementations - the [Rust](https://github.com/vrtbl/passerine) one by me and the [D](https://github.com/ShawSumma/purr/tree/main/ext/passerine) one by Shaw, it's important we try to ensure compatibility between them. Token macros allow us to put language features like `syntax`, etc. in the prelude, resulting in less work for us, and greater compatibility between implementations.
+
+So, if we introduce token macros, will we be getting rid of syntax macros? The answer is no: after token macros are implemented, we can implement syntax macros in terms of them.
+
+With both `quote` and `argpat`, it's easy to see how something like `syntax` can be implemented: it would be a macro that generates a macro, using argpat to match on the token stream, and quote to expand the resulting body. Some care has to be taken to ensure that names present in the argument pattern are automatically spliced; needless to say, `syntax` would look something like this, when implemented as a token macro:
+
+```
+macro syntax = [
+    Iden "syntax"
+    ..argument_pattern
+    Group {
+        delim: Curly,
+        tokens: body,
+    }
+] -> {
+    kw = extract_argpat_kw argument_pattern
+    -- more omitted...
+    quote {
+        macro (splice kw) =
+            argpat (splice argument_pattern)
+        -> quote {
+            (splice body)
+        }
+    }
+}
+```
+
+The above isn't a concrete implementation, but should show the intended structure of the `syntax` macro. Remember that a token macro is just a function, so we can use any strategy imaginable to expand macros.
+
+Now that I've explained how token macros work, two questions remain: how do we preserve macro hygiene, and how do we know when to apply macros?
+
+Macro hygiene can be a complex issue, especially with respect to macro-generating macros. Even in languages known for their hygiene, like scheme, researchers have shown that there are ways to break hygiene (see, i.e. anaphoric macros). What even is macro hygiene?
+
+Primarily, macro hygiene means that macros, when expanded, must not mess with the local lexical scope. This means that a macro can not reference variables explicitly passed to the macro. In practice, a macro can't define new identifiers, or redefine existing ones not passed to it. For instance, assuming a small lisp-like hygienic macro system:
+
+```scheme
+; define a macro that swaps two variables
+(macro (swap! a b)
+    (define tmp a)
+    (set! a b)
+    (set! b tmp))
+
+; tmp is used in the macro,
+; here, we define our own
+(define tmp 1)
+(define x   2)
+(define y   3)
+
+; expand the macro
+(swap! x y)
+; becomes:
+; | (define _tmp x)
+; | (set! x y)
+; | (set! y _tmp)
+
+; note that the expanded _tmp is mangled
+; our tmp is still 1
+```
+
+As you can see from the above example, even though we define `tmp` outside the macro `swap!`, because `tmp` is not passed to `swap!`, expanding the macro will not affect the outside definition. How can we enforce this at the token-stream level?
+
+Before expanding a macro, we build a set of all `Iden` tokens passed to the macro. These are tokens that the macro is allowed to reference. After the macro has produced its expansion, we scan through the resulting list of tokens, and mangle any new `Iden`s introduced.
+
+To ensure that mangled tokens don't get it the way of macro expansion, all tokens are unmangled before being passed into a macro. This ensures that references to other macros within macros work as intended.
+
+The second question we need to address is that of 'when should macros be applied'? Traditionally, `syntax` macros operate on forms. For instance, consider the following expression:
+
+> TODO
 
 These are my plans for macros. Next up, we'll talk types.
 
