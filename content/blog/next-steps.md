@@ -236,6 +236,18 @@ To ensure that mangled tokens don't get it the way of macro expansion, all token
 
 The second question we need to address is that of 'when should macros be applied'? Traditionally, `syntax` macros operate on forms. For instance, consider the following expression:
 
+```
+a b c + d e f
+```
+
+This is two forms:
+
+```
+(a b c) + (d e f)
+```
+
+To build
+
 > TODO
 
 These are my plans for macros. Next up, we'll talk types.
