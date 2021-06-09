@@ -1,86 +1,80 @@
 {% extends "base.html" %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="/index/style.css">
-    <link rel="stylesheet" href="/index/index.css">
-    <script src="/index/index.js"></script>
+<link rel="stylesheet" href="/index/style.css">
+<link rel="stylesheet" href="/index/index.css">
+<script src="/index/index.js"></script>
 {% endblock extra_head %}
 
 {% block content %}
 
 <div class="body">
-<div class="parallax" id="counter" hidden>0</div>
-<img class="parallax" style="visibility: hidden;" id="mountain-1" src="/index/mountain.svg">
-<img class="parallax" style="visibility: hidden;" id="mountain-2" src="/index/mountain.svg">
-<img class="parallax" style="visibility: hidden;" id="cloud-1" src="/index/cloud.png">
-<img class="parallax" style="visibility: hidden;" id="cloud-2" src="/index/cloud.png">
+    <div class="parallax" id="counter" hidden>0</div>
+    <img class="parallax" style="visibility: hidden;" id="mountain-1" src="/index/mountain.svg">
+    <img class="parallax" style="visibility: hidden;" id="mountain-2" src="/index/mountain.svg">
+    <img class="parallax" style="visibility: hidden;" id="cloud-1" src="/index/cloud.png">
+    <img class="parallax" style="visibility: hidden;" id="cloud-2" src="/index/cloud.png">
 
-<div class="narrow" style="padding-top: 0; padding-bottom: 0;">
-    <div style="min-height: 200vh;">
-    <div class="interlude">
-    <div>
-    <p class="tag">Hello and <strong>welcome</strong> to the wonderful website of</p>
-    <h1 style="font-size: calc(var(--font-base) + 9vw); margin: 0">Isaac Clayton</h1>
-    <p class="tag">A Student, Compiler Engineer, and Software Architect.<br>(Among other things.)</p>
-    </div>
-    </div>
-    </div>
+    <div class="narrow" style="padding-top: 0; padding-bottom: 0;">
+        <div style="min-height: 200vh;">
+            <div class="interlude">
+                <div>
+                    <p class="tag">Hello and <strong>welcome</strong> to the wonderful website of</p>
+                    <h1 style="font-size: calc(var(--font-base) + 9vw); margin: 0">Isaac Clayton</h1>
+                    <p class="tag">A Student, Compiler Engineer, and Software Architect.<br>(Among other things.)</p>
+                </div>
+            </div>
+        </div>
 
-    <div class="boxed">
-    <h1>An Introduction</h1>
-    <p>Hello, How are you doing? Welcome to my cozy little corner of the web.</p>
+        <div class="boxed">
+            <h1>An Introduction</h1>
+            <p>Hello, How are you doing? Welcome to my cozy little corner of the web.</p>
 
-    <p>I'm Isaac Clayton, an aspiring Software Architect interested in Reinforcement Learning, Programming Language Design, and Graphics Programming.</p>
-    <p>I was born in Provo, Utah, in 2004, but have lived around the world. Ever since a young age, I've been interested in the tools we've used to build our modern technological reality.</p>
-    <p>What I find more incredible than the <em>stuff</em> we've created is <em>how</em> we've created it. Pulling back the layers drives my insatiate curiosity, and I hope to use this website to document what I've come to know.</p>
-    <p>By the way: I went all out for this page, but I promise the rest of this website is more sane.</p>
-    </div>
+            <p>I'm Isaac Clayton, an aspiring Software Architect interested in Reinforcement Learning, Programming Language Design, and Graphics Programming.</p>
+            <p>I was born in Provo, Utah, in 2004, but have lived around the world. Ever since a young age, I've been interested in the tools we've used to build our modern technological reality.</p>
+            <p>What I find more incredible than the <em>stuff</em> we've created is <em>how</em> we've created it. Pulling back the layers drives my insatiate curiosity, and I hope to use this website to document what I've come to know.</p>
+            <p>By the way: I went all out for this page, but I promise the rest of this website is more sane.</p>
+        </div>
 
-    <!-- <div class="boxed">
-    <h1>So, what is this site for?</h1>
-    <p class="tag">Right, hello, perfect! Now that that third-person introduction is out of the way, I think it's appropriate to introduce myself in the first:</p>
-    <p>Hello, How are you doing? I'm Isaac Clayton, an aspiring Software Architect interested in Reinforcement Learning, Programming Language Design, and Graphics Programming.</p>
-    <p class="tag">That's rather generic 🤔... Let's try again:</p>
-    <p>Ever since a young age, I've been interested in the tools we've used to build our modern technological reality. We're alive</p>
-    </div> -->
+        <div style="min-height: 200vh;">
+            <div class="interlude">
+                <div>
+                    <a href="https://github.com/slightknack">
+                        <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0">Past Work & Projects</h1>
+                        <p class="tag">Can be found on GitHub. (All this text is a link to GitHub fwiw.)</p>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-    <div style="min-height: 200vh;">
-    <div class="interlude">
-    <div>
-    <a href="https://github.com/slightknack">
-    <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0">Past Work & Projects</h1>
-    <p class="tag">Can be found on GitHub. (All this text is a link to GitHub fwiw.)</p>
-    </a>
-    </div>
-    </div>
-    </div>
+        <div class="boxed">
+            <h1>So, what have you worked on?</h1>
+            <p>That's a good question! Here are a few projects I'm particularly proud of:</p>
+            <ul>
+                <li>
+                    <p><a href="https://www.passerine.io"><strong>Passerine</strong></a> is a small extensible programming language designed for concise expression with little code. <a href="https://github.com/vrtbl/passerine"> Take a look at the
+                            implementation on GitHub.</a></p>
+                </li>
+                <li>
+                    <p><a href="https://github.com/slightknack/keikan"><strong>Keikan (警官)</strong></a> is an elegant rendering engine written in Rust. It supports ray-marching and path-tracing.</p>
+                </li>
+                <li>
+                    <p><a href="https://github.com/solidarity-browser"><strong>Solidarity</strong></a> is a distributed platform built for communication and collaboration. (Currently a work in progress. The backend datastore, <a
+                            href="https://github.com/solidarity-browser/kitbag">Kitbag, can be found here</a>.)</p>
+                </li>
+            </ul>
+        </div>
 
-    <div class="boxed">
-    <h1>So, what have you worked on?</h1>
-    <p>That's a good question! Here are a few projects I'm particularly proud of:</p>
-    <ul>
-    <li>
-    <p><a href="https://www.passerine.io"><strong>Passerine</strong></a> is a small extensible programming language designed for concise expression with little code. <a href="https://github.com/vrtbl/passerine"> Take a look at the implementation on GitHub.</a></p>
-    </li>
-    <li>
-    <p><a href="https://github.com/slightknack/keikan"><strong>Keikan (警官)</strong></a> is an elegant rendering engine written in Rust. It supports ray-marching and path-tracing.</p>
-    </li>
-    <li>
-    <p><a href="https://github.com/solidarity-browser"><strong>Solidarity</strong></a> is a distributed platform built for communication and collaboration. (Currently a work in progress. The backend datastore, <a href="https://github.com/solidarity-browser/kitbag">Kitbag, can be found here</a>.)</p>
-    </li>
-    </ul>
-    </div>
+        <div style="min-height: 200vh;">
+            <div class="interlude">
+                <div>
+                    <a href="https://github.com/slightknack">
+                        <p class="tag">Well, that's it for now! I've also got some interesting stuff up on my</p>
+                        <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0"><a href="/blog">Blog</a></h1>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-    <div style="min-height: 200vh;">
-    <div class="interlude">
-    <div>
-    <a href="https://github.com/slightknack">
-    <p class="tag">Well, that's it for now! I've also got some interesting stuff up on my</p>
-    <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0"><a href="/blog">Blog</a></h1>
-    </a>
     </div>
-    </div>
-    </div>
-
-</div>
-{% endblock content %}
+    {% endblock content %}
