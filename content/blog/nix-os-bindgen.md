@@ -65,8 +65,7 @@ There it is!
 I know this isn't best practice, but let's use this as the path to the header file we want in `build.rs`:
 ```rust
 bindgen::Builder::default()
-
- .header("/home/slightknack/Repos/tonari/portal/cec/cec-sys/build.rs")
+    .header("/nix/store/klsqc20n71gja5b8sa9ncw1jl6lcaxw9-libcec-6.0.2/include/libcec/cecc.h")
 ```
 It's not the prettiest, but it should work, right? ... uh... right... ?
 ```
