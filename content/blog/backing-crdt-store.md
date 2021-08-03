@@ -3,6 +3,8 @@ title = "Thinking about CPU-friendly backing stores for a CRDT"
 date = 2021-08-02
 +++
 
+> This is a first draft, reader beware!
+
 A *Conflict Free Replicated Datatype* is a bit like a smoothie, meaning the same ingredients will produce the same result, regardless of the order of the order in which they are added. If that attempt at analogy was painful, here's another go: A CRDT is like a git repository that never can have a merge conflict.
 
 There are many different ways to approach the construction of CRDTs, but I'll be talking about a fairly simple one, known a *Replicated Growth Array* (RGA). In short, we represent documents as a tree of strings - a bit like a rope - and provide an algorithm for merging new entries into the existing tree. That algorithm looks something like this:
