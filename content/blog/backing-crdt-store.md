@@ -3,22 +3,35 @@ title = "Thinking about CPU-friendly backing stores for a CRDT"
 date = 2021-08-02
 +++
 
-> This is a first draft, reader beware!
+A *Conflict-Free Replicated Datatype* is a bit like a smoothie: the same ingredients will produce the same result, regardless of the order of the order in which they are added. In the context of, say, text editing in a distributed context, merging two documents will always succeed in a deterministic manner. In other words, A CRDT is a bit like a git repository never has merge conflicts.
 
-A *Conflict Free Replicated Datatype* is a bit like a smoothie, meaning the same ingredients will produce the same result, regardless of the order of the order in which they are added. If that attempt at analogy was painful, here's another go: A CRDT is like a git repository that never can have a merge conflict.
+There are many different ways to approach the construction of CRDTs, each construction having its own strength and weaknesses. Today, we're going to focus on creating out an efficient backing store for a particular family of algorithms known as *Replicated Growth Arrays* (RGA).
 
-There are many different ways to approach the construction of CRDTs, but I'll be talking about a fairly simple one, known a *Replicated Growth Array* (RGA). In short, we represent documents as a tree of strings - a bit like a rope - and provide an algorithm for merging new entries into the existing tree. That algorithm looks something like this:
+Under RGA, we represent documents as trees of strings. If this sounds familiar, that because it's a bit like a [Rope](https://en.wikipedia.org/wiki/Rope_(data_structure). To ensure that these trees always merge, we provide an algorithm for merging two trees together in a deterministic manner.
+
+The merging algorithm behind RGA is pretty elegant. Each character in the tree points to the one before it. If two characters have the same parent, we order them from back to front, the latest character going first (sorting by user in case of a tie).
+
+![An image of an RGA tree spelling out the word "Cat!"](/content/crdt-rga.svg)
+
+In the above example, Bob typed `C!`. (I don't know, maybe he's an old-school hacker who really likes the language.) Later, Mia slides in and makes a two character edit by inserting the letters `at` after `C`, so the document now reads `Cat!`. When Bob synchronizes her changes, they're inserted before the `!`, because her edits happened happened later. Now both Bob and Mia have `Cats!` on their screen!
+
+Note that although *conceptually* RGA operates on trees, implementation-wise, it's not a requirement. Trees are an inefficient substrate for RGA for a number of reasons, the largest being wasted space and the fact that they don't play well with the L1 cache. If we flatten the tree out into a list (still inefficient for other reasons), the RGA insertion algorithm discussed above looks something like this:
 
 ```rust
+// Adapted from https://josephg.com/blog/crdts-go-brrr/
+// Insert an edit (the `Entry`) into a CRDT (`self`)
 fn automerge_insert(&mut self, entry: Entry<T>) {
-    let parent_index = self.find_item(entry.parent); // (1)
+    // (1) Insert at least after parent
+    let parent_index = self.find_item(entry.parent);
 
     let mut index = self.contents.len();
     for i in parent_index..self.contents.len() {
-        let old_entry = &self.contents[i]; // (2)
+        // (2) Compare to later entries
+        let old_entry = &self.contents[i];
         if entry.seq > old_entry.seq { index = i; break; }
         let old_parent_index = self.find_item(old_entry.parent);
 
+        // Check if this is the right spot
         if old_parent_index < parent_index
         || (old_parent_index == parent_index
             && (entry.seq == old_entry.seq)
@@ -26,24 +39,29 @@ fn automerge_insert(&mut self, entry: Entry<T>) {
         ) { index = i; break; }
     }
 
-    self.contents.insert(index, entry); // (3)
+    // (3) Insert entry at the right spot
+    self.contents.insert(index, entry);
 }
 ```
 
-You don't need to understand how this works for now (If you do, see [here](https://josephg.com/blog/crdts-go-brrr/)), I just want to draw your attention to the three comments I've marked:
+I'm not going to go into a lot of detail as to how it works (If you'd like to though, take a look at [this](https://josephg.com/blog/crdts-go-brrr/)!). But there are a few things I think are important to note. I've numbered these things with comments (`(1)`, etc.) that annotate the performance-critical or otherwise common operations that are needed, and in turn what requirements a good backing data structure should support:
 
-1. `self.find_item(...)` This algorithm needs a backing datastore in which entries can be found quickly by key.
-2. `self.contents[i]` This datastore must also be ordered, and easy to iterate through.
-3. `self.contents.insert(index, entry)` This datastore must support efficient insertion of new elements.
+1. When we call `self.find_item(...)`, we're trying to lookup the index of an id. Thus, this algorithm needs a backing data structure where entries can be found quickly by key.
 
-In the above example, we're using a Rust `Vec`, which is akin to a dynamic growable array. This is really efficient in cache, but horrifically slow for insertion and indexing by key.
+2. Later, in `self.contents[i]` we iterate through the array in a sequential manner by index. For this reason, the data structure must be ordered, indexable, and easy to iterate through.
 
-In light of this, a few have come up with better backing data structures - the most common ones being slightly modified Ropes, or slightly modified Range Maps. These work great in practice, but still have some overhead for looking up values by key.
+3. Finally, we need to actually perform the insertion. `self.contents.insert(index, entry)` does the trick, but this is a very slow operation for arrays as all later elements must be reallocated. A good data structure should support efficient insertion of new elements.
 
-I've been thinking about this for the past few days, and I think I have a solution, which is an append-only log + a backing tree for efficient searching. Here's what that looks like.
+In the above example, we're using a Rust `Vec`, which is a dynamically growable array. Vectors are really efficient in cache, but as mentioned, horrifically slow for insertion (which requires reallocation) or indexing by key (an `O(n)` linear search).
+
+In light of this, a few people have come up with better backing data structures that exist the fill the gap. Most of these are build around Ropes or Range Trees. These work great in practice, but still have some overhead when looking up entries by key or storing many small edits.
+
+I've been thinking about this issue for the past few days, and I think I have an interesting possible solution. I'm no expert, but I do have some experience with OT and optimization, so we'll see how it goes. I'm calling this solution a *Backed Tree Log*, and it functions as an append-only log + a backing key-value tree for efficient key lookup. Here's what that looks like.
+
+> Revised up to here
 
 ## Backed Tree Log
-An Id uniquely identifies each item in the CRDT. For our purposes, we'll be representing Ids as three-tuples of a User's Id, the entry's log index, and the specific character within that entry:
+Each item in the CRDT is uniquely uniquely identified by an ID. For our purposes, we'll be representing IDs as three-tuples of a *User's* ID, the index, and the specific character within that entry:
 
 ```rust
 // User is also a usize under the hood
@@ -90,8 +108,8 @@ As mentioned earlier, we need a way to *order* every entry, so it's fast to inde
 ## Takeaways
 Returning to our three original goals:
 
-1. A backing datastore in which entries can be found quickly by key. We do this through an append-only log, identified by index.
-2. Must also be ordered, and easy to iterate through. We do this through an auxiliary Range Map. 
+1. A backing data structure in which entries can be found quickly by key. We do this through an append-only log, identified by index.
+2. Must also be ordered, and easy to iterate through. We do this through an auxiliary Range Map.
 3. Must support efficient insertion of new elements. The log is append-only, and insertion is fast for Range Maps.
 
 The auxiliary range map can be built entirely from the content of `columns`, through a modified version of `automerge_insert`. I think I'd call this `automerge_sort`, as it's building an ordered tree by performing a merge sort across all columns. I might right a bit more about this algorithm in the future.

@@ -5,7 +5,7 @@ date = 2020-07-10
 
 # Note
 This post explores one design methodology for asynchronous schedulers in the context of a language that is maximally asynchronous, *i.e.* everything is executed asynchronously. This post is largely a reflection of trying to grapple with [this blog post about Tokio's scheduler](https://tokio.rs/blog/2019-10-scheduler/)
-
+<!-- more -->
 > ## Another Note
 > This document was written around the time I started formulating Passerine. The general goal of this post, with respect to Passerine (that still exists fwiw), is to implement such a scheduler in `aspen` and use ffi hooks to automatically schedule the execution of passerine programs in an asynchronous / parallel though effectually temporally correct manner.
 

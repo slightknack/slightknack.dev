@@ -9,7 +9,7 @@ date = 2021-02-24
 An interesting design space in the field of programming language design is that of memory management. In short, programs produce data while running. This in of itself isn't much of a problem: in fact, it's a good thing! If your programming language doesn't allow for the production of any useful data, you might want to take a closer look at it...
 
 As time goes on, our program may no longer needs certain data. We could just leave this garbage floating around forever, but, alas computers a finite amount of space to work with. It's trivial to produce useful data; the more difficult task is figuring out when it's no longer needed.
-
+<!-- more -->
 Originally, this work — the management of a program's memory — was done by the programmer; older languages (like C) require memory to be explicitly `malloc`ed and `free`d.
 
 While giving more low-level control to the programmer, the overhead of keeping track of all the lifetimes of data currently in scope is hard for a person to keep in their head, especially when slogging through some other tough, non-trivial problem.

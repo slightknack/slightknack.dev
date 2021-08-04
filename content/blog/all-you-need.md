@@ -8,7 +8,7 @@ date = 2020-07-10
 
 ## Abstract
 The average programmer just wants to write code [citation needed]. Language designers, on the other hand, want to *write* code, that is, programming languages. Ever since the first lisp interpreter sputtered through it's first s-exp, there's been a quest to build a 'perfect' programming language. The field of language design remains open, at least in the sense that a better language can always be built. **No matter how hard you try, there is no language that won't make you clarify your ideas.**
-
+<!-- more -->
 In this work we present a language that can be bootstrapped from coroutines and mono-variadic lambdas, with types defined by structure rather than by name. Additionally, we show how a simple safe-yet-rich macro system can be built to leverage code clarity and convenience.
 
 > This document predates [Passerine](https://github.com/vrtbl/passerine), which is an attempt to build a language based on the concepts discussed in this document.

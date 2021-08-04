@@ -5,7 +5,7 @@ date = 2020-07-08
 
  # A Question
  The other day, someone asked how parsers worked on The Programmer's Hangout Discord server. Here's an an abridged version of my explanation.
-
+<!-- more -->
  # My Response
  A parser simply takes a stream of data and from it produces a datastructure. This stream is usually a stream of tokens, which are groups of tagged delimiters and data used to construct the datastructure.
 
