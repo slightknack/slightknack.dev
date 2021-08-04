@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <title>Isaac Clayton</title>
+        <link rel="stylesheet" href="/reset.css"></link>
+        <link rel="stylesheet" href="/base.css"></link>
+        <link rel="stylesheet" href="/layout.css"></link>
+        <script
+            type="text/javascript"
+            src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script>
+        <script type="text/javascript" src="/index.js"></script>
+        <script type="text/javascript" src="/elasticlunr.min.js" defer></script>
+        <script type="text/javascript" src="/search_index.en.js" defer></script>
+        <script type="text/javascript" src="/search.js" defer></script>
+
+         
+    </head>
+    <body style="overflow-x: hidden">
+        <div class="container">
+            <div class="sidebar">
+                <div class="sidebar-inner">
+                    <a href="/">
+                        <div class="title-container">
+                            <canvas
+                                class="glslCanvas profile"
+                                data-fragment-url="/profile.frag"
+                                width="100px" height="100px"
+                                style="background-color: #000000ff">
+                            </canvas>
+                            <div class="title-text" href="/">
+                                <h1 class="title" style="margin-bottom: 0">
+                                    Isaac Clayton
+                                </h1>
+                                <p class="tag" style="margin-top: 0">(@slightknack)</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="search-container">
+                        <input
+                            id="search"
+                            type="search"
+                            placeholder="Magical Box of Finding"
+                            autocomplete="off"
+                        >
+                        <div class="search-results" style="display: none;">
+                            <div class="search-results__items"></div>
+                        </div>
+                    </div>
+                    <div class="navigation">
+                        <div class="lateral">
+                            
+    
+    <div class="prev tag">
+        <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;next-steps&#x2F;">
+            <div class="boxed">back</div>
+        </a>
+    </div>
+    
+
+                            
+    
+        <div class="next tag">
+            <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;type-inference&#x2F;">
+                <div class="boxed">next page</div>
+            </a>
+        </div>
+    
+
+                        </div>
+                        
+                            <div class="menu">
+                            
+                            
+                                
+                                <details open>
+                                    <summary>
+                                        <div>
+                                            <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                                                
+                                                Blog
+                                                
+                                            </a>
+                                        </div>
+                                    </summary>
+                                    
+                                        <ul>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;backing-crdt-store&#x2F;">
+                                                    
+                                                    Thinking about efficient backing stores for CRDTs
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;nix-os-bindgen&#x2F;">
+                                                    
+                                                    Can&#x27;t get bindgen working on NixOS
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;next-steps&#x2F;">
+                                                    
+                                                    Types, Algebraic Effects, and Next Steps
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;misadventures-stellar-quest&#x2F;">
+                                                    <strong>
+                                                    Stellar Quest (Mis)Adventures
+                                                    </strong>
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;type-inference&#x2F;">
+                                                    
+                                                    Mirror: Hindley Milner Type Inference
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;first&#x2F;">
+                                                    
+                                                    A Small Test Post for this New Blog
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;vaporization&#x2F;">
+                                                    
+                                                    Vaporization and Modern Memory Management
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;ffi-hard&#x2F;">
+                                                    
+                                                    FFIs [Were] Hard
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;all-you-need&#x2F;">
+                                                    
+                                                    All You Need are Coroutines and Pattern Matching
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;schedule&#x2F;">
+                                                    
+                                                    Architecting Asynchronous Schedulers
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                            <li class="tag">
+                                                <a href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;parser&#x2F;">
+                                                    
+                                                    A Tiny Introduction to Parsers
+                                                    
+                                                </a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </details>
+                            
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                
+<div class="narrow">
+    <h1 class="title">
+      Stellar Quest (Mis)Adventures
+    </h1>
+    <p class="tag">2021-05-03</p>
+    <p>Good evening fellow Lumenauts!</p>
+<p>For those of you who don’t know what <a rel="noopener nofollow" target="_blank" href="https://stellar.org">Stellar</a> is yet, it’s a cryptocurrency that’s been around since about 2015 by the same guys who made Ripple. I personally find it notable for a couple of reasons:</p>
+<p>Instead of using <a rel="noopener nofollow" target="_blank" href="https://en.bitcoin.it/wiki/Proof_of_work">Proof-of-Work</a> or <a rel="noopener nofollow" target="_blank" href="https://en.bitcoin.it/wiki/Proof_of_Stake">Proof-of-Stake</a>, Stellar uses the <a rel="noopener nofollow" target="_blank" href="https://www.stellar.org/papers/stellar-consensus-protocol">Stellar Consensus Protocol</a>, which is a construction of Federated Byzantine Agreement. I’ve written more about (and am working on an implementation of) SCP <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/drop-in-fba">here</a>, for those interested. Stellar is <em>really</em> fast (e.g. closing times are &lt;5s on average) and environmentally friendly (no <a rel="noopener nofollow" target="_blank" href="https://news.ycombinator.com/item?id=26386741">mining</a> or <a rel="noopener nofollow" target="_blank" href="https://www.tomsguide.com/news/what-is-chia-cryptocurrency-and-why-is-it-bad-news-for-hard-drives">farming</a>).</p>
+<span id="continue-reading"></span>
+<p>In my opinion, Stellar doesn’t have the usual crypto-dystopia-air about it. Some may see this as a bad thing, but I see it as the opposite: extreme decentralization is just bad centralization (I mean, just look at bitcoin exchanges if you need an example), so by building the protocol with federation in mind, Stellar feels like email, but for money, and Just Works™. It’s all about finding that balance, and Stellar hits the sweet spot.</p>
+<p>Of course, I sound like just another Stellar shill. And that’s fine! I think it’s a cool project. If you’re looking for a longer-form introduction to the rationale behind Stellar, good ol’ <a rel="noopener nofollow" target="_blank" href="https://www.kalzumeus.com/2014/08/05/harry-potter-and-the-cryptocurrency-of-stars/"><code>patio11</code> can hook you up</a>.</p>
+<h1 id="anyway-what-s-stellar-quest">Anyway, What’s Stellar Quest?</h1>
+<p>The <em>Stellar Development Foundation</em> (you know, the governing body responsible for the development of Stellar) does a lot of things to help people familiarize themselves with Stellar, and these things usually have something to do with giving away free <em>Lumens</em> (XLM).</p>
+<p>One such thing is a competition/challenge called <a rel="noopener nofollow" target="_blank" href="https://quest.stellar.org/">Stellar Quest</a>. Quest teaches people how to use Stellar’s API (<a rel="noopener nofollow" target="_blank" href="https://github.com/stellar/go/tree/master/services/horizon">Horizon</a>, for the pedantic) through a set of developer-oriented challenges that increase in difficulty as time goes on. (Don’t worry, it’s all done on the test network.)</p>
+<p>As of writing, there are two finished Quest Series; the third is in progress right now:</p>
+<p><img src="/content/series-3.png" alt="Series 3 begins May 3rd" /></p>
+<p>I’ve participated in Quest in the past, but always <em>after</em> they happened. I didn’t want to miss out again, so I made sure to be prepared.</p>
+<p>Series 3 is a bit different than previous series for two reasons:</p>
+<ol>
+<li>
+<p>Stellar Quest is now only accessible through an app. In the past, you could also do it in-browser. I’m personally not a fan, because it means you have to email the public/private keys they give you to yourself. This is also the first time the app is being used, so it’s buggy as <em>heck</em>. I mean, it’s impressive the developers build it off as quickly as they did, but it definitely needs some polish.</p>
+</li>
+<li>
+<p>Instead of playing globally, you have to register an hour before the competition. After registering, you’ll be put into a room with about 20 other people, and compete to finish first. First person to finish the challenge will get 500 XLM, …, fifth will get 250 XLM, and so on and so forth.</p>
+</li>
+</ol>
+<p>Anyway, let’s talk prizes. Currently, 1 stellar XLM is about 0.56 USD, so that <strong>first-place 500 XLM prize is worth about $280*!</strong> This is quite a lot, considering you’re only competing against 20 others, there are multiple rounds per series, and a challenge takes about an hour to complete (depending).</p>
+<blockquote>
+<p>* Edit: Three days later, the exchange rate was even better at $315 per 500 XLM.</p>
+</blockquote>
+<p>So, hearing that the Series 3 challenge would be starting soon, I decided to practice and prepare so I could secure that top spot. As you’ll soon see, it didn’t go entirely to plan…</p>
+<h1 id="some-background">Some Background</h1>
+<p>(Un)Luckily enough, I have exams over these next two weeks, which means… <strong>Study Leave!</strong> I had no exams today, so, after reviewing some calculus this morning, my afternoon was completely free to follow my stellar aspirations.</p>
+<p>Installing the app and setting up an account with <a rel="noopener nofollow" target="_blank" href="https://albedo.link/">Albedo</a> was simple enough — it’s the same process as that of the other challenges, so no surprise here. I double-checked the countdown timer, then set an alarm on my phone. Shortly thereafter, I fired up Discord, opened a fresh browser pane, made sure everything was in order, then…</p>
+<p>…waited…</p>
+<p>…patiently…</p>
+<p>… until it started! I quickly registered, and got into a room with a few other people. I was itching to get started, but, alas:</p>
+<blockquote>
+<p>After the Challenge opens, you’ll have 1 hour to register: after that hour is up, you can begin the challenge.</p>
+</blockquote>
+<p>So there I sat, with an hour to kill. I reviewed the <a rel="noopener nofollow" target="_blank" href="https://developers.stellar.org/docs/start/list-of-operations/#account-merge">Stellar Docs</a>, created a couple accounts on the testnet so I had an ample supply of lumens to work with, then spent some time working on this website’s homepage.</p>
+<p>There are generally two ways to complete Stellar Quest Challenges: <a rel="noopener nofollow" target="_blank" href="https://runkit.com/home">RunKit</a> (JS environment), or <a rel="noopener nofollow" target="_blank" href="https://laboratory.stellar.org/#txbuilder">Stellar Laboratory</a> (interactive interface). Given that this was the first challenge, I choose the latter for easier experimentation, but RunKit is needed as challenges get more complex later on.</p>
+<p><em>Suddenly</em>, The alarm I had set on my phone went off: it was time to start!</p>
+<blockquote>
+<h2 id="note">Note</h2>
+<p>I would’ve included more pictures, but I didn’t take any screenshots at the time.</p>
+</blockquote>
+<h2 id="part-i-off-to-the-races">Part I: Off to the races!</h2>
+<p>As expected, as soon as we hit 3pm, Stellar Quest started sorting us into rooms. I was put into a room with one other person before the challenge prompt slid up on my screen:</p>
+<blockquote>
+<p>Make use of a sequence number bump operation in a transaction</p>
+<p>Welcome to Stellar Quest series 3! In today’s inagural challenge you must submit a transaction from your account, making use of the sequence number and bump operation.</p>
+</blockquote>
+<p>‘Oh, just a sequence number bump operation?’ I thought. That’s not too bad: for the uninitiated, all transactions from an account have an associated sequence number, and each sequence number must be higher than the last. All a sequence number bump does is set the sequence number to a specific value, but only if that value is greater than the current sequence number. Here’s a basic example:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>Sequence number: 7
+</span><span>
+</span><span>Transaction:
+</span><span>- Bump sequence number: 24
+</span><span>
+</span><span>Sequence number: 24
+</span></code></pre>
+<p>Honestly pretty simple.</p>
+<p>To complete this challenge, Quest generates a keypair, i.e. a public key and private key, for usage on the testnet. Stellar public keys start with <code>G</code>; secret keys start with <code>S</code>. Here’s an example:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>public: GB6RRYSQVIKX5K5GIOAEK6ZSCTK675IYADGUWRCWDMIG5YXJB6C7ABDA
+</span><span>secret: SAWPW6MVPCTHQL7ZPTTA34HQOVIPZBHUSHC7CJ7R774RS73W2NOQ6UGE
+</span></code></pre>
+<p>What’s important to note is that this keypair <em>isn’t</em> initialized as an account on the stellar ledger: we have to do that ourselves. Stellar provides a tool, friendbot, that turns keypairs into accounts with some starting XLM on the testnet ledger, however, it’s usually better to create and fund the account yourself, using a different keypair.</p>
+<p>With this in mind, my plan of action was straightforward:</p>
+<ol>
+<li>Generate a ‘fake’ keypair, and fund that account using friendbot.</li>
+<li>Use the fake keypair to create an account for the ‘real’ keypair. (The keypair SQ gave me)</li>
+<li>Use the fake keypair to bump the sequence number.</li>
+<li>???</li>
+<li>Profit!</li>
+</ol>
+<p>As you’ll see, this solution wasn’t too far off. I whipped out Stellar Laboratory, created the ‘fake’ account, and then used that account to fund the real account. To make sure I did it right, I checked the transaction history on <a rel="noopener nofollow" target="_blank" href="https://testnet.steexp.com">Stellar Explorer</a>. As expected, the account was initialized; I had transfered 5000 testnet XLM from the original account as well:</p>
+<p><img src="/content/explorer.png" alt="A new account with a little less than 5000 XLM on Stellar Explorer" /></p>
+<p>Perfect! I tabbed over to Laboratory, heart racing, and threw together a quick transaction that bumped the sequence number to <code>3329437173022725</code>. Easy, right?</p>
+<p>I copied over my signing key, signed the envelope, and submitted it to the network…</p>
+<p><img src="/content/success.png" alt="Success! Wait…" /></p>
+<p>Success! I pulled out my phone, tapped ‘Verify Solution’, and…</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>In Progress - Error
+</span><span>{
+</span><span>    ...
+</span><span>    &quot;status&quot;: 400,
+</span><span>    &quot;detail&quot;: &quot;no valid bump sequence operations...&quot;,
+</span><span>}
+</span></code></pre>
+<p>What!? That <em>can’t</em> be…</p>
+<p>In a rush of panic, I wrap up a new transaction, and bumped again…</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>&quot;status&quot;: 400,
+</span></code></pre>
+<p>And again…</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>&quot;status&quot;: 400
+</span></code></pre>
+<p>And again…</p>
+<p>To no avail. What’s wrong?</p>
+<h1 id="part-ii-status-400">Part II: Status 400</h1>
+<p>So obviously, something <em>is</em> wrong with my solution. I looked at the prompt again, and saw the following line I had skipped over the first time:</p>
+<blockquote>
+<p>…</p>
+<p>Imagine a scenario where you have two potential outcomes but only one of them should actually execute. Rather than having both transactions compete for the same sequence number you can control the outcome by bumping the sequence number to support whichever of the two scenarios you wish.</p>
+<p>…</p>
+</blockquote>
+<p>Hmm, interesting. I’d done stuff like this before, but this scenario seemed overly complicated for the first challenge.</p>
+<p>But what could I do? I laced up my boots and put on my brave face: I published a pair of transactions, and skipped to the second using bump sequence… still <code>&quot;status&quot;: 400</code>.</p>
+<p>I used Stellar Explorer to check my work: nope, looked good as far as I could tell. What was I missing?</p>
+<hr />
+<p>At this point, the <a rel="noopener nofollow" target="_blank" href="https://discord.gg/Agvuv2cGvk">Stellar Quest Discord Server</a> was a bit of a mess: I had been one of the lucky ones, actually being able to start the challenge, but many others were having trouble getting into a lobby or registering at all.</p>
+<p>I navigated the chaos of <code>#general</code>, and slid into <code>#support</code> to see if anyone else was having the same issue as me:</p>
+<blockquote>
+<p><strong>slightknack (me):</strong> Is verification not working atm?</p>
+<p><strong>falconis:</strong> I have done two of the required operations, but the solution verification seems to not recognize it</p>
+<p><strong>Smephite:</strong> +1</p>
+</blockquote>
+<p>So it looked like I wasn’t alone… pressing further:</p>
+<blockquote>
+<p><strong>slightknack:</strong> Maybe we should loop in <code>@kalepail</code>.</p>
+<blockquote>
+<p>Note: <code>@kalepail</code> is a server mod</p>
+</blockquote>
+<p><strong>kalepail:</strong> Fun fact. This challenge isn’t so much in doing the operation but in ensuring you bump to a specific number</p>
+<p><strong>kalepail:</strong> Nothing is ever quite as easy as it seems</p>
+</blockquote>
+<p>Huh, we need to bump to a specific sequence number. I reread the instructions, but didn’t see anything about a <em>magic number</em>. I sat there, waiting. A few others voiced their concerns.</p>
+<p>Ah, one last hint, coming in hot:</p>
+<blockquote>
+<p><strong>kalepail:</strong> Maybe try the Resources tab</p>
+</blockquote>
+<p>The resources tab, eh? The race was back on!</p>
+<hr />
+<p>The reason I hadn’t checked the resources tab initially was a simple one: in past quests, the resources tab usually contained links to documentation, but not anything essential to the challenge, per se.</p>
+<p>Pulling up my phone again — all this switching was a bit nauseating — I scrolled down to the resources tab and skimmed through the resources:</p>
+<ol>
+<li>Documentation — Nope</li>
+<li>Laboratory — Already there</li>
+<li><a rel="noopener nofollow" target="_blank" href="https://horizon.stellar.org/transactions/073cde1fab7d28d3e322e5f61ac385c37859c3e82b17b6c92a9f0444420336cb">Horizon</a> — Already familiar with it… wait!</li>
+</ol>
+<p>The last link wasn’t a link to <em>documentation</em>, it was a JSON blob detailing a <em>specific transaction</em> that had occured on the network! Perhaps we would find the magic number here?</p>
+<hr />
+<p>Meanwhile, on Discord:</p>
+<blockquote>
+<p><strong>zajko:</strong> <em>slides into my dms</em></p>
+<p><strong>zajko:</strong> hey, im trying to solve the quest, did you figure out what sequence number did he [kalepail] mean?</p>
+<p><strong>zajko:</strong> when he said a specific one</p>
+<p><strong>slightknack:</strong> no, sorry</p>
+<p><strong>zajko:</strong> <em>You’ve been invited to join a server: stellar quest 3 solving</em></p>
+</blockquote>
+<p>A secret server, eh? May as well join.</p>
+<p><img src="/content/server.png" alt="A secret server invite link card" /></p>
+<p>Here goes nothing…</p>
+<hr />
+<p>Where were we? Oh yeah:</p>
+<blockquote>
+<p>The last link wasn’t a link to documentation, it was a JSON blob detailing a specific transaction that had occured on the network! Perhaps we would find the magic number here?</p>
+</blockquote>
+<p>I opened the JSON blob on my phone, and scrolled through it. A few things stood out:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>...
+</span><span>&quot;memo&quot;: &quot;nesho as a buffer&quot;,
+</span><span>&quot;envelope_xdr&quot;: &quot;AAAAAgAAAABDM3D4KwszNoKJQeNDrAnazm6igHWI+HjMZq6Vce8wewAAAMgB59RMAAAAQgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAABFuZXNobyBhcyBhIGJ1ZmZlcgAAAAAAAAIAAAAAAAAAAAAAAABnZypA5k1X4DWczszJHmBLbKUdrQhOSRWLAScXA4g7KgAAAAAAmJaAAAAAAQAAAABnZypA5k1X4DWczszJHmBLbKUdrQhOSRWLAScXA4g7KgAAAAsAAGQi6drrbwAAAAAAAAACA4g7KgAAAEAB7UMxUSq/tSuTyE7U87nbKuGI7PJ/R3MAnC4eP89ErZXu5rsZnQYyrKEVSOj1ttQk1s9Fc79JlxaJzZ0296kCce8wewAAAEClYmILATIFceLvHTuJ7XVPkknaVIR5LXcBwYB3bSRd/F1YptNruX/GGN7RHtO6GoEtFNIVEZBiO9z+0qLN6lEL&quot;,
+</span><span>...
+</span></code></pre>
+<p>Aha! I had found the transaction envelope! Here it is, in all its XDR glory:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>AAAAAgAAAABDM3D4KwszNoKJQeNDrAnazm6igHWI+HjMZq6Vce8wewAAAMgB59RMAAAAQgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAABFuZXNobyBhcyBhIGJ1ZmZlcgAAAAAAAAIAAAAAAAAAAAAAAABnZypA5k1X4DWczszJHmBLbKUdrQhOSRWLAScXA4g7KgAAAAAAmJaAAAAAAQAAAABnZypA5k1X4DWczszJHmBLbKUdrQhOSRWLAScXA4g7KgAAAAsAAGQi6drrbwAAAAAAAAACA4g7KgAAAEAB7UMxUSq/tSuTyE7U87nbKuGI7PJ/R3MAnC4eP89ErZXu5rsZnQYyrKEVSOj1ttQk1s9Fc79JlxaJzZ0296kCce8wewAAAEClYmILATIFceLvHTuJ7XVPkknaVIR5LXcBwYB3bSRd/F1YptNruX/GGN7RHtO6GoEtFNIVEZBiO9z+0qLN6lEL
+</span></code></pre>
+<blockquote>
+<h2 id="aside-xdr">Aside: XDR</h2>
+<p>When transactions are sent through the Stellar network, a compact encoding of the transaction, called XDR, is used. From the <a rel="noopener nofollow" target="_blank" href="https://developers.stellar.org/docs/glossary/xdr/">Stellar Docs</a>:</p>
+<blockquote>
+<p>XDR, also known as External Data Representation, is used throughout the Stellar network and protocol. The ledger, transactions, results, history, and even the messages passed between computers running stellar-core are encoded using XDR.</p>
+<p>XDR is specified in <a rel="noopener nofollow" target="_blank" href="http://tools.ietf.org/html/rfc4506.html">RFC 4506</a> and is similar to tools like Protocol Buffers or Thrift.</p>
+</blockquote>
+<p>It’s important to note that although XDR is a binary format, it is usually base-64 encoded when sent through JSON (for good reason).</p>
+</blockquote>
+<p>Luckily enough for us, Stellar Laboratory provides a tool to <a rel="noopener nofollow" target="_blank" href="https://laboratory.stellar.org/#xdr-viewer">inspect the content of XDR blobs</a>. I grabbed <code>envelope_xdr</code> from from the JSON response, emailed it to myself, <a rel="noopener nofollow" target="_blank" href="https://laboratory.stellar.org/#xdr-viewer?input=AAAAAgAAAABDM3D4KwszNoKJQeNDrAnazm6igHWI%2BHjMZq6Vce8wewAAAMgB59RMAAAAQgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAABFuZXNobyBhcyBhIGJ1ZmZlcgAAAAAAAAIAAAAAAAAAAAAAAABnZypA5k1X4DWczszJHmBLbKUdrQhOSRWLAScXA4g7KgAAAAAAmJaAAAAAAQAAAABnZypA5k1X4DWczszJHmBLbKUdrQhOSRWLAScXA4g7KgAAAAsAAGQi6drrbwAAAAAAAAACA4g7KgAAAEAB7UMxUSq%2FtSuTyE7U87nbKuGI7PJ%2FR3MAnC4eP89ErZXu5rsZnQYyrKEVSOj1ttQk1s9Fc79JlxaJzZ0296kCce8wewAAAEClYmILATIFceLvHTuJ7XVPkknaVIR5LXcBwYB3bSRd%2FF1YptNruX%2FGGN7RHtO6GoEtFNIVEZBiO9z%2B0qLN6lEL%0A&amp;type=TransactionEnvelope&amp;network=test">then opened it with the XDR viewer</a>.</p>
+<p>If we look at the decoded blob, we can see it’s made up of two operations:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>operations: Array[2]
+</span><span>  [0] body: [createAccount]
+</span><span>  [1] body: [bumpSequence]
+</span></code></pre>
+<p>So we <em>do</em> need to bump the sequence number! Does this transaction contain the magical sequence number <code>@kalepail</code> mentioned? Lo and behold:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>[1]
+</span><span>  sourceAccount: [keyTypeEd25519]
+</span><span>    ed25519: GBTWOKSA4ZGVPYBVTTHMZSI6MBFWZJI5VUEE4SIVRMASOFYDRA5SUQTE
+</span><span>  body: [bumpSequence]
+</span><span>    bumpSequenceOp
+</span><span>      bumpTo: 110101115104111
+</span></code></pre>
+<p>Do you see what I see! it looks like <code>110101115104111</code> is our lucky number!</p>
+<p>At the speed of light, I created a new fake keypair, merged my old account to reset the sequence number to zero, authored a transaction that bumped the sequence number to that oh-so-special <code>110101115104111</code>, signed it, and clicked submit…</p>
+<p><img src="/content/success.png" alt="Success! Again!" /></p>
+<p>Palms sweating, I reached for my phone, pressed reload, and:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>In Progress - Error
+</span><span>{
+</span><span>  &quot;error&quot;: &quot;rate_limit_exceeded&quot;,
+</span><span>  &quot;message&quot;: &quot;There have been too many requests to this server. Try again later.&quot;,
+</span><span>  &quot;status&quot;: 429
+</span><span>}
+</span></code></pre>
+<p>A rate limit? Oh no…</p>
+<h1 id="part-iii-or-429-you-ve-been-rate-limited">Part III: Or, 429, You’ve been rate limited</h1>
+<p>At this point, I had to leave for <em>calcio</em> practice. I knew my solution was correct, as far as I could tell (once again checking Stellar Explorer), and knew I could just try again when I got back.</p>
+<p><img src="/content/two-hours-later.jpg" alt="Two Hours Later" /></p>
+<p>Still sweaty, I popped open laptop, pulled out my phone, and tried verifying the solution again:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>&quot;error&quot;: &quot;rate_limit_exceeded&quot;,
+</span><span>&quot;status&quot;: 429,
+</span></code></pre>
+<p>Huh. Was it just me?</p>
+<hr />
+<p>I brought up Discord, and checked the <code>#announcements</code>:</p>
+<blockquote>
+<p><strong>kalepail:</strong> <code>@everyone</code> We’re aware of the <code>rate_limit_exceeded</code> error and l’m looking into it. In the mean time please just be patient. For those stuck in the <code>Check Status</code> state I’m investigating what’s going on there as well. I know it’s frustrating but this was a possibility at the scale and complexity of this app. Will hopefully have things squared up soon. If you were registered you should be fine and I’ll make another announcement here once things are good to go again.</p>
+</blockquote>
+<p>Hmm. I slid into the <em>Secret Stellar Club</em>:</p>
+<blockquote>
+<p><strong>rmaguiar:</strong> Yep, what I still don’t understand is what kalepail said about the number</p>
+</blockquote>
+<p>I got excited! I knew the number! I’d already submitted the transaction, so it wouldn’t hurt to share:</p>
+<blockquote>
+<p><strong>slightknack:</strong><br />
+I know what the secret number is<br />
+let me find it<br />
+it’s in the transaction<br />
+you can see it w/ xdr explorer</p>
+</blockquote>
+<p>I pulled up XDR explorer again:</p>
+<p><img src="/content/magic.png" alt="Magic Number" /></p>
+<p>Perfect! Copy… and… paste!</p>
+<blockquote>
+<p><strong>slightknack:</strong><br />
+110101115104111<br />
+you have to set account to &lt; than that number (via merge, might not be necessary), then bump.<br />
+but idk, still can’t verify, am rate limited</p>
+</blockquote>
+<p>This was news to everyone. <code>@Hugo.</code> and a few others tried it… would it work?</p>
+<hr />
+<p>At this point in time, we had been rate limited for a couple hours. Someone had mentioned that reinstalling the app fixed the issue.</p>
+<p>So that’s what I did next.</p>
+<p>Big mistake.</p>
+<hr />
+<p>Literal seconds later, the following message was blasted out in <code>#announcements</code>:</p>
+<blockquote>
+<p><strong>kalepail:</strong> <code>@everyone</code> I’ve just pushed a fix for the <code>rate_limit_exceeded</code> issue. You should be able to start checking your answers. For anyone still stuck on the Building Lobby… Check Status button not working page please join the <code>#check-status-issue</code>* channel and let me know. Having a really hard time reproducing the issue and thus putting out a fix.</p>
+</blockquote>
+<blockquote>
+<p>* Note: this channel was later deleted, so I’ve invented a name here.</p>
+</blockquote>
+<p>Kalepail then followed up in <code>#check-status-issue</code>:</p>
+<blockquote>
+<p>[paraphrasing, channel was deleted]</p>
+<p><strong>kalepail:</strong> If you’ve reinstalled the app, a new account is generated, which means your progress will be lost. So don’t reinstall the app.</p>
+</blockquote>
+<p>Wait, what?</p>
+<p>Our progress would be lost?</p>
+<p><em>Oh, crap.</em></p>
+<hr />
+<p>At this point in time I was literally shaking. Registrations were closed, so I couldn’t compete again with my freshly installed version of the app. Literal hundreds of dollars were on the line.</p>
+<hr />
+<p>I slid into the <em>Secret Stellar Club</em>. Some members were able to verify their solutions.</p>
+<p>The solution I had suggested <em>worked</em>.</p>
+<p>What?</p>
+<p>My solution <em>was correct</em>:</p>
+<blockquote>
+<p><strong>Hugo.:</strong><br />
+OH MY GOD<br />
+I FINISH FIRST<br />
+<strong>I WON 500 XLM</strong><br />
+<strong>BUMP TO 110101115104111</strong><br />
+guys bump to 110101115104111</p>
+</blockquote>
+<p><em>Holy cow!</em></p>
+<p>I couldn’t believe it!</p>
+<p>…</p>
+<p>But alas</p>
+<p>…</p>
+<p>I’d reinstalled the app.</p>
+<p>So was no longer in the running.</p>
+<p>And had missed my shot at <code>500 XLM</code>.</p>
+<p>…</p>
+<p><em>Oh well.</em></p>
+<h1 id="part-iv-it-s-not-all-bad">Part IV: It’s not all bad</h1>
+<p>It’s not over yet.</p>
+<p>I was really excited that I’d helped those on the group Discord server succeed. <code>@Hugo.</code>, the person who won first, took pity on me for getting locked out of my account, and kindly send me about 50 XLM of his winnings. Thanks!</p>
+<p>If I’ve learned anything, it’s that:</p>
+<ol>
+<li>In the future, wait out all bugs, and follow instructions!</li>
+<li>Making friends is a good thing, and it’s more fun to compete together! 😉</li>
+</ol>
+<p>With those lessons in mind, I hope future challenges go more smoothly 😄</p>
+<h1 id="part-v-closing-thoughts">Part V: Closing thoughts</h1>
+<p>Welp, that was an adventure for sure! I probably won’t be able to compete in the next challenge, but I’ll try to compete in the ones after that.</p>
+<p>Huge thanks to the organizers of Stellar Quest, especially <code>@kalepail</code>. I’d also like to thank the developers at the Stellar Development Foundation for all their hard work, the members of the Stellar Quest Discord server for the great interactions I’ve had there, <code>@zajko</code>, who organized the Secret Stellar Club, and most especially, <code>@Hugo.</code>, who was kind enough to send me some of the Lumens he won in return for helping him reach the right solution.</p>
+<p>Stay safe everyone!</p>
+<p>I’ll see you around!</p>
+<h2 id="don-t-buy-me-a-coffee">Don’t Buy me a Coffee!</h2>
+<p>Because I don’t drink coffee! … but, if you want to, idk, buy me a <em>half-gallon of crypto-funded chocolate milk</em>, I’m game. My stellar address is <code>slightknack*stellarx.com</code>; alternatively, my public key is:</p>
+<pre style="background-color:#1a191a;color:#bebebe;"><code><span>GBKDWR2YMORRJVKLJGVWBOBVFWCBJEITSGNFQLKS6O6E2RYE364UBK6I
+</span></code></pre>
+<p>I usually don’t do this, but since I’ve adopted the role of a crypto-shill for one article, I may as well.</p>
+<p>If you enjoyed this article, consider <a href="/atom.xml">subscribing to this website’s RSS feed</a>, checking out <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack">my work on Github</a>, or sharing this post with a friend.</p>
+
+</div>
+
+                <!-- <div class="narrow">
+                </div> -->
+            </div>
+        </div>
+    </body>
+</html>
