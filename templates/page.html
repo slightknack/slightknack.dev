@@ -14,7 +14,7 @@
     {% if page.later %}
     <div class="prev tag">
         <a href="{{ page.later.permalink }}">
-            <div class="boxed">back</div>
+            <div class="boxed">prev page</div>
         </a>
     </div>
     {% else %}
@@ -22,7 +22,7 @@
         {% set parent = get_section(path=page.ancestors | reverse | first) %}
         <div class="prev tag">
             <a href="{{ parent.permalink }}">
-                <div class="boxed">back up</div>
+                <div class="boxed">prev section</div>
             </a>
         </div>
     {% endif %}

@@ -113,7 +113,7 @@
     column-gap: 2vh;
     align-items: stretch;
     justify-items: stretch;
-    min-height: 2vh;
+    min-height: 1vh;
 }
 
 .prev, .next {
@@ -145,7 +145,29 @@
         margin-bottom: 0vh;
     }
 
-    .menu {
+    .menu-children {
         display: none;
+    }
+
+    .menu details > summary {
+      list-style: none;
+      white-space: nowrap;
+    }
+
+    .menu details > summary::before {
+      display: none;
+    }
+
+    /* .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } */
+
+    .menu details {
+      display: inline-block;
+      padding-left: 1vh;
+      padding-right: 1vh;
+      margin-bottom: 2vh;
     }
 }

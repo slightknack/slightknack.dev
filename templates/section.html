@@ -42,13 +42,13 @@
                     {% set last_page = subsection.pages | last %}
                     <div class="prev tag">
                         <a href="{{ last_page.permalink }}">
-                            <div class="boxed">back</div>
+                            <div class="boxed">prev page</div>
                         </a>
                     </div>
                 {% else %}
                     <div class="prev tag">
                         <a href="{{ subsection.permalink }}">
-                            <div class="boxed">back up</div>
+                            <div class="boxed">prev section</div>
                         </a>
                     </div>
                 {% endif %}
