@@ -15,7 +15,7 @@ The merging algorithm behind RGA is pretty elegant. Each character in the tree p
 
 ![An image of an RGA tree spelling out the word "Cat!"](/content/crdt-rga.svg)
 
-In the above example, Bob typed `C!`. (I don't know, maybe he's an old-school hacker who really likes the language.) Later, Mia slides in and makes a two character edit by inserting the letters `at` after `C`, so the document now reads `Cat!`. When Bob synchronizes her changes, they're inserted before the `!`, because her edits happened happened later. Now both Bob and Mia have `Cats!` on their screen!
+In the above example, Bob typed `C!`. Later, Mia slides in and makes a two character edit by inserting the letters `at` after `C`, so the document now reads `Cat!`. When Bob synchronizes her changes, they're inserted before the `!`, because her edits happened happened later. Now both Bob and Mia have `Cats!` on their screen!
 
 Note that although *conceptually* RGA operates on trees, implementation-wise, it's not a requirement. Trees are an inefficient substrate for RGA for a number of reasons, the largest being wasted space and the fact that they don't play well with the L1 cache. If we flatten the tree out into a list (still inefficient for other reasons), the RGA insertion algorithm discussed above looks something like this:
 
@@ -136,3 +136,5 @@ Also, note that the generic `T` is not an individual entry, but a *collection* t
 I hope what I've presented makes some sense, I just wanted to get my heads out of my head and onto proverbial paper. If you're interested in what becomes of this project, I've put a [GitHub repo up](https://github.com/slightknack/together/) that contains some preliminary work, and is where I plan to explore the idea further.
 
 Dear reader, you've reached the end!
+
+> TODO: Incorporate lamport timestamp as discussed with 02Keith
