@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+      <meta name="theme-color" content="#4d3ee6">
+      <meta name="description" content="Isaac Clayton's personal website — page not found.">
+      <meta http-equiv="Content-Security-Policy"
+    content="Content-Security-Policy: default-src 'self';">
+      <title>Isaac Clayton</title>
+      <link rel="stylesheet" href="/reset.css"></link>
+      <link rel="stylesheet" href="/base.css"></link>
+      <link rel="stylesheet" href="/layout.css"></link>
+      <link rel="icon" type="image/png" href="/icon.png">
+      <script
+          type="text/javascript"
+          src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js"
+          defer>
+      </script>
+  </head>
+  <body>
+    <div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+      <div style="max-width: 700px; text-align: center;">
+        <h1 style="font-size: calc(var(--font-base) + 9vw); margin: 0">404</h1>
+        <p>It seems this page has been lost to the seas of time...</p>
+        <canvas
+            class="glslCanvas"
+            data-fragment-url="/404.frag"
+            width="700px" height="400px"
+            style="background-color: #000000ff; border-radius: 3px;">
+        </canvas>
+        <p>Return <a href="/">home</a>, sailor.</p>
+      </div>
+    </div>
+  </body>
+</html>

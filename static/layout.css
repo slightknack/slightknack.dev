@@ -42,6 +42,7 @@
         grid-template-columns: 300px minmax(0, 1fr);
     }
 }
+
 .profile {
     width:  calc((var(--font-base) + var(--font-heading)) * 1.5);
     height: calc((var(--font-base) + var(--font-heading)) * 1.5);
