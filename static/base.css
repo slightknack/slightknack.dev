@@ -100,7 +100,7 @@ ol, ul {
 }
 
 ul {
-    list-style: circle outside none;
+    list-style: disc outside none;
 }
 
 ol {
