@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ page.content | safe }}
+{% endblock content %}
+
+{% block prev_link %}
+    {% if page.later %}
+    <div class="prev tag">
+        <a href="{{ page.later.permalink }}">
+            <div class="boxed">prev page</div>
+        </a>
+    </div>
+    {% else %}
+        {# No page before, find the link for the section it's in if there is one #}
+        {% set parent = get_section(path=page.ancestors | reverse | first) %}
+        <div class="prev tag">
+            <a href="{{ parent.permalink }}">
+                <div class="boxed">prev section</div>
+            </a>
+        </div>
+    {% endif %}
+{% endblock prev_link %}
+
+{% block next_link %}
+    {% if page.earlier %}
+        <div class="next tag">
+            <a href="{{ page.earlier.permalink }}">
+                <div class="boxed">next page</div>
+            </a>
+        </div>
+    {% else %}
+        {# No page after, find the link for the following section #}
+        {% set index = get_section(path="_index.md") %}
+        {% set found_current = false %}
+        {% for s in index.subsections %}
+            {% set subsection = get_section(path=s) %}
+            {% if found_current %}
+                <div class="next tag">
+                    <a href="{{ subsection.permalink }}">
+                        <div class="boxed">next section</div>
+                    </a>
+                </div>
+                {# no break #}
+                {% set_global found_current = false %}
+            {% endif %}
+            {% for p in subsection.pages %}
+                {% if p.permalink == page.permalink %}
+                    {% set_global found_current = true %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endblock next_link %}

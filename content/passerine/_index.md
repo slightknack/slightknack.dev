@@ -1,5 +1,6 @@
 +++
 title = "On Passerine"
+weight = 3
 sort_by = "date"
 template = "section.html"
 page_template = "page.html"
