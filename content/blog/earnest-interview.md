@@ -94,7 +94,7 @@ Of course! it's so simple! In a burst of adrenaline, I hammer out a poem to the 
     if abs(board[2] + board[4] + board[6]) == 3: return True
 ```
 
-How could I have not seen something so simple! Tying it all together, I start at the first movement of my masterpiece:
+How could I have not seen something so simple! Tying it all together, I stare at the first movement of my masterpiece:
 
 ```python
 def game_over(board):
@@ -187,7 +187,7 @@ def count_games(board, turn):
 print(count_games([0 for _ in range(9)], 1))
 ```
 
-No comments or reusable code in sight. Yesiree. That's how it's done.
+No reusable code in sight. Yesiree. That's how it's done.
 
 </details>
 </blockquote>
@@ -212,7 +212,7 @@ The technical interview is over. My work stands, a perfect representation of eve
 
 6:38 is way under 10:00, I smile. I've done it.
 
-I wait patiently for a Google drone to break through my front window and whisk me away to the soft slopes of Silicon Valley. I've done it.
+I wait patiently for a Google drone to break through my front window to whisk me away to the soft slopes of Silicon Valley. I've done it.
 
 <div class="boxed">
 This is satire. Please don't @ me. Why did I spend an hour to type this up? I don't even have an answer. See you around!
