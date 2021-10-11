@@ -1,5 +1,5 @@
 +++
-title = "Can't get bindgen working on NixOS"
+title = "Getting bindgen working on NixOS"
 date = 2021-07-08
 +++
 
