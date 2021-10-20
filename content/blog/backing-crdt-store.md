@@ -5,7 +5,7 @@ date = 2021-08-02
 
 A *Conflict-Free Replicated Datatype* is a bit like a smoothie: the same ingredients will produce the same result, regardless of the order in which they are added. In the context of, say, text editing in a distributed context, merging two documents will always succeed in a deterministic manner. In other words, A CRDT is a bit like a git repository that never has merge conflicts.
 
-There are many different ways to approach the construction of CRDTs, each construction having its own strength and weaknesses. Today, we're going to focus on creating out an efficient backing store for a particular family of algorithms known as *Replicated Growth Arrays* (RGA).
+There are many different ways to approach the construction of CRDTs, each construction having its own strengths and weaknesses. Today, we're going to focus on creating out an efficient backing store for a particular family of algorithms known as *Replicated Growth Arrays* (RGA).
 <!-- more -->
 Before we begin, though, I guess I should establish my motivation for writing this piece. I can't begin to think about CRDTs without also considering distributed network topologies, and peer-to-peer collaboration. My goal, for this article, is to lay out the skeleton of a backing store for CRDTs that is both easy to work with in-memory and easy to replicate over the network. I hope you'll see how the solution I derive addresses both these goals.
 
