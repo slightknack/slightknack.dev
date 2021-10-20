@@ -76,7 +76,7 @@ fatal error: 'stdint.h' file not found
 ```
 Drat! Foiled again! It seems NixOS is too clever for me. This time the entirety of `libc` has gone missing!
 
-At this point, I spent about another few hours trying to get `libc` to show up. I also read a ton (e.g. [C on Nix wiki](https://nixos.wiki/wiki/C), [stdint in gnulibc manual](https://www.gnu.org/software/gnulib/manual/html_node/stdint_002eh.html), (NixOS issue related to stdint)[https://github.com/NixOS/nixpkgs/issues?q=is%3Aissue+stdint.h+, etc.]) to no avail.
+At this point, I spent about another few hours trying to get `libc` to show up. I also read a ton (e.g. [C on Nix wiki](https://nixos.wiki/wiki/C), [stdint in gnulibc manual](https://www.gnu.org/software/gnulib/manual/html_node/stdint_002eh.html), [NixOS issue related to stdint](https://github.com/NixOS/nixpkgs/issues?q=is%3Aissue+stdint.h+, etc.)) to no avail.
 
 So here's my question: What am I doing wrong? How can I use `bindgen` to wrap a c library in a crate? If you need any additional information, ping me and I'll send it right over! Thank you!
 
