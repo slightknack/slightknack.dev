@@ -16,13 +16,17 @@
     <img class="parallax" style="visibility: hidden;" id="cloud-2" src="/index/cloud.png">
 
     <div class="narrow" style="padding-top: 0; padding-bottom: 0;">
-        <div style="min-height: 200vh;">
+        <div style="min-height: 200vh;" id="start">
             <div class="interlude">
                 <div>
                     <p class="tag">Hello and <strong>welcome</strong> to the wonderful website of</p>
                     <h1 style="font-size: calc(var(--font-base) + 9vw); margin: 0">Isaac Clayton</h1>
                     <p class="tag">A Student, Compiler Engineer, and Software Architect.<br>(Among other things.)</p>
-                    <p class="tag" style="width: 100%; text-align: right;"><a href="#introduction"><em>Keep scrolling...</em> ↓</a></p>
+                    <p class="tag" style="width: 100%; text-align: right;">
+                        <a onclick="javascript:document.getElementById('introduction').scrollIntoView({block: 'center', behavior: 'smooth'});">
+                            <em>Keep scrolling...</em> ↓
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -42,7 +46,7 @@
                 <div>
                     <a href="https://github.com/slightknack">
                         <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0">Past Work & Projects</h1>
-                        <p class="tag">Can be found on GitHub. (All this text is a link to GitHub fwiw.)</p>
+                        <p class="tag">Can be found on GitHub.</p>
                     </a>
                 </div>
             </div>
@@ -69,13 +73,20 @@
             </ul>
         </div>
 
-        <div style="min-height: 200vh;">
+        <div style="min-height: 200vh;" id="end">
             <div class="interlude">
                 <div>
-                    <a href="https://github.com/slightknack">
-                        <p class="tag">Well, that's it for now! I've also got some interesting stuff up on my</p>
-                        <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0"><a href="/blog">Blog</a></h1>
-                    </a>
+                    <div>
+                        <a href="/blog">
+                            <h1 style="font-size: calc(var(--font-base) + 5vw); margin: 0">Check out my&nbsp;Blog</h1>
+                            <p class="tag">If you're done scrolling, of course. Alternatively:</p>
+                        </a>
+                    </div>
+                    <p class="tag" style="width: 100%; text-align: right;">
+                        <a onclick="javascript:document.getElementById('start').scrollIntoView({block: 'center', behavior: 'smooth'});">
+                            <em>Fly back up to the top!</em> ↑
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>

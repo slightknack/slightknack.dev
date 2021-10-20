@@ -1,6 +1,6 @@
 base_url = "https://slightknack.dev"
 title = "Isaac Clayton"
-description = "A little knowledgebase base in a cozy corner of the web."
+description = "A cozy little corner of the web."
 generate_feed = true
 compile_sass = false
 build_search_index = true
