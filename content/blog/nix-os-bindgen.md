@@ -143,7 +143,7 @@ buildInputs = [
 ];
 ```
 
-Tada! everything works as intended! There's a little cleanup that needs to be done to extract the resulting Rust binary, but I'll spare you the details.
+Tada! Everything works as intended! There's a little cleanup that needs to be done to extract the resulting Rust binary, but I'll spare you the details.
 
 NixOS is pretty cool, but it seems to be targeted towards people who like to roll their own solutions and stick to open source software. This is great! If you do decide to go all in, though, be prepared!
 
