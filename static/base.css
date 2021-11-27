@@ -155,25 +155,28 @@ table {
     display: block;
     overflow-x: auto;
     overflow-y: hidden;
-    white-space: nowrap;
 }
 
 thead {
+    white-space: nowrap;
+    background-color: var(--soft-fill);
     font-family: var(--font-title);
     font-weight: bold;
     letter-spacing: 0.05em;
 }
 
-tr {
-    border-top: 3px solid var(--soft-fill);
+tr:nth-child(even) { background-color: var(--soft-fill); }
+
+td, th {
+    border-right: 3px solid var(--soft-fill);
+    padding: 0.8vh;
+    padding-left: 2vh;
+    padding-right: 2vh;
 }
 
-thead tr {
-    border-top: none;
+td:last-of-type, th:last-of-type {
+    border: none;
 }
-
-td { padding: 0.8vh; }
-th { padding: 0.8vh; }
 
 summary::-webkit-details-marker {
     display: none
