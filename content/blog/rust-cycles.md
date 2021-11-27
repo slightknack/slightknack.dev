@@ -6,6 +6,8 @@ draft = true
 
 Over the past month or so, something I've repeatedly run into is `GhostCell`, a technique that (ab)uses Rust's lifetime system to detach ownership of data from the permission to mutate it. In short, this makes it possible to write datatypes that rely on shared interior mutability (think doubly-linked lists and other cyclical graph-like structures). In this post I wanted to explore Rust's lifetime system to explain `GhostCell` from first principles, and why it's kinda a big deal.
 
+<!-- more -->
+
 # On memory management
 One of the reasons why I find Rust interesting is interesting because it automatically manages memory at compile time, as opposed to using a garbage collector or manual memory management. At the core of this automatic memory management is Rust's *ownership model*, which is a compile-time strategy that ensures *memory safety*.
 
@@ -22,26 +24,26 @@ Garbage Collected languages ensure this property is met by scanning large portio
 Newbies to Rust often find themselves 'fighting the borrow checker.' (We've all been there). In Rust, each bit of data has a single owner which is responsible for *dropping* (i.e. freeing) that data when it goes out of scope:
 
 ```rust
-let x = "Hi".to_string();   // x owns "Hi"
-println!("{}", x);          // prints "Hi"
+let x = "Hi".to_string(); // x owns "Hi"
+println!("{}", x);        // prints "Hi"
 // x drops "Hi" at the end of the scope
 ```
 
 In the above, `x` is the owner of `"Hi"`, and is responsible for dropping the value when it is no longer accessible.
 
-Rust ensures that all data has exactly one owner (there's an asterisk here, but we'll get into that owner). The following does not compile:
+Rust ensures that all data has exactly one owner (there's an asterisk here, but we'll get into that later). The following does not compile:
 
 ```rust
-let x = "Hi".to_string();  // x owns "Hi"
-let y = x;                 // ownership of "Hi" moved from x to y
-println!("{}", y);         // prints "Hi"
-println!("{}", x);         // ERROR: "Hi" has been moved into y!
+let x = "Hi".to_string(); // x owns "Hi"
+let y = x;                // ownership of "Hi" moved from x to y
+println!("{}", y);        // prints "Hi"
+println!("{}", x);        // ERROR: "Hi" has been moved into y!
 // y drops "Hi" at the end of the scope
 ```
 
-`"Hi"` can only have one owner, initially, this is `x`. When we write `let y = x`, we're moving the ownership of `"Hi"` from `x` to `y`. That is to say, `x` no longer owns `"Hi"`. Trying to print `x` later is an error at compile time, because `"Hi"` has been moved out of it.
+`"Hi"` can only have one owner: initially, this is `x`. When we write `let y = x`, we're moving the ownership of `"Hi"` from `x` to `y`. That is to say, `x` no longer owns `"Hi"`. Trying to print `x` later is an error at compile time, because `"Hi"` has been *moved out of* `x`.
 
-If we want both `x` and `y` to hold the string hi, we could make a copy:
+If we want both `x` and `y` to hold the string `"Hi"`, we could make a copy:
 
 ```rust
 let x = "Hi".to_string; // x owns "Hi"
@@ -50,7 +52,7 @@ let y = x.clone();      // y owns a new copy of "Hi"
 // y drops its "Hi" at the end of the scope
 ```
 
-As its name suggests, `.clone()` makes a copy of some data. In the above snippet, we end up with not one heap-allocated string, but two! Although this satisfies the ownership model (each `"Hi"` has exactly one owner), it's not exactly the most efficient.
+As its name suggests, `.clone()` makes a copy of some data. In the above snippet, we end up with not one heap-allocated string, but two! Although this satisfies the ownership model (each `"Hi"` has exactly one owner), it's not exactly the most efficient use of space.
 
 ## Aliasable XOR Mutable
 So far, we've been dealing with completely owned data, so let's talk about borrowing. Rust ensures that all data is *Aliasable XOR Mutable* (AXM). This essentially means that:
@@ -77,9 +79,9 @@ In the above example, `x` is still the owner of `"Hi"`. We immutably *borrow* `x
 What happens if we try to mutate an immutable borrow?
 
 ```rust
-let x = "Hi".to_string();   // x owns "Hi"
-let y = &x;                 // y immutably borrows x
-*y = "Bye".to_string(); // ERROR: can't mutate immutable borrow!
+let x = "Hi".to_string(); // x owns "Hi"
+let y = &x;               // y immutably borrows x
+*y = "Bye".to_string();   // ERROR: can't mutate immutable borrow!
 // y drops borrow of x, "Hi" is not dropped
 // x drops "Hi" at the end of the scope
 ```
@@ -96,7 +98,7 @@ error[E0594]: cannot assign to `*y`, which is behind a `&` reference
   | ^^ `y` is a `&` reference, so the data it refers to cannot be written
 ```
 
-Obviously, one can't write to an immutable reference. Heeding the advice of the Rust compiler, let's try converting `y` to a mutable reference, `&mut`:
+Obviously, one can't mutate an immutable reference! Heeding the wisdom of the Rust compiler, let's try converting `y` to a mutable reference, `&mut`:
 
 ```rust
 let x = "Hi".to_string(); // x owns "Hi"
@@ -130,7 +132,12 @@ println!("{}", x);            // prints "Bye"
 // x drops "Bye" at the end of the scope
 ```
 
-This works! Just note a couple of things: `y` does not need to be declared `mut y` because `y` itself is not mutable; the reference it holds is. Additionally, `*y` *defererences* `y`. Dereferencing is kinda like an anti-borrow, and lets us work with the value the reference contains. As a general rule of thumb, you can't dereference a borrow unless you're mutating it (like we do above), or the value is small enough to `Copy`.
+This works! Just note a couple of things:
+
+1. `y` does not need to be declared using `let mut y = ...` because `y` itself is not mutable; the reference it holds is.
+2. Additionally, `*` *defererences* `y` in `*y`. Dereferencing is kinda like an anti-borrow, and lets us work with the value the reference contains.
+
+> **Aside:** As a general rule of thumb, you can't dereference a borrow unless you're mutating it (like we do above), or the value is small enough to `Copy`.
 
 What happens when we try to hold a mutable and immutable reference at the same time?
 
@@ -141,7 +148,15 @@ let y = &mut x;               // y mutably borrows x
 *y = "Bye".to_string();       // mutate "Hi" to "Bye"
 ```
 
-Huh? This compiles? Why? Well, Rust tries to end borrows as early as possible. Let's write out the above again:
+You see, because—
+
+Wait...
+
+Huh? This compiles? Why?
+
+> No, seriously, [try it yourself](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=8a5a6d68c3d2240398cd8e5d88b427dd)!
+
+Well, Rust tries to end borrows as early as possible. Let's write out the above again, but with the correct borrow lifetimes:
 
 ```rust
 let mut x = "Hi".to_string(); // x mutably owns "Hi"
@@ -156,7 +171,9 @@ let y = &mut x;         // y mutably borrows x
 // x drops "Bye" at the end of the scope
 ```
 
-As you can see, the immutable borrow is dropped *before* the mutable borrow is made, so we're actually *not* holding a mutable and immutable reference at the same time. To write out the scopes and *lifetimes* more explicitly:
+As you can see, the immutable borrow is dropped *before* the mutable borrow is made, so we're actually *not* holding a mutable and immutable reference at the same time.
+
+To write out the scopes and *lifetimes* more explicitly:
 
 ```rust
 let mut x: String = "Hi".to_string(); // x mutably owns "Hi"
@@ -172,24 +189,26 @@ let mut x: String = "Hi".to_string(); // x mutably owns "Hi"
 // x drops "Bye" at the end of the scope
 ```
 
-> **Note:** `'a: {` and `&'b x` is [not valid syntax](https://doc.rust-lang.org/nomicon/lifetimes.html).
+> **Note:** `'a: {` and `&'b x` is [not valid syntax](https://doc.rust-lang.org/nomicon/lifetimes.html), but it's commonly used to show the scopes of lifetimes in Rust.
 
-These scopes do not overlap, so the lifetimes are `disjoint`.
+These scopes do not overlap, so the lifetimes are *disjoint*.
 
 "Disjoint? ... Lifetimes?" I hear you thinking. "What does this have to do with anything?"
 
-When data is borrowed, it is borrowed for a *lifetime*. This is how long the borrow 'lives', so to speak.
+When data is borrowed, it is borrowed for a given *lifetime*. This is how long the borrow 'lives', so to speak.
 
-> Lifetimes are usually denoted with a single apostrophe, like so: `'a`. This notation was loosely borrowed (no pun) from OCaml, which uses `'t` to denote generic types.
+> Lifetimes are usually denoted with a single apostrophe, like so: `'a`. This notation was loosely *borrowed* (no pun) from OCaml, which uses `'t` to denote generic types.
 
-So in the above example, the first borrow to `x`, `&'a`, lasts for the lifetime `'a`. Likewiese, the second borrow, `&'b mut`, lasts for the lifetime `'b'`. Because `'a` and `'b` do not overlap, they are [disjoint](https://doc.rust-lang.org/rust-by-example/scope/lifetime.html).
+So in the above example, the first borrow to `x`, `&'a`, lasts for the lifetime `'a`. Likewiese, the second borrow, `&'b mut`, lasts for the lifetime `'b'`. Because `'a` and `'b` do not overlap, they are [disjoint](https://doc.rust-lang.org/rust-by-example/scope/lifetime.html). Order restored!
 
-Borrowing is baked into Rust's type system. If you mutably borrow a `String`, you do not have a mutably borrowed `String`, you have an `&mut String`. The types `&mut String`, `&String`, and `String` are all similar, but not the same type.
+Borrowing is baked into Rust's type system. If you mutably borrow a `String`, you do not *just* have a mutably borrowed `String`. You have an `&mut String`! The types `&mut String`, `&String`, and `String` are all similar, but not the same.
 
-> Aside: this is further complicated by the fact that a borrowed string is actually an `&str`, not an `&String`. This is because `str` is a type internal to the compiler, like `usize`, and `String` is a heap-allocated container for a `str` that when borrowed produces an `&str`. These distinctions are a bit too fine-grained for what we're currently dealing with, but it's important to be aware that these distinctions exist.
+> **Aside:** this is further complicated by the fact that a borrowed string is actually an `&str`, not an `&String`. This is because `str` is a type internal to the compiler, like `usize`, and `String` is a heap-allocated container for a `str` that when borrowed produces an `&str`.
+>
+> These distinctions are a bit too fine-grained for what we're *currently* dealing with, but it's important to be aware that these distinctions exist.
 
 ## Subtyping
-As a matter of fact, `&'a String` and `&'b String` may actually different types, because they have different associated lifetimes!
+As a matter of fact, `&'a String` and `&'b String` may actually be different types entirely, because they have different associated lifetimes!
 
 I say 'may' here because it's possible that `'a` and `'b` overlap:
 
@@ -203,20 +222,28 @@ let x = "Hi".to_string();
 }
 ```
 
-As you can see, the lifetime `'a` completely envelops `'b`. In other words, `'a: 'b`, meaning `'a` outlives `'b`. For this reason, `'a` is a *subtype* of `'b`. The bigger region is a subtype of the smaller region. Take a second to internalize this:
+As you can see, the lifetime `'a` completely envelops `'b`. In other words, `'a: 'b`, meaning `'a` outlives `'b`. For this reason, `'a` is a *subtype* of `'b`.
+
+> The bigger region is a subtype of the smaller region.
+
+Take a second to internalize this.
 
 > This is a large source of confusion, because it seems backwards to many: the bigger region is a subtype of the smaller region.
 >
 > — [The 'Nomicon](https://doc.rust-lang.org/nomicon/subtyping.html)
 
-`'a` is a subtype of `'b` because `'a` is the same region of code, *and more*. No, seriously, take a second to internalize this. If you want to learn more, I recommend you read the [*Subtyping and Variance*](https://doc.rust-lang.org/nomicon/subtyping.html) section of the Rustonomicon.
+`'a` is a subtype of `'b` because `'a` is the same region of code, *and more*.
+
+> No, seriously, take a second to internalize this.
+
+If you want to learn more, I recommend you read the [*Subtyping and Variance*](https://doc.rust-lang.org/nomicon/subtyping.html) section of the Rustonomicon. If not, we'll revisit this topic [later](subtyping-and-variance).
 
 > An easy way to remember this relationship is that `'static`, as in `&'static str`, is the subtype of *all* lifetimes, because `'static` outlives all other lifetimes.
 
 ## An XOR Conflict!
-There's a lot to be said about subtyping and variance, and we'll discuss it in more depth later. Anyway, back to our previous example:
+There's a lot to be said about subtyping and variance, and we'll discuss it in more depth over the coming sections. Anyway, back to our previous example:
 
-```
+```rust
 let mut x = "Hi".to_string(); // x mutably owns "Hi"
 let w = &x;                   // w immutably borrows x
 let y = &mut x;               // y mutably borrows x
@@ -225,7 +252,7 @@ let y = &mut x;               // y mutably borrows x
 
 That compiles. This, however, does not:
 
-```
+```rust
 let mut x = "Hi".to_string(); // x mutably owns "Hi"
 let w = &x;                   // w immutably borrows x
 let y = &mut x;               // y mutably borrows x
@@ -245,7 +272,7 @@ let x = ...;
 }
 ```
 
-But with the addition of `println!("{}", w)`, the scope of `w` is 'pulled' to envelop `y`'s scope:
+But with the addition of `println!("{}", w)`, the scope of `w` is *stretched*, like a rubber tube, to envelop `y`'s scope:
 
 ```rust
 let x = ...;
@@ -262,7 +289,7 @@ let x = ...;
 This does not uphold Rust's *Aliasable XOR Mutable* requirement, because we're holding an immutable borrow (in `w`) and a mutable borrow (in `y`) at the same time!
 
 # Inductive Datatypes
-With the basics of borrow checking out of the way, let's talk data. Rust requires that all data has exactly one owner. When working with inductive datatypes (loosely anything tree-like; e.g. can easily serialize to JSON), this requirement is not much of an issue:
+With the basics of borrow checking out of the way, let's talk data. Rust requires that all data have exactly one owner. When working with inductive datatypes (loosely anything tree-like; e.g. can easily serialize to JSON), this requirement is not much of an issue:
 
 ```rust
 struct User {
@@ -347,12 +374,14 @@ When writing datatypes with circular references, we generally have three choices
 3. Use interior mutability (`Rc`, `Weak`, `RefCell`).
 4. ???
 
-> Aside: The fourth item is a mystery box whose contents you can probably guess from the title of this post.
+> **Aside:** The fourth item is a mystery box whose contents you can probably guess from the title of this post.
 
 Each of these above methods has its pros and cons; let's go through each one.
 
 # Usafe
-While fast, `unsafe` is, well, unsafe. It's easy to mess up the implementation of cyclic data structures, and if you rely on `unsafe`, there's nothing that will stop you  If you want a guide to writing linked lists and other similar datastructures using unsafe Rust, check out [*Too Many Lists*](https://rust-unofficial.github.io/too-many-lists/).
+While fast, `unsafe` is, well, unsafe. It's easy to mess up the implementation of cyclic data structures. Using     `unsafe`, there's nothing to ensure that your implementation is correct.
+
+I won't go into `unsafe` now, as there will be plenty of `unsafe` later, but if you want a guide to writing safe linked lists and other similar datastructures in unsafe Rust, check out [*Too Many Lists*](https://rust-unofficial.github.io/too-many-lists/).
 
 # Another level of indirection
 Using another level of indirection, like a typed arena, is probably the most common battle-tested technique nowadays. The traditional method of a `Vec<T>` with a typed index handle is pretty self-explanatory:
@@ -378,6 +407,8 @@ struct Link<T> {
 // use a link handle instead of a `Box<LinkRef<T>>`
 type LinkRef<T> = LinkHandle;
 ```  
+
+The `LinkArena` maintains single-ownership over all data in the arena. To mutate some data in the arena, you need both a `LinkHandle` (which is an index into the arena), and a mutable reference to the arena itself. Because `LinkHandle`s are just indices, we can easily include them in our `Link`.
 
 Although simple, with this technique we loose a number of guarantees:
 
