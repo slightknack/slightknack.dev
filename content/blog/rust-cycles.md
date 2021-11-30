@@ -364,7 +364,7 @@ Needless to say, when you get to lists with at least three items, the middle lin
 
 Perhaps there's some way we could change the definition of `Link`/`LinkRef` to appease the borrow checker?
 
-### Workarounds
+## Workarounds
 Cycles are important components for a large number of datastructures, so it's no surprise that many techniques for creating cycles in Rust have been developed over the years.
 
 When writing datatypes with circular references, we generally have three choices to appease the borrow checker:
@@ -372,18 +372,16 @@ When writing datatypes with circular references, we generally have three choices
 1. Use `unsafe` and verify correctness ourselves.
 2. Use another level of indirection (e.g. arena, `Vec` & handle).
 3. Use interior mutability (`Rc`, `Weak`, `RefCell`).
-4. ???
-
-> **Aside:** The fourth item is a mystery box whose contents you can probably guess from the title of this post.
+4. GhostCell!
 
 Each of these above methods has its pros and cons; let's go through each one.
 
-# Usafe
+### Usafe
 While fast, `unsafe` is, well, unsafe. It's easy to mess up the implementation of cyclic data structures. Using     `unsafe`, there's nothing to ensure that your implementation is correct.
 
 I won't go into `unsafe` now, as there will be plenty of `unsafe` later, but if you want a guide to writing safe linked lists and other similar datastructures in unsafe Rust, check out [*Too Many Lists*](https://rust-unofficial.github.io/too-many-lists/).
 
-# Another level of indirection
+### Another level of indirection
 Using another level of indirection, like a typed arena, is probably the most common battle-tested technique nowadays. The traditional method of a `Vec<T>` with a typed index handle is pretty self-explanatory:
 
 ```rust
@@ -412,13 +410,11 @@ The `LinkArena` maintains single-ownership over all data in the arena. To mutate
 
 Although simple, with this technique we loose a number of guarantees:
 
-1. **We have to pass the arena around whenever we want to follow a handle.** This could be fixed through the use of reference-counting the arena in the handle, or the use of an `'arena` lifetime. We'll build things on top of these ideas later.
+1. **We have to pass the arena around whenever we want to follow a handle.** In addition, the `prev`ious and `next` items are no longer just convenient fields on the struct. This could be fixed through the use of reference-counting the arena in the handle, or an `'arena` lifetime. We'll build things on top of these ideas later.
 
 2. **The arena holds items for longer than they may need to be held.** If we remove an item, it won't be dropped until the arena is dropped. We either have to live with this or implement garbage collection ourselves, which kinda defeats the point of a language whose whole deal is that it doesn't need to be garbage collected.
 
 3. **The amortized cost is higher, because we're using a `Vec` as a backing store.** This requires reallocation as it grows in size, whereas just using the native heap will probably be faster. Better arenas use better backing stores (`typed-arena`, for instance, essentially uses a `(Vec<T>, Vec<Vec<T>>)` which it carefully manages).
-
-4. The `prev`ious and `next` items are no longer just convenient fields on the struct.
 
 All of these issues can be used by using better arenas than the above implementation. A number of crates, like [`bumpalo`](https://docs.rs/bumpalo/3.8.0/bumpalo/), [`petgraph`](https://docs.rs/petgraph/0.6.0/petgraph/), [`slotmap`](https://docs.rs/slotmap/1.0.6/slotmap/), [`typed-arena`](https://docs.rs/typed-arena/2.0.1/typed_arena/),
 
@@ -430,10 +426,23 @@ The most glaring issue is probably summed up by the following quote:
 
 Adding an arena is another level of indirection for memory management. Think about it this way: If we allocated *everything* in an untyped arena, our program would `unsafe` by any other name.
 
+### Shared References and Interior Mutability
+In the previous two examples, we've been struggling with the constraint of single ownership enforced by the Rust compiler at compile time. If data could just have multiple mutable owners, wouldn't the whole shebang of constructing cyclical datastructures be a non-issue?
+
+Well yes, but actually no. I'll explain:
+
+You see, in a single-threaded context, multiple mutable owners are perfectly acceptable, as only one write to the shared data can occur at a time. In contexts with *multiple* writers, however, this is no longer the case. In multithreaded contexts we run into the issue of [race conditions](https://en.wikipedia.org/wiki/Race_condition#See_also) and [TOC/TOU](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use): both arise when different threads try write/read data in an uncoordinated manner. This leads to corrupted application state (at best) and segmentation faults (at worst). These types of unpredictable blow-ups are *exactly* the class of bugs Safe Rust is trying to prevent!
+
+Luckily for us, Rust provides a built-in escape hatch for multiple *ownership* of shared data: the reference counter pointer `Rc`, and its multithreaded brother, the atomic reference counter `Arc`. In short, `Rc` and `Arc` keep track of the number of owners some data has. When the reference count reaches zero and there are no owners left, the data is dropped. Because of this, both of these reference types incur a small runtime cost in comparison to raw references.
+
+> **Aside:** Reference counting usually incurs **less** of a cost in Rust than in other languages. Why? Because Rust's borrow checker is so darn smart, in many situations one can usually get away with passing around a *reference* to a `Rc`'d pointer—i.e. `&Rc<T>`—rather than increasing the reference count with each call.
+
+`Arc` and `Rc` are only half of the story: these two managed pointers are *immutable*. When data types are immutable, it's impossible to build anything that isn't [inductive](#inductive-datatypes): no cyclical references allowed. We need some way to inject mutability into our multiple-owner shared immutable references.
+
 ## Subtyping and Variance
 > **Note 1:** This section is quite involved, and only tangentially relates to `GhostCell`. The key takeaway is that an **invariant lifetime can not change to another lifetime** through subtyping.
 
-> **Note 2:** This section borrows liberally from the [Rustonomicon](https://doc.rust-lang.org/nomicon/intro.html). I won't pretend that I do a better job at explaining this that I do, so check it out!
+> **Note 2:** This section is based on the similarly-titled section of the [Rustonomicon](https://doc.rust-lang.org/nomicon/intro.html). Check it out!
 
 Something important to think about is the relationship between type constructors (e.g. `Vec`) and the lifetimes of the type arguments passed to them (e.g. the `T` in `Vec<T>`).
 
@@ -589,3 +598,11 @@ Any type that exhibits a pattern of this sort of *interior mutability* must be i
 | `*mut T`         | Mutable pointers are invariant over `T`. |
 
 Invariant types essentially ensure that a given lifetime can not be changed into other lifetimes. This is really important when mutating data, because we want the mutated data to live exactly as long as the data it is replacing.
+
+# Fin
+
+<div class="boxed">
+This was a longer post than usual, thanks for sticking it out to the end!
+
+Huge thanks to my two incredible [Patreons](https://www.patreon.com/slightknack)—[Keith](https://github.com/Kethku) and [Feifan](https://twitter.com/FeifanZ)—for sponsoring the work that I do. I'm also deeply grateful to [Mikail](https://github.com/mkhan45) and [Yasser](https://github.com/realnegate) for reviewing (and correcting!) earlier versions of this post.
+</div>
