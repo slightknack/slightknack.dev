@@ -610,7 +610,7 @@ Holy moly, how's that for an exposition? I think it's about time we finally begi
 
 At its core, GhostCell introduces two types: `GhostCell<'id>`, which is an owned pointer to some data, and `GhostToken<'id>`, a linearly unique *token* that allows one writer to modify a `GhostCell` at a time.
 
-Unlike `Rc`/`RefCell`, GhostCell imposes no runtime overhead. It does this by leveraging Rust's rich type system to erase all types at compile time.
+Unlike `Rc`/`RefCell`, GhostCell imposes no runtime overhead. It does this by leveraging Rust's rich type system to erase all types at compile time. In this sense, GhostCell is a safe zero-cost cell that allows for shared mutable aliasing through compile time borrow checking.
 
 ## A Quick Usage Example
 Before we dig into the dirty details of how `GhostCell` works, I think we should
@@ -634,6 +634,15 @@ Invariant Lifetime
 pattern as we already saw with branded vectors. That is, new requires a client closure f that must
 be able to work with a GhostToken with an arbitrary brand 'new_id. Thus new picks a fresh brand
 'new_id, creates the GhostToken<'new_id>, and then passes it on to f.
+
+Paper
+
+> The closure must be variant over the lifetimes, this does not always play well with closures already containing references.
+> None of the branded items can be returned by the closure.
+
+Github
+
+> TODO: consistent styling of GhostCell and Token
 
 ## Implementing a Doubly-Linked List
 
