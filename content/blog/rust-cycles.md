@@ -18,6 +18,8 @@ Memory safety boils down to two things:
 
 Garbage Collected languages ensure this property is met by scanning large portions of the heap (at runtime!) to figure out which allocations are no longer alive. Traditional systems programming languages (think C, C++, asm) offload this work to the programmer, and thus do not *ensure* memory safety. Breaching the contract of memory safety can lead to hard-to-track-down bugs and severe security issues.
 
+Rust's ownership model essentially determines the *liveness* of data at compile time, built on the concept of *owned* and *borrowed* data. This model ensures memory safety with little to no runtime cost—so before we get started with GhostCell, I think we should start by addressing *ownership*.
+
 # Ownership
 > **Note:** This is a deep dive, so we do start with the basics. If you'd like, you can [skip to the next section](#subtyping).
 
