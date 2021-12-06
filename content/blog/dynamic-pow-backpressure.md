@@ -26,7 +26,7 @@ When managing backpressure, there are essentially two things that can be going w
 It's important to remember that not all messages sent in a distributed system are necessary for the healthy operation of the system. When a service gets too stressed, services calling that service can reduce the number of messages they're sending to improve the latency of the system (while maintaining consistent throughput).
 
 # PoW and Backpressure
-The PoW Backpressure scheme I propose is pretty simple. Whenever a node—let's call it the *client*—establishes a connection with a serviceit relies on—the *server*—the server returns a nonce and a work level for use in the next request. We'll call this the *challenge*:
+The PoW Backpressure scheme I propose is pretty simple. Whenever a node—let's call it the *client*—establishes a connection with a service it relies on—the *server*—the server returns a nonce and a work level for use in the next request. We'll call this the *challenge*:
 
 ```json
 {
@@ -91,7 +91,7 @@ work_factor = 2.32
 work_factor = 2 // rounded
 ```
 
-This work factor is quick to calculate and will adjust to automatically. For *servers* that can scale horizontally, it can also be a good metric as to when to spin up more instances (if you want to maintain throughput without rate limiting your users).
+This work factor is quick to calculate and will adjust to automatically. For *servers* that can scale horizontally, it can also be a good metric as to when to spin up more instances (if you want to maintain low latency without rate limiting your users).
 
 # Dynamic Rate Limiting
 There is nothing that requires that PoW be universal across all clients. Servers can be selective and choose to increase work for IPs exhibiting DoS-like behaviour, clients sending too many messages, or untrusted clients in a distributed network.
