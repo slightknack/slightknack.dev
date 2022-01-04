@@ -3,7 +3,7 @@ title = "Who am I?"
 weight = 1
 +++
 
-I currently live in Rome, Italy. Before that I lived in Jakarta, Virginia, Madrid, Buenos Aires, Brasilia, and Utah (where I was born). I've yet to have seen my 6575th sunrise, so go easy on me.
+I currently live in Rome, Italy.
 
 Professionally, I've been a [Software Engineer Intern](https://tonari.no) and an [Apprentice Cheesemaker](https://hebervalleyartisancheese.com). I discovered the joy of programming when I was 8; this little hobby quickly grew to underpin the way I think about hard problems. I'm best known for my work on the [Passerine](https://passerine.io) programming language, but this is really just one facet of the type of work I find interesting.
 
