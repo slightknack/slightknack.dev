@@ -1,0 +1,39 @@
++++
+title = "Predicting the technology of 2027"
+date = 2022-01-04
++++
+
+The other day, I was thinking about this question:
+
+> What's something specific that is not common today that you think will be really common 5 years from now?
+
+As I do a lot of programming language design, I can't help but think about what our tooling will be like in 5 years. I'm writing this in 2022, so here are some of my predictions for 2027, in no particular order:
+
+# Copilot & co.
+First things first, although I strongly dislike (and don't use) copilot, I think that AI-based code completion tools will become more and more common to the point of being indispensable. Recent advances in large language models reduce the attention complexity from n^2 to n, which means we'll be seeing larger attention windows, and hence more concise code generation. 
+
+Additionally, work from Google on querying-based models (models that have an external database) will be put to use, allowing for correct attribution as to where the model is generating its completion from, more up-to-date completions (model doesn't have to be retrained, only database updated), and more specific completions (using current codebase as database).
+
+# Structured Tooling
+With the rise of JetBrains, Tree-Titter, and langs like Unison, I believe we'll see more structured tooling; instead of modifying text, we'll be working on entire ASTs. editors already to this to some degree, with completion, automatic bracket insertion, and indentation preservation, but I think tools for automatic semantic refactoring will become more prevalent. For this to happen I estimate that either a new plugin, editor, or LSP will be developed with support for all major languages.
+
+# Effects
+Language-wise, there are some exciting features I see coming soon to a Language Near You™. The first one being a move towards algebraic effects for effect modeling. It turns out that a lot of language features—like control flow, concurrency, async/await, yielding, exceptions, etc.—can be modeled in terms of effects. There's a lot of potential here, and I think that either through libraries or (hopefully) language-level support, they'll become more prevalent.
+
+# Gradual Typing
+Noting the rise of TypeScript, I think we'll also see the move towards languages that allow people to specify correctness in their programs over time. Functions can be written purely dynamically, like python, but over time type annotations can be added until you end up with strongly-typed programs a la haskell. 
+
+Once a program is fully typed, there may be additional tools to prove the correctness of parts of a program. I don't think this will be mainstream, but I think within 5 years tools like this will become more common and more ergonomic than they are today.
+
+# Machine/Reinforcement Learning
+Aside from languages and tooling, I'd like to make some predictions within the field of ML. I predict we'll see the creation of a language model that achieves above-human-expert performance on a number of text-based tasks. Some will say AI has passed human intelligence, others will say it's only expert in a narrow context, but they're both forgetting that 'true AI' is whatever humans can do that machines can't. 
+
+I also think we'll see the rise of more accurate and less data-intensive RL techniques that rely on attention-based trajectory prediction rather than PPO-like policy optimization. TL;DR is that we'll become better at training models on tasks with low data availability for general optimization. Sadly, I think ML is moving away from open-source, and I think that most production models will be released as a blogpost + API instead of paper + code.
+
+# Games, Raytracing, VR
+With respect to games and graphics, real-time raytracing will become the norm. Aside from the increase in realism in games, as photorealism becomes more realistic, we'll also see the move towards selective and stylistic games that use raytracing and PBR techniques to strongly enforce a non-pbr-like style. Real-time style transfer at high-resolutions may play an importand role in this. 
+
+Oculus outsold XBox this year, which means that VR will become a lot bigger; your favorite VR game probably hasn't been created yet. I generally dislike VR, but the technology is becoming a lot better. I just pray that the zuckerbergian dystopian metaverse doesn't come to fruition and is usurped by a wider open-source protocol.
+
+# Final Thoughts
+I tried to be both optimistic yet honest in my above predictions. I don't think there's anything too suprising there for anyone entrenched in the field, but I'd really like to see how spot-on I was 5 years from now. Hey, maybe this'll be a self-fulfilling prophecy.
