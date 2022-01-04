@@ -7,6 +7,8 @@ page_template = "page.html"
 draft = true
 +++
 
+![A trail weaving through the mountains on a cold spring day](/content/path.jpg)
+
 # Who am I?
 
 My name's Isaac, nice to meet you!
