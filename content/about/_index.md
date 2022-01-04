@@ -4,7 +4,6 @@ weight = 1
 sort_by = "weight"
 template = "section-about.html"
 page_template = "page.html"
-draft = true
 +++
 
 ![A trail weaving through the mountains on a cold spring day](/content/path.jpg)
