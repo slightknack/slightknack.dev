@@ -1,5 +1,5 @@
 +++
-title = "Sketchnoting: 4 years, 400 pages of illustrated notes"
+title = "Sketchnoting: 4 years, 800 pages of illustrated notes"
 date = 2021-09-15
 draft = true
 +++
