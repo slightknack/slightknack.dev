@@ -1,5 +1,5 @@
 +++
-title = "The essays that got me into MIT"
+title = "MIT Essays"
 date = 2022-01-03
 +++
 
