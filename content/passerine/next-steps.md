@@ -1,5 +1,5 @@
 +++
-title = "Types, Algebraic Effects, and Next Steps"
+title = "Macros, Types, and Next Steps"
 date = 2021-06-01
 +++
 
