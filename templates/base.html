@@ -5,7 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
         <meta name="theme-color" content="#4d3ee6">
         <meta name="description" content="Isaac Clayton's personal website.">
-        <title>Isaac Clayton</title>
+        <title>
+            {% if page.title %} 
+                {{ page.title }} —
+            {% endif %}
+            {% if section.title %}
+                {{ section.title }} —
+            {% endif %}
+            Isaac Clayton
+        </title>
         <link rel="stylesheet" href="/reset.css"></link>
         <link rel="stylesheet" href="/base.css"></link>
         <link rel="stylesheet" href="/layout.css"></link>
@@ -21,6 +29,7 @@
         {% block extra_head %} {% endblock extra_head %}
     </head>
     <body style="overflow-x: hidden">
+        <!-- <pre>{{ __tera_context }}</pre> -->
         <div class="container">
             <div class="sidebar">
                 <div class="sidebar-inner">
