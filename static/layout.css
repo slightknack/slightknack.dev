@@ -7,14 +7,42 @@
     height: 100%;
     color: #fff;
 
-    --half-fill: #ffffffaa;
+    --half-fill: #ffffffbb;
     --bg-fill:   #111;
     --text-fill: #fff;
-    --soft-fill: #ffffff11;
+    --soft-fill: #ffffff22;
 
-    background-color: #4d3ee6;
+    background-color: var(--key-fill);
     grid-column-start: 1;
     grid-column-end: 2;
+}
+
+#hide-sidebar {
+    opacity: 0.00001;
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    z-index: 3;
+}
+
+#hide-sidebar:checked ~ * .sidebar-inner {
+    display: none;
+}
+
+#hide-sidebar:checked ~ * .content {
+    grid-column-start: 1;
+}
+
+.sidebar-toggle {
+    position: fixed;
+    bottom: 0vh;
+    right: 0vh;
+    margin: 0vh;
+    padding: 1vh;
+    padding-right: 2vh;
+    z-index: 3;
+    background-color: var(--bg-fill);
+    border-radius: 3px 0 0 0;
 }
 
 .sidebar-inner {
@@ -50,10 +78,6 @@
     border-radius: 3px;
 }
 
-#search {
-    width: 100%;
-}
-
 .narrow {
     min-width: 0;
     max-width: 700px;
@@ -68,14 +92,34 @@
     font-family: var(--font-title);
 }
 
-.search-container input {
+/* .text-input-container {
+    width: 100%;
+} */
+
+.text-input-container input {
     color: var(--bg-fill);
     background-color: var(--half-fill);
     font-family: var(--font-title);
     font-size: var(--font-base);
     padding: 1vh;
+    box-sizing: border-box;
+    width: 100%;
     border: none;
     border-radius: 3px;
+}
+
+.submit-input-container input {
+    color: #ffffffbb;
+    background-color: var(--key-fill);
+    font-family: var(--font-title);
+    font-size: var(--font-base);
+    padding: 1vh;
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    margin-top: 2vh;
+    border-radius: 3px;
+    text-align: center;
 }
 
 .search-results__items li {
@@ -129,6 +173,18 @@
         display: initial;
     }
 
+    #hide-sidebar:checked ~ * .sidebar-inner {
+        display: block
+    }
+
+    #hide-sidebar:checked ~ * .content {
+        grid-column-start: 2;
+    }
+
+    .sidebar-toggle {
+        display: none;
+    }
+
     .sidebar, .content {
         height: auto;
         overflow: initial;
@@ -137,7 +193,7 @@
     .sidebar-inner {
         height: auto;
         position: initial;
-        top: none;
+        top: 0;
         overflow: initial;
         padding-bottom: 0vh;
     }

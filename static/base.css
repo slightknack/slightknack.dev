@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Rubik:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
-    --half-fill: #000000aa;
+    --half-fill: #000000bb;
     --bg-fill:   #eee;
     --text-fill: #000;
     --soft-fill: #00000022;
+    --key-fill: #4d3ee6;
 
     --font-base: 15pt;
     --font-heading: 10pt;
@@ -15,10 +16,10 @@
 
 @media (prefers-color-scheme:dark) {
     :root {
-        --half-fill: #ffffffaa;
+        --half-fill: #ffffffbb;
         --bg-fill:   #111;
         --text-fill: #fff;
-        --soft-fill: #ffffff11;
+        --soft-fill: #ffffff22;
     }
 }
 
