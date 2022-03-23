@@ -1,6 +1,7 @@
 +++
 title = "MIT Essays"
 date = 2022-01-03
+draft = true
 +++
 
 I got into MIT c/o '26, and I thought I'd share some of the essays I wrote.
