@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="/layout.css">
     </link>
     <link rel="icon" type="image/png" href="/icon.png">
-    <script async defer type="text/javascript"
+    <!-- <script async defer type="text/javascript"
         src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
-        </script>
+        </script> -->
     <script type="text/javascript" src="/elasticlunr.min.js" defer></script>
     <script type="text/javascript" src="/search_index.en.js" defer></script>
     <script type="text/javascript" src="/search.js" defer></script>
@@ -39,77 +39,20 @@
 </head>
 
 <body style="overflow-x: hidden">
-    <input id="hide-sidebar" type="checkbox" name="hide-sidebar">
-    <label for="hide-sidebar" class="sidebar-toggle tag">
-        Toggle Reader Mode
-    </label>
-
     <div class="container">
         <div class="sidebar">
             <div class="sidebar-inner">
-                <a href="/">
-                    <div class="title-container">
-                        <canvas class="glslCanvas profile" data-fragment-url="/profile.frag" width="100px"
-                            height="100px" style="background-color: #000000ff">
-                        </canvas>
-                        <div class="title-text" href="/">
-                            <h1 class="title" style="margin-bottom: 0">
-                                Isaac Clayton
-                            </h1>
-                            <p class="tag" style="margin-top: 0">(@slightknack)</p>
-                        </div>
-                    </div>
-                </a>
-                <div class="text-input-container">
-                    <input id="search" type="search" placeholder="Magical Box of Finding" autocomplete="off">
-                    <div class="search-results" style="display: none;">
-                        <div class="search-results__items"></div>
-                    </div>
+                <div style="width: 100%; max-height: 30vh;">
+                    <img class="pixel-sidebar" src="/artbits/src/4_clockman.png" alt="Clockman!">
                 </div>
-                <div class="navigation">
-                    <div class="lateral">
-                        {% block prev_link %} {% endblock %}
-                        {% block next_link %} {% endblock %}
-                    </div>
-                    {% block menu %}
-                    <div class="menu">
-                        {% set index = get_section(path="_index.md") %}
-                        {% for s in index.subsections %}
-                        {% set subsection = get_section(path=s) %}
-                        <details open>
-                            <summary>
-                                <div>
-                                    <a class="tag" href="{{ subsection.permalink }}">
-                                        {% if current_path == subsection.path %}<strong>{% endif %}
-                                            {{ subsection.title }}
-                                            {% if current_path == subsection.path %}</strong>{% endif %}
-                                    </a>
-                                </div>
-                            </summary>
-                            {% if subsection.pages %}
-                            <ul class="menu-children">
-                                {% for page in subsection.pages %}
-                                <li class="tag">
-                                    <a href="{{ page.permalink }}">
-                                        {% if current_path == page.path %}<strong>{% endif %}
-                                            {{ page.title }}
-                                            {% if current_path == page.path %}</strong>{% endif %}
-                                    </a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </details>
-                        {% endfor %}
-                    </div>
-                    {% endblock menu %}
-                </div>
+                <!-- <p>Isaac Clayton</p> -->
             </div>
         </div>
         <div class="content">
             {% block content %} {% endblock %}
         </div>
     </div>
+
 </body>
 
 </html>

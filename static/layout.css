@@ -5,53 +5,40 @@
 
 .sidebar {
     height: 100%;
-    color: #fff;
-
-    --half-fill: #ffffffbb;
-    --bg-fill:   #111;
-    --text-fill: #fff;
-    --soft-fill: #ffffff22;
-
-    background-color: var(--key-fill);
+    /* background-color: var(--fill-accent); */
     grid-column-start: 1;
     grid-column-end: 2;
 }
 
-#hide-sidebar {
-    opacity: 0.00001;
-    position: absolute;
-    top: 2vh;
-    right: 2vh;
-    z-index: 3;
-}
-
-#hide-sidebar:checked ~ * .sidebar-inner {
-    display: none;
-}
-
-#hide-sidebar:checked ~ * .content {
-    grid-column-start: 1;
-}
-
-.sidebar-toggle {
-    position: fixed;
-    bottom: 0vh;
-    right: 0vh;
-    margin: 0vh;
-    padding: 1vh;
-    padding-right: 2vh;
-    z-index: 3;
-    background-color: var(--bg-fill);
-    border-radius: 3px 0 0 0;
-}
-
 .sidebar-inner {
-    padding: 2vh;
-    height: 96vh;
+    text-align: right;
+    padding: 20pt;
+    height: calc(100vh - 40pt);
     position: sticky;
     top: 0;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.sidebar-inner * {
+    margin-left: auto;
+}
+
+.pixel-sidebar {
+    object-fit: cover;
+    image-rendering: pixelated;
+    max-height: 30vh;
+    max-width: 100%;
+    margin: 0;
+    margin-top: 40pt;
+    margin-left: auto;
+    margin-right: 0;
+    padding: 0;
+    filter:
+        drop-shadow( 2px  0px 0 var(--fill-text)) 
+        drop-shadow(-2px  0px 0 var(--fill-text))
+        drop-shadow( 0px  2px 0 var(--fill-text))
+        drop-shadow( 0px -2px 0 var(--fill-text));
 }
 
 .content {
@@ -61,14 +48,8 @@
 }
 
 .navigation {
-    margin-top: 0vh;
-    margin-bottom: 20vh;
-}
-
-@media only screen and (max-width: 1100px) {
-    .container {
-        grid-template-columns: 300px minmax(0, 1fr);
-    }
+    margin-top: 00pt;
+    margin-bottom: 200pt;
 }
 
 .profile {
@@ -81,15 +62,15 @@
 .narrow {
     min-width: 0;
     max-width: 700px;
-    padding: 2vh;
-    margin-left: auto;
+    padding: 20pt;
+    /* margin-left: auto; */
     margin-right: auto;
-    margin-bottom: 20vh;
+    margin-bottom: 200pt;
 }
 
 .tag, blockquote {
     color: var(--half-fill);
-    font-family: var(--font-title);
+    /* font-family: var(--font-title); */
 }
 
 /* .text-input-container {
@@ -101,7 +82,7 @@
     background-color: var(--half-fill);
     font-family: var(--font-title);
     font-size: var(--font-base);
-    padding: 1vh;
+    padding: 10pt;
     box-sizing: border-box;
     width: 100%;
     border: none;
@@ -113,11 +94,11 @@
     background-color: var(--key-fill);
     font-family: var(--font-title);
     font-size: var(--font-base);
-    padding: 1vh;
+    padding: 10pt;
     box-sizing: border-box;
     width: 100%;
     border: none;
-    margin-top: 2vh;
+    margin-top: 20pt;
     border-radius: 3px;
     text-align: center;
 }
@@ -129,16 +110,16 @@
 }
 
 .search-results__item, .boxed {
-    padding: 2vh;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+    padding: 20pt;
+    margin-top: 20pt;
+    margin-bottom: 20pt;
     background-color: var(--soft-fill);
     border-radius: 3px;
 }
 
 .title-container {
-    margin-top: 4vh;
-    margin-bottom: 2vh;
+    margin-top: 40pt;
+    margin-bottom: 20pt;
     display: flex;
     grid-template-columns: auto auto;
     align-items: center;
@@ -150,15 +131,15 @@
 }
 
 .title-text {
-    margin-left: 2vh;
+    margin-left: 20pt;
 }
 
 .lateral {
     display: grid;
-    column-gap: 2vh;
+    column-gap: 20pt;
     align-items: stretch;
     justify-items: stretch;
-    min-height: 1vh;
+    min-height: 10pt;
 }
 
 .prev, .next {
@@ -166,6 +147,12 @@
     grid-row-start: 1;
     align-self: stretch;
     justify-self: stretch;
+}
+
+@media only screen and (max-width: 1100px) {
+    .container {
+        grid-template-columns: 300px minmax(0, 1fr);
+    }
 }
 
 @media only screen and (max-width: 700px) {
@@ -195,11 +182,16 @@
         position: initial;
         top: 0;
         overflow: initial;
-        padding-bottom: 0vh;
+        padding-bottom: 00pt;
+    }
+
+    .pixel-sidebar {
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .navigation {
-        margin-bottom: 0vh;
+        margin-bottom: 00pt;
     }
 
     .menu-children {
@@ -223,8 +215,8 @@
 
     .menu details {
       display: inline-block;
-      padding-left: 1vh;
-      padding-right: 1vh;
-      margin-bottom: 2vh;
+      padding-left: 10pt;
+      padding-right: 10pt;
+      margin-bottom: 20pt;
     }
 }
