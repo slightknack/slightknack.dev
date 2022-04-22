@@ -1,6 +1,6 @@
 +++
 title = "About"
-weight = 1
+weight = 0
 sort_by = "weight"
 template = "section-about.html"
 page_template = "page.html"

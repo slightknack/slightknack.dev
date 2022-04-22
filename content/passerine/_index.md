@@ -1,6 +1,6 @@
 +++
-title = "On Passerine"
-weight = 2
+title = "Passerine"
+weight = 1
 sort_by = "date"
 template = "section.html"
 page_template = "page.html"

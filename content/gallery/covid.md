@@ -19,5 +19,3 @@ Rome, Italy
 </div>
 
 Towards the middle of the COVID pandemic, I was doing hybrid learning. We had a skeleton wearing a mask in the art room for whatever reason: an interesting subject for a sketch, so I sketched it.
-
-In retrospect, I was fairly frusturated about going to school one week, and being online the next. The cases were still climbing at an increasing rate, and mortality wasn't getting any better (this was still before the vaccine). It felt like the pandemic would never end. (As I'm writing this one-and-a-half years later, the COVID-19 pandemic still hasn't ended, but we've got other things on our plate now).
