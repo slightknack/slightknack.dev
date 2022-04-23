@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+<!-- content block -->
+{% block layout %}
+<div class="container">
+    <div class="sidebar">
+        <div class="sidebar-inner">{% block sidebar %} {% endblock %}</div>
+    </div>
+    <div class="content">
+        <div class="narrow">
+            <ul class="menu">
+                <li><a>About</a></li>
+                <li><a>Blog</a></li>
+                <li><a>Passerine</a></li>
+                <li><a>Work</a></li>
+                <li><a>Gallery</a></li>
+            </ul>
+            <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div>
+
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock layout %}

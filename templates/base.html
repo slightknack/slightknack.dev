@@ -1,3 +1,5 @@
+{% import "macros.html" as macros %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,33 +41,7 @@
 </head>
 
 <body style="overflow-x: hidden">
-    {% block content %} {% endblock %}
-<!--     
-    <h1>
-
-    </h1>
-    {\% sidebar() %}
-        {\{ artbit(image="4_sunglasses.png") }}
-    {\% end %}
-
-    <div class="container">
-        <div class="sidebar">
-            <div class="sidebar-inner">
-                <div style="width: 100%">
-                    {\% if page.extra.artbit %}
-                    <img class="pixel-sidebar" src="/artbits/src/{\{ page.extra.artbit }}">
-                    {\% endif %}
-                    {\% if section.extra.artbit %}
-                    <img class="pixel-sidebar" src="/artbits/src/{\{ section.extra.artbit }}">
-                    {\% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            
-        </div>
-        
-    </div> -->
+    {% block layout %} {% endblock %}
 </body>
 
 </html>

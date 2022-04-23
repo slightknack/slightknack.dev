@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,700;1,700&family=Fira+Mono&family=Inter:wght@400;700&display=swap');
 
 :root {
-    --fill-bg: #E6DCD2;
+    --fill-bg: #f7f2ed;
     --fill-text: #0F0E0B;
     /* should both be close to bg color */
     --fill-accent: #15aacc;
-    --fill-soft: #f7f2ed;
+    --fill-soft: #E6DCD2;
 
     --font-base: 15pt;
     --font-heading: 20pt;
@@ -18,14 +18,14 @@
     background: var(--fill-accent);
 }
 
-/* @media (prefers-color-scheme:dark) {
+@media (prefers-color-scheme:dark) {
     :root {
         --fill-bg: #0F0E0B;
         --fill-text: #E6DCD2;
         --fill-accent: #1544cc;
         --fill-soft: #2b281f;
     }
-} */
+}
 
 body {
     width: 100vw;

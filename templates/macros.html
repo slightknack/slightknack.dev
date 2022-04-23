@@ -1,6 +1,6 @@
-{% macro input(label, type="text") %}
-<label>
-    {{ label }}
-    <input type="{{type}}" />
-</label>
-{% endmacro input %}
+<!-- artbit sidebar -->
+{% macro artbit(image) %}
+<div style="width: 100%">
+    <img class="pixel-sidebar" src="/artbits/src/{{ image }}" />
+</div>
+{% endmacro artbit %}
