@@ -4,19 +4,19 @@ date = 2020-10-15
 description = "A watercolor blending images taken at two different powers of 10 into a single scene."
 +++
 
-<div style="width: 100%; display: flex; align-items: center">
-<img style="max-height: 100vh; max-width: 100%; margin: 0; margin-left: auto; margin-right: auto; padding: 0;" src="/content/ten.jpg">
-</div>
+{{ gallery(image="/content/ten.jpg") }}
 
 <div class="narrow">
-<div class="boxed">
-<h1 class="title" style="margin-top: 2vh;">From 10° to 10⁻³</h1>
 
-Isaac Clayton (2020)  
-Watercolor on hot-pressed paper, non-standard size  
-Rome, Italy
-
-</div>
+{{ 
+    gallery_card(
+        title="From 10⁰ to 10⁻³", 
+        year="2020", 
+        medium="Watercolor on hot-pressed paper", 
+        size="approx. A3", 
+        location="Rome, Italy"
+    ) 
+}}
 
 Inspired by the classic short film *Powers of Ten* from 1977, and the [*Nikon Small World Photomicrography Competition*](https://www.nikonsmallworld.com/), this piece combines two imagines of vastly different scales.
 

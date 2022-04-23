@@ -14,7 +14,7 @@
     text-align: right;
     padding: 20pt;
     padding-top: 40pt;
-    height: calc(100vh - 40pt);
+    height: calc(100vh - 60pt);
     position: sticky;
     top: 0;
     overflow-x: hidden;
@@ -70,14 +70,18 @@
     border-radius: 3px;
 }
 
-.narrow {
+.narrow, .narrow-left {
     min-width: 0;
     max-width: 700px;
     padding: 20pt;
     padding-top: 40pt;
-    /* margin-left: auto; */
+    margin-left: auto;
     margin-right: auto;
     margin-bottom: 200pt;
+}
+
+.narrow-left {
+    margin-left: 0;
 }
 
 /* .tag, blockquote { */
@@ -140,14 +144,14 @@
 .menu {
     padding: 0;
     list-style: none;
-    white-space: nowrap;
+    margin-bottom: 20pt;
 }
 
 .menu li {
     margin: 0;
     display: inline-block;
+    white-space: nowrap;
     padding-right: 20pt;
-    margin-bottom: 20pt;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -184,8 +188,12 @@
         margin-bottom: 0pt;
     }
 
-    .narrow {
+    .narrow-left {
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .menu {
+        text-align: center;
     }
 }

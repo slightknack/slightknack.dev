@@ -1,72 +1,14 @@
-{% extends "base.html" %}
+{% extends "sidebar.html" %}
 
+<!-- content block -->
 {% block content %}
-<div class="narrow">
-    <h1 class="title">
-        {{ section.title }}
-    </h1>
-    {{ section.content | safe }}
-</div>
-{% endblock content %}
+<!-- <div> -->
+<h1 class="title">{{ section.title }}</h1>
+{{ section.content | safe }}
+<!-- </div> -->
+{% endblock %}
 
-{% block prev_link %}
-    {# need to find the last page of the previous section or the previous section directly
-     if there isn't any pages in it #}
-    {% set index = get_section(path="_index.md") %}
-    {% set found_current = false %}
-    {% for s in index.subsections | reverse %}
-        {% set subsection = get_section(path=s) %}
-        {% if subsection.permalink == section.permalink %}
-            {% set_global found_current = true %}
-        {% else %}
-            {% if found_current %}
-                {% if subsection.pages %}
-                    {% set last_page = subsection.pages | last %}
-                    <div class="prev tag">
-                        <a href="{{ last_page.permalink }}">
-                            <div class="boxed">prev page</div>
-                        </a>
-                    </div>
-                {% else %}
-                    <div class="prev tag">
-                        <a href="{{ subsection.permalink }}">
-                            <div class="boxed">prev section</div>
-                        </a>
-                    </div>
-                {% endif %}
-                {# no break #}
-                {% set_global found_current = false %}
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-{% endblock prev_link %}
-
-{% block next_link %}
-    {% if section.pages %}
-        {% set next_page = section.pages | first %}
-        <div class="prev tag">
-            <a href="{{ next_page.permalink }}">
-                <div class="boxed">next page</div>
-            </a>
-        </div>
-    {% else %}
-        {# No page in the section, find the link for the following section #}
-        {% set index = get_section(path="_index.md") %}
-        {% set found_current = false %}
-        {% for s in index.subsections %}
-            {% set subsection = get_section(path=s) %}
-            {% if found_current %}
-                <div class="prev tag">
-                    <a href="{{ subsection.permalink }}">
-                        <div class="boxed">next section</div>
-                    </a>
-                </div>
-                {# no break #}
-                {% set_global found_current = false %}
-            {% endif %}
-            {% if subsection.permalink == section.permalink %}
-                {% set_global found_current = true %}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endblock next_link %}
+<!-- sidebar block -->
+{% block sidebar %}
+{{ macros::artbit(image=section.extra.artbit) }} 
+{% endblock%}

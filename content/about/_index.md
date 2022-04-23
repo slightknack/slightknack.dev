@@ -2,7 +2,7 @@
 title = "About"
 weight = 0
 sort_by = "weight"
-# template = "section-about.html"
+template = "section-about.html"
 page_template = "page.html"
 
 [extra]
@@ -21,7 +21,7 @@ I'm most interested in using computational systems as a foundation for building 
 
 If you want to get in touch, you can email me at `hello` at this domain; elsewhere, I'm `slightknack`. Contrary to popular belief, I am not a robot.
 
-# Why this Website?
+# About this Website?
 
 Isaac's Website (aka [`slightknack.dev`](https://slightknack.dev)) is a random web of thoughts. Loosely technical but with no common theme, it's really just a place to link against ideas I'd like to share with others.
 
