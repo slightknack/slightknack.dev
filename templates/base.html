@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
     <meta name="theme-color" content="#4d3ee6">
     <meta name="description" content="Isaac Clayton's personal website.">
     <title>
@@ -39,20 +39,33 @@
 </head>
 
 <body style="overflow-x: hidden">
+    {% block content %} {% endblock %}
+<!--     
+    <h1>
+
+    </h1>
+    {\% sidebar() %}
+        {\{ artbit(image="4_sunglasses.png") }}
+    {\% end %}
+
     <div class="container">
         <div class="sidebar">
             <div class="sidebar-inner">
                 <div style="width: 100%">
-                    <img class="pixel-sidebar" src="/artbits/src/2_phone.png" alt="Clockman!">
+                    {\% if page.extra.artbit %}
+                    <img class="pixel-sidebar" src="/artbits/src/{\{ page.extra.artbit }}">
+                    {\% endif %}
+                    {\% if section.extra.artbit %}
+                    <img class="pixel-sidebar" src="/artbits/src/{\{ section.extra.artbit }}">
+                    {\% endif %}
                 </div>
-                <!-- <p>Isaac Clayton</p> -->
             </div>
         </div>
         <div class="content">
-            {% block content %} {% endblock %}
+            
         </div>
-    </div>
-
+        
+    </div> -->
 </body>
 
 </html>

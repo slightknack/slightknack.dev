@@ -41,6 +41,16 @@
         drop-shadow( 0px -2px 0 var(--fill-text));
 }
 
+.pixel-sidebar:hover,
+.pixel-sidebar:active,
+.pixel-sidebar:focus {
+    filter:
+        drop-shadow( 2px  0px 0 var(--fill-accent)) 
+        drop-shadow(-2px  0px 0 var(--fill-accent))
+        drop-shadow( 0px  2px 0 var(--fill-accent))
+        drop-shadow( 0px -2px 0 var(--fill-accent));
+}
+
 .content {
     min-width: 0;
     grid-column-start: 2;
@@ -69,8 +79,9 @@
 }
 
 .tag, blockquote {
-    color: var(--half-fill);
+    /* color: var(--fill-accent); */
     /* font-family: var(--font-title); */
+    font-family: var(--font-mono);
 }
 
 /* .text-input-container {
@@ -78,8 +89,8 @@
 } */
 
 .text-input-container input {
-    color: var(--bg-fill);
-    background-color: var(--half-fill);
+    color: var(--fill-bg);
+    background-color: var(--fill-text);
     font-family: var(--font-title);
     font-size: var(--font-base);
     padding: 10pt;
@@ -91,7 +102,7 @@
 
 .submit-input-container input {
     color: #ffffffbb;
-    background-color: var(--key-fill);
+    background-color: var(--fill-accent);
     font-family: var(--font-title);
     font-size: var(--font-base);
     padding: 10pt;
@@ -113,7 +124,7 @@
     padding: 20pt;
     margin-top: 20pt;
     margin-bottom: 20pt;
-    background-color: var(--soft-fill);
+    background-color: var(--fill-soft);
     border-radius: 3px;
 }
 
