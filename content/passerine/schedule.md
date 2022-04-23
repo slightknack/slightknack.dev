@@ -1,13 +1,16 @@
 +++
 title = "Architecting Asynchronous Schedulers"
 date = 2020-07-10
+
+[extra]
+artbit = "4_clockman.png"
 +++
 
 # Note
 This post explores one design methodology for asynchronous schedulers in the context of a language that is maximally asynchronous, *i.e.* everything is executed asynchronously. This post is largely a reflection of trying to grapple with [this blog post about Tokio's scheduler](https://tokio.rs/blog/2019-10-scheduler/)
 <!-- more -->
 > ## Another Note
-> This document was written around the time I started formulating Passerine. The general goal of this post, with respect to Passerine (that still exists fwiw), is to implement such a scheduler in `aspen` and use ffi hooks to automatically schedule the execution of passerine programs in an asynchronous / parallel though effectually temporally correct manner.
+> This document was written around the time I started formulating Passerine. The general goal of this post, with respect to Passerine (that still exists fwiw), is to implement such a scheduler in `aspen` and use FFI hooks to automatically schedule the execution of passerine programs in an asynchronous / parallel though effectually temporally correct manner.
 
 # Introduction
 As we approach [the end of Moore's law](https://rodneybrooks.com/the-end-of-moores-law/), we can no longer rely on increased processor speed to increase the performance of our software. In recent years, computers are being shipped with more **CPU**s Cores and Memory, but naïve single-threaded applications do not take advantage of this.

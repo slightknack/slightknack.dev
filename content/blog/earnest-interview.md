@@ -2,6 +2,9 @@
 title = "Earnestly Responding to a Satirical Interview Guide"
 date = 2021-09-28
 draft = true
+
+[extra]
+artbit = "stack_pick.png"
 +++
 
 > This is my super secret proprietary no-nonsense guide on how to ~~interview engineers~~ pass a technical interview.

@@ -1,6 +1,9 @@
 +++
 title = "Traits as implicit conversion"
 date = 2022-02-28
+
+[extra]
+artbit = "5_dog.png"
 +++
 
 # A modest proposal

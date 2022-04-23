@@ -1,6 +1,9 @@
 +++
 title = "Mirror: Hindley Milner Type Inference"
 date = 2021-05-01
+
+[extra]
+artbit = "2_question.png"
 +++
 
 > This is a frozen mirror of [notes from Cornell's CS3110](https://www.cs.cornell.edu/courses/cs3110/2016fa/l/17-inference/notes.html). Full disclosure, I did not write this.

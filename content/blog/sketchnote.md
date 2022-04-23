@@ -2,6 +2,9 @@
 title = "Sketchnoting: 4 years, 800 pages of illustrated notes"
 date = 2021-09-15
 draft = true
+
+[extra]
+artbit = "3_book_open.png"
 +++
 
 > TODO: gallery somewhere

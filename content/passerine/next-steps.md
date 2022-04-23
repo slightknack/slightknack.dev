@@ -1,6 +1,9 @@
 +++
 title = "Macros, Types, and Next Steps"
 date = 2021-06-01
+
+[extra]
+artbit = "4_shoe.png"
 +++
 
 Passerine is at an interesting point: we've established a few language features, and built this easily extensible functional core on which to base the rest of the language. We currently have two implementations of the language, one written in Rust, the other in D, and it's imperative we set the course of the language before divergence occurs.

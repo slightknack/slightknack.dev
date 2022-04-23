@@ -1,6 +1,9 @@
 +++
 title = "Sketchnoting: a spontaneous but needed reflection"
 date = 2022-02-11
+
+[extra]
+artbit = "2_journal.png"
 +++
 
 # Preface

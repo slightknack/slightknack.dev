@@ -1,6 +1,9 @@
 +++
 title = "FFIs [Were] Hard"
 date = 2020-12-12
+
+[extra]
+artbit = "3_bidirectional.png"
 +++
 
 > ## Note

@@ -2,6 +2,9 @@
 title = "Dealing with Cyclic Data in Rust, or, a GhostCell Deep Dive"
 date = 2021-11-27
 draft = true
+
+[extra]
+artbit = "bike.png"
 +++
 
 Over the past month or so, something I've repeatedly run into is _GhostCell_, a technique that (ab)uses Rust's lifetime system to detach ownership of data from the permission to mutate it. In short, this makes it possible to write datatypes that rely on shared interior mutability (think doubly-linked lists and other cyclical graph-like structures). In this post I wanted to explore Rust's lifetime system to explain GhostCell from first principles, and why it's kinda a big deal.

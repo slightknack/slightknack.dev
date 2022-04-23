@@ -2,6 +2,9 @@
 title = "Quick hack to generate random numbers using rust's standard library"
 date = 2021-10-14
 draft = true
+
+[extra]
+artbit = "2_police.png"
 +++
 
 If you want random numbers in Rust, you usually have two choices:

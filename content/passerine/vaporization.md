@@ -1,6 +1,9 @@
 +++
 title = "Vaporization and Modern Memory Management"
 date = 2021-02-24
+
+[extra]
+artbit = "5_frog.png"
 +++
 
 > ## Note

@@ -1,6 +1,9 @@
 +++
 title = "A Tiny Introduction to Parsers"
 date = 2020-07-08
+
+[extra]
+artbit = "4_framea.png"
 +++
 
  # A Question

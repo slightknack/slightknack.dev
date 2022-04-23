@@ -1,6 +1,9 @@
 +++
 title = "On Practical Applications"
 date = 2022-04-14
+
+[extra]
+artbit = "1_pretzel.png"
 +++
 
 > Do blockchains have any practical applications?

@@ -1,6 +1,9 @@
 +++
 title = "A Small Test Post for this New Blog"
 date = 2021-04-30
+
+[extra]
+artbit = "2_one.png"
 +++
 
 # Hello!

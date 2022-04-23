@@ -2,6 +2,9 @@
 title = "Don't let refactors turn into rewrites"
 date = 2022-03-26
 draft = true
+
+[extra]
+artbit = "3_knife.png"
 +++
 
 Oftentimes when we're writing code, we realize obvious 

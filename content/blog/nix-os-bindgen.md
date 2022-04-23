@@ -1,6 +1,9 @@
 +++
 title = "Getting bindgen working on NixOS"
 date = 2021-07-08
+
+[extra]
+artbit = "5_staplerb.png"
 +++
 
 > # Note

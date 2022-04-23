@@ -1,6 +1,9 @@
 +++
 title = "Thinking about efficient backing stores for CRDTs"
 date = 2021-08-02
+
+[extra]
+artbit = "1_fileview.png"
 +++
 
 A *Conflict-Free Replicated Datatype* is a bit like a smoothie: the same ingredients will produce the same result, regardless of the order in which they are added. In the context of, say, text editing in a distributed context, merging two documents will always succeed in a deterministic manner. In other words, A CRDT is a bit like a git repository that never has merge conflicts.

@@ -2,6 +2,9 @@
 title = "Building a distributed computer"
 date = 2021-10-20
 draft = true
+
+[extra]
+artbit = "nyoom.png"
 +++
 
 # A distributed computer
