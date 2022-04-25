@@ -28,7 +28,7 @@ The right mimics a microscopic image, taken at ten to the power of negative thre
 
 > Dr. Hart has done a lot of cool photomicrographic work; I highly recommend you [check out his website](http://www.hart3d.com/pages/gallery-content/index.html), where he catalogs a lot of his work in detail.
 
-Bridging the gap between the large and the miniscule are a series of bubbles that progressively transform into microdroplets of oil on water. This was a large and fun project to work on, and I learned a lot throughout the planning and execution of this piece. Here's a quick behind-the-scenes of the painting process:
+Bridging the gap between the large and the minuscule are a series of bubbles that progressively transform into micro-droplets of oil on water. This was a large and fun project to work on, and I learned a lot throughout the planning and execution of this piece. Here's a quick behind-the-scenes of the painting process:
 
 ![Work in progress painting on the right, watercolors, tape, and other materials on the left](/content/ten-wip.jpg)
 

@@ -132,7 +132,7 @@ The auxiliary range map can be built entirely from the content of `columns`, thr
 
 It's also good to know that traditional CRDT operations, like insertion, deletion, etc. do not require a full rebuild of either the `tree` or the columns in it - i.e. both can be updated in a reliable manner, whether that be via insertion, or through some other mechanism.
 
-This whole spiel is CPU-friendly, of course. Almost all data is stored in cache-friendly Vecs; Range Maps, although less ideal, will be smaller than usual when compared to the way they're *usually* used as the only backing store for CRDTs.
+This whole spiel is CPU-friendly, of course. Almost all data is stored in cache-friendly `Vec`s; Range Maps, although less ideal, will be smaller than usual when compared to the way they're *usually* used as the only backing store for CRDTs.
 
 Also, note that the generic `T` is not an individual entry, but a *collection* that can be indexed into. We do this so we can put everything into a single backing store per-user. To uphold the CRDT invariant that everything must have a unique ID and sequence number, when inserting we increment the sequence number by the length of the entry.
 
@@ -140,4 +140,4 @@ I hope what I've presented makes some sense, I just wanted to get my heads out o
 
 Dear reader, you've reached the end!
 
-> TODO: Incorporate lamport timestamp as discussed with 02Keith
+> TODO: Incorporate Lamport timestamp as discussed with 02Keith

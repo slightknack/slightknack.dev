@@ -26,6 +26,6 @@ The physical medium, on the other hand, is subtractive. Adding colored pigment t
 
 It's funny, then, that artists stick to Red, Yellow, and Blue. Artfully selected primaries create nuanced mood; why do we leave a fraction of the spectrum unexplored?
 
-In this piece, I used only the 4 subtractive primaries, as seen in the bottom-left corner. This was a fun excercise in pulling out the components of colors, carefully mixing opposites to create a perfect shade in the middle.
+In this piece, I used only the 4 subtractive primaries, as seen in the bottom-left corner. This was a fun exercise in pulling out the components of colors, carefully mixing opposites to create a perfect shade in the middle.
 
 </div>

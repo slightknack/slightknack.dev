@@ -143,7 +143,7 @@ println!("{}", x);            // prints "Bye"
 This works! Just note a couple of things:
 
 1. `y` does not need to be declared using `let mut y = ...` because `y` itself is not mutable; the reference it holds is.
-2. Additionally, `*` _defererences_ `y` in `*y`. Dereferencing is kinda like an anti-borrow, and lets us work with the value the reference contains.
+2. Additionally, `*` _dereferences_ `y` in `*y`. Dereferencing is kinda like an anti-borrow, and lets us work with the value the reference contains.
 
 > **Aside:** As a general rule of thumb, you can't dereference a borrow unless you're mutating it (like we do above), or the value is small enough to `Copy`.
 

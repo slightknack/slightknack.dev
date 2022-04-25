@@ -19,7 +19,7 @@ Above all else, Passerine strives to be a *concise* language, in terms of design
 
 - The language and it's implementation should be simple. You should be able to keep the entire system in your head, and understand how everything fits together.
 
-- The language and it's implementation should be combinatorical. Although the language should be simple, it should feel as friction-less as possible. The answer to "Wait, can A and B work together like this?" should always be "Woah, I wasn't expecting that to work, but it makes so much sense"
+- The language and it's implementation should be combinatorial. Although the language should be simple, it should feel as friction-less as possible. The answer to "Wait, can A and B work together like this?" should always be "Woah, I wasn't expecting that to work, but it makes so much sense"
 
 These goals are slightly conflicting. To build a system where everything composes together perfectly requires Good Architecture™ to be in place. Essentially, `MxN` problems need to be reduced to `Mx1, 1xN` problems wherever possible.
 
@@ -61,8 +61,8 @@ Of course, before this is possible, a few things need to be done:
 
 Of course, there are a few quality-of-life things I need to organize before I get started with this:
 
-- People have shown interest in trying out, developing, and contributing to Passerine. Up until this point, it's been a one-man team, so I need to figure out how to more actively engage the comminity towards building something rather than just asking for feedback from time to time.
-- There is little tooling for Passerine. I've tossed together a bare-bones syntax highlighter I'm too embarassed to publish, but I hope to polish it up and get it out the door soon.
+- People have shown interest in trying out, developing, and contributing to Passerine. Up until this point, it's been a one-man team, so I need to figure out how to more actively engage the community towards building something rather than just asking for feedback from time to time.
+- There is little tooling for Passerine. I've tossed together a bare-bones syntax highlighter I'm too embarrassed to publish, but I hope to polish it up and get it out the door soon.
 - Although I've had a lot of free time due to COVID-19 (the largest driver of Passerine's development by far, ironically), I still have to attend classes, do homework, and fulfill other commitments I've made.
 
 I appreciate the interest. As always, if you have any questions, comments, or suggestions, you know where to find me!

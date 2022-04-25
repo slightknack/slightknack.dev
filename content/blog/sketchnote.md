@@ -18,11 +18,11 @@ I hope that this post convinces people of the power of paper notes in an increas
 This post will be a bit of a departure from the rest of the posts of this blog; aside from covering non-technical subject matter, it will be a bit of a longer than usual. Buckle up, grab a snack, notebook, and your favorite gel-ink pen. Let's get started!
 <!-- more -->
 - Perspective of this article
-  - Target audience: people interested in notetaking
+  - Target audience: people interested in note-taking
   - Purpose: Showing people the power of paper notes in a world digital notes, showing off my notes, and giving some tips for people interested in getting started
 
 - What is Sketchnoting?
-  - It's an 'artform' that improves recall
+  - It's an 'art-form' that improves recall
   - Use of hand-drawn type, diagrams, and
 sketchnoting
   - Sketch + Note
@@ -33,14 +33,14 @@ sketchnoting
 - Why did I get started
   - Uncle is professor of Sketchnoting
   - Have always liked drawing
-  - Going into highschool
+  - Going into high school
     - Always told that 'it would get a lot harder, a lot quicker'
     - Wanted to be prepared, and have the tools available to deal with it
     - Still haven't encountered a massive difficulty spike, and I'm taking some pretty tough classes, so I must be doing something right?
 
 - What experience do I have with it?
   - 4 notebooks, 40 pens and markers, over 400 pages of hand-drawn notes
-  - From highschool:
+  - From high school:
     - 2 from freshman year,
     - 1 for sophomore and junior
     - 1 for senior, which I'm working on now.
@@ -71,9 +71,9 @@ sketchnoting
   - Most would say for reference
   - For engagement & recall <- most important
   - Why is this the most important?
-    - Paper notes are for distilling a deeper understanding, not rote memorization. Use the right tool for the job. If you need to memorize, use anki.
+    - Paper notes are for distilling a deeper understanding, not rote memorization. Use the right tool for the job. If you need to memorize, use Anki.
     If you want to cultivate a deep understanding, tools like Notion, obsidian, etc. won't cut it. Plain Text is IMO too linear and limited a form of expression — you have to actually read it
-      - Obsidian is useful, but it's more for making existing knowledge explicit, and offloading connections to make room for others. This isn't a bad thing, but it's orthagonal to the purpose of sketchnoting
+      - Obsidian is useful, but it's more for making existing knowledge explicit, and offloading connections to make room for others. This isn't a bad thing, but it's orthogonal to the purpose of sketchnoting
 
 The purpose of sketchnoting is to distill ideas being communicated to a dense visual representation. This representation should help you, personally, recall what's has been communicated.
 
@@ -182,13 +182,13 @@ Materials aren't important if you're just starting out - just get started alread
     - Whitespace is your friend
 
 - Examples and exercises
-  - Don't use notebook for scratchwork! keep a spare pen and loose paper to work out equations, etc. Include the best and most representative example
+  - Don't use notebook for scratch-work! keep a spare pen and loose paper to work out equations, etc. Include the best and most representative example
   - Don't record everything presented. If there's a slide, paraphrase - and remember, a picture is worth a thousand words.
 
 - Messing up
   - You will make mistakes
   - Common mistakes
-    - Mispellings
+    - Misspellings
       - Small, just skip. Adds character
       - Whiteout - don't really like it
       - Correction in-place
@@ -196,14 +196,14 @@ Materials aren't important if you're just starting out - just get started alread
         - With thick marker to hide
       - Do not scribble out
     - Tilted words
-      - Drawing to break of rythm of text
+      - Drawing to break of rhythm of text
       - Write lines and focus on spacing to top or bottom of page
       - Don't stay tilted, correct asap
     - Spacing
       - Don't crowd lines. Leave more space than you think necessary between things
 
 - Separating notes
-  - I like to keep everything in one notebook, but you can have different notebooks for differnt subjects. Note that sketchnotes are meant to be information-dense - Instead of having a notebook per subject, stick to maybe 2 or 3 at most and group by subject group (i.e. science & tech, liberal arts, personal notes). Up to you, no hard and fast rules.
+  - I like to keep everything in one notebook, but you can have different notebooks for different subjects. Note that sketchnotes are meant to be information-dense - Instead of having a notebook per subject, stick to maybe 2 or 3 at most and group by subject group (i.e. science & tech, liberal arts, personal notes). Up to you, no hard and fast rules.
   - Start each notes on a new page, trust me. Don't worry if pages are mostly blank, and don't worry about filling pages
   - Use a different color between sequential notes. Don't have to keep colors consistent between subjects, organization is up to you.
 

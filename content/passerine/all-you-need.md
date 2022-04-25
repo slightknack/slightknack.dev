@@ -121,7 +121,7 @@ In this case, `if` would evaluate to `2`. We're going to implement `if` first as
 - An expression which might be truthy.
 - A lambda that takes no arguments.
 
-We'll call the unsugared lambda definition of `if` '`iffer`'. Here's how iffer would be used. This example has the same semantics as the previous `if` expression.
+We'll call the unsugared lambda definition of `if` '`iffer`'. Here's how `iffer` would be used. This example has the same semantics as the previous `if` expression.
 
 ```
 iffer (true, () -> {1 + 1})
@@ -190,7 +190,7 @@ Obviously, `"Heck yeah!"` would be printed in this case.
 ```
 
 ## Building a Match Statement
-In many languages, such thing as a match statement exists.This statement matches a value against a variety of patterns, and returns the value fo the first one it matches.
+In many languages, such thing as a match statement exists.This statement matches a value against a variety of patterns, and returns the value of the first one it matches.
 
 This might look something like:
 

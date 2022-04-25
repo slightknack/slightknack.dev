@@ -7,8 +7,6 @@ draft = true
 artbit = "2_skeletons.png"
 +++
 
-# What is a top level definiton
-
 # What is the top level?
 
 Executable code can only be contained within certain structures

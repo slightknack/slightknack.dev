@@ -148,7 +148,7 @@ How does the computer we know which struct we're talking about, though? Given a 
 
 The usual solution is to store a hidden field, called the variant *tag*, which is a number (usually a byte) that points out which variant we're referring to. `0x00`, for instance, could be `Small`, and `0x01` could be `Big`.
 
-> Protip: this is why it's called a 'Tagged Union' ;).
+> Pro-tip: this is why it's called a 'Tagged Union' ;).
 
 An enum takes on the size of its largest variant, plus a byte for the variant, padded out to the nearest word. Following this logic, we can easily see that `Size` should be 3 slots large: 2 slots because of `Big`, 1 for of the tag (+ padding). In memory this looks something like so:
 

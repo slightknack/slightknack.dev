@@ -13,7 +13,7 @@ This post explores one design methodology for asynchronous schedulers in the con
 > This document was written around the time I started formulating Passerine. The general goal of this post, with respect to Passerine (that still exists fwiw), is to implement such a scheduler in `aspen` and use FFI hooks to automatically schedule the execution of passerine programs in an asynchronous / parallel though effectually temporally correct manner.
 
 # Introduction
-As we approach [the end of Moore's law](https://rodneybrooks.com/the-end-of-moores-law/), we can no longer rely on increased processor speed to increase the performance of our software. In recent years, computers are being shipped with more **CPU**s Cores and Memory, but naïve single-threaded applications do not take advantage of this.
+As we approach [the end of Moore's law](https://rodneybrooks.com/the-end-of-moores-law/), we can no longer rely on increased processor speed to increase the performance of our software. In recent years, computers are being shipped with more CPUs Cores and Memory, but naïve single-threaded applications do not take advantage of this.
 
 *Asynchronous programming* has been becoming popular, but faces a [few core issues in terms of design](http://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/). Although *futures* have made some headway in recent years towards resolving this issue, the small overhead of writing asynchronous code prevents many from doing so in practice.
 
@@ -48,12 +48,12 @@ So how does a scheduler maintain task locality? The general consensus seems to b
 A process with its own queue may limit cross-process synchronization, but it does not ensure the workload is evenly distributed. One process could accumulate a large number of tasks, while others remain idle, already having completed the work they were assigned. So, how do we evenly distribute tasks among processes?
 
 ## Evenly Distributing Tasks Among Processes
-When a process has run out of work to do, it should be able to aquire more work. To do this, it 'steals' work from sibling processes. This is known as a work-stealing synchronizer, and is used by languages like Go, Kotlin, and Rust (Tokio).
+When a process has run out of work to do, it should be able to acquire more work. To do this, it 'steals' work from sibling processes. This is known as a work-stealing synchronizer, and is used by languages like Go, Kotlin, and Rust (Tokio).
 
 The way we'll implement stealing is simple. When a task has run out of stuff to do, it selects a sibling at random, and attempts to steal half their tasks.
 
 ## Time is Short — Savor it
-But what if there are few tasks to steal? Processes shouldn't waste **CPU** time trying to steal from others in vain. A processor with nothing better to do should do nothing. We'll call the state of doing nothing *sleeping*. If a process attempts to steal from another awake process and finds nothing, it goes to sleep. If it is able to steal successfully, it tries to wake up a random process to further the distribution of work.
+But what if there are few tasks to steal? Processes shouldn't waste CPU time trying to steal from others in vain. A processor with nothing better to do should do nothing. We'll call the state of doing nothing *sleeping*. If a process attempts to steal from another awake process and finds nothing, it goes to sleep. If it is able to steal successfully, it tries to wake up a random process to further the distribution of work.
 
 This wake-up/sleep mechanism smoothly ramps the number of awake processes to match the computational workload.
 
@@ -95,8 +95,4 @@ Asynchronous programming will be a big deal in the years forward as we obtain ac
 
 In this post, we discussed the design a simple *work-stealing scheduler* that limited synchronization and evenly distributed the workload among processes.
 
-Asynchronous programming will be an interesting component of language design going forward, and it will be important for programmers to understand how to write asynchronous code. In **Part II**, we'll implement the above schema.
-
----
-
-[Discuss this post on HN](https://news.ycombinator.com/item?id=24722178).
+Asynchronous programming will be an interesting component of language design going forward, and it will be important for programmers to understand how to write asynchronous code. In Part II, we'll implement the above schema.

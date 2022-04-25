@@ -43,7 +43,7 @@ artbit = "1_cylindera.png"
     - Maps input to output
     - Can be trained to approximate a function
 
-- Forget Hashlife, what about Neurallife?
+- Forget Hashlife, what about Neural life?
     - use neural networks instead of hashing
     - problems:
         - collecting training data

@@ -107,7 +107,7 @@ pub enum SST {
 }
 ```
 
-As you can see, future passes can reuse componenents declared in previous passes. For example, a future typechecking pass might produce a Typed Syntax Tree (TST) defined as follows:
+As you can see, future passes can reuse components declared in previous passes. For example, a future typechecking pass might produce a Typed Syntax Tree (TST) defined as follows:
 
 ```rust
 pub enum TST {
@@ -118,7 +118,7 @@ pub enum TST {
 
 But what are the downsides? 
 
-The most glaring issue is the number of nested generics. Instead of simply listing all possible syntax tree nodes in each syntax tree `enum`, the compiler generates them for us when it monomorphises all the generics. This can also sometimes make it harder to annotate with the types being returned, meaning we have to use type aliases to keep our code clean.
+The most glaring issue is the number of nested generics. Instead of simply listing all possible syntax tree nodes in each syntax tree `enum`, the compiler generates them for us when it monomorphizes all the generics. This can also sometimes make it harder to annotate with the types being returned, meaning we have to use type aliases to keep our code clean.
 
 Another minor annoyance is that we now have to do nested pattern matching. Instead of matching on each variant of the `CST` enum, we now must match on each variant of `Base` and `Lambda`. In essence:
 
@@ -144,19 +144,19 @@ match cst.item {
 };
 ```
 
-This redundancy (e.g. `CST::Base(Base::Data(...))` vs `CST::Data(...)`) adds unessary visual noise, and just makes dealing with ASTs a little more annoying.
+This redundancy (e.g. `CST::Base(Base::Data(...))` vs `CST::Data(...)`) adds unnecessary visual noise, and just makes dealing with ASTs a little more annoying.
 
-On top of this, because we've factored out common items into `Base`, we can not add or remove new items to `Base` without touching every pass. This goes for every other 'mixin', like `Sugar` or `Lambda`. This means that if a certain pass doesn't require a variant in say `Base`, we have to remove that item from `Base` and add it to every other syntax tree as a new variant. This changes a two-line diff for a trivial change into a twenty-line diff touching basically every file in the compiler. Yikes.
+On top of this, because we've factored out common items into `Base`, we can not add or remove new items to `Base` without touching every pass. This goes for every other 'mix-in', like `Sugar` or `Lambda`. This means that if a certain pass doesn't require a variant in say `Base`, we have to remove that item from `Base` and add it to every other syntax tree as a new variant. This changes a two-line diff for a trivial change into a twenty-line diff touching basically every file in the compiler. Yikes.
 
 Now you might ask, "How do compilers with a lot of passes deal with this sort of thing?" There aren't really any right answers, but generally:
 
 1. Make each pass use an explicit type (Passerine's old compiler)
 2. Factor out common variants and use generics or interfaces (Passerine's refactored compiler)
-3. Use mixins / macros / the visitor pattern to factor out common variants while producing 'flat' generic-less syntax trees. (Most OO languages).
+3. Use mix-ins / macros / the visitor pattern to factor out common variants while producing 'flat' generic-less syntax trees. (Most OO languages).
 4. Use macros to generate each successive syntax tree from the previous one based on differences. (The nanopass compiler framework).
 5. Screw it, take the union of all syntax trees and use the same type for every pass, what could go wrong?
 
-Now I wouldn't be opposed to trying `3` or `4`, or just going back to `1`, as they might result in cleaner code. However, I've already spent a months refactoring everyting to use `2`, and I'm honestly not sure whether the grass is greener on the other side.
+Now I wouldn't be opposed to trying `3` or `4`, or just going back to `1`, as they might result in cleaner code. However, I've already spent a months refactoring everything to use `2`, and I'm honestly not sure whether the grass is greener on the other side.
 
 A rewrite is just a second-order refactor. A rewrite happens when you're refactoring something, but decide to change some underlying invariant before performing the refactor.
 
@@ -168,18 +168,18 @@ In hindsight, it would've been a lot smarter to break big-refactor into a number
     a. This PR could've been reviewed in isolation, which might've shown it was more trouble than it was worth.
 2. Put in small PRs refactoring each stage of the compiler pipeline.
     a. Because the underlying types are fixed, each pass just has to worry about maintaining being an `A -> B` overall, instead of an `X -> Y`, where both `X` and `Y` are moving targets.
-    b. Because each stage is fixed, multiple PRs could've been worked on in parallel, and outside contributers could've pulled and worked on each one, instead of the massive dumpster-fire that is `big-refactor`.
+    b. Because each stage is fixed, multiple PRs could've been worked on in parallel, and outside contributors could've pulled and worked on each one, instead of the massive dumpster-fire that is `big-refactor`.
     c. Because each PR can be merged incrementally, it's easier to catch any regressions that may be caused in later stages.
 3. Put in small PRs adding new passes to the compiler pipeline.
     a. Fundamentally, adding a new pass is just turning an `X -> Z` into an `X -> Y -> Z`. 
     b. If `X` and `Z` are both fixed, we really just need to define another type `Y` for that pass, and implement it.
-    c. Again, sp
+    c. Again, TODO
 
 # Throwing out the tests
 
 I think the point at which `big-refactor` became a rewrite is when I commented out a large portion of the tests. After I refactored the way abstract syntax trees were represented, lots of tests didn't type-check. 
 
-I really wanted to make sure that the new representations worked in the existing pipeline, so I commented out the unbuildable tests and fixed bugs as they arised. As the refactor diverged more and more from what the tests originally tested, they became less and less useful, until they reached the point where I decided to delete them.
+I really wanted to make sure that the new representations worked in the existing pipeline, so I commented out the unbuildable tests and fixed bugs as they arose. As the refactor diverged more and more from what the tests originally tested, they became less and less useful, until they reached the point where I decided to delete them.
 
 Deleting the tests was a bad idea, as now there is no longer a harness to ensure that the refactored code matches the behavior of the original code. This firmly put `big-refactor` in rewrite territory.
 

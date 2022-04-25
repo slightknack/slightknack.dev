@@ -170,13 +170,13 @@ This expands to something like this:
 [Iden "while", cond, body] = tokens
 ```
 
-argpat is useful because it allows us to quickly match on token streams to extract useful data. What's important to remember is that both `quote` and `argpat` can be implemented using token macros: we're not introducing any new syntax here.
+`argpat` is useful because it allows us to quickly match on token streams to extract useful data. What's important to remember is that both `quote` and `argpat` can be implemented using token macros: we're not introducing any new syntax here.
 
 As Passerine currently has two implementations - the [Rust](https://github.com/vrtbl/passerine) one by me and the [D](https://github.com/ShawSumma/purr/tree/main/ext/passerine) one by Shaw, it's important we try to ensure compatibility between them. Token macros allow us to put language features like `syntax`, etc. in the prelude, resulting in less work for us, and greater compatibility between implementations.
 
 So, if we introduce token macros, will we be getting rid of syntax macros? The answer is no: after token macros are implemented, we can implement syntax macros in terms of them.
 
-With both `quote` and `argpat`, it's easy to see how something like `syntax` can be implemented: it would be a macro that generates a macro, using argpat to match on the token stream, and quote to expand the resulting body. Some care has to be taken to ensure that names present in the argument pattern are automatically spliced; needless to say, `syntax` would look something like this, when implemented as a token macro:
+With both `quote` and `argpat`, it's easy to see how something like `syntax` can be implemented: it would be a macro that generates a macro, using `argpat` to match on the token stream, and quote to expand the resulting body. Some care has to be taken to ensure that names present in the argument pattern are automatically spliced; needless to say, `syntax` would look something like this, when implemented as a token macro:
 
 ```
 macro syntax = [

@@ -8,7 +8,7 @@ artbit = "2_journal.png"
 
 # Preface
 
-Since September of last year, I've been chipping away at a longform post on how to take *good* notes. This, sadly, is not that post—consider this post a teaser to tide you over until then.
+Since September of last year, I've been chipping away at a long-form post on how to take *good* notes. This, sadly, is not that post—consider this post a teaser to tide you over until then.
 
 ![Four filled notebooks and one new empty one.](/content/note-vols.jpg)
 
