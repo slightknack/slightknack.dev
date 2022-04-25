@@ -3,6 +3,30 @@
     grid-template-columns: 3fr minmax(0, 7fr);
 }
 
+.hero {
+    display: grid;
+    grid-template-columns: 3fr 3fr;
+    margin-left: auto;    
+    margin-right: auto;
+    max-width: 1200px;
+    padding: 20pt;
+    align-items: center;
+}
+
+.hero-mac, .hero-desc {
+    padding: 20pt;
+}
+
+.hero-mac img {
+    margin-top: 0;    
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: calc(var(--font-base) + var(--font-heading) * 2);
+}
+
 .sidebar {
     height: 100%;
     /* background-color: var(--fill-accent); */
@@ -25,9 +49,17 @@
     margin-left: auto;
 }
 
+.pixel-art, .pixel-sidebar {
+    image-rendering: pixelated;
+    filter:
+        drop-shadow( 2px  0px 0 var(--fill-text)) 
+        drop-shadow(-2px  0px 0 var(--fill-text))
+        drop-shadow( 0px  2px 0 var(--fill-text))
+        drop-shadow( 0px -2px 0 var(--fill-text));
+}
+
 .pixel-sidebar {
     object-fit: contain;
-    image-rendering: pixelated;
     height: 30vh;
     top: 0;
     margin: 0;
@@ -35,11 +67,6 @@
     margin-left: auto;
     margin-right: 0;
     padding: 0;
-    filter:
-        drop-shadow( 2px  0px 0 var(--fill-text)) 
-        drop-shadow(-2px  0px 0 var(--fill-text))
-        drop-shadow( 0px  2px 0 var(--fill-text))
-        drop-shadow( 0px -2px 0 var(--fill-text));
 }
 
 .pixel-sidebar:hover,
@@ -70,7 +97,7 @@
     border-radius: 3px;
 }
 
-.narrow, .narrow-left {
+.narrow, .narrow-left, .narrow-unpadded {
     min-width: 0;
     max-width: 700px;
     padding: 20pt;
@@ -82,6 +109,11 @@
 
 .narrow-left {
     margin-left: 0;
+}
+
+.narrow-unpadded {
+    /* padding: 20pt; */
+    margin-bottom: 0pt;
 }
 
 /* .tag, blockquote { */
@@ -141,17 +173,26 @@
     min-height: 10pt;
 }
 
-.menu {
+.menu, .menu-centered {
     padding: 0;
     list-style: none;
     margin-bottom: 20pt;
 }
 
-.menu li {
+.menu-centered {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.menu li, .menu-centered li {
     margin: 0;
     display: inline-block;
     white-space: nowrap;
     padding-right: 20pt;
+}
+
+.menu-centered li {
+    padding-right: 40pt;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -161,6 +202,30 @@
 }
 
 @media only screen and (max-width: 900px) {
+    .hero {
+        display: block;
+        grid-template-columns: none;
+    }
+
+    .hero-mac, .hero-desc {
+        margin-left: auto;        
+        margin-right: auto;
+        max-width: 700px;
+        padding: 0;
+    }
+
+    .hero-mac {
+        max-height: 50vh;
+    }
+
+    .hero-mac img {
+        width: auto;
+        height: 30vh;
+        object-fit: contain;
+        margin-top: 0;
+        margin-bottom: 0;    
+    }
+
     .container {
         display: initial;
     }
@@ -195,5 +260,9 @@
 
     .menu {
         text-align: center;
+    }
+
+    .menu-centered li {
+        padding-right: 20pt;
     }
 }

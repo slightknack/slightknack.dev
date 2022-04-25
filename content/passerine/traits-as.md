@@ -3,12 +3,14 @@ title = "Traits as implicit conversion"
 date = 2022-02-28
 
 [extra]
-artbit = "5_dog.png"
+artbit = "3_wire.png"
 +++
 
-The joy of writing a new programming language is coming up with random ideas that seem consistent, and seeing if they stick. I'm pretty good at coming up with random ideas, but I'm not so good at finding ones that stick. I've been thinking a lot about how to rectify open/closed enumerations, traits, and type constructors.
+The joy of writing a [new programming language](https://passerine.io) is coming up with novel ideas and seeing if they stick. 
 
-The challenge stems from determining how to deal with different types or objects that share common structure or behavior. Traditional object-oriented languages deal with this through the use of inheritance. For example since both a `Wizard` and a `Person` have a `name`, they may both inherit from a single `Named` class. In Java, we may write this as:
+The challenge I'm attempting to solve stems from dealing with different types of objects that share common structure or behavior. For this reason I've been thinking a lot about how to rectify open/closed enumerations, traits, and type constructors.
+
+Traditional object-oriented languages deal with this through the use of inheritance. For example since both a `Wizard` and a `Person` have a `name`, they may both inherit from a single `Named` class. In Java, we may write this as:
 
 ```java
 class Named {

@@ -4,27 +4,11 @@ sort_by = "weight"
 template = "index.html"
 +++
 
-Hello and **welcome** to the wonderful website of
+Welcome to my cozy little corner of the web.
 
-# Isaac Clayton
+I'm Isaac Clayton, an aspiring Systems Architect interested in Reinforcement Learning, Programming Language Design, and Graphics Programming.
 
-A Student, Compiler Engineer, and Software Architect.  
-(Among other things.)
-
-_Keep scrolling..._ ↓
-
-# An Introduction
-
-Hello, How are you doing? Welcome to my cozy little corner of the web.
-
-I'm Isaac Clayton, an aspiring Software Architect interested in Reinforcement Learning, Programming Language Design, and Graphics Programming.
-
-I was born in Provo, Utah in 2004, but have lived around the world. Ever since a young age, I've been interested in the tools we've used to build our modern technological reality.
-
-What I find more incredible than the _stuff_ we've created is _how_ we've created it. Pulling back the layers drives my insatiate curiosity, and I hope to use this website to document what I've come to know.
-
-By the way: I went all out for this page, but I promise the rest of this website is more sane.
-
+<!-- 
 [
 
 # Past Work & Projects
@@ -48,4 +32,4 @@ That's a good question! Here are a few projects I'm particularly proud of:
 
 If you're done scrolling, of course. Alternatively:
 
-](/blog)
+](/blog) -->
