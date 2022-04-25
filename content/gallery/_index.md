@@ -5,6 +5,8 @@ sort_by = "date"
 template = "section-gallery.html"
 page_template = "page-embed.html"
 
+draft = true
+
 [extra]
 artbit = "2_paintbrush.png"
 +++
