@@ -207,7 +207,7 @@ Macro hygiene can be a complex issue, especially with respect to macro-generatin
 
 Primarily, macro hygiene means that macros, when expanded, must not mess with the local lexical scope. This means that a macro can not reference variables explicitly passed to the macro. In practice, a macro can't define new identifiers, or redefine existing ones not passed to it. For instance, assuming a small lisp-like hygienic macro system:
 
-```scheme
+```lisp
 ; define a macro that swaps two variables
 (macro (swap! a b)
     (define tmp a)

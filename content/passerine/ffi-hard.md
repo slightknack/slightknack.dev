@@ -41,7 +41,7 @@ fn some_ffi_fn(data: Data) -> Result<Data, Runtime> {
 }
 ```
 
-```passerine
+```elm
 -- /src/main.pn
 use extern thing.some_ffi_fn
 

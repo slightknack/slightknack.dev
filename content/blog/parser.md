@@ -19,7 +19,7 @@ artbit = "4_framea.png"
  }
  ```
  And lex it into a series of tokens by walking over the file linearly. So, for instance:
- ```plain
+ ```
  for: keyword
  i:   identifier
  in:  keyword
