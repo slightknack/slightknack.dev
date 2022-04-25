@@ -1,6 +1,9 @@
 +++
 title = "Macros, Types, and Next Steps"
 date = 2021-06-01
+
+[extra]
+artbit = "4_shoe.png"
 +++
 
 Passerine is at an interesting point: we've established a few language features, and built this easily extensible functional core on which to base the rest of the language. We currently have two implementations of the language, one written in Rust, the other in D, and it's imperative we set the course of the language before divergence occurs.
@@ -167,13 +170,13 @@ This expands to something like this:
 [Iden "while", cond, body] = tokens
 ```
 
-argpat is useful because it allows us to quickly match on token streams to extract useful data. What's important to remember is that both `quote` and `argpat` can be implemented using token macros: we're not introducing any new syntax here.
+`argpat` is useful because it allows us to quickly match on token streams to extract useful data. What's important to remember is that both `quote` and `argpat` can be implemented using token macros: we're not introducing any new syntax here.
 
 As Passerine currently has two implementations - the [Rust](https://github.com/vrtbl/passerine) one by me and the [D](https://github.com/ShawSumma/purr/tree/main/ext/passerine) one by Shaw, it's important we try to ensure compatibility between them. Token macros allow us to put language features like `syntax`, etc. in the prelude, resulting in less work for us, and greater compatibility between implementations.
 
 So, if we introduce token macros, will we be getting rid of syntax macros? The answer is no: after token macros are implemented, we can implement syntax macros in terms of them.
 
-With both `quote` and `argpat`, it's easy to see how something like `syntax` can be implemented: it would be a macro that generates a macro, using argpat to match on the token stream, and quote to expand the resulting body. Some care has to be taken to ensure that names present in the argument pattern are automatically spliced; needless to say, `syntax` would look something like this, when implemented as a token macro:
+With both `quote` and `argpat`, it's easy to see how something like `syntax` can be implemented: it would be a macro that generates a macro, using `argpat` to match on the token stream, and quote to expand the resulting body. Some care has to be taken to ensure that names present in the argument pattern are automatically spliced; needless to say, `syntax` would look something like this, when implemented as a token macro:
 
 ```
 macro syntax = [
@@ -204,7 +207,7 @@ Macro hygiene can be a complex issue, especially with respect to macro-generatin
 
 Primarily, macro hygiene means that macros, when expanded, must not mess with the local lexical scope. This means that a macro can not reference variables explicitly passed to the macro. In practice, a macro can't define new identifiers, or redefine existing ones not passed to it. For instance, assuming a small lisp-like hygienic macro system:
 
-```scheme
+```lisp
 ; define a macro that swaps two variables
 (macro (swap! a b)
     (define tmp a)

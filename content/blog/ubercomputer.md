@@ -2,6 +2,9 @@
 title = "Ubercomputer"
 date = 2021-11-30
 draft = true
+
+[extra]
+artbit = "3_closed.png"
 +++
 
 One solution I've thought about in a different context is this: when a node evaluates a transaction in a different context, it must publish how many operations (e.g. beta-reductions) the transaction took, as well a single merkle-tree root hash (or something similar but less computationally expensive) of the evaluation process (e.g. form after each step). We'll call this the 'full-evaluation proof'.

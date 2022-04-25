@@ -3,7 +3,12 @@ title = "Gallery"
 weight = 3
 sort_by = "date"
 template = "section-gallery.html"
-page_template = "embed.html"
+page_template = "page-embed.html"
+
+draft = true
+
+[extra]
+artbit = "2_paintbrush.png"
 +++
 
-I occasionally do art or design work, and I thought it would be fun to have a little gallery showcasing some of the work I've done. In the future, this overview page will be a gallery of images instead of a wall of text.
+I occasionally do art and design work, so here's little gallery showcasing some of the work I've done.

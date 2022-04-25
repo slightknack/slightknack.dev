@@ -1,7 +1,92 @@
 +++
 title = "Traits as implicit conversion"
 date = 2022-02-28
+
+[extra]
+artbit = "3_wire.png"
 +++
+
+The joy of writing a [new programming language](https://passerine.io) is coming up with novel ideas and seeing if they stick. 
+
+The challenge I'm attempting to solve stems from dealing with different types of objects that share common structure or behavior. For this reason I've been thinking a lot about how to rectify open/closed enumerations, traits, and type constructors.
+
+Traditional object-oriented languages deal with this through the use of inheritance. For example since both a `Wizard` and a `Person` have a `name`, they may both inherit from a single `Named` class. In Java, we may write this as:
+
+```java
+class Named {
+    String name;
+}
+
+class Person extends Named {
+    int age;
+}
+
+class Wizard extends Named {
+    String title;
+    int skill;
+}
+```
+
+This is all well and dandy, but problems quickly arise. Java only supports single inheritance, so if we want a new class to extend both `Named` and, say `Aged`, we'd either have to create a new class (like `NamedAndAged`, gross), or use a language with *multiple inheritance*.
+
+Multiple inheritance sucks for other reasons, though, mostly due to the [diamond dependency problem](https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem). If we even create a class that inherits from two superclasses with the same field, which field gets used? Does the object have two fields?
+
+This is a problem as old as the hills, and it's why we've developed sayings—like 'always choose composition over inheritance'—that have been passed down from developer to developer, generation after generation.
+
+We don't have to be stuck with the pains inheritance, though! Inheritance is really just ensuring that different objects share certain structure and/or behavior. Ultimately this is what composition over inheritance means: Instead of having a `Person` that is `Named`, just make a `Person` have a `Name`, and pass that `Name` around when required:
+
+```java
+class Name {
+    String name;
+}
+
+class Person {
+    int age;
+    Name name;
+}
+```
+
+While nice, this required that person carry around a `name` field; if the name can be derived from existing class data, this may be redundant. We could use a method, of course:
+
+```java
+class Person {
+    // ...
+    Name name() { 
+        // ... 
+    }
+}
+```
+
+But the problem here is that there's no real *consistency* between the various ways of representing that a `Person` has a name. Do we access a field, call a method, etc?
+
+But you know the solution to this! Just use typeclasses/traits/interfaces, you shout! Instead of adding methods and fields ad-hoc, we declare a shared `trait` (to use the Rust parlance) with common behavior:
+
+```Rust
+pub trait Named {
+    fn name(&self) -> String;
+}
+```
+
+Then, if we have a person, we can implement `Named` for `Person` to show that a person indeed has a name:
+
+```Rust
+struct Person {
+    name: String,
+    age:  usize,
+}
+
+impl Named for Person {
+    name(&self) -> String {
+        self.name.to_string()
+    }
+}
+```
+
+We can access this field using regular method call syntax, like `person.name()`. If we implement another trait that *also* has a name method, then we must use Rust's Uniform Function Call Syntax (UFCS) to disambiguate: `Named::name(&person)`.
+
+Whatever you call it, the core idea behind traits/typeclasses/interfaces/etc. is simple: define a single interface with a number of behaviors through which the underlying object is accessed.
+
+My largest issue with these systems is that *another layer* on top of the language itself. This description may not be entirely clear, so let's jump into some examples in Passerine:
 
 # A modest proposal
 Say we have a struct; it's for a `Person`:
@@ -153,6 +238,7 @@ Rust makes this a bit harder because none of the code we just wrote would actual
 But the point is: traits can be represented as plain old types. 
 
 > **Aside:** Agda and inference
+> 
 > TODO: Write about how Agda builds off this, it's really cool!
 
 Anyway, let's hop back to Passerine.
@@ -436,7 +522,7 @@ Which we can write using `|>` notation as follows:
 Fib () |> Iter |> println_all_iter
 ```
 
-# Some suga!
+# Some sugar!
 
 Converting a `Wizard` to a `Person` is all well and good, but what if we just want a `Wizard`'s age? Currently, you'd have to do something like:
 
@@ -583,3 +669,131 @@ I know that what I've been getting at — representing typeclasses as explicit d
 I feel like all languages in this area are slowly tending towards Agda. Then again, a while back it seemed like everything tended towards Scheme, so maybe it's just a matter of perspective.
 
 Anyway, I digress. I hope you found this little post interesting, thanks for reading!
+
+# One last note
+
+I've noticed something interesting. When dealing with closed enumerations, we allow users of that closed enumeration to see any of the members that constitute that enumeration:
+
+```rust
+enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+```
+
+When we match of traffic light, we can be sure to handle every pattern:
+
+```Rust
+use TrafficLight::*;
+
+fn name(&self) -> String {
+    match self {
+        Red => "red",
+        Yellow => "yellow",
+        Green => "green",
+    }.to_string()
+}
+```
+
+I want you to stop for a second an just realize that each match branch is a bit like a function. For example, the first branch takes an object of type `TrafficLight::Red` and returns a static string (`&'static str`). We could write this type out as:
+
+```
+TrafficLight::Red -> &'static str
+```
+
+So each match branch is really like a function, a closure. "Take the type that matches this pattern, produce this result". Note that all match arms produce a result of the same type, so a `match` expression is a bit like a fan-out that compresses each possible branch into a single value.
+
+So why do I bring this up now? Well, when you're using an open enumeration, like a trait, *you can't possibly know all the types that a value could be*. Behind the scenes, though, there's still a massive match expression.
+
+```
+// `Named` trait
+match type {
+    Person => ...
+    Wizard => ...
+}
+```
+
+So when we implement a trait for yet another type, we're really just adding another branch to the behind-the-scenes match expression. For example:
+
+```Rust
+impl Named for TrafficLight {
+    fn name(&self) -> String {
+        // ...
+    }
+}
+```
+
+The method `name` is just a function of type `TrafficLight -> String`. Note the parallels here!
+
+Under closed enumeration, we declare all the potential types (i.e. variants) up-front, and then match on these variants to extract common structure/behavior:
+
+```rust
+// infinite number of behaviors
+behavior = match Closed {
+    // finite number of variants
+    Variant -> Dispatch,
+    Variant -> Dispatch,
+}
+```
+
+But under an open enumeration, there are possibly an infinite number of variants! So we declare all possible behaviors up front:
+
+```rust
+// infinite number of variants
+trait Open {
+    // finite number of behaviors
+    fn behavior() -> Dispatch;
+}
+```
+
+Whenever we want to add a `Variant` to `Open`, we have to provide a match arm for each 'behind-the-scenes' `behavior` match expression:
+
+```Rust
+impl Open for Variant {
+    // This is just a match arm!
+    fn behavior() -> Dispatch { 
+        // ...
+    }
+}
+```
+
+So for each `behavior` in the `Open` enumeration, we provide a match arm: `Variant -> Dispatch`.
+
+The compiler stitches all these disparate match arms together to form these behind the scene match expressions:
+
+```rust
+// finite number of behaviors
+behavior = match Open {
+    // infinite number of variants
+    impl Open for Variant,
+    impl Open for Variant,
+    // ...
+}
+```
+
+Each implementation is like an opaque match arm.
+
+To summarize:
+
+1. Under closed enumerations, we have a finite number of variant branches; we must handle each branch while being able to implement arbitrarily many behaviors.
+
+2. Under open enumerations, we have an infinite number of possible variant branches; to add a new variant, we must provide the 'match-arms' for a finite number of behaviors.
+
+Now because open enumerations are defined around a finite set of behaviors, it makes sense that each variant *must* provide a function.
+
+It is simply not possible to have both an infinite number of behaviors and an infinite number of variants. You can pick one or the other, and the structure of the resulting code will be affected by that decision.
+
+I just love this parallel, and think that it drastically simplified my mental model of traits vs enums. 
+
+Traits as implicit conversion is essentially makes types open enumerations over the behavior of their constructor function. This model is really elegant because it reifies types and traits (we're not 'adding an extra layer' to the language), but on the other hand it does complicate things somewhat.
+
+I think this is honestly the pain of being a language designer. You get a *feeling* that there are these fundamental underlying constructs that underpin the way the world works. You spend a lot of time refining these feelings—writing them down, building prototypes—only to realize that everything old is new again, or that there are new cases you haven't thought about that don't neatly fit your model.
+
+I wish there was just *a* language, a silver bullet, where these sorts of tradeoffs didn't exist. A language where there was one single *obvious* way to implement something. A language where all semantic symmetries were wrapped up in symmetrical syntax, all constructs discovered through intuitive exploration and composition.
+
+I know that this youthful idealism is unwarranted. The rubber has to hit the road somewhere, tradeoffs will always exist, and software is never developed alone. We need a Go of functional programming, whatever what that ends up looking like: a smaller Rust, a minimal Agda, a typed Scheme. 
+
+I can't claim that Passerine will be that language. I've worked hard to engineer a minimal set of orthogonal features that *compose*. Once I've figured out how to unify effects and fibers (it's mostly a matter of notation at this point), and have more cleanly delineated the line between the macro system and the type system, I think I may have an unstoppable seed of a language on my hands.
+
+ We'll see where it goes from here \:)

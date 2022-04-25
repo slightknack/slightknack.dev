@@ -1,11 +1,14 @@
 +++
-title = "On Practical Applications"
+title = "On the Practical Applications of Blockchains"
 date = 2022-04-14
+
+[extra]
+artbit = "1_pretzel.png"
 +++
 
 > Do blockchains have any practical applications?
 
-Yes, but I think you're asking the wrong question. Asking if blockchains have practical applications is like asking if integers do. I mean ostensibly yes, but what's the context? Unsigned integers are great for counting up, but are horrible at counting down. Signed integers can do both, but you wouldn't use one to index into a list. Yet see how strange this comparison is? Blockchains themselves are simple mechanisms that allow one to verify the integrity the data that a message depends on. Consensus and synchronization mechanisms can be tacked on top of an append-only log, changing the behavior of the mechanism:
+Yes, but I think you're asking the wrong question. Asking if blockchains have practical applications is like asking if integers do. I mean ostensibly yes, but what's the context? Unsigned integers are great for counting up, but are horrible at counting down. Signed integers can do both, but you wouldn't use one to index into a list. Yet see how strange this comparison is? Blockchains themselves are simple mechanisms that allow one to verify the integrity the data that a message depends on. Consensus and synchronization mechanisms can be tacked on top of an append-only log to create blockchain-like structures.
 
 Other than PoW over an append-only log (e.g. 'Nakamoto Consensus, i.e. a blockchain'), we do not have another distributed consensus mechanism with the same CAP guarantees. Other than cases that require extreme security and zero centralization, PoW is usually overkill.
 

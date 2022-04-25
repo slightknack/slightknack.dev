@@ -1,6 +1,9 @@
 +++
 title = "A Tiny Introduction to Parsers"
 date = 2020-07-08
+
+[extra]
+artbit = "4_framea.png"
 +++
 
  # A Question
@@ -9,14 +12,14 @@ date = 2020-07-08
  # My Response
  A parser simply takes a stream of data and from it produces a datastructure. This stream is usually a stream of tokens, which are groups of tagged delimiters and data used to construct the datastructure.
 
- Let's assume you're building a parser for a programming language; the parser converts a file to an abstract syntax tree. We start with a file; in this case, it's **AverageScript**:
+ Let's assume you're building a parser for a programming language; the parser converts a file to an abstract syntax tree. We start with a file; in this case, it's *AverageScript*:
  ```javascript
  for i in [1, 2, 3] {
      print(i)
  }
  ```
  And lex it into a series of tokens by walking over the file linearly. So, for instance:
- ```plain
+ ```
  for: keyword
  i:   identifier
  in:  keyword
@@ -27,7 +30,7 @@ date = 2020-07-08
       ... snip ...
  }:   delimiter
  ```
- This is the stream of tokens that will be fed into the parser to form the **ast**. So, how exactly does a parser work?
+ This is the stream of tokens that will be fed into the parser to form the AST. So, how exactly does a parser work?
 
  There are quite a few different kinds of parsers, but they all essentially reduce to the same set of steps:
  - Look at the next few tokens to determine what is being parsed
@@ -57,7 +60,7 @@ date = 2020-07-08
  7. It checks for `}`, ending the for loop
  8. It constructs a for node and returns it.
 
- The end of this process might result in an **ast** that looks like so:
+ The end of this process might result in an AST that looks like so:
  ```rust
  For {
      identifier: i,
@@ -75,7 +78,7 @@ date = 2020-07-08
  }
  ```
 
- This **ast** can then be walked, interpreted, compiled, etc. There exist common formats to describe parsers; one such format is Extended Backus-Naur Form. Many parsing techniques exist; what I described models a **ll(1)** parser. Many parsing models exist; to learn more about them, I recommend you check the Parsing Wikipedia page.
+ This AST can then be walked, interpreted, compiled, etc. There exist common formats to describe parsers; one such format is Extended Backus-Naur Form. Many parsing techniques exist; what I described models a LL(1) parser. Many parsing models exist; to learn more about them, I recommend you check the Parsing Wikipedia page.
 
  So, to summarize:
 

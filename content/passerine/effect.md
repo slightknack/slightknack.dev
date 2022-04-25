@@ -2,9 +2,10 @@
 title = "Algebraic Effects in Passerine"
 date = 2022-02-12
 draft = true
+
+[extra]
+artbit = "4_climber.png"
 +++
-
-
 
 The popular Multicore fork of OCaml was upstreamed into the main compiler with the release of OCaml 5.0 a few weeks ago.
 

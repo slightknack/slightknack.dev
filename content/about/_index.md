@@ -4,6 +4,9 @@ weight = 0
 sort_by = "weight"
 template = "section-about.html"
 page_template = "page.html"
+
+[extra]
+artbit = "3_human.png"
 +++
 
 ![A trail weaving through the mountains on a cold spring day](/content/path.jpg)
@@ -18,10 +21,10 @@ I'm most interested in using computational systems as a foundation for building 
 
 If you want to get in touch, you can email me at `hello` at this domain; elsewhere, I'm `slightknack`. Contrary to popular belief, I am not a robot.
 
-# Why this Website?
+# About this Website?
 
 Isaac's Website (aka [`slightknack.dev`](https://slightknack.dev)) is a random web of thoughts. Loosely technical but with no common theme, it's really just a place to link against ideas I'd like to share with others.
 
-The [current incarnation](https://github.com/slightknack/slightknack.dev) of this website is built with [Zola](https://getzola.com) and [GitHub Pages](https://github.io). This website *used* to run on a custom git-like database I wrote, hosted via Cloudflare Workers, with a little CMS for writing new posts in-browser. Although fun, I was getting tired of paying hosting for a website that doesn't get a whole lot of traffic. If you'd like a little blast-from-the-past, here's a [mirror](https://website.slightknack.workers.dev/home).
+The [current incarnation](https://github.com/slightknack/slightknack.dev) of this website is built with [Zola](https://getzola.com) and [GitHub Pages](https://github.io). This website _used_ to run on a custom git-like database I wrote, hosted via Cloudflare Workers, with a little CMS for writing new posts in-browser. Although fun, I was getting tired of paying hosting for a website that doesn't get a whole lot of traffic. If you'd like a little blast-from-the-past, here's a [mirror](https://website.slightknack.workers.dev/home).
 
 There is an [RSS/Atom feed](https://slightknack.dev/atom.xml) for those of you who use newsreaders. For those of you who do not, just bookmark this site or check back for new posts occasionally, I guess.

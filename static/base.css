@@ -1,32 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Rubik:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,700;1,700&family=Fira+Mono&family=Inter:wght@400;700&display=swap');
 
 :root {
-    --half-fill: #000000bb;
-    --bg-fill:   #eee;
-    --text-fill: #000;
-    --soft-fill: #00000022;
-    --key-fill: #4d3ee6;
+    --fill-bg: #f7f2ed;
+    --fill-text: #0F0E0B;
+    /* should both be close to bg color */
+    --fill-accent: #15aacc;
+    --fill-soft: #E6DCD2;
 
     --font-base: 15pt;
-    --font-heading: 10pt;
-    --font-body: "IBM Plex Serif", serif, sans-serif;
-    --font-title: "Rubik", sans-serif;
-    --font-mono: "IBM Plex Mono", monospace;
+    --font-heading: 20pt;
+    --font-body: "Inter", serif, sans-serif;
+    --font-title: "Averia Serif Libre", sans-serif;
+    --font-mono: "Fira Mono", monospace;
+}
+
+::selection {
+    background: var(--fill-accent);
 }
 
 @media (prefers-color-scheme:dark) {
     :root {
-        --half-fill: #ffffffbb;
-        --bg-fill:   #111;
-        --text-fill: #fff;
-        --soft-fill: #ffffff22;
+        --fill-bg: #0F0E0B;
+        --fill-text: #E6DCD2;
+        --fill-accent: #1544cc;
+        --fill-soft: #2a2722;
     }
 }
 
 body {
     width: 100vw;
-    background-color: var(--bg-fill);
-    color: var(--text-fill);
+    background-color: var(--fill-bg);
+    color: var(--fill-text);
     font-family: var(--font-body);
     font-size: var(--font-base);
     line-height: 1.5;
@@ -35,15 +39,16 @@ body {
 p {
     font-size: var(--font-base);
     hyphens: auto;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+    margin-top: 20pt;
+    margin-bottom: 20pt;
 }
 
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.1;
     letter-spacing: 0.05em;
-    margin-top: 4vh;
-    margin-bottom: 2vh;
+    hyphens: auto;
+    margin-top: 40pt;
+    margin-bottom: 20pt;
     font-family: var(--font-title);
     font-weight: bold;
 }
@@ -62,22 +67,22 @@ h6 { font-size: calc(var(--font-base) + var(--font-heading) / 7); }
 pre {
     font-family: var(--font-mono), monospace;
     overflow: scroll;
-    padding: 2vh;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    border-radius: 3px;
+    padding: 20pt;
+    margin-top: 20pt;
+    margin-bottom: 20pt;
+    border-radius: 2px;
 }
 
 code {
     font-family: var(--font-mono), monospace;
-    background-color: var(--soft-fill);
+    background-color: var(--fill-soft);
     overflow: scroll;
     word-wrap: break-word;
     overflow-wrap: anywhere;
     white-space: pre-wrap;
     hyphens: none;
-    padding: 3px;
-    border-radius: 3px;
+    padding: 2px;
+    border-radius: 2px;
     font-size: 0.93em;
 }
 
@@ -90,14 +95,15 @@ pre code {
 }
 
 blockquote {
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    padding-left: 2vh;
-    border-left: 3px solid var(--soft-fill);
+    margin-top: 20pt;
+    margin-bottom: 20pt;
+    padding-left: 20pt;
+    border-left: 2px dashed var(--fill-text);
+    font-family: var(--font-body);
 }
 
 ol, ul {
-    padding-left: 4vh;
+    padding-left: 40pt;
 }
 
 ul {
@@ -109,25 +115,33 @@ ol {
 }
 
 li {
-    margin-top: 1vh;
-    margin-bottom: 1vh;
+    margin-top: 10pt;
+    margin-bottom: 10pt;
 }
 
 hr {
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    border: 0 solid var(--soft-fill);
-    border-top: 3px solid var(--soft-fill);
+    margin-top: 20pt;
+    margin-bottom: 20pt;
+    border: 0 solid var(--fill-text);
+    border-top: 2px dashed var(--fill-text);
 }
 
 a {
     color: inherit;
     text-decoration: none;
-    border-bottom: 3px solid var(--soft-fill);
+    border-bottom: 2px solid var(--fill-accent);
+
+    background-image: linear-gradient(0deg, var(--fill-accent) 0%, var(--fill-accent) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 0;
+    background-position: 0 100%;
+    transition:
+        background-size 100ms ease,
+        color 100ms ease;
 }
 
-a:hover {
-    border-bottom: 3px solid var(--text-fill);
+a:hover, a:active, a:focus {
+    /* border-bottom: 2px solid var(--fill-text); */
     background-size: 100% 100%;
 }
 
@@ -141,18 +155,18 @@ strong, b {
 
 img {
     display: block;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
+    margin-top: 30pt;
+    margin-bottom: 30pt;
     margin-left: auto;
     margin-right: auto;
     max-width: 100%;
 }
 
 table {
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    /* margin-left: 2vh; */
-    /* margin-right: 2vh; */
+    margin-top: 20pt;
+    margin-bottom: 20pt;
+    /* margin-left: 20pt; */
+    /* margin-right: 20pt; */
     display: block;
     overflow-x: auto;
     overflow-y: hidden;
@@ -160,19 +174,23 @@ table {
 
 thead {
     white-space: nowrap;
-    background-color: var(--soft-fill);
+    background-color: var(--fill-soft);
     font-family: var(--font-title);
     font-weight: bold;
     letter-spacing: 0.05em;
 }
 
-tr:nth-child(even) { background-color: var(--soft-fill); }
+tr:nth-child(even) { background-color: var(--fill-soft); }
 
 td, th {
-    border-right: 3px solid var(--soft-fill);
-    padding: 0.8vh;
-    padding-left: 2vh;
-    padding-right: 2vh;
+    border-right: 2px solid var(--fill-soft);
+    padding: 0.80pt;
+    padding-left: 20pt;
+    padding-right: 20pt;
+}
+
+tr:nth-child(even) td, th {
+    border-right: 2px solid var(--fill-bg);
 }
 
 td:last-of-type, th:last-of-type {
@@ -195,7 +213,7 @@ summary {
 
 summary:before {
     content: "►";
-    color: var(--half-fill);
+    color: var(--fill-special);
     width: var(--font-base);
     font-size: calc(var(--font-base) * 2/3);
 }

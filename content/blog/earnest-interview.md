@@ -2,11 +2,14 @@
 title = "Earnestly Responding to a Satirical Interview Guide"
 date = 2021-09-28
 draft = true
+
+[extra]
+artbit = "stack_pick.png"
 +++
 
 > This is my super secret proprietary no-nonsense guide on how to ~~interview engineers~~ pass a technical interview.
 
-This morning, as I was scrolling through HN (with my topcolor set to `#abcdef`, of course), I came across a [wise piece](https://www.spakhm.com/p/how-to-interview-engineers) describing the raw-egg-for-breakfast *optimal* technical interview process.
+This morning, as I was scrolling through HN (with my top-color set to `#abcdef`, of course), I came across a [wise piece](https://www.spakhm.com/p/how-to-interview-engineers) describing the raw-egg-for-breakfast *optimal* technical interview process.
 
 Any interview process that falls short of the one laid out above, of course, imperfection, the article seemed to plead.
 
@@ -66,7 +69,7 @@ def game_over(board):
     if sum(abs(x) for x in board) == 9: return True
 ```
 
-"A generator expression!" my subconcious whispers. I thank it as my fingers fly across the keyboard. On to rows, columns, and diagonals. If the absolute value of the sum of the board is three, we have a winner:
+"A generator expression!" my subconscious whispers. I thank it as my fingers fly across the keyboard. On to rows, columns, and diagonals. If the absolute value of the sum of the board is three, we have a winner:
 
 ```python
     # check rows and cols
@@ -113,7 +116,7 @@ def game_over(board):
     return False
 ```
 
-Yes, I'm well aware it's 3 lines of haskell; but this is a problem bound by typing speed, not creative thought, not actual effort. Why wrap your head around a monad when you can use beautiful imperative *Ur*-language instead?
+Yes, I'm well aware it's 3 lines of Haskell; but this is a problem bound by typing speed, not creative thought, not actual effort. Why wrap your head around a monad when you can use beautiful imperative *Ur*-language instead?
 
 "Ok Google! Time left!" I bark across the living room. "It's been 2 minutes, 28 seconds since you started the timer," it depressedly replies.
 
@@ -144,7 +147,7 @@ Remembering Python's pass-by-reference (and too lazy to figure out whether it ac
             total += count_games(new_board, new_turn)
 ```
 
-Figuring out what this does is *not* left as an excercise to the reader, neither the interviewer. (Why are we multiplying `turn` by `-1`? It doesn't matter.)
+Figuring out what this does is *not* left as an exercise to the reader, neither the interviewer. (Why are we multiplying `turn` by `-1`? It doesn't matter.)
 
 The recursive portion finished, I polish everything off, and stare at my finished masterpiece:
 
@@ -187,7 +190,7 @@ def count_games(board, turn):
 print(count_games([0 for _ in range(9)], 1))
 ```
 
-No reusable code in sight. Yesiree. That's how it's done.
+No reusable code in sight. Yessiree. That's how it's done.
 
 </details>
 </blockquote>

@@ -1,6 +1,9 @@
 +++
 title = "Getting bindgen working on NixOS"
 date = 2021-07-08
+
+[extra]
+artbit = "5_staplerb.png"
 +++
 
 > # Note
@@ -96,7 +99,7 @@ rustPlatform.buildRustPackage rec {
 }
 ```
 
-Next thing we needed to do was pass in some c flags to bindgen. I'm not too sure what these do, but they're what was used by firefox and they seem to work:
+Next thing we needed to do was pass in some c flags to bindgen. I'm not too sure what these do, but they're what was used by Firefox and they seem to work:
 
 ```
 configurePhase = ''

@@ -2,6 +2,9 @@
 title = "Working in Tech as a Teenager"
 date = 2021-10-08
 draft = true
+
+[extra]
+artbit = "2_phone_globe.png"
 +++
 
 This summer I got a job. Ok, I know this isn't altogether that surprising... but, given that summer's now over, I thought it would be nice to write a little reflection about the process. This was the second job I've ever held: my first job was working as an apprentice cheesemaker the summer before, but that's a story for another time.

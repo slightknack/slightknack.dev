@@ -1,6 +1,9 @@
 +++
 title = "All You Need are Coroutines and Pattern Matching"
 date = 2020-07-10
+
+[extra]
+artbit = "4_sunglasses.png"
 +++
 
 > ## Note
@@ -21,26 +24,26 @@ Although there is much more to be said on this topic, this basic definition is a
 ## Pattern Matching
 *Pattern Matching* is the action of *matching* a data-structure against a *pattern* to extract specific data. Most of the time, a pattern can be thought of as a mirror version of the data-structure that data is being extracted from. For example, the pattern:
 
-```plain
+```
 (x, y)
 ```
 
 would successfully match against the data-structure:
 
-```plain
+```
 (1, (2, 3))
 ```
 
 and produce the bindings:
 
-```plain
+```
 x = 1
 y = (2, 3)
 ```
 
 Additionally, patterns can have *guards* which check that the data extracted from the data is valid. Guards should be read as *where* in most cases; for example, the pattern:
 
-```plain
+```
 x | x > 0
 ```
 
@@ -49,13 +52,13 @@ Will match any value `x` where `x` is greater than `0`. If a pattern match fails
 ## A Few More Things
 Pattern matching is useless unless the extracted data can be used. A *lambda* matches a pattern and maps the bindings to a new *environment*. This environment is used to run the lambda's *expression* in a new coroutine. A lambda is defined in the following manner:
 
-```plain
+```
 <pattern> -> <expression>
 ```
 
 and is called with the form:
 
-```plain
+```
 <lambda> <expression>
 ```
 
@@ -63,7 +66,7 @@ Each lambda takes only one argument, and can yield or return at most one item. L
 
 Here's an example definition and call:
 
-```plain
+```
 (num -> num + num) 7
 ```
 
@@ -71,19 +74,19 @@ This function doubles the passed value - the above expression would evaluate to 
 
 By design, lambdas are *anonymous*. To attach a name to a value (as lambdas are values), *assignment* is used. Assignment is similar to a lambda expression, in the sense that it matches a pattern and binds variables. However, rather than creating the bindings in a new environment, the bound values become available in the current scope. Here's an assignment:
 
-```plain
+```
 <pattern> = <expression>
 ```
 
 Let's create a named lambda, that `decrement`s a number by 1:
 
-```plain
+```
 decrement = x -> x - 1
 ```
 
 And calling it on `13`:
 
-```plain
+```
 decrement 13
 ```
 
@@ -93,7 +96,7 @@ If a lambda needs to evaluate some list of operations in sequence, a *block* is 
 
 Here is a function that models a linear correlation:
 
-```plain
+```
 linear = (m, x, b) -> {    
     proportional = m * x    
     return proportional + b    
@@ -107,7 +110,7 @@ In practice, this could be a one-liner; this is a merely a trivial example used 
 ## Conditionals
 An if-expression is a feature common in many languages - our language doesn't even have those yet. To get started with conditionals, we'll build simplified version of an if-expression: if a condition is truthy, an expression is evaluated; otherwise, do nothing. Here's a short example:
 
-```plain
+```
 if true {    
     1 + 1
 }
@@ -118,9 +121,9 @@ In this case, `if` would evaluate to `2`. We're going to implement `if` first as
 - An expression which might be truthy.
 - A lambda that takes no arguments.
 
-We'll call the unsugared lambda definition of `if` '`iffer`'. Here's how iffer would be used. This example has the same semantics as the previous `if` expression.
+We'll call the unsugared lambda definition of `if` '`iffer`'. Here's how `iffer` would be used. This example has the same semantics as the previous `if` expression.
 
-```plain
+```
 iffer (true, () -> {1 + 1})
 ```
 
@@ -128,7 +131,7 @@ Before we write the definition of `iffer`, we need to deepen out understanding o
 
 Let's start by discussing *yielding*. The `yield` expression, when called inside a coroutine, suspends the current coroutine and returns some value. When the suspended coroutine is again, the `yield` function evaluates to those values, and continues running. For example, consider:
 
-```plain
+```
 foo = () -> {    
     print "Start"    
     x = yield "Yielding"    
@@ -148,7 +151,7 @@ print (x "Resume")
 
 Let's talk and *trying* and *erring*. `try` will evaluate a coroutine; if the coroutine fails, try will return the error as a value. If the coroutine succeeds its value will be returned as normal. With this in mind, here is a naive implementation of `iffer`:
 
-```plain
+```
 iffer = (condition, then) -> {    
     do_or_fail = c | c is not false -> then ()    
     try (do_or_fail condition)    
@@ -160,7 +163,7 @@ Here's the break-down. As mentioned before, `iffer` is a function that takes two
 
 Great! Now that we have the definition for `iffer`, let's write the macro `if`. `if` transforms an `if` expression into an `iffer` function call:
 
-```plain
+```
 if = cond do ~> iffer (cond, () -> do)
 ```
 
@@ -168,7 +171,7 @@ Macros are made using a squiggly-arrow, `~>`. The arguments aren't a pattern, th
 
 For now, let's see this `if` in action:
 
-```plain
+```
 coroutines = "cool"
 
 if (coroutines == "cool") {    
@@ -187,11 +190,11 @@ Obviously, `"Heck yeah!"` would be printed in this case.
 ```
 
 ## Building a Match Statement
-In many languages, such thing as a match statement exists.This statement matches a value against a variety of patterns, and returns the value fo the first one it matches.
+In many languages, such thing as a match statement exists.This statement matches a value against a variety of patterns, and returns the value of the first one it matches.
 
 This might look something like:
 
-```plain
+```
 match x {    
     true  -> 1    
     false -> 0
@@ -205,13 +208,13 @@ We're going to implement match first as a function, and then as a macro. the fun
 
 So, the above will be written as:
 
-```plain
+```
 matcher (x, [true -> 1, false -> 0])
 ```
 
 We're using the name `matcher` for this function to avoid confusion with the match macro we'll implement later on. Here's how we might start a naive definition for matcher:
 
-```plain
+```
 matcher = (value, mappings) -> {    
     for value in mappings {        
         result = try (mappings value)        

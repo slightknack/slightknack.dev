@@ -2,6 +2,9 @@
 title = "Spatiotemporal Acceleration Structures"
 date = 2021-10-14
 draft = true
+
+[extra]
+artbit = "1_cylindera.png"
 +++
 
 - Introduction
@@ -40,7 +43,7 @@ draft = true
     - Maps input to output
     - Can be trained to approximate a function
 
-- Forget Hashlife, what about Neurallife?
+- Forget Hashlife, what about Neural life?
     - use neural networks instead of hashing
     - problems:
         - collecting training data

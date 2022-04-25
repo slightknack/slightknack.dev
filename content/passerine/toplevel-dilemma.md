@@ -2,9 +2,10 @@
 title = "The Top-Level Dilemma"
 date = 2021-10-11
 draft = true
-+++
 
-# What is a top level definiton
+[extra]
+artbit = "2_skeletons.png"
++++
 
 # What is the top level?
 

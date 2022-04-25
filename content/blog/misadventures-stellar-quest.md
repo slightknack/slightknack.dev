@@ -1,20 +1,26 @@
 +++
 title = "Stellar Quest (Mis)Adventures"
 date = 2021-05-03
+
+[extra]
+artbit = "1_saturn.png"
 +++
 
 Good evening fellow Lumenauts!
 
 For those of you who don't know what [Stellar](https://stellar.org) is yet, it's a cryptocurrency that's been around since about 2015 by the same guys who made Ripple. I personally find it notable for a couple of reasons:
 
-Instead of using [Proof-of-Work](https://en.bitcoin.it/wiki/Proof_of_work) or [Proof-of-Stake](https://en.bitcoin.it/wiki/Proof_of_Stake), Stellar uses the [Stellar Consensus Protocol](https://www.stellar.org/papers/stellar-consensus-protocol), which is a construction of Federated Byzantine Agreement. I've written more about (and am working on an implementation of) SCP [here](https://github.com/slightknack/drop-in-fba), for those interested. Stellar is *really* fast (e.g. closing times are <5s on average) and environmentally friendly (no [mining](https://news.ycombinator.com/item?id=26386741) or [farming](https://www.tomsguide.com/news/what-is-chia-cryptocurrency-and-why-is-it-bad-news-for-hard-drives)).
+Instead of using [Proof-of-Work](https://en.bitcoin.it/wiki/Proof_of_work) or [Proof-of-Stake](https://en.bitcoin.it/wiki/Proof_of_Stake), Stellar uses the [Stellar Consensus Protocol](https://www.stellar.org/papers/stellar-consensus-protocol), which is a construction of Federated Byzantine Agreement. I've written more about (and am working on an implementation of) SCP [here](https://github.com/slightknack/drop-in-fba), for those interested. Stellar is _really_ fast (e.g. closing times are <5s on average) and environmentally friendly (no [mining](https://news.ycombinator.com/item?id=26386741) or [farming](https://www.tomsguide.com/news/what-is-chia-cryptocurrency-and-why-is-it-bad-news-for-hard-drives)).
+
 <!-- more -->
+
 In my opinion, Stellar doesn't have the usual crypto-dystopia-air about it. Some may see this as a bad thing, but I see it as the opposite: extreme decentralization is just bad centralization (I mean, just look at bitcoin exchanges if you need an example), so by building the protocol with federation in mind, Stellar feels like email, but for money, and Just Works™. It's all about finding that balance, and Stellar hits the sweet spot.
 
 Of course, I sound like just another Stellar shill. And that's fine! I think it's a cool project. If you're looking for a longer-form introduction to the rationale behind Stellar, good ol' [`patio11` can hook you up](https://www.kalzumeus.com/2014/08/05/harry-potter-and-the-cryptocurrency-of-stars/).
 
 # Anyway, What's Stellar Quest?
-The *Stellar Development Foundation* (you know, the governing body responsible for the development of Stellar) does a lot of things to help people familiarize themselves with Stellar, and these things usually have something to do with giving away free *Lumens* (XLM).
+
+The _Stellar Development Foundation_ (you know, the governing body responsible for the development of Stellar) does a lot of things to help people familiarize themselves with Stellar, and these things usually have something to do with giving away free _Lumens_ (XLM).
 
 One such thing is a competition/challenge called [Stellar Quest](https://quest.stellar.org/). Quest teaches people how to use Stellar's API ([Horizon](https://github.com/stellar/go/tree/master/services/horizon), for the pedantic) through a set of developer-oriented challenges that increase in difficulty as time goes on. (Don't worry, it's all done on the test network.)
 
@@ -22,11 +28,11 @@ As of writing, there are two finished Quest Series; the third is in progress rig
 
 ![Series 3 begins May 3rd](/content/series-3.png)
 
-I've participated in Quest in the past, but always *after* they happened. I didn't want to miss out again, so I made sure to be prepared.
+I've participated in Quest in the past, but always _after_ they happened. I didn't want to miss out again, so I made sure to be prepared.
 
 Series 3 is a bit different than previous series for two reasons:
 
-1. Stellar Quest is now only accessible through an app. In the past, you could also do it in-browser. I'm personally not a fan, because it means you have to email the public/private keys they give you to yourself. This is also the first time the app is being used, so it's buggy as *heck*. I mean, it's impressive the developers build it off as quickly as they did, but it definitely needs some polish.
+1. Stellar Quest is now only accessible through an app. In the past, you could also do it in-browser. I'm personally not a fan, because it means you have to email the public/private keys they give you to yourself. This is also the first time the app is being used, so it's buggy as _heck_. I mean, it's impressive the developers build it off as quickly as they did, but it definitely needs some polish.
 
 2. Instead of playing globally, you have to register an hour before the competition. After registering, you'll be put into a room with about 20 other people, and compete to finish first. First person to finish the challenge will get 500 XLM, ..., fifth will get 250 XLM, and so on and so forth.
 
@@ -37,6 +43,7 @@ Anyway, let's talk prizes. Currently, 1 stellar XLM is about 0.56 USD, so that *
 So, hearing that the Series 3 challenge would be starting soon, I decided to practice and prepare so I could secure that top spot. As you'll soon see, it didn't go entirely to plan...
 
 # Some Background
+
 (Un)Luckily enough, I have exams over these next two weeks, which means... **Study Leave!** I had no exams today, so, after reviewing some calculus this morning, my afternoon was completely free to follow my stellar aspirations.
 
 Installing the app and setting up an account with [Albedo](https://albedo.link/) was simple enough — it's the same process as that of the other challenges, so no surprise here. I double-checked the countdown timer, then set an alarm on my phone. Shortly thereafter, I fired up Discord, opened a fresh browser pane, made sure everything was in order, then...
@@ -53,12 +60,14 @@ So there I sat, with an hour to kill. I reviewed the [Stellar Docs](https://deve
 
 There are generally two ways to complete Stellar Quest Challenges: [RunKit](https://runkit.com/home) (JS environment), or [Stellar Laboratory](https://laboratory.stellar.org/#txbuilder) (interactive interface). Given that this was the first challenge, I choose the latter for easier experimentation, but RunKit is needed as challenges get more complex later on.
 
-*Suddenly*, The alarm I had set on my phone went off: it was time to start!
+_Suddenly_, The alarm I had set on my phone went off: it was time to start!
 
 > ## Note
+>
 > I would've included more pictures, but I didn't take any screenshots at the time.
 
 ## Part I: Off to the races!
+
 As expected, as soon as we hit 3pm, Stellar Quest started sorting us into rooms. I was put into a room with one other person before the challenge prompt slid up on my screen:
 
 > Make use of a sequence number bump operation in a transaction
@@ -85,7 +94,7 @@ public: GB6RRYSQVIKX5K5GIOAEK6ZSCTK675IYADGUWRCWDMIG5YXJB6C7ABDA
 secret: SAWPW6MVPCTHQL7ZPTTA34HQOVIPZBHUSHC7CJ7R774RS73W2NOQ6UGE
 ```
 
-What's important to note is that this keypair *isn't* initialized as an account on the stellar ledger: we have to do that ourselves. Stellar provides a tool, friendbot, that turns keypairs into accounts with some starting XLM on the testnet ledger, however, it's usually better to create and fund the account yourself, using a different keypair.
+What's important to note is that this keypair _isn't_ initialized as an account on the stellar ledger: we have to do that ourselves. Stellar provides a tool, friendbot, that turns keypairs into accounts with some starting XLM on the testnet ledger, however, it's usually better to create and fund the account yourself, using a different keypair.
 
 With this in mind, my plan of action was straightforward:
 
@@ -116,7 +125,7 @@ In Progress - Error
 }
 ```
 
-What!? That *can't* be...
+What!? That _can't_ be...
 
 In a rush of panic, I wrap up a new transaction, and bumped again...
 
@@ -135,7 +144,8 @@ And again...
 To no avail. What's wrong?
 
 # Part II: Status 400
-So obviously, something *is* wrong with my solution. I looked at the prompt again, and saw the following line I had skipped over the first time:
+
+So obviously, something _is_ wrong with my solution. I looked at the prompt again, and saw the following line I had skipped over the first time:
 
 > ...
 >
@@ -171,7 +181,7 @@ So it looked like I wasn't alone... pressing further:
 >
 > **kalepail:** Nothing is ever quite as easy as it seems
 
-Huh, we need to bump to a specific sequence number. I reread the instructions, but didn't see anything about a *magic number*. I sat there, waiting. A few others voiced their concerns.
+Huh, we need to bump to a specific sequence number. I reread the instructions, but didn't see anything about a _magic number_. I sat there, waiting. A few others voiced their concerns.
 
 Ah, one last hint, coming in hot:
 
@@ -189,13 +199,13 @@ Pulling up my phone again — all this switching was a bit nauseating — I scro
 2. Laboratory — Already there
 3. [Horizon](https://horizon.stellar.org/transactions/073cde1fab7d28d3e322e5f61ac385c37859c3e82b17b6c92a9f0444420336cb) — Already familiar with it... wait!
 
-The last link wasn't a link to *documentation*, it was a JSON blob detailing a *specific transaction* that had occured on the network! Perhaps we would find the magic number here?
+The last link wasn't a link to _documentation_, it was a JSON blob detailing a _specific transaction_ that had occured on the network! Perhaps we would find the magic number here?
 
 ---
 
 Meanwhile, on Discord:
 
-> **zajko:** *slides into my dms*
+> **zajko:** _slides into my dms_
 >
 > **zajko:** hey, im trying to solve the quest, did you figure out what sequence number did he [kalepail] mean?
 >
@@ -203,7 +213,7 @@ Meanwhile, on Discord:
 >
 > **slightknack:** no, sorry
 >
-> **zajko:** *You've been invited to join a server: stellar quest 3 solving*
+> **zajko:** _You've been invited to join a server: stellar quest 3 solving_
 
 A secret server, eh? May as well join.
 
@@ -233,6 +243,7 @@ AAAAAgAAAABDM3D4KwszNoKJQeNDrAnazm6igHWI+HjMZq6Vce8wewAAAMgB59RMAAAAQgAAAAEAAAAA
 ```
 
 > ## Aside: XDR
+>
 > When transactions are sent through the Stellar network, a compact encoding of the transaction, called XDR, is used. From the [Stellar Docs](https://developers.stellar.org/docs/glossary/xdr/):
 >
 > > XDR, also known as External Data Representation, is used throughout the Stellar network and protocol. The ledger, transactions, results, history, and even the messages passed between computers running stellar-core are encoded using XDR.
@@ -251,7 +262,7 @@ operations: Array[2]
   [1] body: [bumpSequence]
 ```
 
-So we *do* need to bump the sequence number! Does this transaction contain the magical sequence number `@kalepail` mentioned? Lo and behold:
+So we _do_ need to bump the sequence number! Does this transaction contain the magical sequence number `@kalepail` mentioned? Lo and behold:
 
 ```
 [1]
@@ -282,7 +293,8 @@ In Progress - Error
 A rate limit? Oh no...
 
 # Part III: Or, 429, You've been rate limited
-At this point, I had to leave for *calcio* practice. I knew my solution was correct, as far as I could tell (once again checking Stellar Explorer), and knew I could just try again when I got back.
+
+At this point, I had to leave for _calcio_ practice. I knew my solution was correct, as far as I could tell (once again checking Stellar Explorer), and knew I could just try again when I got back.
 
 ![Two Hours Later](/content/two-hours-later.jpg)
 
@@ -301,7 +313,7 @@ I brought up Discord, and checked the `#announcements`:
 
 > **kalepail:** `@everyone` We're aware of the `rate_limit_exceeded` error and l'm looking into it. In the mean time please just be patient. For those stuck in the `Check Status` state I'm investigating what's going on there as well. I know it's frustrating but this was a possibility at the scale and complexity of this app. Will hopefully have things squared up soon. If you were registered you should be fine and I'll make another announcement here once things are good to go again.
 
-Hmm. I slid into the *Secret Stellar Club*:
+Hmm. I slid into the _Secret Stellar Club_:
 
 > **rmaguiar:** Yep, what I still don't understand is what kalepail said about the number
 
@@ -347,13 +359,12 @@ Kalepail then followed up in `#check-status-issue`:
 > [paraphrasing, channel was deleted]
 >
 > **kalepail:** If you've reinstalled the app, a new account is generated, which means your progress will be lost. So don't reinstall the app.
->
 
 Wait, what?
 
 Our progress would be lost?
 
-*Oh, crap.*
+_Oh, crap._
 
 ---
 
@@ -361,13 +372,13 @@ At this point in time I was literally shaking. Registrations were closed, so I c
 
 ---
 
-I slid into the *Secret Stellar Club*. Some members were able to verify their solutions.
+I slid into the _Secret Stellar Club_. Some members were able to verify their solutions.
 
-The solution I had suggested *worked*.
+The solution I had suggested _worked_.
 
 What?
 
-My solution *was correct*:
+My solution _was correct_:
 
 > **Hugo.:**  
 > OH MY GOD  
@@ -376,7 +387,7 @@ My solution *was correct*:
 > **BUMP TO 110101115104111**  
 > guys bump to 110101115104111
 
-*Holy cow!*
+_Holy cow!_
 
 I couldn't believe it!
 
@@ -394,9 +405,10 @@ And had missed my shot at `500 XLM`.
 
 ...
 
-*Oh well.*
+_Oh well._
 
 # Part IV: It's not all bad
+
 It's not over yet.
 
 I was really excited that I'd helped those on the group Discord server succeed. `@Hugo.`, the person who won first, took pity on me for getting locked out of my account, and kindly send me about 50 XLM of his winnings. Thanks!
@@ -409,6 +421,7 @@ If I've learned anything, it's that:
 With those lessons in mind, I hope future challenges go more smoothly 😄
 
 # Part V: Closing thoughts
+
 Welp, that was an adventure for sure! I probably won't be able to compete in the next challenge, but I'll try to compete in the ones after that.
 
 Huge thanks to the organizers of Stellar Quest, especially `@kalepail`. I'd also like to thank the developers at the Stellar Development Foundation for all their hard work, the members of the Stellar Quest Discord server for the great interactions I've had there, `@zajko`, who organized the Secret Stellar Club, and most especially, `@Hugo.`, who was kind enough to send me some of the Lumens he won in return for helping him reach the right solution.
@@ -418,10 +431,13 @@ Stay safe everyone!
 I'll see you around!
 
 ## Don't Buy me a Coffee!
-Because I don't drink coffee! ... but, if you want to, idk, buy me a *half-gallon of crypto-funded chocolate milk*, I'm game. My stellar address is `slightknack*stellarx.com`; alternatively, my public key is:
+
+Because I don't drink coffee! ... but, if you want to, idk, buy me a _half-gallon of crypto-funded chocolate milk_, I'm game. My stellar address is `slightknack*stellarx.com`; alternatively, my public key is:
+
 ```
 GBKDWR2YMORRJVKLJGVWBOBVFWCBJEITSGNFQLKS6O6E2RYE364UBK6I
 ```
+
 I usually don't do this, but since I've adopted the role of a crypto-shill for one article, I may as well.
 
 If you enjoyed this article, consider [subscribing to this website's RSS feed](/atom.xml), checking out [my work on Github](https://github.com/slightknack), or sharing this post with a friend.

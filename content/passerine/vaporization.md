@@ -1,6 +1,9 @@
 +++
 title = "Vaporization and Modern Memory Management"
 date = 2021-02-24
+
+[extra]
+artbit = "5_frog.png"
 +++
 
 > ## Note
@@ -69,12 +72,12 @@ struct char_number {
 
 > #### Optimization: Memory Alignment
 > Instead of storing values back-to-back, individual values are aligned to the nearest slot. Instead of layout out `char_number` like so:
-> ```plain
+> ```
 > CDDDDDDD
 > D_______
 > ```
 > The compiler tries to align number to the nearest slot:
-> ```plain
+> ```
 > C_______
 > DDDDDDDD
 > ```
@@ -145,11 +148,11 @@ How does the computer we know which struct we're talking about, though? Given a 
 
 The usual solution is to store a hidden field, called the variant *tag*, which is a number (usually a byte) that points out which variant we're referring to. `0x00`, for instance, could be `Small`, and `0x01` could be `Big`.
 
-> Protip: this is why it's called a 'Tagged Union' ;).
+> Pro-tip: this is why it's called a 'Tagged Union' ;).
 
 An enum takes on the size of its largest variant, plus a byte for the variant, padded out to the nearest word. Following this logic, we can easily see that `Size` should be 3 slots large: 2 slots because of `Big`, 1 for of the tag (+ padding). In memory this looks something like so:
 
-```plain
+```
 T_______
 XXXXXXXX
 XXXXXXXX
@@ -262,7 +265,7 @@ This means that the immutable data wrapped in the `Cow` is safe, and can not be 
 ### Passing by Value with CoW
 Passerine, unlike Rust, does not allow for pass-by-mutable-reference\* (that's what the `&mut` means) — instead, Passerine is completely pass by value. If we approach pass by value naïvely, it's tempting to make a copy of every object before it's passed to a function. However, if we have a million-element list, imagine what havoc that could wreak:
 
-```passerine
+```elm
 -- this is Passerine, by the way
 -- I'm using this as a notation for a big list
 -- just note that the items are elided
@@ -278,7 +281,7 @@ If a copy of `big_list` were made every time it were passed to `conswizzle`, 100
 
 > #### Aside: Pass by Value vs. Pass by Reference
 > Pass by value means that when you pass something to a function, that function only has the value itself to work with. For example, if we have:
-> ```passerine
+> ```elm
 > set_to_2 = n -> { n = 2 }
 >
 > x = 3
@@ -299,7 +302,7 @@ If a copy of `big_list` were made every time it were passed to `conswizzle`, 100
 
 So, how do we overcome unnecessarily copying values before passing them to functions? With our good friend Copy on Write, of course! Recall our earlier example: a value passed via CoW to a function is not mutated, no copy is made. So as long as `conswizzle` is read-only, even if it's called thousands times, no copies will be made:
 
-```passerine
+```elm
 big_list = [ ... ]
 
 loop {
@@ -317,7 +320,7 @@ Now on to \#2!
 ### Static Single Assignment: Mutate on Last Use
 If a function doesn't mutate a list, it doesn't copy it. Consider the following situation:
 
-```passerine
+```elm
 x = [ ... ]
 x = modify_value x
 print x
@@ -335,7 +338,7 @@ SSA? What's that? and how does it help?
 
 Single Static Assignment (SSA) is a family of optimizations that have existed in compilers for about forever. It basically boils down to marking mutations to variables as separate variables. So, if we use a subscript notation to represent that a variable by the same name holds a different value, the above listing now looks like this:
 
-```passerine
+```elm
 x₀ = [ ... ]
 x₁ = modify_value x₀
 print x₁
@@ -343,7 +346,7 @@ print x₁
 
 Ok, so that's the first part of SSA. What about the second part? Let's annotate the last usage of each variable in the scope - we'll do this by appending (`'`) to the last occurrence:
 
-```passerine
+```elm
 x₀ = [ ... ]
 x₁ = modify_value x₀'
 print x₁'
