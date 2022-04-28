@@ -33,7 +33,7 @@ Over this past year I've practiced sketchnoting quite a lot, and have gotten a l
 
 Why is this? Have I started to rush? Gotten distracted? No, not really...
 
-# What's makes good sketchnotes?
+# What makes good sketchnotes?
 Taking good sketchnotes boils down to two things:
 
 1. Filtering out all but the most important information
