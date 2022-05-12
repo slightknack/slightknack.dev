@@ -58,10 +58,10 @@
 .pixel-sidebar:focus {
     filter:
         invert(1)
-        drop-shadow( 3px  0px 0 var(--fill-accent)) 
-        drop-shadow(-3px  0px 0 var(--fill-accent))
-        drop-shadow( 0px  3px 0 var(--fill-accent))
-        drop-shadow( 0px -3px 0 var(--fill-accent));
+        drop-shadow( 2px  0px 0 var(--fill-accent)) 
+        drop-shadow(-2px  0px 0 var(--fill-accent))
+        drop-shadow( 0px  2px 0 var(--fill-accent))
+        drop-shadow( 0px -2px 0 var(--fill-accent));
 }
 
 @media (prefers-color-scheme:dark) {
@@ -74,10 +74,10 @@
     .pixel-sidebar:focus {
         filter:
             /* invert(1) */
-            drop-shadow( 3px  0px 0 var(--fill-accent)) 
-            drop-shadow(-3px  0px 0 var(--fill-accent))
-            drop-shadow( 0px  3px 0 var(--fill-accent))
-            drop-shadow( 0px -3px 0 var(--fill-accent));
+            drop-shadow( 2px  0px 0 var(--fill-accent)) 
+            drop-shadow(-2px  0px 0 var(--fill-accent))
+            drop-shadow( 0px  2px 0 var(--fill-accent))
+            drop-shadow( 0px -2px 0 var(--fill-accent));
     }
 }
 
@@ -106,8 +106,8 @@
 .profile {
     width:  calc((var(--font-base) + var(--font-heading)) * 1.5);
     height: calc((var(--font-base) + var(--font-heading)) * 1.5);
-    /* border: 3px solid var(--text-fill); */
-    border-radius: 3px;
+    /* border: 2px solid var(--text-fill); */
+    border-radius: 2px;
 }
 
 .narrow, .narrow-left, .narrow-unpadded {
@@ -148,7 +148,7 @@
     box-sizing: border-box;
     width: 100%;
     border: none;
-    border-radius: 3px;
+    border-radius: 2px;
 }
 
 /* .submit-input-container input {
@@ -160,7 +160,7 @@
     width: 100%;
     border: none;
     margin-top: 20pt;
-    border-radius: 3px;
+    border-radius: 2px;
     text-align: center;
 } */
 
@@ -175,7 +175,7 @@
     margin-top: 20pt;
     margin-bottom: 20pt;
     background-color: var(--fill-soft);
-    border-radius: 3px;
+    border-radius: 2px;
 }
 
 .lateral {
