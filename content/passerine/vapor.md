@@ -68,6 +68,81 @@ Phase I is the simpler of the two, so we'll discuss it first.
 > TODO: Explain Phase I and Phase II.
 
 ## Phase I: Last use analysis
+During the compile-time phase, we determine the last time a variable is used in every scope. This may seem a bit abstract right now, so let's get concrete with a few examples.
+
+> I'll be using `x'` to denote the last use of `x` in the following examples.
+
+Here's the simplest case, where we only use a variable once:
+
+```
+x = "Hello"
+x'
+```
+
+The `x` on the second line is the last and only use of `x`, simple enough. If we reference x twice, say like this:
+
+```
+x = "Hello"
+x + x'
+```
+
+Only the last `x` is marked as last use. Getting a bit more complicated, look at the following case:
+
+```
+x = "Hello"
+x = x + x'
+x'
+```
+
+Wait, why are there two `x'`? Whenever we rebind a variable, the new value is different from the old. Therefore there can be multiple last uses of a variable, but only one last use of any given value.
+
+This pass is pretty simple and can be completed by walking the AST *backwards* and marking the 'first' use of each unique variable encountered, 'forgetting' variables when we redeclare them. Let's look at a more complex example, here's fibonacci:
+
+```
+fib = n -> if (n < 2) {
+    n'
+} else {
+    fib (n - 1) + fib (n' - 2)
+}
+```
+
+In this case we process each branch of the `if` statement independently; similar things have to be done for other control-flow constructs. For example, to ensure that `for` loops don't reuse a last-use value in the next iteration of the loop, you have to repeat the body twice to account for any variables that may be used across iterations:
+
+Consider this example with no annotations:
+
+```
+x = 7
+w = 0
+for i in 0..100 {
+    w = x + i + w
+}
+```
+
+Let's repeat the body of the loop twice and perform last-use analysis:
+
+```
+i = ?
+w = x + i' + w'
+
+i = ?
+w = x' + i' + w'
+```
+
+We use the first repetition of this loop body:
+
+```
+x = 7
+w = 0
+for i in 0..100 {
+    w = x + i' + w'
+}
+```
+
+Note that because x is reused in each iteration of the loop, we can not mark it as last-use.
+
+> I guess it might be possible to generate a special case for the last iteration of the loop. I'm working on a version of last-use analysis that supports arbitrary control flow in closures that do not escape the local scope, e.g. any form of local branching control flow, like `if`s and `loop`s. This should allow for koka-style local lexical scope mutability, even when closures are restricted to immutable nonlocal captures. It should be general to catch the special case after desugaring a for loop macro to a tail recursive function.
+
+The last time a variable value is used, we know that that value won't be used again. Because of this, any subsequent operations performed on that value can update the value in place instead of making a copy first.
 
 ## Phase II: One-bit pointer tagging
 
