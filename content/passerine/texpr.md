@@ -1,6 +1,7 @@
 +++
 title = "Capturing the magic of Lisp"
 date = 2022-05-27
+draft = true
 
 [extra]
 artbit = "1_hand.png"
@@ -51,4 +52,6 @@ The power of lisp is that of the *form*, lists of nested lists. Lisp as a langua
 
 To represent forms, lisp uses *s-expressions*. These expressions are series of atoms or lists grouped by parenthesis. What's nice about s-expressions is that they're unambiguous: just match parenthesis.
 
-When I set out to design Passerine, I wanted to include a powerful lisp-like macro system *without* the need for highly-parenthesized *s-expressions*. I know that alternative syntaxes for lisp have been proposed, most notably (sweet-expressions)[https://readable.sourceforge.io/] and (i-expressions)[https://srfi.schemers.org/srfi-49/srfi-49.html]
+When I set out to design Passerine, I wanted to include a powerful lisp-like macro system *without* the need for highly-parenthesized *s-expressions*. I know that alternative syntaxes for lisp have been proposed, most notably (sweet-expressions)[https://readable.sourceforge.io/] and (i-expressions)[https://srfi.schemers.org/srfi-49/srfi-49.html].
+
+However, most alternative syntaxes work by inferring parenthesis so that they may be transformed to s-expressions.
