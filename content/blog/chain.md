@@ -1,6 +1,7 @@
 +++
 title = "On the Practical Applications of Blockchains"
 date = 2022-04-14
+draft = true
 
 [extra]
 artbit = "1_pretzel.png"
