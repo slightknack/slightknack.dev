@@ -9,7 +9,55 @@ page_template = "page.html"
 artbit = "3_human.png"
 +++
 
-![A trail weaving through the mountains on a cold spring day](/content/path.jpg)
+<div class="shader">
+    <img 
+        src="/content/path.jpg" 
+        alt="A trail weaving through the mountains on a cold spring day"
+    >
+        <div class="shader_layer specular">
+            <!-- <div class="shader_layer mask"></div> -->
+        </div>
+    </img>
+</div>
+
+<style>
+    .shader * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .shader {
+        position: relative;
+        overflow: hidden;
+        backface-visibility: hidden; /* to force GPU performance */
+    }
+  
+    .shader img {
+        object-fit: cover;
+    }
+
+    .shader_layer {
+        background: black;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-size: 100%;
+        background-position: center;
+    }
+    
+    .specular {
+        mix-blend-mode: color-dodge;
+        background-attachment: fixed;
+        background-image: linear-gradient(200deg, #f40e4c77 30%, black 50%);
+    }
+    
+    .mask {
+        mix-blend-mode: multiply;
+        background-image: linear-gradient(180deg, black 20%, #3c5e6d 35%, #f4310e, #f58308 80%, black);
+    }
+</style>
 
 # Who am I?
 
