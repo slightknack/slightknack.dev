@@ -50,7 +50,7 @@ artbit = "3_human.png"
     .specular {
         mix-blend-mode: color-dodge;
         background-attachment: fixed;
-        background-image: linear-gradient(200deg, #f40e4c77 30%, black 50%);
+        background-image: linear-gradient(180deg, black, #04348C77 30%, #E8172177 100%);
     }
     
     .mask {
