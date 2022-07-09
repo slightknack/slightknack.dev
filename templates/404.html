@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+      <script
+          type="text/javascript"
+          src="glsl_5fb0526d.js"
+          defer>
+      </script>
+{% endblock extra_head %}
+
+<!-- content block -->
+{% block layout %}
+<div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+      <div style="max-width: 900px; text-align: center;">
+        <h1 style="font-size: calc(var(--font-base) + 9vw); margin: 0">404</h1>
+        <p>It seems this page has been lost to the seas of time...</p>
+        <canvas
+            class="glslCanvas"
+            data-fragment-url="/404.frag"
+            style="background-color: #000000ff; border-radius: 3px; height: 50vh">
+        </canvas>
+        <p>Return <a href="/">home</a>, sailor.</p>
+      </div>
+    </div>
+{% endblock layout %}
+
+

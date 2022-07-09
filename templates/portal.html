@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+      <script
+          type="text/javascript"
+          src="/glsl_5fb0526d.js"
+          defer>
+      </script>
+{% endblock extra_head %}
+
+<!-- content block -->
+{% block layout %}
+<div style="max-width: width: 100vw; height: 100vh; text-align: center; display: flex; justify-content: center; align-items: center;">
+    <canvas
+        class="glslCanvas"
+        data-fragment-url="/portal.frag"
+        style="background-color: #000000ff; position: absolute; z-index: -1;">
+    </canvas>
+    <div>
+        <h1 style="font-size: calc(min(20vh, 20vw)); color: white; mix-blend-mode: exclusion;">Isaac Clayton</h1>
+    </div>
+</div>
+{% endblock layout %}
+
+

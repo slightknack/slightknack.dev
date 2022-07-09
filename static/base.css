@@ -221,3 +221,8 @@ summary:before {
 details[open] summary:before {
     content: "▼";
 }
+
+canvas {
+    width: 100%;
+    height: inherit;
+}
