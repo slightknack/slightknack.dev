@@ -1,11 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,700;1,700&family=Fira+Mono&family=Inter:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300;1,300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oi&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Piazzolla:ital,opsz,wght@0,8..30,300;0,8..30,700;1,8..30,300;1,8..30,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rosario:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,700;1,700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
     --fill-bg: #f7f2ed;
@@ -90,7 +83,7 @@ code {
     hyphens: none;
     padding: 2px;
     border-radius: 2px;
-    font-size: 0.95em;
+    /* font-size: 0.93em; */
 }
 
 pre code {
