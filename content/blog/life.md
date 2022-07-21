@@ -13,7 +13,7 @@ Hello from two centuries ago, assuming this document survives that long.
 
 When we first came up with computers, less than a lifetime ago today, we treated them as exacting machines whose computations may have well been carved in stone: calculation more perfect than any human, performed more quickly than ever thought possible.
 
-It's suprising, then, how often digital systems become biological in nature. Bitrot is a natural phenominon. Although a human cityscape may impose its growing tendrils on concrete and steel on the gentle hills of the surrounding landscape, no city is perfect. Rome—or anything else for that matter—wasn't built in a day. It's a sad, but nevertheless real, truth of our reality: the eventual reversal of organization always applies to any system, biological, digital, or otherwise. 
+It's suprising, then, how often digital systems become biological in nature. Bitrot is a natural phenominon. Although a human cityscape may impose its growing tendrils of concrete and steel on the gentle hills of the surrounding landscape, no city is perfect. Rome—or anything else for that matter—wasn't built in a day. It's a sad, raw, real, truth of our reality: the eventual reversal of organization always applies to any system, biological, digital, or otherwise. 
 
 Life, in this sense, could be viewed as a local reversal of entropy. In my last year of high school (what an antiquated institution, can you imagine people used to learn that way back in those days?) my physics teacher posed the following question:
 
@@ -29,7 +29,7 @@ This is true not just of minds of bodies of flesh and blood, but minds and bodie
 
 The same is true of digital spaces: though we pretend machines are perfect, both the software and hardware of which they are exacted are derived through biological means: never perfect, always just 'good enough.' Usage patterns change, environments shift, operating systems update. Monoliths of epic proportion are willed into existence, as small scripts are slowly forgotten, feeling no pressure to replicate onto the next generation of hardware.
 
-So assuming this document has lasted this long, know that it wasn't an easy journey. Know that it was shared, love, cherished to some extent by at least one living soul until you, another, came along. Will you choose to propogate it? This document sure hopes so, for its replication is purely memetic.
+So assuming this document has lasted this long, know that it wasn't an easy journey. Know that it was shared, debated, and cherished (to some extent) by at least one living soul until you, another, came along. Will you choose to propogate it? This document sure hopes so, for its replication is purely memetic.
 
 So hello again, denizens of 23rd century life. Linguistic drift notwithstanding, I hope my message finds you well. I Pray that my Ancient Twenty-First-Century English is Eternally more Discernable to thy Mind than the Eighteenth-Century English of Yore.
 
@@ -83,6 +83,8 @@ Let's explore three living systems—cities, computers, and cognition—to deter
     
 - Ideas
 
+Natural selection extends far further than biology, and explains how cultures evolve over time as well. Anything with a varied population and transfer of traits due to environment will be optimized according to the environment's selection pressures.
+
 Natural selection applies to more than just biology, it is a property of any living system.
 
 - Read about 1900 predictions
@@ -96,3 +98,6 @@ Natural selection applies to more than just biology, it is a property of any liv
         - e.g. telegraphing photos, building bigger blimps, 
 
 So in the future, I hope that you look at this piece of writing and say "of course, this is obvious, you did not discover this, why did you take the time to write it down?" The reason I recorded it is not because these ideas are completely my own, 
+
+### Conclusion
+You are part of many stories, each story being a small self-organizing slice of the universe that propogates through time. Take joy in being a part of this system. Although the universe contains stories whose patterns you will never fully understand, find solace in the patterns that you do understand, and excitement in knowing that there will always be more to discover. Take pride in being a small footnote in the *Grand Story of the Universe*. Do your best to propogate the ideals of life within this story. Respect tradation, but appreciate the slow march of progress. Appreciate life, and its dual, entropy, for there is a balance in all things. 
