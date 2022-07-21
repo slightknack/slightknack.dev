@@ -1,5 +1,5 @@
 +++
-title = "Working in Tech as a Teenager"
+title = "A Guide to Working in Tech as a Teenager"
 date = 2021-10-08
 draft = true
 
