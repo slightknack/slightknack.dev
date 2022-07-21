@@ -629,8 +629,6 @@ Holy moly, how's that for an exposition!? Stick around for Part II, where we put
 
 <div class="boxed">
 
-This was a longer post than usual, thanks for sticking it out to the end!
-
-Huge thanks to my two incredible [Patrons](https://www.patreon.com/slightknack) at the time—[Keith](https://github.com/Kethku) and [Feifan](https://twitter.com/FeifanZ)—for making the writing of this piece possible. I'm also deeply grateful to [Mikail](https://github.com/mkhan45) and [Yasser](https://github.com/realnegate) for reviewing (and correcting!) earlier versions of this post.
+This was a longer post than usual, thanks for sticking it out to the end! Huge thanks to my incredible [Patrons](https://www.patreon.com/slightknack) for making writing this piece possible! I'm also deeply grateful to [Mikail](https://github.com/mkhan45) and [Yasser](https://github.com/realnegate) for reviewing (and correcting!) earlier versions of this post.
 
 </div>
