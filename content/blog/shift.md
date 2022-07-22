@@ -14,7 +14,7 @@ What really helped me begin to *grok* how Rust really worked was working towards
 
 Rust, at it's core, is a programming language of *restrictions*. These restrictions exist for good reason. Upon encountering a restriction, however, it's common to attempt to find the easiest work-around, rather than understanding the *why* the restriction exists in the first place.
 
-Operating from the perspective of needless restrictions, Rust's limitations become as annoyances to memorize: don't make that mutable here, box that async future there, make sure that trait is sized, *etc.*. If you take a step back, however, and look at questions surrounding the core principles of Rust—e.g. *'what would it take to implement borrow checking?'* or *'why does Rust's async implementation require boxing so often?'*—you'll soon find that a lot of these restrictions are a natural consequences of the design of the language and its compiler. I'll give two examples of models underlying restrictions: *Aliasable xor Mutable data* (AxM) when borrow-checking, and *boxing Futures* in asynchronous contexts. I won't be able to explain these models fully—many other guides to these princples exist elsewhere online—so here's a brief summary:
+Operating from the perspective of needless restrictions, Rust's limitations become annoyances to memorize: don't make that mutable here, box that async future there, make sure that trait is sized, *etc.*. If you take a step back, however, and look at questions surrounding the core principles of Rust—e.g. *'what would it take to implement borrow checking?'* or *'why does Rust's async implementation require boxing so often?'*—you'll soon find that a lot of these restrictions are a natural consequences of the design of the language and its compiler. I'll give two examples of models underlying restrictions: *Aliasable xor Mutable data* (AxM) when borrow-checking, and *boxing Futures* in asynchronous contexts. I won't be able to explain these models fully—many other guides to these princples exist elsewhere online—so here's a brief summary:
 
 # Aliasable xor Mutable
 
@@ -35,3 +35,9 @@ Of course, these examples are just simplifications of the underlying model. What
 So what does it mean to design with Rust's strengths in mind? Like most languages in the ML family, *Rust shines when performing a series of transformations on inductively-defined datatypes*. For this reason, if you cognizantly design applications *holistically* using a functional-procedural approach, the design patterns of the language will lend themselves more naturally to the task at hand. Designing applications patterned after Rust's strengths is probably a topic worthy of a book, or at least another blog post.
 
 At this point I could wax poetic and pine about the pain of the inevatability leaky abstraction. On the contrary, I think Rust does an exceptional job with respect to the quality of the abstractions it provides. Although not airtight, Rust's abstractions aim to be zero-cost. Rust pulls no punches trying to hide how things work under the hood. *If it did, it wouldn't be Rust*.
+
+<div class="boxed">
+
+Thanks to Erich and Joseph for reviewing earlier versions of this post.
+
+</div>
