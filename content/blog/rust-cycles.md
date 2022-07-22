@@ -426,7 +426,7 @@ type LinkRef<T> = LinkHandle;
 
 The `LinkArena` maintains single-ownership over all data in the arena. To mutate some data in the arena, you need both a `LinkHandle` (which is an index into the arena), and a mutable reference to the arena itself. Because `LinkHandle`s are just indices, we can easily include them in our `Link`.
 
-Although simple, with this technique we loose a number of guarantees:
+Although simple, with this technique we lose a number of guarantees:
 
 1. **We have to pass the arena around whenever we want to follow a handle.** In addition, the `prev`ious and `next` items are no longer just convenient fields on the struct. This could be fixed through the use of reference-counting the arena in the handle, or an `'arena` lifetime. We'll build things on top of these ideas later.
 
