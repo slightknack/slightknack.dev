@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <meta name="theme-color" content="#4d3ee6">
+    <meta name="description" content="A cozy little corner of the web.">
+    <title>A Tiny Introduction to Parsers — Isaac Clayton</title>
+    <link rel="stylesheet" href="/reset.css">
+    </link>
+    <link rel="stylesheet" href="/base.css">
+    </link>
+    <link rel="stylesheet" href="/layout.css">
+    </link>
+    <link rel="icon" type="image/png" href="/icon.png">
+    <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+    <script type="text/javascript" src="/elasticlunr.min.js" defer></script>
+    <script type="text/javascript" src="/search_index.en.js" defer></script>
+    <script type="text/javascript" src="/search.js" defer></script>
+
+    <!-- maybe one day I'll bother to get these working... -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+    <!-- <script type="module">
+        import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+    </script> -->
+
+     
+</head>
+
+<body style="overflow-x: hidden">
+    
+<div class="container">
+    <div class="sidebar">
+        <div class="sidebar-inner">
+
+<a href="..">
+    <div style="width: 100%">
+        <img class="pixel-sidebar" src="/hypercard-artbits/4_framea.png" alt="Jump back up a level"/>
+    </div>
+</a>
+ 
+</div>
+    </div>
+    <div class="content">
+        <div class="narrow-left">
+            <ul class="menu">
+                
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                        
+                            About
+                        
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                        
+                            Passerine
+                        
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                        
+                            Blog
+                        
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;portal&#x2F;">
+                        
+                            Portal
+                        
+                    </a>
+                </li>
+                
+            </ul>
+
+            <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div>
+
+            
+<!-- <div> -->
+<h1 class="title">A Tiny Introduction to Parsers</h1>
+<p class="tag">2020-07-08</p>
+<h1 id="a-question">A Question</h1>
+<p>The other day, someone asked how parsers worked on The Programmer’s Hangout Discord server. Here’s an an abridged version of my explanation.</p>
+<span id="continue-reading"></span><h1 id="my-response">My Response</h1>
+<p>A parser simply takes a stream of data and from it produces a datastructure. This stream is usually a stream of tokens, which are groups of tagged delimiters and data used to construct the datastructure.</p>
+<p>Let’s assume you’re building a parser for a programming language; the parser converts a file to an abstract syntax tree. We start with a file; in this case, it’s <em>AverageScript</em>:</p>
+<pre data-lang="javascript" style="background-color:#212121;color:#eeffff;" class="language-javascript "><code class="language-javascript" data-lang="javascript"><span>for i </span><span style="color:#89ddff;">in </span><span>[</span><span style="color:#f78c6c;">1</span><span style="color:#89ddff;">, </span><span style="color:#f78c6c;">2</span><span style="color:#89ddff;">, </span><span style="color:#f78c6c;">3</span><span>] </span><span style="color:#89ddff;">{
+</span><span>    </span><span style="color:#82aaff;">print</span><span>(i)
+</span><span style="color:#89ddff;">}
+</span></code></pre>
+<p>And lex it into a series of tokens by walking over the file linearly. So, for instance:</p>
+<pre style="background-color:#212121;color:#eeffff;"><code><span>for: keyword
+</span><span>i:   identifier
+</span><span>in:  keyword
+</span><span>[:   delimiter
+</span><span>1:   number
+</span><span>,:   separator
+</span><span>2:   number
+</span><span>     ... snip ...
+</span><span>}:   delimiter
+</span></code></pre>
+<p>This is the stream of tokens that will be fed into the parser to form the AST. So, how exactly does a parser work?</p>
+<p>There are quite a few different kinds of parsers, but they all essentially reduce to the same set of steps:</p>
+<ul>
+<li>Look at the next few tokens to determine what is being parsed</li>
+<li>For each sub-section of what is being parsed, repeat this process.</li>
+<li>Using this information, build the datastructure.</li>
+</ul>
+<p>Most parsers are recursive for this reason; for example, in most languages, a function call can contain another function call:</p>
+<pre data-lang="python" style="background-color:#212121;color:#eeffff;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#82aaff;">foo</span><span style="color:#89ddff;">(</span><span style="color:#82aaff;">bar</span><span style="color:#89ddff;">(</span><span style="color:#f78c6c;">1</span><span style="color:#89ddff;">, </span><span style="color:#f78c6c;">3</span><span style="color:#89ddff;">))
+</span></code></pre>
+<p>Instead of manually writing out cases for nesting, after we determine we’re looking at a function, we simply parse the contents of <code>foo(...)</code> according to some pre-defined rule.</p>
+<p>So returning to our original case: how might a parser parse the <code>for i in ...</code>?</p>
+<p>Assuming some form of a recursive descent parser:</p>
+<ol>
+<li>The parser sees <code>for</code> and determines a for loop is being parsed; In this made-up language, a for loop has three components, an identifier, an iterator, and a body.</li>
+<li>It takes the next token, <code>i</code> and checks that it’s an identifier.</li>
+<li>It takes the next token, <code>in</code> and makes sure it’s the in keyword.</li>
+<li>It recursively evaluates the next series of tokens as an expression
+<ol>
+<li>It sees <code>[</code> so it starts parsing as a list</li>
+<li>It sees <code>2</code> and adds it to said list</li>
+<li>And so on until the entire list is parsed</li>
+</ol>
+</li>
+<li>It checks for <code>{</code> delimiting a for body</li>
+<li>It recursively parses the next few tokens as a block of code
+<ol>
+<li>and so on until the entire code block is parsed</li>
+</ol>
+</li>
+<li>It checks for <code>}</code>, ending the for loop</li>
+<li>It constructs a for node and returns it.</li>
+</ol>
+<p>The end of this process might result in an AST that looks like so:</p>
+<pre data-lang="rust" style="background-color:#212121;color:#eeffff;" class="language-rust "><code class="language-rust" data-lang="rust"><span>For </span><span style="color:#89ddff;">{
+</span><span>    identifier</span><span style="color:#89ddff;">:</span><span> i</span><span style="color:#89ddff;">,
+</span><span>    expression</span><span style="color:#89ddff;">:</span><span> List </span><span style="color:#89ddff;">{
+</span><span>        items</span><span style="color:#89ddff;">: [</span><span style="color:#f78c6c;">1</span><span style="color:#89ddff;">, </span><span style="color:#f78c6c;">2</span><span style="color:#89ddff;">, </span><span style="color:#f78c6c;">3</span><span style="color:#89ddff;">]
+</span><span>    </span><span style="color:#89ddff;">},
+</span><span>    body</span><span style="color:#89ddff;">:</span><span> Code </span><span style="color:#89ddff;">{
+</span><span>        statements</span><span style="color:#89ddff;">: [
+</span><span>            Function </span><span style="color:#89ddff;">{
+</span><span>                identifier</span><span style="color:#89ddff;">:</span><span> print</span><span style="color:#89ddff;">,
+</span><span>                arguments</span><span style="color:#89ddff;">: [</span><span>i</span><span style="color:#89ddff;">],
+</span><span>            </span><span style="color:#89ddff;">},
+</span><span>        </span><span style="color:#89ddff;">],
+</span><span>    </span><span style="color:#89ddff;">},
+</span><span style="color:#89ddff;">}
+</span></code></pre>
+<p>This AST can then be walked, interpreted, compiled, etc. There exist common formats to describe parsers; one such format is Extended Backus-Naur Form. Many parsing techniques exist; what I described models a LL(1) parser. Many parsing models exist; to learn more about them, I recommend you check the Parsing Wikipedia page.</p>
+<p>So, to summarize:</p>
+<ul>
+<li>A parser takes a stream of data and builds a data-structure</li>
+<li>Parsers generally work in a recursive manner by defining a set of rules that can be efficiently transversed.</li>
+<li>Parsers can be formally described.</li>
+<li>Many different parsing methods exist.</li>
+</ul>
+<p>I hope this helped clear some things up 🙂.</p>
+
+<!-- </div> -->
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

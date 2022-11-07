@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <meta name="theme-color" content="#4d3ee6">
+    <meta name="description" content="A cozy little corner of the web.">
+    <title>Passerine — Isaac Clayton</title>
+    <link rel="stylesheet" href="/reset.css">
+    </link>
+    <link rel="stylesheet" href="/base.css">
+    </link>
+    <link rel="stylesheet" href="/layout.css">
+    </link>
+    <link rel="icon" type="image/png" href="/icon.png">
+    <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+    <script type="text/javascript" src="/elasticlunr.min.js" defer></script>
+    <script type="text/javascript" src="/search_index.en.js" defer></script>
+    <script type="text/javascript" src="/search.js" defer></script>
+
+    <!-- maybe one day I'll bother to get these working... -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+    <!-- <script type="module">
+        import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+    </script> -->
+
+     
+</head>
+
+<body style="overflow-x: hidden">
+    
+<div class="container">
+    <div class="sidebar">
+        <div class="sidebar-inner">
+
+<a href="..">
+    <div style="width: 100%">
+        <img class="pixel-sidebar" src="/hypercard-artbits/1_bird.png" alt="Jump back up a level"/>
+    </div>
+</a>
+ 
+</div>
+    </div>
+    <div class="content">
+        <div class="narrow-left">
+            <ul class="menu">
+                
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                        
+                            About
+                        
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                        <strong>
+                            Passerine
+                        </strong>
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                        
+                            Blog
+                        
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;portal&#x2F;">
+                        
+                            Portal
+                        
+                    </a>
+                </li>
+                
+            </ul>
+
+            <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div>
+
+            
+<h1 class="title">
+    Passerine
+</h1>
+<p>I’ve decided to group my thoughts about language design with regards to <a rel="noopener nofollow" target="_blank" href="https://passerine.io">Passerine</a> specifically under this section. What’s <a rel="noopener nofollow" target="_blank" href="https://github.com/vrtbl/passerine">Passerine</a>? I’m glad you asked! It’s a compiled programming language I’ve been working on for about a year-and-a-half, in the vein of OCaml and Scheme. If you’re a fan of macros, continuations, and type theory, you should enjoy some of these posts:</p>
+
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/passerine/traits-as/">
+            <div>
+                <h1 style="margin-top: 2vh">Traits as implicit conversion</h1>
+                <p class="tag">2022-02-28 · About 21 minutes long</p>
+            </div>
+        </a>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/passerine/next-steps/">
+            <div>
+                <h1 style="margin-top: 2vh">Macros, Types, and Next Steps</h1>
+                <p class="tag">2021-06-01 · About 11 minutes long</p>
+            </div>
+        </a>
+        
+            <p>Passerine is at an interesting point: we’ve established a few language features, and built this easily extensible functional core on which to base the rest of the language. We currently have two implementations of the language, one written in Rust, the other in D, and it’s imperative we set the course of the language before divergence occurs.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/passerine/next-steps/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/passerine/type-inference/">
+            <div>
+                <h1 style="margin-top: 2vh">Mirror: Hindley Milner Type Inference</h1>
+                <p class="tag">2021-05-01 · About 16 minutes long</p>
+            </div>
+        </a>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/passerine/vaporization/">
+            <div>
+                <h1 style="margin-top: 2vh">Vaporization and Modern Memory Management</h1>
+                <p class="tag">2021-02-24 · About 17 minutes long</p>
+            </div>
+        </a>
+        
+            <blockquote>
+<h2 id="note">Note</h2>
+<p>This piece is a work in progress.</p>
+</blockquote>
+<p>An interesting design space in the field of programming language design is that of memory management. In short, programs produce data while running. This in of itself isn’t much of a problem: in fact, it’s a good thing! If your programming language doesn’t allow for the production of any useful data, you might want to take a closer look at it…</p>
+<p>As time goes on, our program may no longer needs certain data. We could just leave this garbage floating around forever, but, alas computers a finite amount of space to work with. It’s trivial to produce useful data; the more difficult task is figuring out when it’s no longer needed.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/passerine/vaporization/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/passerine/ffi-hard/">
+            <div>
+                <h1 style="margin-top: 2vh">FFIs [Were] Hard</h1>
+                <p class="tag">2020-12-12 · About 4 minutes long</p>
+            </div>
+        </a>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/passerine/all-you-need/">
+            <div>
+                <h1 style="margin-top: 2vh">All You Need are Coroutines and Pattern Matching</h1>
+                <p class="tag">2020-07-10 · About 7 minutes long</p>
+            </div>
+        </a>
+        
+            <blockquote>
+<h2 id="note">Note</h2>
+<p>This is an old post I wrote a while back. My opinions on the subject have changed slightly but this post has historical merit. The date is not entirely accurate, this article coincides with around the time I started seriously implementing Passerine.</p>
+</blockquote>
+<h2 id="abstract">Abstract</h2>
+<p>The average programmer just wants to write code [citation needed]. Language designers, on the other hand, want to <em>write</em> code, that is, programming languages. Ever since the first lisp interpreter sputtered through it’s first s-exp, there’s been a quest to build a ‘perfect’ programming language. The field of language design remains open, at least in the sense that a better language can always be built. <strong>No matter how hard you try, there is no language that won’t make you clarify your ideas.</strong></p>
+
+            <p class="tag"><a href="https://slightknack.dev/passerine/all-you-need/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/passerine/schedule/">
+            <div>
+                <h1 style="margin-top: 2vh">Architecting Asynchronous Schedulers</h1>
+                <p class="tag">2020-07-10 · About 8 minutes long</p>
+            </div>
+        </a>
+        
+            <h1 id="note">Note</h1>
+<p>This post explores one design methodology for asynchronous schedulers in the context of a language that is maximally asynchronous, <em>i.e.</em> everything is executed asynchronously. This post is largely a reflection of trying to grapple with <a rel="noopener nofollow" target="_blank" href="https://tokio.rs/blog/2019-10-scheduler/">this blog post about Tokio’s scheduler</a></p>
+
+            <p class="tag"><a href="https://slightknack.dev/passerine/schedule/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

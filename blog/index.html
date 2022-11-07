@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <meta name="theme-color" content="#4d3ee6">
+    <meta name="description" content="A cozy little corner of the web.">
+    <title>Blog — Isaac Clayton</title>
+    <link rel="stylesheet" href="/reset.css">
+    </link>
+    <link rel="stylesheet" href="/base.css">
+    </link>
+    <link rel="stylesheet" href="/layout.css">
+    </link>
+    <link rel="icon" type="image/png" href="/icon.png">
+    <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+    <script type="text/javascript" src="/elasticlunr.min.js" defer></script>
+    <script type="text/javascript" src="/search_index.en.js" defer></script>
+    <script type="text/javascript" src="/search.js" defer></script>
+
+    <!-- maybe one day I'll bother to get these working... -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+    <!-- <script type="module">
+        import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+    </script> -->
+
+     
+</head>
+
+<body style="overflow-x: hidden">
+    
+<div class="container">
+    <div class="sidebar">
+        <div class="sidebar-inner">
+
+<a href="..">
+    <div style="width: 100%">
+        <img class="pixel-sidebar" src="/hypercard-artbits/3_hey.png" alt="Jump back up a level"/>
+    </div>
+</a>
+ 
+</div>
+    </div>
+    <div class="content">
+        <div class="narrow-left">
+            <ul class="menu">
+                
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                        
+                            About
+                        
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                        
+                            Passerine
+                        
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                        <strong>
+                            Blog
+                        </strong>
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;portal&#x2F;">
+                        
+                            Portal
+                        
+                    </a>
+                </li>
+                
+            </ul>
+
+            <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div>
+
+            
+<h1 class="title">
+    Blog
+</h1>
+<p>Below is a collection of my thoughts, organized from most to least recent. Posts that I’m particularly fond of will have a little preview. Happy Reading!</p>
+
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/rust-cycles/">
+            <div>
+                <h1 style="margin-top: 2vh">Dealing with Cyclic Data in Rust, Part I</h1>
+                <p class="tag">2022-07-22 · About 25 minutes long</p>
+            </div>
+        </a>
+        
+            <blockquote>
+<p>Or, a <em>GhostCell Deep Dive</em>. </p>
+<p>In this two-part series, we build <em>GhostCell</em> from first principles. In <em>Part I</em> we go over the underlying theory required to understand GhostCell. This post’s been sitting on my hard drive for about 9 months, so I’ve decided to bite the bullet, split what I’ve written in two, and hit publish on <em>Part I</em>. Hope you enjoy!</p>
+</blockquote>
+<p>Over the past month or so, something I’ve repeatedly run into is <em>GhostCell</em>, a technique that (ab)uses Rust’s lifetime system to detach ownership of data from the permission to mutate it. In short, this makes it possible to write datatypes that rely on shared interior mutability (think doubly-linked lists and other cyclical graph-like structures). In this post I wanted to explore Rust’s lifetime system to explain GhostCell from first principles, and why it’s kinda a big deal.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/rust-cycles/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/shift/">
+            <div>
+                <h1 style="margin-top: 2vh">Building a Rust Mentality</h1>
+                <p class="tag">2022-07-21 · About 5 minutes long</p>
+            </div>
+        </a>
+        
+            <p>What really helped me begin to <em>grok</em> how Rust really worked was working towards building an understanding of how its <em>compiler</em> works.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/shift/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/late/">
+            <div>
+                <h1 style="margin-top: 2vh">Late Night Conversations about Nothing in Particular</h1>
+                <p class="tag">2022-07-15 · About 22 minutes long</p>
+            </div>
+        </a>
+        
+            <h2 id="the-beginning-of-the-end-of-today">The Beginning of the End (of Today)</h2>
+<p>As I write this today, it’s tomorrow.</p>
+<h2 id="and-we-re-talking-about-school">And… We’re talking about school?</h2>
+<blockquote>
+<p>N.B. This post is not about school, bear with me.</p>
+</blockquote>
+<p>Throughout the school year, I’m usually pretty consistent with my sleep schedule. It’s like a rhythm, every hour of my day planned out. I wake up at 5:55 exactly, do some morning studying (it’s always so much easier to get stuff done in the morning), shower an hour later, breakfast, and I’m out the door.</p>
+<p>School’s rhythmic too. This was my last year of high school, my senior year. I think I overdid it a bit, to be honest. 6 APs and 2 college math courses, on top of, you know, everything else that goes on in life, is a bit much for anyone, <em>especially</em> for a simple-minded guy like me. I appreciate the rhythm school brings to my life. </p>
+<p>So why am I writing this at 1 AM?</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/late/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/note/">
+            <div>
+                <h1 style="margin-top: 2vh">Sketchnoting: a spontaneous but needed reflection</h1>
+                <p class="tag">2022-02-11 · About 6 minutes long</p>
+            </div>
+        </a>
+        
+            <h1 id="preface">Preface</h1>
+<p>Since September of last year, I’ve been chipping away at a long-form post on how to take <em>good</em> notes. This, sadly, is not that post—consider this post a teaser to tide you over until then.</p>
+<p><img src="/content/note-vols.jpg" alt="Four filled notebooks and one new empty one." /></p>
+<p>Today I finished my fourth book of sketchnotes. Each book has about 240 blank A5 pages, so I guess I’m fast-approaching the thousand-page mark. In celebration of filling yet another volume, I took a trip down memory lane and dug out <em>Volumes 1-3</em>. Taking the time to read through some of my older notes, it’s easy to see that I’ve improved quite a lot.</p>
+<p>While reading through my second notebook, though, I found a short hand-written collection of my thoughts on note-taking. Although it’s been a few years since then, I feel like the core of what I had to say then rings true today.</p>
+<p>Below I’ve typed up those few pages of notes, I hope you find them interesting:</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/note/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/2027/">
+            <div>
+                <h1 style="margin-top: 2vh">Predicting the technology of 2027</h1>
+                <p class="tag">2022-01-04 · About 4 minutes long</p>
+            </div>
+        </a>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/dynamic-pow-backpressure/">
+            <div>
+                <h1 style="margin-top: 2vh">Using Proof-of-Work to Manage Backpressure</h1>
+                <p class="tag">2021-12-01 · About 6 minutes long</p>
+            </div>
+        </a>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/backing-crdt-store/">
+            <div>
+                <h1 style="margin-top: 2vh">Thinking about efficient backing stores for CRDTs</h1>
+                <p class="tag">2021-08-02 · About 10 minutes long</p>
+            </div>
+        </a>
+        
+            <p>A <em>Conflict-Free Replicated Datatype</em> is a bit like a smoothie: the same ingredients will produce the same result, regardless of the order in which they are added. In the context of, say, text editing in a distributed context, merging two documents will always succeed in a deterministic manner. In other words, A CRDT is a bit like a git repository that never has merge conflicts.</p>
+<p>There are many different ways to approach the construction of CRDTs, each construction having its own strengths and weaknesses. Today, we’re going to focus on creating out an efficient backing store for a particular family of algorithms known as <em>Replicated Growth Arrays</em> (RGA).</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/backing-crdt-store/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/nix-os-bindgen/">
+            <div>
+                <h1 style="margin-top: 2vh">Getting bindgen working on NixOS</h1>
+                <p class="tag">2021-07-08 · About 5 minutes long</p>
+            </div>
+        </a>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/first/">
+            <div>
+                <h1 style="margin-top: 2vh">A Small Test Post for this New Blog</h1>
+                <p class="tag">2021-04-30 · About 1 minute long</p>
+            </div>
+        </a>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <a href="https://slightknack.dev/blog/parser/">
+            <div>
+                <h1 style="margin-top: 2vh">A Tiny Introduction to Parsers</h1>
+                <p class="tag">2020-07-08 · About 3 minutes long</p>
+            </div>
+        </a>
+        
+            <h1 id="a-question">A Question</h1>
+<p>The other day, someone asked how parsers worked on The Programmer’s Hangout Discord server. Here’s an an abridged version of my explanation.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/parser/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
