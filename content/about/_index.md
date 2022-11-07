@@ -63,7 +63,7 @@ artbit = "3_human.png"
 
 My name's Isaac, nice to meet you!
 
-Professionally, I've been a Software Engineer at [Zed](https://zed.dev) (current) and [Tonari](https://tonari.no), as well as an [Apprentice Cheesemaker](https://hebervalleyartisancheese.com). I discovered the joy of programming when I was very young; this little hobby quickly grew to underpin the way I think about hard problems. I'm best known for my work on the [Passerine](https://passerine.io) programming language, but this is really just one facet of the type of work I find interesting.
+Professionally, I've been a Software Engineer at [Zed](https://zed.dev) and [Tonari](https://tonari.no), as well as an [Apprentice Cheesemaker](https://hebervalleyartisancheese.com). I discovered the joy of programming when I was very young; this little hobby quickly grew to underpin the way I think about hard problems. I'm best known for my work on the [Passerine](https://passerine.io) programming language, but this is really just one facet of the type of work I find interesting.
 
 I'm most interested in using computational systems as a foundation for building novel tools for creation and collaboration. For this reason, I’m most interested in problems at the intersection between humans, computers, art, and language.
 
