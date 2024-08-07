@@ -1,29 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,700;1,700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,700;1,700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap");
 
 :root {
     --fill-bg: #f7f2ed;
-    --fill-text: #0F0E0B;
+    --fill-text: #0f0e0b;
     /* should both be close to bg color */
-    --fill-accent: #15aacc;
-    --fill-soft: #E6DCD2;
+    --fill-accent: #3a5a8a;
+    --fill-soft: #d8dbe0;
 
     --font-base: 15pt;
     --font-heading: 20pt;
     --font-body: "IBM Plex Serif", serif, sans-serif;
-    --font-title: "Averia Serif Libre", sans-serif;
+    --font-title: "Texturina", sans-serif;
     --font-mono: "IBM Plex Mono", monospace;
 }
 
 ::selection {
     background: var(--fill-accent);
+    color: var(--fill-bg);
 }
 
-@media (prefers-color-scheme:dark) {
+@media (prefers-color-scheme: dark) {
     :root {
-        --fill-bg: #0F0E0B;
-        --fill-text: #E6DCD2;
-        --fill-accent: #1544cc;
-        --fill-soft: #2a2722;
+        --fill-bg: #0f0e0b;
+        --fill-text: #e6dcd2;
+        --fill-accent: #3a5a8a;
+        --fill-soft: #d8dbe0;
     }
 }
 
@@ -43,26 +44,43 @@ p {
     margin-bottom: 20pt;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     line-height: 1.1;
     letter-spacing: 0.05em;
     hyphens: auto;
     margin-top: 40pt;
     margin-bottom: 20pt;
     font-family: var(--font-title);
-    font-weight: bold;
+    font-weight: 900;
 }
 
 .title {
     font-size: calc(var(--font-base) + var(--font-heading));
 }
 
-h1 { font-size: calc(var(--font-base) + var(--font-heading) / 2); }
-h2 { font-size: calc(var(--font-base) + var(--font-heading) / 3); }
-h3 { font-size: calc(var(--font-base) + var(--font-heading) / 4); }
-h4 { font-size: calc(var(--font-base) + var(--font-heading) / 5); }
-h5 { font-size: calc(var(--font-base) + var(--font-heading) / 6); }
-h6 { font-size: calc(var(--font-base) + var(--font-heading) / 7); }
+h1 {
+    font-size: calc(var(--font-base) + var(--font-heading) / 2);
+}
+h2 {
+    font-size: calc(var(--font-base) + var(--font-heading) / 3);
+}
+h3 {
+    font-size: calc(var(--font-base) + var(--font-heading) / 4);
+}
+h4 {
+    font-size: calc(var(--font-base) + var(--font-heading) / 5);
+}
+h5 {
+    font-size: calc(var(--font-base) + var(--font-heading) / 6);
+}
+h6 {
+    font-size: calc(var(--font-base) + var(--font-heading) / 7);
+}
 
 pre {
     font-family: var(--font-mono), monospace;
@@ -102,7 +120,8 @@ blockquote {
     font-family: var(--font-body);
 }
 
-ol, ul {
+ol,
+ul {
     padding-left: 40pt;
 }
 
@@ -131,7 +150,11 @@ a {
     text-decoration: none;
     border-bottom: 2px solid var(--fill-accent);
 
-    background-image: linear-gradient(0deg, var(--fill-accent) 0%, var(--fill-accent) 100%);
+    background-image: linear-gradient(
+        0deg,
+        var(--fill-accent) 0%,
+        var(--fill-accent) 100%
+    );
     background-repeat: no-repeat;
     background-size: 100% 0;
     background-position: 0 100%;
@@ -140,16 +163,20 @@ a {
         color 100ms ease;
 }
 
-a:hover, a:active, a:focus {
+a:hover,
+a:active,
+a:focus {
     /* border-bottom: 2px solid var(--fill-text); */
     background-size: 100% 100%;
 }
 
-em, i {
+em,
+i {
     font-style: italic;
 }
 
-strong, b {
+strong,
+b {
     font-weight: bolder;
 }
 
@@ -180,25 +207,30 @@ thead {
     letter-spacing: 0.05em;
 }
 
-tr:nth-child(even) { background-color: var(--fill-soft); }
+tr:nth-child(even) {
+    background-color: var(--fill-soft);
+}
 
-td, th {
+td,
+th {
     border-right: 2px solid var(--fill-soft);
-    padding: 0.80pt;
+    padding: 0.8pt;
     padding-left: 20pt;
     padding-right: 20pt;
 }
 
-tr:nth-child(even) td, th {
+tr:nth-child(even) td,
+th {
     border-right: 2px solid var(--fill-bg);
 }
 
-td:last-of-type, th:last-of-type {
+td:last-of-type,
+th:last-of-type {
     border: none;
 }
 
 summary::-webkit-details-marker {
-    display: none
+    display: none;
 }
 
 summary > div {
@@ -208,14 +240,14 @@ summary > div {
 }
 
 summary {
-    display: block
+    display: block;
 }
 
 summary:before {
     content: "►";
     color: var(--fill-special);
     width: var(--font-base);
-    font-size: calc(var(--font-base) * 2/3);
+    font-size: calc(var(--font-base) * 2 / 3);
 }
 
 details[open] summary:before {

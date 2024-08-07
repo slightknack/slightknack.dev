@@ -3,12 +3,11 @@
 <!-- content block -->
 {% block content %}
 <!-- <div> -->
-<h1 class="title">{{ section.title }}</h1>
+<h1 class="title">Isaac Clayton</h1>
 {{ section.content | safe }}
 <!-- </div> -->
 {% endblock %}
 
 <!-- sidebar block -->
-{% block sidebar %}
-{{ macros::artbit(image=section.extra.artbit) }} 
-{% endblock%}
+{% block sidebar %} {{ macros::artbit(image=section.extra.artbit) }} {%
+endblock%}

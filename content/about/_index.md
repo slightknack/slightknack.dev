@@ -9,9 +9,13 @@ page_template = "page.html"
 artbit = "3_human.png"
 +++
 
+[elsewhere.isaac.sh](https://elsewhere.isaac.sh) · Boston, Massachusetts
+
+A friend of free software, pushing bits around as an undergrad at MIT. Interested in compilers, display hacks, and AI (as one must be in 2024).
+
 <div class="shader">
-    <img 
-        src="/content/path.jpg" 
+    <img
+        src="/content/path.jpg"
         alt="A trail weaving through the mountains on a cold spring day"
     >
         <div class="shader_layer specular">
@@ -19,6 +23,31 @@ artbit = "3_human.png"
         </div>
     </img>
 </div>
+
+I started programming in 2013 ([scratch.mit.edu](https://scratch.mit.edu) ♡). In 2015, I learned Python when my uncle told me it was easier to write neural networks if you didn't ... uh ... hardcode the matrix multiplication routines.
+
+In 2017, I became obsessed with shaders and GPUs (thank you, Iñigo Quilez). In 2019, I learned Rust to develop a compiler for [Passerine](/passerine). I keep a [blog](/blog).
+
+In 2021, I was a software engineering intern at [tonari.no](https://tonari.no), where I prototyped real-time depth estimation on the GPU. In 2022, I interned at [zed.dev](https://zed.dev), where I developed a webassembly extension runtime for e.g. adding new languages to the editor.
+
+From July 2022 to July 2024, I decided to not use the Internet for two years, to complete an anime-style time-skip training arc. That training arc is now complete. (Also, after two years offline, the Internet sucks.)
+
+I love making art and taking photos! I have played basketball on 4 of 7 continents to date. I enjoy hiking with my family and skiing with my Dad. Também falo português, meu rei. Y español.
+
+Let's chat! I'm easily reachable via:
+
+- Email: `hi@isaac.sh` · <a onclick="navigator.clipboard.writeText('hi@isaac.sh')" style="cursor: copy;">copy</a>
+- Discord: `slightknack`
+
+I'm also active on:
+
+- GitHub: [slightknack](https://github.com/slightknack)
+- X/Linux: [slightknack](https://x.com/slightknack)
+- HN: [slightknack](https://news.ycombinator.com/threads?id=slightknack)
+- Lobsters: [slightknack](https://lobste.rs/~slightknack/threads)
+- Are you detecting a pattern here?
+
+For a full list of my accounts, keypairs, and domains, check [elsewhere](https://elsewhere.isaac.sh).
 
 <style>
     .shader * {
@@ -31,7 +60,7 @@ artbit = "3_human.png"
         overflow: hidden;
         backface-visibility: hidden; /* to force GPU performance */
     }
-  
+
     .shader img {
         object-fit: cover;
     }
@@ -46,35 +75,15 @@ artbit = "3_human.png"
         background-size: 100%;
         background-position: center;
     }
-    
+
     .specular {
         mix-blend-mode: color-dodge;
         background-attachment: fixed;
         background-image: linear-gradient(180deg, black, #04348C77 30%, #E8172177 100%);
     }
-    
+
     .mask {
         mix-blend-mode: multiply;
         background-image: linear-gradient(180deg, black 20%, #3c5e6d 35%, #f4310e, #f58308 80%, black);
     }
 </style>
-
-# Who am I?
-
-My name's Isaac, nice to meet you!
-
-Professionally, I've been a Software Engineer at [Zed](https://zed.dev) and [Tonari](https://tonari.no), as well as an [Apprentice Cheesemaker](https://hebervalleyartisancheese.com). I discovered the joy of programming when I was very young; this little hobby quickly grew to underpin the way I think about hard problems. I'm best known for my work on the [Passerine](https://passerine.io) programming language, but this is really just one facet of the type of work I find interesting.
-
-I'm most interested in using computational systems as a foundation for building novel tools for creation and collaboration. For this reason, I’m most interested in problems at the intersection between humans, computers, art, and language.
-
-If you want to get in touch, you can email me at `hello` at this domain; elsewhere, I'm `slightknack`. Contrary to popular belief, I am not a robot.
-
-# About this Website?
-
-Isaac's Website (aka [`slightknack.dev`](https://slightknack.dev)) is a random web of thoughts. Loosely technical but with no common theme, it's really just a place to link against ideas I'd like to share with others.
-
-> Editor's Note: Man, some of these posts need some serious love.
-
-The [current incarnation](https://github.com/slightknack/slightknack.dev) of this website is built with [Zola](https://www.getzola.org) and [GitHub Pages](https://github.io). This website _used_ to run on a custom git-like database I wrote, hosted via Cloudflare Workers, with a little CMS for writing new posts in-browser. Although fun, I was getting tired of paying hosting for a website that doesn't get a whole lot of traffic. If you'd like a little blast-from-the-past, here's a [mirror](https://website.slightknack.workers.dev/home).
-
-There is an [RSS/Atom feed](https://slightknack.dev/atom.xml) for those of you who use newsreaders. For those of you who do not, just bookmark this site or check back for new posts occasionally, I guess.

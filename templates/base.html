@@ -1,39 +1,40 @@
 {% import "macros.html" as macros %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
-    <meta name="theme-color" content="#4d3ee6">
-    <meta name="description" content="A cozy little corner of the web.">
-    <title>{% if page.title %}{{ page.title }} — {% endif %}{% if section.title %}{{ section.title }} — {% endif %}Isaac Clayton</title>
-    <link rel="stylesheet" href="/reset.css">
-    </link>
-    <link rel="stylesheet" href="/base.css">
-    </link>
-    <link rel="stylesheet" href="/layout.css">
-    </link>
-    <link rel="icon" type="image/png" href="/icon.png">
-    <!-- <script async defer type="text/javascript"
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="theme-color" content="#4d3ee6" />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            {% if page.title %}{{ page.title }} — {% endif %}{% if section.title
+            %}{{ section.title }} — {% endif %}Isaac Clayton
+        </title>
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <!-- <script async defer type="text/javascript"
         src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
         </script> -->
-    <script type="text/javascript" src="/elasticlunr.min.js" defer></script>
-    <script type="text/javascript" src="/search_index.en.js" defer></script>
-    <script type="text/javascript" src="/search.js" defer></script>
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
 
-    <!-- maybe one day I'll bother to get these working... -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
-    <!-- <script type="module">
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
         import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
     </script> -->
 
-    {% block extra_head %} {% endblock extra_head %}
-</head>
+        {% block extra_head %} {% endblock extra_head %}
+    </head>
 
-<body style="overflow-x: hidden">
-    {% block layout %} {% endblock %}
-</body>
-
+    <body style="overflow-x: hidden">
+        {% block layout %} {% endblock %}
+    </body>
 </html>

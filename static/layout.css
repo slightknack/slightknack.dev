@@ -6,19 +6,20 @@
 .hero {
     display: grid;
     grid-template-columns: 3fr 3fr;
-    margin-left: auto;    
+    margin-left: auto;
     margin-right: auto;
     max-width: 1200px;
     padding: 20pt;
     align-items: center;
 }
 
-.hero-mac, .hero-desc {
+.hero-mac,
+.hero-desc {
     padding: 20pt;
 }
 
 .hero-mac img {
-    margin-top: 0;    
+    margin-top: 0;
     margin-bottom: 0;
     width: 100%;
 }
@@ -29,7 +30,7 @@
 
 .sidebar {
     height: 100%;
-    /* background-color: var(--fill-accent); */
+    background-color: var(--fill-accent);
     grid-column-start: 1;
     grid-column-end: 2;
 }
@@ -49,23 +50,23 @@
     margin-left: auto;
 }
 
-.pixel-art, .pixel-sidebar {
+.pixel-art,
+.pixel-sidebar {
     image-rendering: pixelated;
 }
 
 .pixel-sidebar:hover,
 .pixel-sidebar:active,
 .pixel-sidebar:focus {
-    filter:
-        invert(1)
-        drop-shadow( 2px  0px 0 var(--fill-accent)) 
-        drop-shadow(-2px  0px 0 var(--fill-accent))
-        drop-shadow( 0px  2px 0 var(--fill-accent))
-        drop-shadow( 0px -2px 0 var(--fill-accent));
+    filter: invert(1) drop-shadow(2px 0px 0 var(--fill-accent))
+        drop-shadow(-2px 0px 0 var(--fill-accent))
+        drop-shadow(0px 2px 0 var(--fill-accent))
+        drop-shadow(0px -2px 0 var(--fill-accent));
 }
 
-@media (prefers-color-scheme:dark) {
-    .pixel-art, .pixel-sidebar {
+@media (prefers-color-scheme: dark) {
+    .pixel-art,
+    .pixel-sidebar {
         filter: invert(1);
     }
 
@@ -73,11 +74,12 @@
     .pixel-sidebar:active,
     .pixel-sidebar:focus {
         filter:
-            /* invert(1) */
-            drop-shadow( 2px  0px 0 var(--fill-accent)) 
-            drop-shadow(-2px  0px 0 var(--fill-accent))
-            drop-shadow( 0px  2px 0 var(--fill-accent))
-            drop-shadow( 0px -2px 0 var(--fill-accent));
+            /* invert(1) */ drop-shadow(
+                2px 0px 0 var(--fill-accent)
+            )
+            drop-shadow(-2px 0px 0 var(--fill-accent))
+            drop-shadow(0px 2px 0 var(--fill-accent))
+            drop-shadow(0px -2px 0 var(--fill-accent));
     }
 }
 
@@ -104,13 +106,15 @@
 }
 
 .profile {
-    width:  calc((var(--font-base) + var(--font-heading)) * 1.5);
+    width: calc((var(--font-base) + var(--font-heading)) * 1.5);
     height: calc((var(--font-base) + var(--font-heading)) * 1.5);
     /* border: 2px solid var(--text-fill); */
     border-radius: 2px;
 }
 
-.narrow, .narrow-left, .narrow-unpadded {
+.narrow,
+.narrow-left,
+.narrow-unpadded {
     min-width: 0;
     max-width: 700px;
     padding: 20pt;
@@ -130,9 +134,9 @@
 }
 
 /* .tag, blockquote { */
-    /* color: var(--fill-accent); */
-    /* font-family: var(--font-title); */
-    /* font-family: var(--font-mono); */
+/* color: var(--fill-accent); */
+/* font-family: var(--font-title); */
+/* font-family: var(--font-mono); */
 /* } */
 
 /* .text-input-container {
@@ -170,7 +174,8 @@
     list-style: none;
 }
 
-.search-results__item, .boxed {
+.search-results__item,
+.boxed {
     padding: 20pt;
     margin-top: 20pt;
     margin-bottom: 20pt;
@@ -186,7 +191,8 @@
     min-height: 10pt;
 }
 
-.menu, .menu-centered {
+.menu,
+.menu-centered {
     padding: 0;
     list-style: none;
     margin-bottom: 20pt;
@@ -197,15 +203,12 @@
     margin-bottom: 0;
 }
 
-.menu li, .menu-centered li {
+.menu li,
+.menu-centered li {
     margin: 0;
     display: inline-block;
     white-space: nowrap;
     padding-right: 20pt;
-}
-
-.menu-centered li {
-    padding-right: 40pt;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -220,8 +223,9 @@
         grid-template-columns: none;
     }
 
-    .hero-mac, .hero-desc {
-        margin-left: auto;        
+    .hero-mac,
+    .hero-desc {
+        margin-left: auto;
         margin-right: auto;
         max-width: 700px;
         padding: 0;
@@ -236,19 +240,21 @@
         height: 30vh;
         object-fit: contain;
         margin-top: 0;
-        margin-bottom: 0;    
+        margin-bottom: 0;
     }
 
     .container {
         display: initial;
     }
 
-    .sidebar, .content {
+    .sidebar,
+    .content {
         height: auto;
         overflow: initial;
     }
 
     .sidebar-inner {
+        display: none;
         height: auto;
         position: initial;
         top: 0;
