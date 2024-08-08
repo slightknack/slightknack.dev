@@ -15,16 +15,16 @@
 }
 
 ::selection {
-    background: var(--fill-accent);
-    color: var(--fill-bg);
+    background: #3a5a8a;
+    color: #f7f2ed;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
+        --fill-text: #f7f2ed;
         --fill-bg: #0f0e0b;
-        --fill-text: #e6dcd2;
         --fill-accent: #3a5a8a;
-        --fill-soft: #d8dbe0;
+        --fill-soft: #242932;
     }
 }
 
@@ -50,13 +50,14 @@ h3,
 h4,
 h5,
 h6 {
-    line-height: 1.1;
+    /* line-height: 1.1; */
     letter-spacing: 0.05em;
     hyphens: auto;
     margin-top: 40pt;
     margin-bottom: 20pt;
     font-family: var(--font-title);
     font-weight: 900;
+    text-wrap: balance;
 }
 
 .title {
@@ -168,6 +169,7 @@ a:active,
 a:focus {
     /* border-bottom: 2px solid var(--fill-text); */
     background-size: 100% 100%;
+    color: #f7f2ed;
 }
 
 em,

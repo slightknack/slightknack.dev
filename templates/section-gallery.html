@@ -8,17 +8,11 @@
 {% for page in section.pages %}
 <li style="list-style: none;">
     <div class="boxed">
-        <a href="{{ page.permalink | safe }}">
-            <div>
-                <h1 style="margin-top: 2vh">{{ page.title }}</h1>
-                <p class="tag">{{ page.date }} · About {{ page.reading_time }} minute{{ page.reading_time | pluralize }} long</p>
-            </div>
-        </a>
+        <h1 style="margin-top: 0vh">
+            <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+        </h1>
         {% if page.description %}
             <p>{{ page.description }}<p>
-        {% elif page.summary %}
-            {{ page.summary | safe }}
-            <p class="tag"><a href="{{ page.permalink | safe}}#continue-reading">Continue reading...</a></p>
         {% endif %}
     </div>
 </li>
@@ -27,5 +21,5 @@
 
 <!-- sidebar block -->
 {% block sidebar %}
-{{ macros::artbit(image=section.extra.artbit) }} 
+{{ macros::artbit(image=section.extra.artbit) }}
 {% endblock%}
