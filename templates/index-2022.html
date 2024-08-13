@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block layout %}
+<div class="narrow-unpadded">
+    <ul class="menu-centered">
+        {% set index = get_section(path="_index.md") %} {% for s in
+        index.subsections %} {% set subsection = get_section(path=s) %}
+        <li>
+            <a class="tag" href="{{ subsection.permalink }}">
+                {% if current_path == subsection.path %}<strong
+                    >{% endif %} {{ subsection.title }} {% if current_path ==
+                    subsection.path %}</strong
+                >{% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="hero">
+    <div class="hero-mac">
+        <img class="pixel-art" src="/hypercard-artbits/2_macintosh.png" />
+    </div>
+    <div class="hero-desc">
+        <h1 class="hero-title">Isaac Clayton</h1>
+        {{ section.content | safe }}
+    </div>
+</div>
+
+<!-- <div class="narrow">
+    <h1>Looking for something?</h1>
+    <div class="text-input-container">
+        <input
+            id="search"
+            type="search"
+            placeholder="Jump to..."
+            autocomplete="off"
+        />
+        <div class="search-results" style="display: none">
+            <div class="search-results__items"></div>
+        </div>
+    </div>
+</div> -->
+{% endblock layout %}
