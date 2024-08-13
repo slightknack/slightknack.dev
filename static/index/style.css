@@ -1,21 +1,11 @@
 body {
     height: 100vh;
     background: linear-gradient(#414494, #20abcd);
-
-    --half-fill: #000000aa;
-    --bg-fill: #eee;
-    --text-fill: #000;
-    --soft-fill: #ffffff88;
 }
 
 #counter {
     position: fixed;
     background-color: #333;
-}
-
-.sidebar {
-    /* background-color: #51544f; */
-    z-index: 2;
 }
 
 .parallax {
@@ -35,18 +25,4 @@ body {
 #cloud-2 {
     z-index: -1;
     transform: skewY(-15deg);
-}
-
-.interlude {
-    position: sticky;
-    top: 0;
-    margin: auto;
-    min-height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.interlude > * {
-    width: 100%;
 }

@@ -23,7 +23,7 @@ to generate training data that is both self-consistent and contains new
 information. This requirement is at odds with the linear nature of
 auto-regressive sequence predictors.
 
-**Intelligence as Search**
+# Intelligence as Search
 
 When finding a proof for a mathematical theorem, we often translate a
 theorem into a language composed of axioms capable of expressing the
@@ -35,7 +35,7 @@ branches of the proof-tree that will never result in a valid proof of
 the theorem. We would like to prioritize taking reduction steps that are
 likely to bring us closer to the solution.
 
-**Intelligence as learning**
+# Intelligence as learning
 
 One way to prioritize reduction steps is to do what has been done in the
 past for similarly-shaped problems. For example, when proving a geometry
@@ -64,7 +64,7 @@ wrong. This ungrounded approach to sequence modeling will always lead to
 violated constraints and hallucinations for sufficiently complex
 problems.
 
-**Hints at a better architecture**
+# Hints at a better architecture
 
 Each forward inference pass of a transformer uses a fixed amount of
 compute, per token. It has been observed that telling a Transformer to
@@ -74,7 +74,7 @@ Transformer to make smaller logical inferences that are more likely to
 be correct, and to self-correct potentially incorrect assumptions. This,
 while seemingly an ad-hoc crutch, hints at a solution.
 
-**Training on edits, not just insertions**
+# Training on edits, not just insertions
 
 The ability to think step-by-step and self-correct are not properties of
 LLMs in general, but are emergent behaviors of having been trained on
@@ -92,7 +92,7 @@ it to emulate backtracking and revision. A model with the ability to
 revise would likely hallucinate less than models of the same size
 trained purely on final documents or codebases.
 
-**Random editing is not reasoning**
+# Random editing is not reasoning
 
 However, notice that we have still kicked the problem up a level. To
 generate a history of edits, we still randomly sample the top-N most
@@ -103,7 +103,7 @@ selection of non-optimal edits. How do we resolve this problem at an
 architectural level, instead of simply pushing the problem up a level
 and requiring more human-curated training data?
 
-**Reasoning is resolving constraints**
+# Reasoning is resolving constraints
 
 The fundamental idea is that we would like to include some way for the
 model to reason about constraints and backtrack when constraints are
@@ -122,7 +122,7 @@ large language model can act on pre-imagined consequences generalized
 from its training corpus, but it lacks the grounding to discover new
 consequences for itself, which it can remember in the future.
 
-**How to identify constraints?**
+# How to identify constraints?
 
 The largest problem facing adding search to existing architectures is
 the question of how to train them. For a closed, well-defined problem
@@ -137,7 +137,7 @@ learn to generalize the concept of constraint violation. In the general
 case, though, how to infer an accurate simulation of the universe given
 a bounded corpus of internet text is an open problem.
 
-**Diffusion models also violate constraints**
+# Diffusion models also violate constraints
 
 An alternative approach to consider is the approach taken by diffusion
 models. Diffusion models start with a noisy image, and progressively
@@ -165,7 +165,7 @@ For example, standard text-guided diffusion models may be able to
 recognize constraint violations by comparing predicted descriptions of a
 scene to the actual guidance vector?
 
-**How to learn constraints from training data**
+# How to learn constraints from training data
 
 Learning constraints is the process of determining the global invariants
 of the output distribution, and preventing outputs composed of local
@@ -186,7 +186,7 @@ sell any individual approach that I am aware of as the solution.
 However, I would like to take a second to discuss the implications of a
 model architecture that solves this problem.
 
-**The Holy Grail of AI capabilities research**
+# The Holy Grail of AI capabilities research
 
 What we want is self-improvement through self-consistent training data:
 in other words, a linearly-scalable model that can generate additional
@@ -206,7 +206,7 @@ token should be prioritized more in the given context. Returning to the
 duals of search and learning, self-consistent searches provide new data
 for models to improve at learning.
 
-**Learning from nothing**
+# Learning from nothing
 
 Let's return to the example of generating mathematical proofs for
 theorems: by generating new self-consistent training data, it might be
@@ -232,7 +232,7 @@ theorem-proving, sudoku-solving, or programming puzzles, the model may
 learn to generalize reasoning and backtracking even when generating
 normal text. This is an experiment worth trying.
 
-**Connection to reinforcement learning**
+# Connection to reinforcement learning
 
 Techniques for searching game states have been a part of the
 reinforcement learning toolkit for a long time. The recent focus on
@@ -250,7 +250,7 @@ a mixture of good and bad examples. (We do this by prompting the DT with
 the expected remaining reward during training, and then sampling the DT
 with a high expected reward during inference).
 
-**Taking RLHF a step further**
+# Taking RLHF a step further
 
 There is also RLHF, which poses text generation as an RL problem: which
 sequence of tokens (actions) can I generate that will give me the
@@ -269,7 +269,7 @@ matches what the model expects the human to ask as a follow up, and so
 on) and deployed with actual search for “the best response”? It remains
 to be seen.
 
-**Increasing compute**
+# Increasing compute
 
 Recently, quite a few new chips have been announced that can run large
 models (70B+) at hundreds of thousands of tokens per second. Many
@@ -288,7 +288,7 @@ expensive than regular inference.
 Before we worry about how any particular architecture may be optimized,
 we need to find an architecture that works.
 
-**A thought on AI safety**
+# A thought on AI safety
 
 Autoregressive LLMs will not take us to full superintelligence, but a
 model that incorporates both search and learning might. This is one of
@@ -304,7 +304,7 @@ values from the volition we express. Capabilities and safety must
 advance lockstep. I believe this to be the clearest path towards safe
 superintelligence.
 
-**A thought on ARC-AGI**
+# A thought on ARC-AGI
 
 Benchmarks like ARC-AGI involve inferring the simplest rule, or drawing
 program, that describes a visual transformation, then applying that rule
@@ -317,7 +317,7 @@ that a generalized diffusion architecture capable of generating solved
 sudoku puzzles from examples may be scaled up and adapted to generate
 programs that solve ARC-AGI puzzles as well.
 
-**Last thoughts**
+# Last thoughts
 
 LLMs tend to hallucinate because they are not grounded in reality. This
 is a direct consequence of the architecture of autoregressive
@@ -327,41 +327,3 @@ are capable of generalized constraint solving. To do so, we must figure
 out how to teach models to learn constraints from training data and
 consider said constraints during inference. We should take inspiration
 from the large body of RL research available.
-
-# Notes
-
-- Needs links. At least one per sentence
-
-- Needs a better closing thought
-
-- Need to define technical terms. I use some acronyms without
-  introducing them. I use LLM, autoregressive LLM, Transformer,
-  backtracking transformer, etc. I need to figure out what different
-  ideas I'm talking about, and adopt consistent terminology
-
-# Glossary
-
-- LLM: Large Language Model. A model based on the Transformer that
-  generates text. Many different types and architectures.
-
-- transformer (stylized lowercase): autoregressive sequence predictor,
-  generally for predicting text
-
-- constraint: a global property which must be satisfied
-
-- constraint-solving: enumerating possible solutions and only selecting
-  solutions which satisfy all constraints
-
-- backtracking: discarding a solution when a constraint is violated
-
-- consistent: when all constraints are satisfied
-
-- search: enumerating all possible solutions and selecting the best one
-
-- learning: the order in which solutions are generated, with more likely
-  correct solutions first
-
-- intelligence: the ability to use existing information to generate a
-  solution to an unseen problem.
-
--

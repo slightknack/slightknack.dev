@@ -6,7 +6,7 @@ template = "section-about.html"
 page_template = "page.html"
 
 [extra]
-artbit = "3_human.png"
+artbit = "3_dinosaur.png"
 +++
 
 [elsewhere.isaac.sh](https://elsewhere.isaac.sh) · Boston, Massachusetts

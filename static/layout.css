@@ -30,7 +30,7 @@
 
 .sidebar {
     height: 100%;
-    background-color: var(--fill-accent);
+    background-color: var(--fill-soft);
     grid-column-start: 1;
     grid-column-end: 2;
 }
@@ -42,12 +42,6 @@
     height: calc(100vh - 60pt);
     position: sticky;
     top: 0;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
-
-.sidebar-inner * {
-    margin-left: auto;
 }
 
 .pixel-art,
@@ -85,7 +79,6 @@
 
 .pixel-sidebar {
     object-fit: contain;
-    height: 30vh;
     top: 0;
     margin: 0;
     /* margin-top: 40pt; */
@@ -178,7 +171,10 @@
 
 .search-results__item,
 .boxed {
-    padding: 20pt;
+    padding-left: 20pt;
+    padding-right: 20pt;
+    padding-top: 1pt;
+    padding-bottom: 1pt;
     margin-top: 20pt;
     margin-bottom: 20pt;
     background-color: var(--fill-soft);
@@ -195,6 +191,7 @@
 
 .menu,
 .menu-centered {
+    z-index: 999;
     padding: 0;
     padding-top: 20pt;
     padding-bottom: 20pt;
@@ -207,8 +204,9 @@
 .menu-centered {
     text-align: center;
     margin-bottom: 0;
-    border-radius: 100px;
+    border-radius: 20pt;
     display: inline-block;
+    background-color: #f7f2ed;
 }
 
 .menu li,
