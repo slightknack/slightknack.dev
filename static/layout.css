@@ -134,11 +134,12 @@
     margin-bottom: 0pt;
 }
 
-/* .tag, blockquote { */
-/* color: var(--fill-accent); */
-/* font-family: var(--font-title); */
-/* font-family: var(--font-mono); */
-/* } */
+.tag
+/* blockquote */ {
+    color: var(--fill-accent);
+    font-family: var(--font-narrow);
+    /* font-family: var(--font-mono); */
+}
 
 /* .text-input-container {
     width: 100%;

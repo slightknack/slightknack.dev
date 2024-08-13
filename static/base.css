@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,700;1,700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,700;1,700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap");
 
 :root {
     --fill-bg: #f7f2ed;
@@ -12,6 +12,7 @@
     --font-body: "IBM Plex Serif", serif, sans-serif;
     --font-title: "Texturina", sans-serif;
     --font-mono: "IBM Plex Mono", monospace;
+    --font-narrow: "Archivo Narrow", sans-serif;
 }
 
 ::selection {
@@ -50,7 +51,7 @@ h3,
 h4,
 h5,
 h6 {
-    /* line-height: 1.1; */
+    line-height: 1.1;
     letter-spacing: 0.05em;
     hyphens: auto;
     margin-top: 40pt;
@@ -58,6 +59,15 @@ h6 {
     font-family: var(--font-title);
     font-weight: 900;
     text-wrap: balance;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    line-height: 1.5;
 }
 
 .title {
