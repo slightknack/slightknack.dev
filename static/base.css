@@ -16,8 +16,8 @@
 }
 
 ::selection {
-    background: #3a5a8a;
-    color: #f7f2ed;
+    background: var(--fill-accent);
+    color: var(--fill-bg);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -179,7 +179,7 @@ a:active,
 a:focus {
     /* border-bottom: 2px solid var(--fill-text); */
     background-size: 100% 100%;
-    color: #f7f2ed;
+    color: var(--fill-bg);
 }
 
 em,
