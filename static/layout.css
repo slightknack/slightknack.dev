@@ -115,7 +115,7 @@
     padding-bottom: 0;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 200pt;
+    margin-bottom: 50vh;
 }
 
 .narrow-left {
@@ -178,7 +178,7 @@
     margin-top: 20pt;
     margin-bottom: 20pt;
     background-color: var(--fill-soft);
-    border-radius: 2px;
+    border-radius: 20pt;
 }
 
 .lateral {

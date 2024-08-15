@@ -1,6 +1,6 @@
 +++
 title = "Blog"
-weight = 2
+weight = 3
 sort_by = "date"
 template = "section.html"
 page_template = "page.html"

@@ -15,8 +15,8 @@
     <img class="parallax" style="visibility: hidden;" id="cloud-1" src="/index/cloud.png">
     <img class="parallax" style="visibility: hidden;" id="cloud-2" src="/index/cloud.png">
 
-    <div style="max-width: width: 100vw; height: 100vh; text-align: center; display: flex; justify-content: center; align-items: center;">
-        <div class="narrow">
+    <div style="max-width: width: 100vw; height: 80vh; text-align: center; display: flex; justify-content: center; align-items: center;">
+        <div class="narrow-unpadded">
         <ul class="menu-centered">
             {% set index = get_section(path="_index.md") %} {% for s in
             index.subsections %} {% set subsection = get_section(path=s) %}
@@ -32,7 +32,11 @@
         </ul>
 
         <div style="color: #f7f2ed;">
-            <h1 style="font-size: calc(min(20vh, 20vw)); line-height: 1;">Isaac Clayton</h1>
+            <h1 style="
+                font-size: calc(min(20vh, 20vw));
+                line-height: 1;
+                text-shadow: 0 0 calc(min(20vh, 20vw)) #414494;
+            ">Isaac Clayton</h1>
         </div>
         </div>
     </div>

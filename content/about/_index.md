@@ -1,6 +1,6 @@
 +++
 title = "About"
-weight = 0
+weight = 1
 sort_by = "weight"
 template = "section-about.html"
 page_template = "page.html"
@@ -9,7 +9,9 @@ page_template = "page.html"
 artbit = "3_dinosaur.png"
 +++
 
-[elsewhere.isaac.sh](https://elsewhere.isaac.sh) · Boston, Massachusetts
+<div class="tag">
+  <a href ="https://elsewhere.isaac.sh">elsewhere.isaac.sh</a> · Boston, Massachusetts
+</div>
 
 A friend of free software, pushing bits around as an undergrad at MIT. Interested in compilers, display hacks, and AI (as one must be in 2024).
 
