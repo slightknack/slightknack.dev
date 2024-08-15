@@ -10,6 +10,7 @@
 
 <!-- content block -->
 {% block layout %}
+{{ page.content | safe }}
 <div style="max-width: width: 100vw; height: 100vh; text-align: center; display: flex; justify-content: center; align-items: center;">
     <canvas
         class="glslCanvas"
@@ -21,5 +22,3 @@
     </div>
 </div>
 {% endblock layout %}
-
-

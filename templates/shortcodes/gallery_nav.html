@@ -1,0 +1,35 @@
+
+<style>
+#floating-nav-img {
+  vertical-align: middle;
+  display: inline-block;
+  width: 40pt;
+  height: 40pt;
+  margin: 0;
+  padding: 0;
+}
+
+#floating-nav {
+  background: var(--fill-bg);
+  border-radius: 40pt;
+  position: fixed;
+  z-index: 999;
+  top: 20pt;
+  right: 20pt;
+  border: 2px solid var(--fill-bg);
+}
+
+#floating-nav > .tag {
+  display: none
+}
+
+#floating-nav:hover > .tag {
+  display: initial
+}
+
+</style>
+
+<div id="floating-nav">
+  <span class="tag" style="padding-left: 20pt;"><a href="/">isaac.sh</a> · <a href="/gallery">back to Gallery</a> · </span>
+  <img id="floating-nav-img" src="/icon.png"></img>
+</div>
