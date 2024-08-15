@@ -4,19 +4,18 @@ date = 2020-10-15
 description = "A watercolor blending images taken at two different powers of 10 into a single scene."
 +++
 
-{{ gallery(image="/content/ten.jpg") }}
-
-<div class="narrow">
-
-{{ 
+{{
     gallery_card(
-        title="From 10⁰ to 10⁻³", 
-        year="2020", 
-        medium="Watercolor on hot-pressed paper", 
-        size="approx. A3", 
+        title="From 10⁰ to 10⁻³",
+        year="2020",
+        medium="Watercolor on hot-pressed paper",
+        size="approx. A3",
         location="Rome, Italy"
-    ) 
+    )
 }}
+
+{{ gallery(image="/content/ten.jpg") }}
+{{ gallery_statement() }}
 
 Inspired by the classic short film *Powers of Ten* from 1977, and the [*Nikon Small World Photomicrography Competition*](https://www.nikonsmallworld.com/), this piece combines two imagines of vastly different scales.
 
@@ -32,11 +31,8 @@ Bridging the gap between the large and the minuscule are a series of bubbles tha
 
 ![Work in progress painting on the right, watercolors, tape, and other materials on the left](/content/ten-wip.jpg)
 
-Oh, and for those interested, here's the original *Powers of Ten* video made back in 1977:
+Oh, and for those interested, here's the original [*Powers of Ten*](https://youtu.be/0fKBhvDjuy0?t=13) video made back in 1977:
 
-<br>
-<div style="position: relative; width: 100%; padding-top: 75%">
-<iframe style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; right: 0; left: 0;" src="https://www.youtube-nocookie.com/embed/0fKBhvDjuy0?start=13" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+[![Powers of 10 on YouTube](/content/powers-of-ten.jpg)](https://youtu.be/0fKBhvDjuy0?t=13)
 
 </div>

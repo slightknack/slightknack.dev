@@ -4,19 +4,18 @@ date = 2021-03-12
 description = "A pencil-on-paper drawing of an eye, made using only the subtractive primary colors."
 +++
 
-{{ gallery(image="/content/eye.jpg") }}
-
-<div class="narrow">
-
-{{ 
+{{
     gallery_card(
-        title="Primary Eye", 
-        year="2021", 
-        medium="Color pencil on paper", 
-        size="A3", 
+        title="Primary Eye",
+        year="2021",
+        medium="Color pencil on paper",
+        size="A3",
         location="Rome, Italy"
-    ) 
+    )
 }}
+
+{{ gallery(image="/content/eye.jpg") }}
+{{ gallery_statement() }}
 
 Red, Yellow, Blue. These are the oft-repeated primary colors, but they are only a half-truth.
 
