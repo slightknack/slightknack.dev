@@ -206,7 +206,8 @@
     margin-bottom: 0;
     border-radius: 20pt;
     display: inline-block;
-    background-color: #f7f2ed;
+    --fill-bg: #f7f2ed;
+    --fill-accent: #3a5a8a;
 }
 
 .menu li,
