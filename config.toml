@@ -3,7 +3,7 @@ title = "Isaac Clayton"
 description = "A cozy little corner of the web."
 generate_feeds = true
 compile_sass = false
-build_search_index = true
+# build_search_index = true
 
 [markdown]
 highlight_code = true
