@@ -1,5 +1,6 @@
 base_url = "https://slightknack.dev"
 title = "Isaac Clayton"
+author = "Isaac Clayton"
 description = "A cozy little corner of the web."
 generate_feeds = true
 compile_sass = false
