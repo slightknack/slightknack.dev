@@ -6,6 +6,8 @@ date = 2024-08-13
 artbit = "3_puzzle.png"
 +++
 
+> Note: This post was published before the release of o1 on 2024-9-12.
+
 People are quick to point out that Large Language Models (LLMs) tend to
 hallucinate facts and lack the ability to reason. LLMs are not grounded
 in reality. Hallucination is an architectural limitation due to how
