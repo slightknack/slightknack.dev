@@ -78,7 +78,7 @@ As I programmed, I ended up organizing game state into a few different structs, 
 
 - `Grid(rows, cols)`: fixed-size grid of squares, each square may contain a tile.
 - `Tile`: A tile with a single letter on it.
-- `Rack`: Contains a Grid(1, 7) and a button, which can be used to refill it.
+- `Rack`: Contains a `Grid(1, 7)` and a button, which can be used to refill it.
 - `Bag`: Shuffles all 98 scrabble tiles and returns them one by one, [similar to tetris](https://harddrop.com/wiki/Random_Generator).
 - `Button`: A single button that can be clicked.
 
@@ -229,7 +229,7 @@ The parameter `snap` is computed elsewhere, but it's the screenspace coordinates
 >
 > ```
 > vel += vel * friction + (target - pos) / speed
-> pos += pos
+> pos += vel
 > ```
 
 What is really cool about this procedural stateless approach to animating tiles is that when we add a tile to a grid, or have it follow the mouse, it naturally smoothly travels to the right place. Complex dynamic behaviour is best driven by simple behavior compounded over time.
