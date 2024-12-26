@@ -12,7 +12,7 @@ Back from the mission, first semester at MIT is in the books! Now I am at home, 
 
 A couple days ago, I was telling my younger brother how cool Zig (the programming language) was. He was like, "if Zig is so cool, why don't you ... like, use it?" Oof. So I [installed Zig](https://ziglang.org/learn/getting-started/#managers), pulled in [some neat bindings for raylib](https://github.com/Not-Nik/raylib-zig), and spent the afternoon writing a little interactive scrabble board demo to make sure that I understood what I was talking about (while he worked on some music for it, which I haven't yet included):
 
-<iframe src="/scrabble" width="100%" frameborder="0"></iframe>
+<iframe src="/scrabble" width="100%" height="600px" frameborder="0"></iframe>
 
 So that I can stop worrying about this project and lay it to rest, I decided to write a little blog post. The above demo doesn't really work on mobile, and it may be broken (Wasm, JS, about 1MB in size, etc.), so here's a screenshot:
 
