@@ -24,7 +24,7 @@ You can't win every battle.
 
 > N.B. "Maybe if you made it a game you could" — my brother
 
-Anyway, the code will be up on GitHub, it's like ~500 lines and has [like one dependency](https://github.com/Not-Nik/raylib-zig) (`raylib-zig`) so it shouldn't be too hard to get the native build working if you'd like to follow along then. The web build is a little hacky and left as an exercise to the reader.
+Anyway, the code ~~will be~~ [is now up on GitHub](https://github.com/slightknack/scrabble), it's like ~500 lines and has [like one dependency](https://github.com/Not-Nik/raylib-zig) (`raylib-zig`) so it shouldn't be too hard to get the native build working if you'd like to follow along then. The web build is a little hacky and left as an exercise to the reader.
 
 # Why Zig
 
@@ -36,13 +36,13 @@ I also came across the [TigerStyle document](https://github.com/tigerbeetle/tige
 
 # Walk me through the code
 
-I'll put all the code up on GitHub soon, but I thought it would be fun to walk through some of it and point out some interesting stuff as we go along.
+I put [the code up on GitHub](https://github.com/slightknack/scrabble), and I thought it would be fun to walk through some of it and point out some interesting stuff as we go along. Clone if you want to follow along!
 
 > N.B. I used [jujutsu (jj)](https://github.com/jj-vcs/jj) to do version control instead of git (without colocating) so I am figuring out whether I try to convert the jj repo to a git repo or just `git init` and `push` without any history. I'll read the jj docs, there's probably an easy way to export/convert/colocate.
 
-The approach I took to writing this project was essentially the approach that Casey Muratori outlines in his post [*Semantic Compression*](https://caseymuratori.com/blog_0015). I'm not going to explain it here, he does a much better job that I have space to. The core idea of this process to add the next most obvious feature in the simplest way possible, not trying to abstract beforehand. Once a feature is working, gradually refactor out common 'stack frames' into structs, and functions that use those structs. Over time the codebase sort of organizes itself. I think this approach works really well when it comes to making game-like things, which makes sense: Muratori is a game programmer, after all.
+The approach I took to writing this project was essentially the approach that Casey Muratori outlines in his post [*Semantic Compression*](https://caseymuratori.com/blog_0015). I'm not going to explain it here, he does a much better job than I have space to. The core idea of this process is to add the next most obvious feature in the simplest way possible, not trying to abstract beforehand. Once a feature is working, gradually refactor out common 'stack frames' into structs, and functions that use those structs. Over time the codebase sort of organizes itself. I think this approach works really well when it comes to making game-like things, which makes sense: Muratori is a game programmer, after all.
 
-> N.B. I kinda missed the whole AI train (long story) so all this code was written by hand, reading the documentation (e.g. the entire Zig language [is just one page](https://ziglang.org/documentation/master)!), etc. Mistakes my own!
+> N.B. I kinda missed the whole AI train (long story) so all this code was written by hand, reading the documentation (e.g. the entire Zig language [is just one page](https://ziglang.org/documentation/master)!), etc. Mistakes are my own!
 
 ## A note on comptime
 
@@ -70,7 +70,7 @@ const sound_tap = @embedFile("./assets/tap.wav");
 const sound_shuffle = @embedFile("./assets/shuffle.wav");
 ```
 
-The comptime function `@embedFile` is a pretty cool, similar to the `include_bytes!` macro in Rust.
+The comptime function `@embedFile` is pretty cool, similar to the `include_bytes!` macro in Rust.
 
 ## Structs and the shape of a stack frame
 
@@ -78,7 +78,7 @@ As I programmed, I ended up organizing game state into a few different structs, 
 
 - `Grid(rows, cols)`: fixed-size grid of squares, each square may contain a tile.
 - `Tile`: A tile with a single letter on it.
-- `Rack`: Contains a `Grid(1, 7)` and a button, which can be used to refill it.
+- `Rack`: Contains a `Grid(1, 7)` and a `Button`, which can be used to refill the rack.
 - `Bag`: Shuffles all 98 scrabble tiles and returns them one by one, [similar to tetris](https://harddrop.com/wiki/Random_Generator).
 - `Button`: A single button that can be clicked.
 
@@ -236,7 +236,7 @@ What is really cool about this procedural stateless approach to animating tiles 
 
 ## Randomness and the bag
 
-One thing I wanted to get right was the `Bag`. I didn't want to allocate anything, but I wanted to the distribution of scrabble tiles to be correct. Well, the second part is easy, we just need a bag with each tile:
+One thing I wanted to get right was the `Bag`. I didn't want to allocate anything, but I wanted the distribution of scrabble tiles to be correct. Well, the second part is easy, we just need a bag with each tile:
 
 ```zig
 /// don't ask
@@ -276,7 +276,7 @@ fn fresh() Bag {
 
 Figuring out `var loc: [98]u8` also took a little work. Zig doesn't have full Hindley-Milner type inference, as Rust does. Sometimes you have to guide the compiler along by using `@as` or explicit bindings. Not necessarily a bad thing, it's good to know what types are flowing through the program. A good balance between Rust's type inference magic and Austral's [purposeful lack thereof](https://borretti.me/article/introducing-austral#anti-features).
 
-> N.B. This in makes total sense, in the context of Zig's comptime! When generic types are built function calls, type information flows in one direction. Flowing program information backwards is what we seen in language like Prolog, where rules can be thought of as bidirectional functions. I briefly explored this direction in a compiler I am working on, which has (had?) first-class support for datalog-like queries. "Type inference as a comptime datalog query." Maybe someday.
+> N.B. This makes total sense, in the context of Zig's comptime! When generic types are built function calls, type information flows in one direction. Flowing program information backwards is what we see in languages like Prolog, where rules can be thought of as bidirectional functions. I briefly explored this direction in a compiler I am working on, which has (had?) first-class support for datalog-like queries. "Type inference as a comptime datalog query." Maybe someday.
 
 Okay, and just for completion's sake, here's the rest of `Bag`:
 
@@ -292,7 +292,7 @@ fn pick(self: *Bag) u8 {
 }
 ```
 
-I was suprised that `std.crypto.random` worked out of the box for the wasm build of the demo. From my experience with Rust and `rand`, this is not always something that automatically works.
+I was surprised that `std.crypto.random` worked out of the box for the wasm build of the demo. From my experience with Rust and `rand`, this is not always something that automatically works.
 
 ## My main man
 
@@ -323,7 +323,7 @@ pub fn main() anyerror!void {
 }
 ```
 
-I love how I can use defer here. It's a nice way to pair together functions that must be called together, but at different times. A lot of old C APIs expect this sort of "manual nesting by the programmer" to enter and exit over e.g. taking a callback. I prefer `defer` over RAII, though. At least in this context: raylib is simple and global and single-threaded, what do I know.
+I love how I can use `defer` here. It's a nice way to pair together functions that must be called together, but at different times. A lot of old C APIs expect this sort of "manual nesting by the programmer" to enter and exit over e.g. taking a callback. I prefer `defer` over RAII, though. At least in this context: raylib is simple and global and single-threaded, what do I know.
 
 The startup code that comes after builds a lot of structs. It looks like this:
 
