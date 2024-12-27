@@ -40,7 +40,7 @@ I put [the code up on GitHub](https://github.com/slightknack/scrabble), and I th
 
 > N.B. I used [jujutsu (jj)](https://github.com/jj-vcs/jj) to do version control instead of git (without colocating) so I am figuring out whether I try to convert the jj repo to a git repo or just `git init` and `push` without any history. I'll read the jj docs, there's probably an easy way to export/convert/colocate.
 >
-> Update: Steve Klabnik, the [Rust book guy](https://doc.rust-lang.org/stable/book/) (and now I guess also the [jj tutorial guy](https://steveklabnik.github.io/jujutsu-tutorial/introduction/introduction.html)?) [pointed out on Lobsters] that, because jj repos are backed by git repos, you can just [add a remote](https://steveklabnik.github.io/jujutsu-tutorial/sharing-code/remotes.html) and `jj git push`. In brief detail, we can add a git remote:
+> Update: Steve Klabnik, the [Rust book guy](https://doc.rust-lang.org/stable/book/) (and now I guess also the [jj tutorial guy](https://steveklabnik.github.io/jujutsu-tutorial/introduction/introduction.html)?) [pointed out on Lobsters](https://lobste.rs/s/1wbfuj/one_day_with_zig_raylib_jj#c_irzgui) that, because jj repos are backed by git repos, you can just [add a remote](https://steveklabnik.github.io/jujutsu-tutorial/sharing-code/remotes.html) and `jj git push`. In brief detail, we can add a git remote:
 >
 > ```bash
 > jj git remote add origin git@github.com:slightknack/scrabble.git
