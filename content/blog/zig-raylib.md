@@ -24,7 +24,7 @@ You can't win every battle.
 
 > N.B. "Maybe if you made it a game you could" — my brother
 
-Anyway, the code ~~will be~~ [is now up on GitHub](https://github.com/slightknack/scrabble), it's like ~500 lines and has [like one dependency](https://github.com/Not-Nik/raylib-zig) (`raylib-zig`) so it shouldn't be too hard to get the native build working if you'd like to follow along then. The web build is a little hacky and left as an exercise to the reader.
+Anyway, the code ~~will be~~ [is now up on GitHub](https://github.com/slightknack/scrabble), it's like [~500 lines](https://github.com/slightknack/scrabble/blob/master/src/main.zig) and has [like one dependency](https://github.com/Not-Nik/raylib-zig) (`raylib-zig`) so it shouldn't be too hard to get the native build working if you'd like to follow along then. The web build is a little hacky and left as an exercise to the reader.
 
 # Why Zig
 
