@@ -278,7 +278,7 @@ This sample is interesting because the code generated is a little non-trivial—
 
 # Problem 15
 
-[Try it yourself](https://projecteuler.net/problem=15)!
+> [Try it here](https://projecteuler.net/problem=15)!
 
 This sample is interesting because the problem contains an image (that is missing), yet the model is still able to reduce the problem to something much simpler, and outputs a very minimal python program to compute the solution.
 
