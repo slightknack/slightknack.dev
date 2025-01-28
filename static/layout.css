@@ -127,6 +127,16 @@
     margin-bottom: 0pt;
 }
 
+.tag-light {
+    opacity: 0.7;
+    font-family: var(--font-narrow);
+}
+
+.tag-light p,
+.tag-light li {
+    font-family: var(--font-narrow);
+}
+
 .tag
 /* blockquote */ {
     color: var(--fill-accent);
@@ -196,7 +206,7 @@
     padding-top: 20pt;
     padding-bottom: 20pt;
     list-style: none;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     background-color: var(--fill-bg);
 }
