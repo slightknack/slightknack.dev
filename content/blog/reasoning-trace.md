@@ -322,7 +322,7 @@ Quite obviously the next step is to try some real RL on the collected reasoning 
 
 I'll also try to clean the code up and put it up on GitHub, at some point. It's a little hacky. Stay tuned?
 
-> Okay, [the project is now up on GitHub][gh]. Go have fun.
+> Okay, [the project is now up on GitHub][gh]. Go have fun!
 
 On a more personal note: I first got excited about AI around 2015. This was after [Deepmind played Atari][dm], when we caught the first glimpse that RL could [scale beyond human performance][dq]. This was before [PPO][ppo] (though [TRPO][trpo] was new), before [AlphaGo versus Lee Sedol][ag]. Most importantly, this was before [Transformers][at], GPT2, or anything of that sort. I was excited, and I was excited about GOFAI too (scheme, prolog, and things of that sort). I decided then and there that I wanted to do RL and work on AI.
 
