@@ -322,6 +322,8 @@ Quite obviously the next step is to try some real RL on the collected reasoning 
 
 I'll also try to clean the code up and put it up on GitHub, at some point. It's a little hacky. Stay tuned?
 
+> Okay, [the project is now up on GitHub][gh]. Go have fun.
+
 On a more personal note: I first got excited about AI around 2015. This was after [Deepmind played Atari][dm], when we caught the first glimpse that RL could [scale beyond human performance][dq]. This was before [PPO][ppo] (though [TRPO][trpo] was new), before [AlphaGo versus Lee Sedol][ag]. Most importantly, this was before [Transformers][at], GPT2, or anything of that sort. I was excited, and I was excited about GOFAI too (scheme, prolog, and things of that sort). I decided then and there that I wanted to do RL and work on AI.
 
 A few years later, though, when all the AI research labs started scaling transformers on reams of data (yes, I was impressed by GPT2!), I was at least a little internally disappointed. I thought back to [percent behaviour cloning][bc]: In a supervised training regime, a model will never be able to do better than the best examples from training data. What do we do when we run out of examples? What do we do when we want to scale beyond expert performance? The dream of AI is not to discover new things. It's learning new ways to discover new things!
@@ -330,7 +332,7 @@ Disillusioned with the [*Bitter Lesson*][bl] and GPU-poor, I moved on to other t
 
 > *N.B.* The idea is still very cool! Essentially, if we have a way to compute [surprisal][ig] (information gain), we can use a [decision transformer][dt] to sample trajectories that maximize surprisal-to-go. To handle the [noisy-tv problem][tv], we quantify [surprisal as epistemic uncertainty][eu], which can be computed by subtracting observed aleatoric uncertainty from the KL-divergence (expected excess surprise) of the observed state vs. the predicted state (using the state transition dynamics of the decision transformer). Perhaps I'll write about this sometime.
 
-Despite my excitement for RL, it seemed as though the field had moved on, pouring resources into a direction that seemed ... like it'd hit a wall at some point, I don't know. I also felt the sting when AI research companies stopped releasing open-source model training code. Which I could read, learn from, and try to reproduce.
+Despite my excitement for RL, it seemed as though the field had moved on, pouring resources into a direction that seemed ... like it'd hit a wall at some point, I don't know. I also felt the sting when AI research companies stopped releasing open-source model training code. (Which I could read, learn from, and try to reproduce.)
 
 Deepseek-R1 has me got excited again. The technique is remarkably simple, it scales, *and it <u>extracts information from the environment</u> which can be used to <u>improve existing models beyond the performance of expert examples</u> in training data*. I wish I could underscore how cool this is. Wait, this is my website, I can.
 
@@ -366,3 +368,4 @@ What a time to be alive.
 [dt]: https://arxiv.org/abs/2106.01345
 [eu]: https://arxiv.org/pdf/2206.01558
 [or1]: https://github.com/huggingface/open-r1
+[gh]: https://github.com/slightknack/reasoning-trace
