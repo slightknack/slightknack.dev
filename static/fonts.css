@@ -64,3 +64,25 @@
     font-style: italic;
     font-display: swap;
 }
+
+/* Shippori Mincho B1 */
+
+@font-face {
+    font-family: "Shippori";
+    src: url("/fonts/shippori-b1-medium.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Shippori";
+    src: url("/fonts/shippori-b1-semi-bold.ttf");
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Shippori";
+    src: url("/fonts/shippori-b1-extra-bold.ttf");
+    font-weight: bold;
+    font-display: swap;
+}

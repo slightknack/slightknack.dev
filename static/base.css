@@ -5,9 +5,9 @@
     --fill-accent: #3a5a8a;
     --fill-soft: #d8dbe0;
 
-    --font-base: 15pt;
+    --font-base: 14pt;
     --font-heading: 20pt;
-    --font-body: "IBM Plex Serif", serif, sans-serif;
+    --font-body: "Shippori", serif, sans-serif;
     --font-title: "Texturina", serif;
     --font-mono: "IBM Plex Mono", monospace;
     --font-narrow: "Archivo Narrow", sans-serif;
@@ -33,7 +33,7 @@ body {
     color: var(--fill-text);
     font-family: var(--font-body);
     font-size: var(--font-base);
-    line-height: 1.5;
+    line-height: 1.7;
 }
 
 p {
