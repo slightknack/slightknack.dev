@@ -93,11 +93,6 @@
     grid-column-end: 4;
 }
 
-.navigation {
-    margin-top: 00pt;
-    margin-bottom: 200pt;
-}
-
 .profile {
     width: calc((var(--font-base) + var(--font-heading)) * 1.5);
     height: calc((var(--font-base) + var(--font-heading)) * 1.5);
@@ -199,6 +194,18 @@
     min-height: 10pt;
 }
 
+.navigation {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.artbit {
+    padding-top: 20pt;
+    /* height: calc(var(--font-base) * 5); */
+}
+
 .menu,
 .menu-centered {
     z-index: 999;
@@ -206,26 +213,35 @@
     padding-top: 20pt;
     padding-bottom: 20pt;
     list-style: none;
+    text-wrap: balance;
     /* position: sticky; */
     top: 0;
-    background-color: var(--fill-bg);
+    /* background-color: var(--fill-bg); */
 }
 
-.menu-centered {
+/* .menu-centered {
     text-align: center;
     margin-bottom: 0;
     border-radius: 20pt;
     display: inline-block;
     --fill-bg: #f7f2ed;
     --fill-accent: #3a5a8a;
-}
+} */
 
-.menu li,
-.menu-centered li {
-    margin: 0;
+.pill {
+    margin: 0pt;
+    padding: 0;
     display: inline-block;
     white-space: nowrap;
-    padding-right: 20pt;
+}
+
+.pill a {
+    background-color: var(--fill-soft);
+    border: none;
+    padding: 2px;
+    padding-left: 10pt;
+    padding-right: 10pt;
+    border-radius: 2px;
 }
 
 .menu-centered {
@@ -238,11 +254,11 @@
     padding-right: 10pt;
 }
 
-@media only screen and (max-width: 1200px) {
+/* @media only screen and (max-width: 1200px) {
     .container {
         grid-template-columns: 300px minmax(0, 1fr);
     }
-}
+} */
 
 @media only screen and (max-width: 900px) {
     .hero {
@@ -274,6 +290,15 @@
         display: initial;
     }
 
+    .navigation {
+        display: initial;
+    }
+
+    .artbit {
+        padding-top: 0;
+        padding-bottom: 20pt;
+    }
+
     .sidebar,
     .content {
         height: auto;
@@ -293,10 +318,6 @@
         margin-top: 0;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .navigation {
-        margin-bottom: 0pt;
     }
 
     .narrow-left {

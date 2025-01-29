@@ -26,3 +26,17 @@ body {
     z-index: -1;
     transform: skewY(-15deg);
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        height: 100vh;
+        background: linear-gradient(#000, #414494);
+    }
+
+    #mountain-1,
+    #mountain-2,
+    #cloud-1,
+    #cloud-2 {
+        filter: hue-rotate(30deg) brightness(90%);
+    }
+}
