@@ -8,7 +8,7 @@ compile_sass = false
 
 [markdown]
 highlight_code = true
-highlight_theme = "material-dark"  # "gray-matter-dark"
+highlight_theme = "boron"          # "material-dark" "gray-matter-dark"
 external_links_target_blank = true
 external_links_no_follow = true
 smart_punctuation = true

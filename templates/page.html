@@ -4,12 +4,12 @@
 {% block content %}
 <!-- <div> -->
 <h1 class="title">{{ page.title }}</h1>
-<p class="tag">{{ page.date }}</p>
+<p class="tag">{{ page.date }} · About {{ page.reading_time }} minute{{ page.reading_time | pluralize }} long</p>
 {{ page.content | safe }}
 <!-- </div> -->
 {% endblock %}
 
 <!-- sidebar block -->
 {% block sidebar %}
-{{ macros::artbit(image=page.extra.artbit) }} 
+{{ macros::artbit(image=page.extra.artbit) }}
 {% endblock%}

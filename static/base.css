@@ -7,7 +7,7 @@
 
     --font-base: 14pt;
     --font-heading: 20pt;
-    --font-body: "Shippori", serif, sans-serif;
+    --font-body: "Ibarra", serif, sans-serif;
     --font-title: "Texturina", serif;
     --font-mono: "IBM Plex Mono", monospace;
     --font-narrow: "Archivo Narrow", sans-serif;
@@ -38,9 +38,9 @@ body {
 
 p {
     font-size: var(--font-base);
-    /* hyphens: auto; */
     margin-top: 20pt;
     margin-bottom: 20pt;
+    text-wrap: pretty;
 }
 
 h1,
@@ -228,11 +228,18 @@ th {
     padding: 0.8pt;
     padding-left: 20pt;
     padding-right: 20pt;
+    text-align: start;
+    text-wrap: balance;
 }
 
 tr:nth-child(even) td,
 th {
     border-right: 2px solid var(--fill-bg);
+}
+
+th {
+    font-family: var(--font-narrow);
+    vertical-align: bottom;
 }
 
 td:last-of-type,

@@ -86,3 +86,20 @@
     font-weight: bold;
     font-display: swap;
 }
+
+/* Ibarra Real Nova */
+
+@font-face {
+    size-adjust: 115%;
+    font-family: "Ibarra";
+    src: url("/fonts/ibarra-variable.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    size-adjust: 115%;
+    font-family: "Ibarra";
+    src: url("/fonts/ibarra-variable-italic.ttf");
+    font-style: italic;
+    font-display: swap;
+}
