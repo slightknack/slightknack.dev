@@ -285,6 +285,8 @@ the topic of another post.
 [use-gleam]: https://gleam.run/news/v0.25-introducing-use-expressions/
 [siraben-free]: https://siraben.dev/2020/02/20/free-monads.html
 
+# When do notation doesn't... run sequentially
+
 There are, however, a couple of pitfalls, which trap those new
 to Haskell. On the surface, do notation looks similar to
 imperative code: people coming from imperative languages
@@ -401,10 +403,18 @@ Do notation does *not* imply sequential imperative
 evaluation. (This is especially true because Haskell is
 *lazy*.)
 
+# The Monad Laws at last!
+
 With that it mind, I can finally motivate an
 aesthetic presentation of the three [Monad Laws][ml] using do-notation.
 These are rules that then (`>>`), bind (`>>=`), and return must follow
-for an instance of the `Monad` typeclass to *actually* be a monad, mathematically:
+for an instance of the `Monad` typeclass to *actually* be a monad, mathematically.
+(If you break the Monad Laws, the *Monad Police* will
+show up and throw you in *Monad Jail* where you will labor
+on the [*Monad Assembly Line*][labor] until all values lost
+have been bound then returned to their former state of *purity*. Ahem.)
+
+[labor]: https://wiki.haskell.org/All_About_Monads#A_physical_analogy_for_monads
 
 ## Left identity
 
@@ -512,6 +522,8 @@ do
 
 [ml]: https://wiki.haskell.org/Monad_laws
 
+# What's to do has been done
+
 So, to recap:
 
 Side effects in pure functional languages
@@ -533,7 +545,96 @@ overzealously. However, by knowing the Monadic operations that
 underlie do notation, one can learn when to use it to drastically
 simplify code.
 
+## What's up with Haskell's do notation?
+
+So you've read a lot about do notation but
+I still haven't explained *what the big deal is*.
+Apologies. Talk about burying the lede.
+
+Human languages, like English, are typically read in a linear sequence, from beginning to end.
+Like programming languages, human languages map to [parse trees][wiki-parse], according to a
+grammar—or set of rules—and we can ascribe semantic *meaning* to those trees.
+
+[wiki-parse]: https://en.wikipedia.org/wiki/Parse_tree#Nomenclature
+
+Most human languages favor parse trees that [branch][wiki-branch] in a particular direction.
+English, for example, is primarily a [right-branching][wiki-right] language,
+meaning that right-branching sentences are more common, due to the grammar of the language favoring their construction.
+A right-branching sentence starts with a *subject* and is followed by a sequence of modifiers
+that progressively add more information about the subject. To borrow [an image][wiki-image] from Wikipedia,
+after a certain point in a sentence, all subsequent nodes branch right:
+
+<img src="/content/branching.svg" alt="A parse tree for the sentence: 'The child did not try to eat anything'. From 'did' onward, the tree grows down and to the right.">
+
+[wiki-branch]: https://en.wikipedia.org/wiki/Branching_(linguistics)#Full_trees
+[wiki-right]: https://en.wikipedia.org/wiki/Right-branching_sentences_in_English
+[wiki-image]: https://upload.wikimedia.org/wikipedia/commons/6/66/Branching6.jpg
+
+Speakers of English are pretty good at processing deeply-nested trees that branch to the right.
+Reading right-branching sentences doesn't feel like parsing some complicated grammatical structure.
+The nesting, while deep, is simple: we always branch to the right.
+Because the nesting is simple, we can treat the tree almost as a linear sequence:
+we can ignore the nesting, because it is trivial.
+I feel like humans are pretty good at communicating ideas by starting with a subject
+and progressively adding information,
+as opposed to incrementally constructing some sort of
+complex tree structure the mind, which is then evaluated.
+
+How is this related to do notation?
+
+Haskell is also a language, and it also maps to parse trees.
+Parse trees in Haskell, like in English, can lean to the left or to the right.
+And when chaining operations together, like with Monads,
+the parse trees can tend to lean pretty far in one direction.
+Consider, for example, our pointed email-parsing example from earlier:
+
+```haskell
+get contacts "Euclid"
+>>= (\raw_email ->
+  parse_email raw_email
+  >>= (\email ->
+    send_email message email))
+```
+
+In case it's not visible from the intendation, this is a right-branching parse tree!
+
+When we rewrite this expression using do-notation, the code is flattened:
+
+```haskell
+do
+  raw_email <- get contacts "Euclid"
+  email <- parse_email raw_email
+  send_email message email
+```
+
+This is a lot easier to read,
+because humans are pretty good at communicating ideas by starting with a subject
+and progressively adding information.
+The nesting, of course, is still there,
+but the `do` keyword keys us in that the parse tree will be leaning to the right.
+The nesting, while deep, is simple, so we can ignore it.
+If Monads are context, then each line is information added to that context.
+By eliminating nesting, it becomes easier to communicate hard ideas.
+
+That's what's up with Haskell's do notation.
+
+We see this flattening a lot, in the space of programming languages.
+A classic example is method call syntax, going from `foo(bar(baz))` to `baz.bar().foo()`,
+which makes it easier to flatten a chain function calls, eliminating nesting along the way.
+And in imperative languages, the sequencing of statements with `;`
+can be seen as a kind of flattening composition in of itself.
+Notational tweaks like these, while seemingly simple,
+can make it a lot easier to express hard programs,
+and thus solve hard problems.
+
 That's all for today. In a future post, I hope to explore how Koka's
 *with* *notation* is a variation of Haskell's do notation
 specialized for modeling Algebraic Effects using the Free
 Monad. Until next time!
+
+<div class="boxed">
+
+Thank you to my friend [Uzay](https://www.uzpg.me/) for reviewing an earlier draft of this post!
+(It has been sitting on my hard drive for way to long.)
+
+</div>
