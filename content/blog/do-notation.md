@@ -108,7 +108,7 @@ or not a value exists. The implementation is not too complex:
 -- The value exists or it does not.
 data Maybe a = Just a | Nothing
 
-instance Monad (Maybe a)
+instance Monad Maybe where
   -- By default the value exists.
   return a = Just a
   -- Preserve context and replace value.
@@ -129,7 +129,7 @@ return 7 :: Maybe
 Just "Hello" >> Nothing >> Just "Bye"
 -- Nothing
 
-Just 7 >>= (+) 2
+Just 7 >>= Just . (+) 2
 -- Just 9
 ```
 
@@ -139,7 +139,7 @@ preserved (e.g. we get `Just 9`). If we were to use
 `Nothing` instead, we would get `Nothing`:
 
 ```haskell
-Nothing >>= (+) 2
+Nothing >>= Just . (+) 2
 -- Nothing
 ```
 
@@ -172,7 +172,7 @@ point-ful style, we use explicit anonymous functions (i.e.
 arrow in a lambda is *pointy*:
 
 ```haskell
-add_two :: Nat -> Nat
+add_two :: Int -> Int
 
 -- Point-free style
 add_two = (+) 2
@@ -249,6 +249,7 @@ This `do` expression will desugar to the then (`>>`) operator:
 Nothing >> Just "Hello"
 ```
 
+Which is `Nothing`.
 When an line yields a wrapped monadic value, we can use `<-` to
 extract the value inside the Monad for use in the rest of the
 expression:
@@ -256,14 +257,14 @@ expression:
 ```haskell
 do
   seven <- Just 7
-  seven + 2
+  return (seven + 2)
 ```
 
 This `<-` desugars to the bind (`>>=`) operator and a lambda as
 follows:
 
 ```haskell
-Just 7 >>= (\seven -> seven + 2)
+Just 7 >>= (\seven -> return (seven + 2))
 ```
 
 Note that an implicit lambda was introduced, wrapping the rest
