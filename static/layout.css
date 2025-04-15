@@ -81,9 +81,9 @@
     object-fit: contain;
     top: 0;
     margin: 0;
-    /* margin-top: 40pt; */
-    margin-left: auto;
-    margin-right: 0;
+    margin-top: 20pt;
+    /* margin-left: auto; */
+    /* margin-right: 0; */
     padding: 0;
 }
 
@@ -110,7 +110,7 @@
     padding-bottom: 0;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 50vh;
+    margin-bottom: 100vh;
 }
 
 .narrow-left {
@@ -195,14 +195,14 @@
 }
 
 .navigation {
-    margin: 0;
+    /* margin: 0;
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: start; */
 }
 
 .artbit {
-    padding-top: 20pt;
+    /* padding-top: 20pt; */
     /* height: calc(var(--font-base) * 5); */
 }
 

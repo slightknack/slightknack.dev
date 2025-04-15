@@ -5,7 +5,7 @@
 <!-- <div class="container"> -->
     <!-- <div class="sidebar">
     </div> -->
-    <div class="content">
+    <div class="content" id="top">
         <div class="narrow">
             <div class="navigation">
                 <ul class="menu">
@@ -21,13 +21,13 @@
                     </li>
                     {% endfor %}
                     <li class="pill">
-                        <a class="tag" href="https://goto.isaac.sh">Goto</a>
+                        <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
                     </li>
                     <li class="pill">
-                        <a class="tag" href="https://github.com/slightknack">Github</a>
+                        <a class="tag" href="https://github.com/slightknack">Github ↬</a>
                     </li>
                     <li class="pill">
-                        <a class="tag" href="https://slightknack.dev/atom.xml">RSS</a>
+                        <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
                     </li>
                 </ul>
 
@@ -47,6 +47,12 @@
             </div> -->
 
             {% block content %} {% endblock %}
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
         </div>
     </div>
 <!-- </div> -->

@@ -3,7 +3,7 @@ title = "Using Proof-of-Work to Manage Backpressure"
 date = 2021-12-01
 
 [extra]
-artbit = "1_small.png"
+artbit = "1_mousetrap.png"
 +++
 
 > **Note:** This is a quick piece that assumes some prior knowledge of PoW and backpressure. If you want to build up an intuition about backpressure before jumping in, you could read [*this piece*](https://medium.com/@jayphelps/backpressure-explained-the-flow-of-data-through-software-2350b3e77ce7) or [*that one*](https://www.tedinski.com/2019/03/05/backpressure.html). If you'd like to learn more about PoW in the context of this article, check out [*this article*](https://en.wikipedia.org/wiki/Hashcash) (and [*that one as well*](https://en.wikipedia.org/wiki/Proof_of_work)).

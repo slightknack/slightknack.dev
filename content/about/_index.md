@@ -10,7 +10,7 @@ artbit = "3_dinosaur.png"
 +++
 
 <div class="tag">
-  <a href ="https://elsewhere.isaac.sh">elsewhere.isaac.sh</a> · Boston, Massachusetts
+  <a href ="https://isaac.sh">isaac.sh</a> · Boston, Massachusetts
 </div>
 
 A friend of free software, pushing bits around as an undergrad at MIT. Interested in compilers, display hacks, and AI (as one must be in 2024).
@@ -32,24 +32,28 @@ In 2017, I became obsessed with shaders and GPUs (thank you, Iñigo Quilez). In 
 
 In 2021, I was a software engineering intern at [tonari.no](https://tonari.no), where I prototyped real-time depth estimation on the GPU. In 2022, I interned at [zed.dev](https://zed.dev), where I developed a webassembly extension runtime for e.g. adding new languages to the editor.
 
-From July 2022 to July 2024, I decided to not use the Internet for two years, to complete an anime-style time-skip training arc. That training arc is now complete. (Also, after two years offline, the Internet sucks.)
+From July 2022 to July 2024, I lived in Brazil, didn't use the Internet, and learned a lot. (Sadly, after two years offline, I realize that the Internet kinda sucks.)
+
+I am now just about finishing my first year at MIT. Over the summer I'll perform a pilgrimage to San Francisco, to work at a bona-fide startup! I'll be once again writing Rust, because it looks like that's what I'm good at. The startup is very cool, I'll write about it sometime.
 
 I love making art and taking photos! I have played basketball on 4 of 7 continents to date. I enjoy hiking with my family and skiing with my Dad. Também falo português, meu rei. Y español.
 
-Let's chat! I'm easily reachable via:
+Let's chat! I'm <s>easily</s> reachable via:
 
 - Email: `hi@isaac.sh` · <a onclick="navigator.clipboard.writeText('hi@isaac.sh')" style="cursor: copy;">copy</a>
-- Discord: `slightknack`
+- Phone: ask if you know me.
 
-I'm also active on:
+I also have accounts on:
 
 - GitHub: [slightknack](https://github.com/slightknack)
-- X/Linux: [slightknack](https://x.com/slightknack)
+- "Twitter": [slightknack](https://x.com/slightknack)
 - HN: [slightknack](https://news.ycombinator.com/threads?id=slightknack)
 - Lobsters: [slightknack](https://lobste.rs/~slightknack/threads)
+- Discord: `slightknack`
+- Matrix: ask if you know me.
 - Are you detecting a pattern here?
 
-For a full list of my accounts, keypairs, and domains, check [elsewhere](https://elsewhere.isaac.sh).
+<!-- For a full list of my accounts, keypairs, and domains, check [elsewhere](https://elsewhere.isaac.sh). -->
 
 <style>
     .shader * {
