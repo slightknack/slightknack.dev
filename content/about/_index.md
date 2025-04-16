@@ -10,7 +10,7 @@ artbit = "3_dinosaur.png"
 +++
 
 <div class="tag">
-  <a href ="https://isaac.sh">isaac.sh</a> · Boston, Massachusetts
+  <a href ="https://isaac.sh">isaac.sh</a> · Cambridge, Massachusetts
 </div>
 
 A friend of free software, pushing bits around as an undergrad at MIT. Interested in compilers, display hacks, and AI (as one must be in 2024).
