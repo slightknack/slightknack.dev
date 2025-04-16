@@ -30,7 +30,7 @@ artbit = "2_journal.png"
 
 # Question: How can I build habits to write consistently?
 
-<p class="tag">2025-04-14 · Isaac Clayton</p>
+<p class="tag">2022-11-26 · Isaac Clayton</p>
 
 The pair of skills that will have the greatest impact on your ability to
 communicate complex ideas are, above all else, the skills of *thinking

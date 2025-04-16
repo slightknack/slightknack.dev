@@ -20,15 +20,7 @@
                         </a>
                     </li>
                     {% endfor %}
-                    <li class="pill">
-                        <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
-                    </li>
-                    <li class="pill">
-                        <a class="tag" href="https://github.com/slightknack">Github ↬</a>
-                    </li>
-                    <li class="pill">
-                        <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
-                    </li>
+                    {{ macros::extranav() }}
                 </ul>
 
                 <div>{% block sidebar %} {% endblock %}</div>
