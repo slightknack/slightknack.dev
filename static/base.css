@@ -91,6 +91,10 @@ h6 {
     font-size: calc(var(--font-base) + var(--font-heading) / 7);
 }
 
+del {
+    opacity: 0.7;
+}
+
 pre {
     font-family: var(--font-mono), monospace;
     overflow: scroll;
