@@ -66,7 +66,7 @@ There were lots of other ideas in the works. Instead of html and css, applicatio
 
 The foundation, `kitbag`, is a protocol for real-time data sync. All apps are collaborative and local-first by default. If an app pointed two different computers at the same `kitbag` document, the computers would find each other, sync up, and start exchanging edits. What if making an application collaborative was as easy as telling the browser, "yes, both these identities can now edit the same document", and it *just worked*?
 
-I'm still very excited by this idea, and perhaps one day I'll write it up in full. If the web every becomes unbearable, I'll build Solidarity for my friends. I hope we never reach that point :)
+I'm still very excited by this idea, and perhaps one day I'll write it up in full. If the web ever becomes unbearable, I'll build Solidarity for my friends. I hope we never reach that point :)
 
 [1]: https://en.wikipedia.org/wiki/Usage_share_of_web_browsers#Summary_tables
 [2]: https://arstechnica.com/gadgets/2023/07/googles-web-integrity-api-sounds-like-drm-for-the-web/
