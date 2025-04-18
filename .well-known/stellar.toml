@@ -1,0 +1,7 @@
+VERSION = "2.2.1"
+ACCOUNTS = ["GBYHQ4KYYSPAVN4ISG44CQ6SZBXQCSKLRWOKOWQGOPJNIHYRTYCBDHGU"]
+SQ02_EASTER_EGG = "Log into series 2 of Stellar Quest then visit quest.stellar.org/series2. Finally drag and drop your Stellar Quest series 2 badge PNG images onto the screen. Enjoy!"
+
+[DOCUMENTATION]
+ORG_NAME = "Isaac Clayton"
+ORG_URL = "https://www.slightknack.dev"
