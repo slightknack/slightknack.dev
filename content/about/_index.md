@@ -13,7 +13,7 @@ artbit = "3_dinosaur.png"
   <a href ="https://isaac.sh">isaac.sh</a> · Cambridge, Massachusetts
 </div>
 
-A friend of free software, pushing bits around as an undergrad at MIT. Interested in compilers, display hacks, and AI (as one must be in 2024).
+A friend of free software, pushing bits around as an undergrad at MIT. Interested in compilers, display hacks, and AI (as one must be in <s>2024</s> 2025).
 
 <div class="shader">
     <img
@@ -38,10 +38,9 @@ I am now just about finishing my first year at MIT. Over the summer I'll perform
 
 I love making art and taking photos! I have played basketball on 4 of 7 continents to date. I enjoy hiking with my family and skiing with my Dad. Também falo português, meu rei. Y español.
 
-Let's chat! I'm <s>easily</s> reachable via:
+Let's chat! I will respond to all emails sent to:
 
-- Email: `hi@isaac.sh` · <a onclick="navigator.clipboard.writeText('hi@isaac.sh')" style="cursor: copy;">copy</a>
-- Phone: ask if you know me.
+- Email: `hi@isaac.sh` · <span class=pill><a class="tag" onclick="navigator.clipboard.writeText('hi@isaac.sh'); this.innerText='copied!'; this.style.backgroundColor='var(--fill-accent)'; this.style.color='var(--fill-bg)';" style="cursor: copy;">copy</a></span>
 
 I also have accounts on:
 
@@ -50,8 +49,7 @@ I also have accounts on:
 - HN: [slightknack](https://news.ycombinator.com/threads?id=slightknack)
 - Lobsters: [slightknack](https://lobste.rs/~slightknack/threads)
 - Discord: `slightknack`
-- Matrix: ask if you know me.
-- Are you detecting a pattern here?
+- *... and so on*
 
 <!-- For a full list of my accounts, keypairs, and domains, check [elsewhere](https://elsewhere.isaac.sh). -->
 

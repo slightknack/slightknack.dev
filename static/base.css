@@ -91,7 +91,8 @@ h6 {
     font-size: calc(var(--font-base) + var(--font-heading) / 7);
 }
 
-del {
+del,
+s {
     opacity: 0.7;
 }
 
