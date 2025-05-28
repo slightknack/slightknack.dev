@@ -6,7 +6,7 @@ date = 2025-05-27
 artbit = "1_rocket.png"
 +++
 
-**tl;dr:** I trained a neural network (NN), with logic gates in the place of activation functions, to learn a 3×3 kernel function for Conway's Game of Life. I wanted to see if I could speed up inference by extracting the learned logic circuit from the NN. So, I wrote some code to extract and compile the extracted logic circuit to bit-parallel C (with some optimizations to remove gates that don't contribute to the output). I benchmarked the original NN against the extracted 300-line single-threaded C program.; compiling the NN to C resulted in a 1,744× speedup! Crazy, right? [Here's the repo][repo], [~354 lines of python/JAX][main], [~331 lines of C][enjoy], if you want to [reproduce it][repro] and/or mess around.
+**tl;dr:** I trained a neural network (NN), with logic gates in the place of activation functions, to learn a 3×3 kernel function for Conway's Game of Life. I wanted to see if I could speed up inference by extracting the learned logic circuit from the NN. So, I wrote some code to extract and compile the extracted logic circuit to bit-parallel C (with some optimizations to remove gates that don't contribute to the output). I benchmarked the original NN against the extracted 300-line single-threaded C program.; compiling the NN to C resulted in a 1,744× speedup! Crazy, right? [Here's the repo][repo]: [~354 lines of Python/JAX][main], [~331 lines of C][enjoy], if you want to [reproduce it][repro] and/or mess around.
 
 [repo]: https://github.com/slightknack/difflogic
 [main]: https://github.com/slightknack/difflogic/blob/6f01c83a0e6d02dcec59ab91c64eaf91ee4a3776/main.py
@@ -22,11 +22,11 @@ While plumbing the intertubes (as one does), I came across [this fun publication
 
 [compu]: https://en.wikipedia.org/wiki/Computronium
 
-To break things down a little bit: *[Differential Logic][dlgn] [Cellular Automata][nca]* is a bit out a mouthful, I know, but the idea is the straightforward composition of two existing ideas:
+To break things down a little bit: *[Differentiable Logic][dlgn] [Cellular Automata][nca]* is a quite a mouthful, I know, but the idea is the straightforward composition of two existing ideas:
 
 1. **Cellular Automata (CA)** are grids of cells, where each cell changes over time according to some *local* rule. The most famous cellular automata are [*Conway's Game of Life*][gol] and perhaps [*Rule 110*][rule110]. We call this local update rule a *kernel*, a function that looks at the local neighborhood around a cell to calculate the cell's next state. By applying the kernel to each cell in our grid, we step the cellular automata forward through time. Simple rules can give rise to [strikingly complex behaviour][golcrazy]. [**Neural Cellular Automata (NCA)**][nca] are a variant of CA that replace the kernel function with a neural network. NCA can be trained to learn known kernels (what I do), or more generally, to learn kernels that give rise to a specified target behavior.
 
-2. **Deep Differential Logic Gate Networks (DLGNs)** are like neural networks, with two key differences. First, the **weights are fixed**, and set to 0 or 1; each neuron has exactly two inputs (one left, one right) We call these weights *wires*. Since wires are fixed, we **learn the activation function**. In this case, our activation function is a weighted linear combination of a set of 16 logic gates, applied to the two inputs. Essentially, we learn which logic gate should be used for each node in a fixed circuit. (If you're a little lost, don't worry, later, I'll go into more detail to describe what this looks like in practice.)
+2. **Deep Differentiable Logic Gate Networks (DLGNs)** are like neural networks, with two key differences. First, the **weights are fixed**, and set to 0 or 1; each neuron has exactly two inputs (one left, one right) We call these weights *wires*. Since wires are fixed, we **learn the activation function**. In this case, our activation function is a weighted linear combination of a set of 16 logic gates, applied to the two inputs. Essentially, we learn which logic gate should be used for each node in a fixed circuit. (If you're a little lost, don't worry, later, I'll go into more detail to describe what this looks like in practice.)
 
 [diffca]: https://google-research.github.io/self-organising-systems/difflogic-ca/
 [sos]: https://google-research.github.io/self-organising-systems/
@@ -53,20 +53,20 @@ I tried something new for the first time, which was to keep a [journal][journal]
 1. If the cell has exactly 3 live neighbors, it is alive.
 2. If the cell has exactly 2 live neighbors, and is alive, it remains alive.
 
-I guess there's a harsh third rule which is, "if the cell is dead, it stays dead". You may already begin to see the above this could be written as a logic circuit. Here's one way: given an array, `inputs`, with 9 cells where `0` is dead, `1` is alive, we can write:
+I guess there's a harsh third rule which is, "if the cell is dead, it stays dead". You may already begin to see how this could be written as a logic circuit. Here's one way: given an array, `inputs`, with 9 cells where `0` is dead, `1` is alive, we can write:
 
 ```python
 n = sum(inputs) - alive # neighbors excluding center
 alive_next = (n == 3) or ((n == 2) and alive)
 ```
 
-The hard part, you might glean, would be coming up with a compact circuit for counting `n`, the number of neighbors. That's what we're up against: given a 9-bit input, we're going to try to learn a circuit of logic gates that whose output matches the 1-bit `alive_next` output, end-to-end.
+The hard part, you might glean, would be coming up with a compact circuit for counting `n`, the number of neighbors. That's what we're up against: given a 9-bit input, we're going to try to learn a circuit of logic gates whose output matches the 1-bit `alive_next` output, end-to-end.
 
-> *N.B.* You should try coming up with a circuit yourself, by hand! I did, it's not too crazy. Here's a hint: A cell has 8 neighbors. You can count how many are cells are alive for any pair of inputs: `xor` for 1, `and` for 2. Can you use two pairs to count 4? What about 8? Once you can determine whether the neighborhood count is 2 or 3, the rest is fairly straightforward. How many logic gates did you use? How deep is your circuit?
+> *N.B.* You should try coming up with a circuit yourself, by hand! I did, it's not too crazy. Here's a hint: A cell has 8 neighbors. You can count how many cells are alive for any pair of inputs: `xor` for 1, `and` for 2. Can you use two pairs to count 4? What about 8? Once you can determine whether the neighborhood count is 2 or 3, the rest is fairly straightforward. How many logic gates did you use? How deep is your circuit?
 
 # In the beginning was JAX
 
-Now, I suppose I'll show my age by saying that my knowledge ML frameworks is stuck around 2017, with *old* Keras (never change, `Sequential`) and TensorFlow (*before* 2.0). I used to mess around with GANs (*StyleGAN* <3) and I even implemented [RND][rnd] on top of [PPO][ppo] at some point! So I have a good intuition of the basics. Much has been lost to the sands of time, aside from a [handful of random projects][comma] shotgunned across GitHub. Sigh.
+Now, I suppose I'll show my age by saying that my knowledge of ML frameworks is stuck around 2017, with *old* Keras (never change, `Sequential`) and TensorFlow (*before* 2.0). I used to mess around with GANs (*StyleGAN* <3) and I even implemented [RND][rnd] on top of [PPO][ppo] at some point! So I have a good intuition of the basics. Much has been lost to the sands of time, aside from a [handful of random projects][comma] shotgunned across GitHub. Sigh.
 
 [rnd]: https://openai.com/index/reinforcement-learning-with-prediction-based-rewards/
 [ppo]: https://arxiv.org/abs/1707.06347
@@ -74,10 +74,10 @@ Now, I suppose I'll show my age by saying that my knowledge ML frameworks is stu
 
 Well, as Oogway would say, "Yesterday is *history*, tomorrow is a *mystery*, but today... is a gift. That is why it is called the *present*." There is no better day than today to get back on your A-game.
 
-**JAX** is a [machine learning framework][jax] for python. I think of it as numpy on steroids. JAX has an API-compatible implementation of numpy living at `jax.jnp`: you can do all the fun matrix stuff (like multiplication!) and you get a couple things for free:
+**JAX** is a [machine learning framework][jax] for Python. I think of it as numpy on steroids. JAX has an API-compatible implementation of numpy living at `jax.jnp`: you can do all the fun matrix stuff (like multiplication!) and you get a couple things for free:
 
 1. **grad** will [compute the gradient][grad] of any non-sadistic function. It does this using automatic [reverse-mode differentiation][reverse], but you can get as fancy as you'd like.
-2. **vmap** will [automatically parallelize][vmap] and vectorize computations that can be run in parallel. For example, I use this to batch training in my implementation.
+2. **vmap** will [automatically parallelize][vmap] and vectorize computations that can be run in parallel. For example, I use vmap to batch training in my implementation.
 3. **jit** will [just-in-time compile][jit] all of the above, and can produce code that runs on the GPU. Compiling Python at the library level using decorators is crazy!
 
 JAX has an ecosystem of libraries that mix and match these operations to build more powerful primitives. **Optax**, for example, implements common [optimization strategies][opt], like `adamw`, on top of `jax.grad`. **Flax**, is a NN library built on top of JAX. (Tbh, flax is a little confusing: there's `nn` ([deprecated][nn]), [`linen`][linen], [`nnx`][nnx]. Everyone uses linen but the flax devs want people to use nnx it seems).
@@ -98,7 +98,7 @@ JAX has an ecosystem of libraries that mix and match these operations to build m
 
 To learn a circuit, we need some way to translate the hard, discrete language of logic into the smooth, continuous language of *gradients*. (Gradients, now those are something an optimizer can get a handle on!)
 
-A logic gate, like `and(a, b)`, is a function of four inputs; we can arrange them into a table like so:
+A logic gate, like `and(a, b)`, is a function of two inputs; we can arrange them into a table like so:
 
 <table>
   <tbody>
@@ -141,9 +141,9 @@ We can train a network to learn these gate weights. Once we have a trained netwo
 
 Well, we have our continuous relaxations and we have a NN. Let's just put them together, replace `relu` with `gate`, and call it a day? Not so fast.
 
-Machine learning papers almost make research look *effortless*, as though NNs magically converge when enough data is forced through their weights. This could not be further from the truth: there are so many failure modes; so many experiments that have to be run to guess the right hyperparameters; training a NN requires a weird combination of patience (giving the model enough time to converge) and urgency (stopping runs early when something is wrong). It's fun, but it can also be frusturating, yet somehow addicting.
+Machine learning papers almost make research look *effortless*, as though NNs magically converge when enough data is forced through their weights. This could not be further from the truth: there are so many failure modes; so many experiments that have to be run to guess the right hyperparameters; training a NN requires a weird combination of patience (giving the model enough time to converge) and urgency (stopping runs early when something is wrong). It's fun, but it can also be frustrating, yet somehow addicting.
 
-I could skip over the two days of elbow grease it took to get this working. However, differential logic gate networks train a little differently than your standard dense relu network, and there were a couple things, like how you initialize DLGNs, that surprised me.
+I could skip over the two days of elbow grease it took to get this working. However, differentiable logic gate networks train a little differently than your standard dense relu network, and there were a couple things, like how you initialize DLGNs, that surprised me.
 
 # Wiring
 
@@ -151,21 +151,21 @@ At the start of this project, I wanted to see if I could learn the wires in addi
 
 I started this project by writing a simple dense NN with relu activation and standard SGD, just to see if things were working. They were, and my small model converged very quickly!
 
-In traditional NNs, it's commonly-accepted wisdom that you should initialize the wire weight matrices according a tight normal distribution centered around zero. This is what I did for the rely network above, and it worked like a charm!
+In traditional NNs, it's commonly-accepted wisdom that you should initialize the wire weight matrices according to a tight normal distribution centered around zero. This is what I did for the relu network above, and it worked like a charm!
 
-I switched from `relu` to `gate` by adding two weight matrices per layer, one for the right gate input, the other for the left. After this switch, however, try as I might but the model *would not* converge. I also started to worry about whether having *negative* wire weights would make it hard to extract the logical circuit after training. So, I thought some more, and decided to initialize wire weights *uniformly* between 0 and 1. This performed even worse!
+I switched from `relu` to `gate` by adding two weight matrices per layer, one for the right gate input, the other for the left. After this switch, however, try as I might, the model *would not* converge. I also started to worry about whether having *negative* wire weights would make it hard to extract the logical circuit after training. So, I thought some more, and decided to initialize wire weights *uniformly* between 0 and 1. This performed even worse!
 
-Thinking some more, an epiphany: "well, since the goal is to learn a wiring, we should softmax the wires in the same way we softmax the gates!" In deparation, I implemented a row-wise softmax over wire weights initialized uniformly... this also went about as well as you would expect. (Poorly.)
+Thinking some more, I had an epiphany: "well, since the goal is to learn a wiring, we should softmax the wires in the same way we softmax the gates!" In desperation, I implemented a row-wise softmax over wire weights initialized uniformly... this also went about as well as you would expect. (Poorly.)
 
 At this point I realized: maybe a fixed `1` or `0` wiring is not just a random choice, but *highly* essential! Wouldn't a fixed wiring let the gradients propagate all the way to the gates at the *input* end of the network, so the gates at the *output* end of the network could begin to converge? I began to look at how wiring was implemented in the paper; I decided to abandon my learned-wiring dreams for the time being.
 
-In hindsight, it's obvious that how you wire a network determines how information flows through it, so it's important that the wiring is *good*. This is especially if the wiring fixed. I don't know why it took me so long to realize this.
+In hindsight, it's obvious that how you wire a network determines how information flows through it, so it's important that the wiring is *good*, especially if the wiring is fixed. I don't know why it took me so long to realize this.
 
-After I refactored everything to use fixed wiring, I first I tried completely random wiring. This did a lot better than any of the previous approaches, but was still nowhere *near* the publication. After careful inspection, I realized that with this approach you risk not wiring gates, or wiring two gates the same way, losing information as it flows through the network.
+After I refactored everything to use fixed wiring, I first I tried completely random wiring. This did a lot better than any of the previous approaches, but was still nowhere *near* the publication. After careful inspection, I realized that with this approach, you risk not wiring gates, or wiring two gates the same way, losing information as it flows through the network.
 
 My next thought was to wire the network like a tree. We had descending power-of-two layers: 64, 32, 16, 8, 4, 2, 1; what if each layer was connected to the corresponding two cells in the layer before it? This way there is total information flow. Tree wiring worked like a charm, and it was at this point that I started to have hope.
 
-I read the publication more closely, and at this point looked at the [colab notebook][colab]. The wiring technique used is interesting: it guarantees we get unique pairs, like tree wiring, but we also shuffle the branches between layers to allow for some cross-polination. The algorithm looks something like this:
+I read the publication more closely, and at this point I looked at the [colab notebook][colab]. The wiring technique used is interesting: it guarantees we get unique pairs, like tree wiring, but we also shuffle the branches between layers to allow for some cross-pollination. The algorithm looks something like this:
 
 ```python
 def wire_rand_unique(key, m, n):
@@ -186,7 +186,7 @@ With the wiring from the publication implemented, the model was within spitting 
 
 # Initialize gates to pass through
 
-The biggest surprise was the way you're supposed to *initialize* the gate weights a differential logic gate network; of course, it now makes *100% sense* in hindsight.
+The biggest surprise was the way you're supposed to *initialize* the gate weights of a differentiable logic gate network; of course, it now makes *100% sense* in hindsight.
 
 Here's the big idea: we want the gradients to reach the input of the network, but if we initialize gate weights uniformly, or even randomly, we'll get a flat activation function. Flat activation functions *kill* all gradients, period. I realized this was happening when I wrote code to visualize each layer in the network, and watched it change over time:
 
@@ -220,9 +220,9 @@ F & . A . B X / / X B . A . & F
 | NOT A | B/!A | NAND  | TRUE |
 ```
 
-With dead gradients, I'd watch see the output gate converge, then the one before it, and so on until the gradients reached the input, at which point the later gates were so fixed in their ways that they were impossible to change, even as better earlier gate weights were discovered. Obviously, the performance of the network plateaus shortly thereafter.
+With dead gradients, I'd see the output gate converge, then the one before it, and so on until the gradients reached the input, at which point the later gates were so fixed in their ways that they were impossible to change, even as better earlier gate weights were discovered. Obviously, the performance of the network plateaus shortly thereafter.
 
-I didn't see a way around it, so I started to wonder if there was some weird trick to get around the problem... and there was. So I read the code.
+I didn't see an obvious way around this problem, so I started to wonder if there was some weird trick to get around the problem... and there was. So I read the code.
 
 Of all the gates, these two stand out:
 
@@ -235,7 +235,7 @@ These pass-through gates do no mixing, and will propagate gradients straight alo
 
 > To facilitate training stability, the initial distribution of gates is biased toward the pass-through gate.
 
-*Of course* it is biased! There's no way to train the network otherwise! So I made a simple one-line change, and like that, `test_loss_hard: 0`. **Perfect convergence:**
+*Of course* it is biased! There's no way to train the network otherwise! So I made a simple one-line change, and, like that, `test_loss_hard: 0`. **Perfect convergence:**
 
 ```
 Epoch (3001/3001) in 0.0031 s/epoch
@@ -255,7 +255,7 @@ The model training code was good, as was the gate implementation. So what *was* 
 
 - The model was the wrong size (way too small).
 - The model was initialized the wrong way (randomly, instead of with gate passthrough).
-- The model did not have clipping in the optimizer, which seems like a rather arbitrary hacky hyperparameter choice.
+- The model did not have clipping in the optimizer, which seems like a rather arbitrary, hacky hyperparameter choice.
 
 Hyperparameters suck! I hate that I was pulling my hair out over why I wasn't getting the same results when all that was different were the hyperparameters at play.
 
@@ -366,7 +366,7 @@ I pulled a sneaky little trick. I don't know if you noticed. Here's a hint:
 typedef uint64_t cell;
 ```
 
-That's right: a `cell` is not one grid cell, but 64! When we calculate `cell conway(cell in[9]);` we are, through *bit-parallelism*, computing the rule on 64 cells at once!
+That's right: a `cell` is not one grid cell, but 64! When we calculate `cell conway(cell in[9]);`, we are, through *bit-parallelism*, computing the rule on 64 cells at once!
 
 We compile to C and produce a function containing the circuit, `conway`, but we need a runtime to saturate it. I took a compilers class this semester (6.1100), so I have been writing a lot of *Unnamed Subset of C* this semester. With C on the mind, I wrote a little runtime. Here's how it works.
 
@@ -381,7 +381,7 @@ typedef struct {
 } board_t;
 ```
 
-Each `cell` is just a horizontal slab, 64-bytes wide. I'm lazy here, so I require `width` be a multiple of 64. We initialize this board with random state using an `xorshift` prng I am currently lending from Wikipedia:
+Each `cell` is just a horizontal slab, 64 bits wide. I'm lazy here, so I require `width` be a multiple of 64. We initialize this board with random state using an `xorshift` prng I am currently lending from Wikipedia:
 
 ```c
 // https://en.wikipedia.org/wiki/Xorshift
@@ -399,7 +399,7 @@ uint64_t rand_uint64_t() {
 }
 ```
 
-On to the meat and potatoes. The function `conway` requires a list of `9` cells. The neighbors directly above and below are easy; we just index forward or back a row in `cells`. The side-by-side neighbors are a bit harder. Luckily, we can just bitshift to the left and bitshift to the right to create two new boards. This works as long as we're careful to [catch all bits][catch] that might fall into the bitbucket when we shift:
+On to the meat and potatoes. The function `conway` requires a list of `9` cells. The neighbors directly above and below are easy: we just index forward or back a row in `cells`. The side-by-side neighbors are a bit harder. Luckily, we can just bitshift to the left and right to create two new boards. This works as long as we're careful to [catch all bits][catch] that might fall into the bitbucket when we shift:
 
 ```c
 void board_step_scratch_mut(
@@ -486,7 +486,7 @@ I am comparing the *inference speed* of my Python JAX (with JIT) implementation 
 
 </div>
 
-**Disclaimer,** because I'm certain someone won't read the above. You can definitely simulate *Conway's Game of Life* with JAX a lot faster by not using a DLGN, if that's your goal. (Indeed, I have a faster pure-JAX kernel to prepare the boards used for training!) Here, I want to compare floating-point GPU inference to bit-parallel CPU inference. And for fun, If you just want to simulate Conway's Game of Life, you can totally shred with a faster algorithm like *hashlife*, which I've [half-implemented before][hashlife]. These benchmarks, while semi-rigorous, are just for fun!
+**Disclaimer,** because I'm certain someone won't read the above. You can definitely simulate *Conway's Game of Life* with JAX a lot faster by not using a DLGN, if that's your goal. (Indeed, I have a faster pure-JAX kernel to prepare the boards used for training!) Here, I want to compare floating-point GPU inference to bit-parallel CPU inference. And for fun, if you just want to simulate Conway's Game of Life, you can totally shred with a faster algorithm like *Hashlife*, which I've [half-implemented before][hashlife]. These benchmarks, while semi-rigorous, are just for fun!
 
 [hashlife]: https://github.com/slightknack/hashlife
 
@@ -503,9 +503,9 @@ And there it is: **1,744×**.
 
 > *N.B.* Computing 512 batches of 512 was faster than a single batch of size 512×512 = 262,144, which would have been a more direct comparison. Take 1,744× with a grain of salt, if anything.
 
-I did some back-of-the-napkin math, and this seems to check out. On the JAX side, the network I'm evaluating is of size [9, 128×17, 64, 32, 16, 8, 4, 2, 1]. Each 128 matrix-vector product requires ~16k floating-point multiplications. So we're looking at at least ~270k flop for a single cell; we have 512×512 cells to evaluate, so lower bound is 70.7 gflop. All things considered, JAX is doing a *very* good job optimizing the workload. My machine can apparently do about 4.97 tflop/s: dividing that by the estimated 70.7 gflop workload, I get 6.47 fps, which is ~within an order of magnitude of the 14 fps from the benchmark. JAX is doing a *lot* of heavy lifting here, wow.
+I did some back-of-the-napkin math, and this seems to check out. On the JAX side, the network I'm evaluating is of size [9, 128×17, 64, 32, 16, 8, 4, 2, 1]. Each 128 matrix-vector product requires ~16k floating-point multiplications. We have 17 of them, so we're looking at at least ~270k flop for a single cell; we have 512×512 cells to evaluate, so lower bound is 70.7 gflop. All things considered, JAX is doing a *very* good job optimizing the workload. My machine can apparently do about 4.97 tflop/s: dividing that by the estimated 70.7 gflop workload, I get 70.3 fps, and as a lower bound, is ~within an order of magnitude of the 14 fps from the benchmark.
 
-The bit-parallel C implementation, on the other hand, is about [~349 instructions long][godbolt] (Godbolt). Each instruction processes 64 bits in parallel, which works out to about 5.45 instructions per cell. There's quite a bit of register spilling going on, and it takes time to write to memory. Given we have 512×512 cells, it should take around 1.43 million instrs per step. A core on my machine runs at about 3.70 gcycles/s. If we assume instruction latency is 1 cycle, we should expect 2,590 fps. But we measure a number nearly 10× higher! What gives? I expect something along the lines of "insane instruction-level parallelism", but this is something I'll have to come back too. Regardless, this is also within an order of magnitude of the measured figure. (Now I'm really curious! I'll have to dig into it...)
+The bit-parallel C implementation, on the other hand, is about [~349 instructions long][godbolt] (Godbolt). Each instruction processes 64 bits in parallel, which works out to about 5.45 instructions per bit. There's quite a bit of register spilling going on, and it takes time to write to memory. Given we have 512×512 cells, it should take around 1.43 million instrs per step. A core on my machine runs at about 3.70 gcycles/s. If we assume instruction latency is 1 cycle, we should expect 2,590 fps. But we measure a number nearly 10× higher! What gives? I expect something along the lines of "insane instruction-level parallelism", but this is something I'll have to come back to. Regardless, this is also within an order of magnitude of the measured figure. (Now I'm really curious! I'll have to dig into it...)
 
 [godbolt]: https://godbolt.org/z/e3xsYsaYE
 
@@ -527,6 +527,6 @@ Well, if you made it this far, you're one of the real ones. I hope you enjoyed t
 
 <div class="boxed">
 
-Thank you to Shaw, Anthony, Mike, and friends for taking a look and providing feedback/moral support while I worked on *difflogic*.
+Thank you to Shaw, Anthony, Mike, Clara and friends for taking a look, fixing typos, and providing feedback/moral support while I worked on *difflogic*.
 
 </div>
