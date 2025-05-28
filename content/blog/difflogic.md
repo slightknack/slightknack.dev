@@ -6,7 +6,7 @@ date = 2025-05-27
 artbit = "1_rocket.png"
 +++
 
-**tl;dr:** I trained a neural network (NN), with logic gates in the place of activation functions, to learn a 3×3 kernel function for Conway's Game of Life. I wanted to see if I could speed up inference by extracting and compiling the learned logic circuit to C. So I wrote some code to extract and compile the trained network to bit-parallel C (including some simple optimizations like copy propagation and dead code elimination). I benchmarked the original NN using for training (running on the GPU) against the extracted 300-line single-threaded C program (running on the CPU). Compiling the NN to C resulted in the titular 1,744× speedup! Crazy, right? [Here's the repo][repo], [~354 lines of python/JAX][main], [~331 lines of C][enjoy], if you want to [reproduce it][repro] and/or mess around.
+**tl;dr:** I trained a neural network (NN), with logic gates in the place of activation functions, to learn a 3×3 kernel function for Conway's Game of Life. I wanted to see if I could speed up inference by extracting the learned logic circuit from the NN. So, I wrote some code to extract and compile the extracted logic circuit to bit-parallel C (with some optimizations to remove gates that don't contribute to the output). I benchmarked the original NN against the extracted 300-line single-threaded C program.; compiling the NN to C resulted in a 1,744× speedup! Crazy, right? [Here's the repo][repo], [~354 lines of python/JAX][main], [~331 lines of C][enjoy], if you want to [reproduce it][repro] and/or mess around.
 
 [repo]: https://github.com/slightknack/difflogic
 [main]: https://github.com/slightknack/difflogic/blob/6f01c83a0e6d02dcec59ab91c64eaf91ee4a3776/main.py
