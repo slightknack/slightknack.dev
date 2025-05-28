@@ -517,7 +517,7 @@ I have lots of ideas about what to do next. Some ideas:
 
 - Try learning a bigger circuit, like one for fluid simulation, using [reintegration tracking][reint].
 
-- Try optimizing further, by vectoring with SIMD, or outputting a bit-parallel compute shader that runs on the GPU.
+- Try optimizing further, by vectorizing with SIMD, or outputting a bit-parallel compute shader that runs on the GPU.
 
 - Try letting *you* mess around with the project in-browser, by exporting various circuits at different points in training, so you can get a feel for how the network learns.
 
