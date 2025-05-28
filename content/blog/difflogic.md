@@ -470,6 +470,8 @@ void board_step_mut(
 
 And there you have it. There's some more code for printing that I haven't included here. One call to `main`, and you're off to the races! If you'd like to absorb the monstrosity in full, [here's a link][enjoy].
 
+<img alt="ghostty with 512 by 512 board of conway's game of life on it" src="/content/conway-tui.png">
+
 (I mean, 331 lines of C, half generated. That can't hurt anyone.)
 
 [enjoy]: https://github.com/slightknack/difflogic/blob/master/gate.c
@@ -521,7 +523,7 @@ I have lots of ideas about what to do next. Some ideas:
 
 Well, if you made it this far, you're one of the real ones. I hope you enjoyed the read and learned something new. I certainly did in writing this! This post isn't finished; I'd like to add a little in-browser demo, or visualization. Perfect is the enemy of the good. I'm saying adios to this project for now as I have a week off between finishing my first year at MIT and starting an internship writing Rust in SF this summer. I'm sure there will be plenty of time to stress the heck out about optimizing things later in life! Peace out homie.
 
-(Please don't kill me for writing thousands of words about Conway's Game of Life without a *single* picture or animation; I know, I'm working on it.)
+(Please don't kill me for writing thousands of words about Conway's Game of Life without a *single* picture or animation; I know, I'm working on it. Update: added a 600kb picture LOL. Animation coming soon.)
 
 <div class="boxed">
 
