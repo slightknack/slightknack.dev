@@ -14,6 +14,8 @@ artbit = "1_rocket.png"
 
 <!-- <iframe src="/conway" width="100%" frameborder="0"></iframe> -->
 
+<img alt="ghostty with 512 by 512 board of conway's game of life on it" src="/content/conway-tui.png">
+
 # The longer story
 
 While plumbing the intertubes (as one does), I came across [this fun publication][diffca] by the [*Self Organising Systems*][sos] group at Google, about *Differentiable Logic Cellular Automata*. This research caught my attention (I mean, who doesn't love a pretty picture), and as I read it, I realized the whole idea wouldn't be *too* hard to replicate. (Which is crazy, because *this* is crazy. I mean, the authors cite *creating [computronium][compu]* as a source of inspiration. Awesome!)
@@ -469,8 +471,6 @@ void board_step_mut(
 </div>
 
 And there you have it. There's some more code for printing that I haven't included here. One call to `main`, and you're off to the races! If you'd like to absorb the monstrosity in full, [here's a link][enjoy].
-
-<img alt="ghostty with 512 by 512 board of conway's game of life on it" src="/content/conway-tui.png">
 
 (I mean, 331 lines of C, half generated. That can't hurt anyone.)
 
