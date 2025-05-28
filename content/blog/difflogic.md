@@ -53,7 +53,7 @@ I tried something new for the first time, which was to keep a [journal][journal]
 1. If the cell has exactly 3 live neighbors, it is alive.
 2. If the cell has exactly 2 live neighbors, and is alive, it remains alive.
 
-I guess there's a harsh third rule which is, "if the cell is dead, it stays dead". You may already begin to see how this could be written as a logic circuit. Here's one way: given an array, `inputs`, with 9 cells where `0` is dead, `1` is alive, we can write:
+I guess there's a harsh third rule which is, "otherwise, if the cell is dead, it stays dead". You may already begin to see how this could be written as a logic circuit. Here's one way: given an array, `inputs`, with 9 cells where `0` is dead, `1` is alive, we can write:
 
 ```python
 n = sum(inputs) - alive # neighbors excluding center
