@@ -237,6 +237,12 @@ th {
     text-wrap: balance;
 }
 
+td code,
+th code {
+    background-color: inherit;
+    white-space: nowrap;
+}
+
 tr:nth-child(even) td,
 th {
     border-right: 2px solid var(--fill-bg);
