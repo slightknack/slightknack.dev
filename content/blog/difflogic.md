@@ -525,6 +525,10 @@ Well, if you made it this far, you're one of the real ones. I hope you enjoyed t
 
 (Please don't kill me for writing thousands of words about Conway's Game of Life without a *single* picture or animation; I know, I'm working on it. Update: added a 600kb picture LOL. Animation coming soon.)
 
+Also, [discussion on HN][hn].
+
+[hn]: https://news.ycombinator.com/item?id=44118373
+
 <div class="boxed">
 
 Thank you to Shaw, Anthony, Mike, Clara and friends for taking a look, fixing typos, and providing feedback/moral support while I worked on *difflogic*.
