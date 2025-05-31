@@ -2,20 +2,14 @@
 title = "From 10° to 10⁻³"
 date = 2020-10-15
 description = "A watercolor blending images taken at two different powers of 10 into a single scene."
+template = "page-gallery.html"
+
+[extra]
+image="/content/ten.jpg"
+medium="Watercolor on hot-pressed paper"
+size="approx. A3"
+location="Rome, Italy"
 +++
-
-{{
-    gallery_card(
-        title="From 10⁰ to 10⁻³",
-        year="2020",
-        medium="Watercolor on hot-pressed paper",
-        size="approx. A3",
-        location="Rome, Italy"
-    )
-}}
-
-{{ gallery(image="/content/ten.jpg") }}
-{{ gallery_statement() }}
 
 Inspired by the classic short film *Powers of Ten* from 1977, and the [*Nikon Small World Photomicrography Competition*](https://www.nikonsmallworld.com/), this piece combines two imagines of vastly different scales.
 
@@ -34,5 +28,3 @@ Bridging the gap between the large and the minuscule are a series of bubbles tha
 Oh, and for those interested, here's the original [*Powers of Ten*](https://youtu.be/0fKBhvDjuy0?t=13) video made back in 1977:
 
 [![Powers of 10 on YouTube](/content/powers-of-ten.jpg)](https://youtu.be/0fKBhvDjuy0?t=13)
-
-</div>

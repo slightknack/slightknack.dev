@@ -2,20 +2,14 @@
 title = "Primary Eye"
 date = 2021-03-12
 description = "A pencil-on-paper drawing of an eye, made using only the subtractive primary colors."
+template = "page-gallery.html"
+
+[extra]
+image="/content/eye.jpg"
+medium="Color pencil on paper"
+size="A3"
+location="Rome, Italy"
 +++
-
-{{
-    gallery_card(
-        title="Primary Eye",
-        year="2021",
-        medium="Color pencil on paper",
-        size="A3",
-        location="Rome, Italy"
-    )
-}}
-
-{{ gallery(image="/content/eye.jpg") }}
-{{ gallery_statement() }}
 
 Red, Yellow, Blue. These are the oft-repeated primary colors, but they are only a half-truth.
 
@@ -26,5 +20,3 @@ The physical medium, on the other hand, is subtractive. Adding colored pigment t
 It's funny, then, that artists stick to Red, Yellow, and Blue. Artfully selected primaries create nuanced mood; why do we leave a fraction of the spectrum unexplored?
 
 In this piece, I used only the 4 subtractive primaries, as seen in the bottom-left corner. This was a fun exercise in pulling out the components of colors, carefully mixing opposites to create a perfect shade in the middle.
-
-</div>

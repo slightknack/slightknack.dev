@@ -2,6 +2,9 @@
 title = "Lenguas del mundo hispánico"
 date = 2021-06-09
 description = "Explore what other languages are spoken in predominately Spanish-speaking countries. (Viewing on desktop is recommended, infographic is in Spanish.)"
+
+[extra]
+image="/content/lenguas.png"
 +++
 
 {{ gallery_nav() }}

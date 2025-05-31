@@ -235,6 +235,14 @@
     white-space: nowrap;
 }
 
+a.plain {
+    background-image: none;
+    background-color: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
 .pill a {
     background-color: var(--fill-soft);
     border: none;

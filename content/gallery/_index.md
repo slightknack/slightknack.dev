@@ -2,7 +2,7 @@
 title = "Gallery"
 weight = 4
 sort_by = "date"
-template = "section-gallery.html"
+template = "section-gallery-2.html"
 page_template = "page-embed.html"
 
 # draft = true
