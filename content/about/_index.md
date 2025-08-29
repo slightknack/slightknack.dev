@@ -6,7 +6,7 @@ template = "section-about.html"
 page_template = "page.html"
 
 [extra]
-artbit = "3_dinosaur.png"
+artbit = "1_saturn.png"
 +++
 
 <div class="tag">
@@ -32,11 +32,11 @@ In 2017, I became obsessed with shaders and GPUs (thank you, Iñigo Quilez). In 
 
 In 2021, I was a software engineering intern at [tonari.no](https://tonari.no), where I prototyped real-time depth estimation on the GPU. In 2022, I interned at [zed.dev](https://zed.dev), where I developed a webassembly extension runtime for e.g. adding new languages to the editor.
 
-From July 2022 to July 2024, I lived in Brazil, didn't use the Internet, and learned a lot. (Sadly, after two years offline, I realize that the Internet kinda sucks.)
+I graduated highschool in 2022. I deferred my enrollment and proceeded to live in Brazil for two years. I didn't use the Internet and learned a lot. (After two years offline, I realized that the Internet is overrated.)
 
-I am now just about finishing my first year at MIT. Over the summer I'll perform a pilgrimage to San Francisco, to work at a bona-fide startup! I'll be once again writing Rust, because it looks like that's what I'm good at. The startup is very cool, I'll write about it sometime.
+In 2024, when I got back from Brazil, I started at MIT. After my first year, in 2025, I (once again) worked at a startup, and a wrote _a lot_ of Rust. I am now in my second year of school. This year, I am helping run [Prod](https://prod.so).
 
-I love making art and taking photos! I have played basketball on 4 of 7 continents to date. I enjoy hiking with my family and skiing with my Dad. Também falo português, meu rei. Y español.
+I love making art and taking photos! I have played basketball/soccer on 4 of 7 continents to date. I enjoy hiking and skiing with my family. Também falo português, meu rei. Y español.
 
 Let's chat! I will respond to all emails sent to:
 

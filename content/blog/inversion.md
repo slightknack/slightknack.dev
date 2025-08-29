@@ -1,30 +1,29 @@
 +++
 title = "Inversions of Control"
-date = 2025-07-25
-draft = true
+date = 2025-08-29
+draft = false
 
 [extra]
-artbit = "1_rocket.png"
+artbit = "1_pretzel.png"
 +++
 
 What's the difference between a library and a framework? It depends on your definitions. Here are mine:
 
 - When using a library, **you are in control**: a library provides a collection of behaviors you can choose to call.
+
 - When using a framework, **the framework is in control**: a framework chooses to call a collection of behaviors you provide.
 
-TODO: examples of each.
+As a programmer, I prefer using libraries. It is nice to be in control, when the code you're writing reads straightforwardly. On the other hand, as a library author, figuring out *how* to package a dependency as a library instead of as a framework can be challenging.
 
-As a programmer, I prefer using libraries. It is nice to be in control, when the code you're writing reads straightforwardly. On the other hand, as someone who writes a fair amount of code used in downstream projects, figuring out *how* to package a dependency as a library instead of as a framework can be a bit of a challenge sometimes.
-
-In this post, I want to show (1) how the relationship between frameworks and libraries has to do with **inversions of control** and (2) how language features can let people write frameworks that can be used downstream as libraries.
+In this post, I want to show (1) how the relationship between frameworks and libraries has to do with **inversions of control** and (2) how languages can make inversions of control _easy_, so that people can write frameworks, which users can call as libraries.
 
 # A classic problem
 
-I'm working on a programming language called Affetto. It's goal is to be "a smaller Rust". The yet-unreleased compiler has Wasm-Component and c99 header file backends.  superficially, Affetto looks a little like Gleam. That shouldn't really matter for the following examples, because I tried to stick to a simple syntax. I'll write more about Affetto some other now, for the time being, consider this a small taste.
+I'm working on a programming language called Affetto. It's goal is to be "a smaller Rust". The yet-unreleased compiler has Wasm-Component and C99-header-file backends. Affetto is a language for writing core libraries that can be embedded in other languages. Superficially, Affetto looks a little like Gleam. That shouldn't really matter for the following examples, because I tried to stick to a simple syntax. I'm also not going to say anything about borrowing. I'll write more about Affetto some other now, for the time being, consider this a small taste.
 
 Let's say you're writing a library that can do run-length encoding and decoding over streams of data. If you're in control, writing a run-length encoder is fairly easy. Let's say we are provided two callbacks, `recv` and `send`, that receive a byte and send a byte, respectively. Here's how we could write an encoder:
 
-```
+```scala
 fun encode(
   recv: () -> N8,
   send: N8 -> (),
@@ -51,7 +50,7 @@ This is fairly straightforward: we read bytes one at a time, we keep track of ru
 
 The decoder, if anything, is even simpler:
 
-```
+```scala
 fun decode(
   recv: () -> N8,
   send: N8 -> (),
@@ -70,7 +69,7 @@ The above is our framework for run-length encoding.
 
 Now, the natural question becomes, let's say I have some fountain-like source of bytes I'd like to encode, then decode, using the above framework. How would I go about doing it?
 
-```
+```scala
 fun main() {
   source = // ...
   sink = fun(byte) -> debug(byte)
@@ -89,7 +88,7 @@ Well, first, let's try writing `decode` as a callback. It will have to close ove
 
 To create `decode_inverse`, First, we split `decode` at the matching calls to `recv`:
 
-```
+```scala
 // --- snip! state = 0
 byte = recv()
 // --- snip! state = 1
@@ -102,7 +101,7 @@ for _ in 0..repeat {
 
 We can lift this into a little state machine of sorts:
 
-```
+```scala
 // state machine
 b = recv()
 match state {
@@ -112,7 +111,7 @@ match state {
   }
   1 -> {
     set repeat = b
-    for _ in 0..repeat {
+    for _ in 0 .. repeat {
       send(byte)
     }
     set state = 0
@@ -122,7 +121,7 @@ match state {
 
 And then wrap this up as a closure:
 
-```
+```scala
 fun decode_inverse(
   send: N8 -> (),
 ) {
@@ -154,7 +153,7 @@ I call this transformation **an inversion of control**. I find inversions of con
 
 This is a lot more complicated than the original code! And it closes over non-trivial state! This function, though, becomes something of a library. We can actually use it with `encode`, because it puts us in control. Here's what that looks like:
 
-```
+```scala
 fun main() {
   // same setup
   source = // ...
@@ -171,7 +170,7 @@ Not super pretty, as `decode_inverse` is a closure passed as a callback, but it 
 
 We could imagine applying a similar process to `encode` to create `encode_inverse`. We do this by splitting the function into a state machine at `send`. The resulting closure, `encode_inverse`, can be driven by `decode`:
 
-```
+```scala
 decode(
   encode_inverse(source),
   sink,
@@ -180,7 +179,7 @@ decode(
 
 Which can also be written without nesting:
 
-```
+```scala
 encoded = encode_inverse(source),
 decode(encoded, sink)
 ```
@@ -193,7 +192,7 @@ This "convert to state machine" transform seems pretty straightforward. Can we d
 
 Let's say we have `encode_inverse` and `decode_inverse`. We want to wire them up to one another, as above. But in this case, it's not exactly clear *who* is driving *who*.
 
-```
+```scala
 fun main() {
   source = // ...
   sink = fun(byte) -> debug(byte)
@@ -212,7 +211,7 @@ Well, what are the types of `encoder` and `decoder`?
 It seems like these types are compatible. We can drive this system with a loop:
 
 
-```
+```scala
 // ...
 loop {
   decoder(encoder())
@@ -221,7 +220,7 @@ loop {
 
 If we wanted, we could lift this out as a higher-order function:
 
-```
+```scala
 fun pipe(
   recv: () -> N8,
   send: N8 -> (),
@@ -234,7 +233,7 @@ fun pipe(
 
 And we could replace our loop in main with:
 
-```
+```scala
 pipe(encoder, decoder)
 ```
 
@@ -242,7 +241,7 @@ pipe(encoder, decoder)
 
 We've been cheating a little. We've been assuming that we only care inverting a function along the axis of `send` or `recv`. What if we want a function that's inverted for *both* send and receive? Let's start once again with `decode`. We'll write a function called `decode_actor`. It's been a while, so here's the code:
 
-```
+```scala
 fun decode(
   recv: () -> N8,
   send: N8 -> (),
@@ -259,7 +258,7 @@ fun decode(
 
 As before, we need to slice this into a state machine, but at both `recv` points and `send` points:
 
-```
+```scala
 // --- snip! state = 0
 byte = recv()
 // --- snip! state = 1
@@ -273,7 +272,7 @@ for _ in 0..repeat {
 
 We have a for loop here, which for reasons that will become clear later, we will also need to handle. Let's "desugar" the for loop:
 
-```
+```scala
 // --- snip! state = 0
 byte = recv()
 // --- snip! state = 1
@@ -290,7 +289,7 @@ if i < repeat {
 
 We can now lift this into a state machine:
 
-```
+```scala
 // --- snip! state = 0
 0 -> {
   set byte = recv()
@@ -320,6 +319,6 @@ R R S... R R S... R R S...
 
 This ordering requires that our code call the state machine with `R` and `S` in the right order! Unlike the case where there was only one callback we were lifting, we're now faced with a choice to make. How do we represent an object, with some state, with different ways to call it depending on the state it's in?
 
-If we push this deeper, we stumble upon some beautiful symmetries: actors are a generalization of closures, the purpose of protocols (as in clojure), type-state programming, the sequencing of algebraic effects, and so on. I am biased.
+If we push this deeper, we stumble upon some beautiful symmetries: actors are a generalization of closures, the purpose of protocols ([as in clojure](https://clojure.org/reference/protocols)), [type-state programming](https://cliffle.com/blog/rust-typestate/), the sequencing of algebraic effects, and so on.
 
-TODO: introduce algebraic effects, wrap things up.
+I hate to end on a cliff-hanger, but I would like to get this piece published, as it's been sitting on my disk for about a month. In the next post, we will relate inversions of control to Algebraic Effects in Affetto. Stay tuned!
