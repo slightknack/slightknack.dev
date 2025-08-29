@@ -38,7 +38,7 @@ fun encode(
       set last = next
       set count = 1
     } else {
-      count += 1
+      set count += 1
     }
   }
 }
@@ -184,7 +184,7 @@ encoded = encode_inverse(source),
 decode(encoded, sink)
 ```
 
-And this code is still streaming the bytes as it encodes and decodes! `encode` is a callback we can stream. We are not loading all the bytes into memory, which is great.
+And this code is still streaming the bytes as it encodes and decodes! `encoded` is a callback we can stream. We are not loading all the bytes into memory, which is great.
 
 This "convert to state machine" transform seems pretty straightforward. Can we do it automatically? Before I answer that question, let's explore one more aspect.
 
