@@ -15,7 +15,7 @@ What's the difference between a library and a framework? It depends on your defi
 
 As a programmer, I prefer using libraries. It is nice to be in control, when the code you're writing reads straightforwardly. On the other hand, as a library author, figuring out *how* to package a dependency as a library instead of as a framework can be challenging.
 
-In this post, I want to show (1) how the relationship between frameworks and libraries has to do with **inversions of control** and (2) how languages can make inversions of control _easy_, so that authors can write frameworks, which developers can call as libraries.
+In this post, I want to show (1) how the relationship between frameworks and libraries has to do with **inversions of control** and (2) how languages can make inversions of control _easy_, so that authors can write frameworks, which developers can use as libraries.
 
 # A classic problem
 
