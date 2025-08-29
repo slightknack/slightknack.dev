@@ -44,7 +44,7 @@ fun encode(
 }
 ```
 
-Some affetto-specific notes: `N8` is an 8-bit natural, or a byte. `()` is the unit type, as in Rust. (like `void` in C, or an empty tuple in Python).
+Some affetto-specific notes: `N8` is an 8-bit natural, or a byte. `()` is the unit type, as in Rust. (like `void` in C, or `None` in Python).
 
 This is fairly straightforward: we read bytes one at a time, we keep track of runs, we send two bytes for each run. (The byte and how many times it's repeated).
 
