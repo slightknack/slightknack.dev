@@ -84,9 +84,9 @@ Obviously we'd need some sort of channel connecting `encode` and `decode`? And m
 
 # Invert for a solution
 
-Well, first, let's try writing `decode` as a callback. It will have to close over some state, I suppose. Let's call this function `decode_inverse`. `decode_inverse` will be called whenever `encode` calls `send`. This way the functions run in lock-step.
+Well, to begin, let's try writing `decode` as a callback. It will have to close over some state, I suppose. Let's call this function `decode_inverse`. `decode_inverse` will be called whenever `encode` calls `send`. This way the functions run in lock-step.
 
-To create `decode_inverse`, First, we split `decode` at the matching calls to `recv`:
+To create `decode_inverse`, first, we split `decode` at the matching calls to `recv`:
 
 ```scala
 // --- snip! state = 0
