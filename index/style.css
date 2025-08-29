@@ -1,0 +1,42 @@
+body {
+    height: 100vh;
+    background: linear-gradient(#414494, #20abcd);
+}
+
+#counter {
+    position: fixed;
+    background-color: #333;
+}
+
+.parallax {
+    pointer-events: none;
+    z-index: 1;
+    position: fixed;
+    margin: 0;
+    width: 100vw;
+}
+
+#mountain-1,
+#mountain-2 {
+    transform: skewY(5deg);
+}
+
+#cloud-1,
+#cloud-2 {
+    z-index: -1;
+    transform: skewY(-15deg);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        height: 100vh;
+        background: linear-gradient(#000, #414494);
+    }
+
+    #mountain-1,
+    #mountain-2,
+    #cloud-1,
+    #cloud-2 {
+        filter: hue-rotate(30deg) brightness(90%);
+    }
+}
