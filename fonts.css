@@ -1,0 +1,105 @@
+/* Archivo Narrow */
+
+@font-face {
+    font-family: "Archivo Narrow";
+    src: url("/fonts/archivo-narrow-regular.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Archivo Narrow";
+    src: url("/fonts/archivo-narrow-bold.ttf");
+    font-weight: bold;
+    font-display: swap;
+}
+
+/* IBM Plex Serif */
+
+@font-face {
+    font-family: "IBM Plex Serif";
+    src: url("/fonts/plex-serif-regular.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "IBM Plex Serif";
+    src: url("/fonts/plex-serif-italic.ttf");
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "IBM Plex Serif";
+    src: url("/fonts/plex-serif-bold.ttf");
+    font-weight: bold;
+    font-display: swap;
+}
+
+/* Texturina Variable */
+
+@font-face {
+    font-family: "Texturina";
+    src: url("/fonts/texturina-variable.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Texturina";
+    src: url("/fonts/texturina-variable-italic.ttf");
+    font-style: italic;
+    font-display: swap;
+}
+
+/* IBM Plex Mono */
+
+@font-face {
+    font-family: "IBM Plex Mono";
+    src: url("/fonts/plex-mono-regular.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "IBM Plex Mono";
+    src: url("/fonts/plex-mono-italic.ttf");
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Shippori Mincho B1 */
+
+@font-face {
+    font-family: "Shippori";
+    src: url("/fonts/shippori-b1-medium.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Shippori";
+    src: url("/fonts/shippori-b1-semi-bold.ttf");
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Shippori";
+    src: url("/fonts/shippori-b1-bold.ttf");
+    font-weight: bold;
+    font-display: swap;
+}
+
+/* Ibarra Real Nova */
+
+@font-face {
+    size-adjust: 115%;
+    font-family: "Ibarra";
+    src: url("/fonts/ibarra-variable.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    size-adjust: 115%;
+    font-family: "Ibarra";
+    src: url("/fonts/ibarra-variable-italic.ttf");
+    font-style: italic;
+    font-display: swap;
+}
