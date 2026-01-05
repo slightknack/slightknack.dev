@@ -243,13 +243,30 @@ a.plain {
     padding: 0;
 }
 
-.pill a {
+.pill a,
+.pill span {
     background-color: var(--fill-soft);
     border: none;
     padding: 2px;
     padding-left: 10pt;
     padding-right: 10pt;
     border-radius: 2px;
+}
+
+.pill-active span {
+    background-color: var(--fill-accent);
+    color: var(--fill-bg);
+    border: none;
+    padding: 2px;
+    padding-left: 10pt;
+    padding-right: 10pt;
+    border-radius: 2px;
+}
+
+.daily-item {
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: 0.5em;
 }
 
 .menu-centered {

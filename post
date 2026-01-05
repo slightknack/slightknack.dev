@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+"""
+Simple script to create new blog and daily posts.
+
+Usage:
+    ./post blog [title]
+    ./post daily [title]
+"""
+
+import sys
+import os
+from datetime import date
+from pathlib import Path
+
+
+def get_date_slug():
+    """Return today's date in YYYY-MM-DD format."""
+    return date.today().isoformat()
+
+
+def slugify(title):
+    """Convert title to URL-friendly slug."""
+    return title.lower().replace(' ', '-').replace("'", '')
+
+
+def create_blog_post(title=None):
+    """Create a new blog post."""
+    today = get_date_slug()
+
+    if title:
+        slug = slugify(title)
+        filename = f"{slug}.md"
+    else:
+        title = input("Enter blog post title: ").strip()
+        if not title:
+            print("Error: Title is required")
+            sys.exit(1)
+        slug = slugify(title)
+        filename = f"{slug}.md"
+
+    filepath = Path("content/blog") / filename
+
+    if filepath.exists():
+        print(f"Error: {filepath} already exists")
+        sys.exit(1)
+
+    content = f"""+++
+title = "{title}"
+date = {today}
+draft = true
+
+[extra]
+artbit = ""
++++
+
+"""
+
+    filepath.write_text(content)
+    print(f"Created: {filepath}")
+
+
+def create_daily_post(title=None):
+    """Create a new daily post."""
+    today = get_date_slug()
+
+    if not title:
+        title = f"Daily: {today}"
+
+    filename = f"{today}.md"
+    filepath = Path("content/daily") / filename
+
+    if filepath.exists():
+        print(f"Error: {filepath} already exists")
+        sys.exit(1)
+
+    content = f"""+++
+title = "{title}"
+date = {today}
++++
+
+"""
+
+    filepath.write_text(content)
+    print(f"Created: {filepath}")
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: ./post {blog|daily} [title]")
+        sys.exit(1)
+
+    command = sys.argv[1]
+    title = " ".join(sys.argv[2:]) if len(sys.argv) > 2 else None
+
+    if command == "blog":
+        create_blog_post(title)
+    elif command == "daily":
+        create_daily_post(title)
+    else:
+        print(f"Error: Unknown command '{command}'")
+        print("Usage: ./post {blog|daily} [title]")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

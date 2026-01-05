@@ -1,0 +1,44 @@
+{% extends "sidebar.html" %}
+
+{% block content %}
+<h1 class="title" style="margin-top: 0;">
+    {{ section.title }}
+</h1>
+{{ section.content | safe }}
+
+{% set all_pages_oldest = section.pages | sort(attribute="date") %}
+{% set all_pages_newest = all_pages_oldest | reverse %}
+{% set most_recent = all_pages_newest | first %}
+
+{% set_global months = [] %}
+{% set_global prev_month = "" %}
+{% for page in all_pages_oldest %}
+    {% set m = page.date | date(format="%Y-%m") %}
+    {% if m != prev_month %}
+        {% set_global months = months | concat(with=[m]) %}
+        {% set_global prev_month = m %}
+    {% endif %}
+{% endfor %}
+
+{% for month in months | reverse %}
+    {% set_global first_of_month = true %}
+    {% for page in all_pages_oldest %}
+        {% set page_month = page.date | date(format="%Y-%m") %}
+        {% if page_month == month %}
+            {% if first_of_month %}
+                <h2>{{ page.date | date(format="%B %Y") }}</h2>
+                <p>
+                {% set_global first_of_month = false %}
+            {% endif %}
+                <span class="daily-item"><span class="pill{% if most_recent and page.permalink == most_recent.permalink %}-active{% endif %}"><span class="tag">{{ page.date | date(format="%d") }}</span></span>
+                <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+                <span class="tag">{{ page.word_count }}&nbsp;words</span></span>
+        {% endif %}
+    {% endfor %}
+    {% if not first_of_month %}</p>{% endif %}
+{% endfor %}
+{% endblock content %}
+
+{% block sidebar %}
+{{ macros::artbit(image=section.extra.artbit) }}
+{% endblock %}

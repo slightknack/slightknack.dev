@@ -9,4 +9,4 @@ page_template = "page.html"
 artbit = "birdhouse.png"
 +++
 
-I've decided to group my thoughts about language design with regards to [Passerine](https://passerine.io) specifically under this section. What's [Passerine](https://github.com/vrtbl/passerine)? I'm glad you asked! It's a compiled programming language I've been working on for about a year-and-a-half, in the vein of OCaml and Scheme. If you're a fan of macros, continuations, and type theory, you should enjoy some of these posts:
+Passerine is a programming language I worked on in high school, in the vein of OCaml and Scheme. This is a little blog with some notes on language design and compiler implementation. If you're a fan of macros, continuations, and type theory, you might enjoy some of these posts. If you're curious, you can also visit the [website](https://passerine.io), or check out [Passerine on GitHub](https://github.com/vrtbl/passerine).
