@@ -243,6 +243,11 @@ th code {
     white-space: nowrap;
 }
 
+td pre code,
+th pre code {
+    white-space: pre;
+}
+
 tr:nth-child(even) td,
 th {
     border-right: 2px solid var(--fill-bg);

@@ -1,6 +1,6 @@
 +++
 title = "Passerine"
-weight = 2
+weight = 4
 sort_by = "date"
 template = "section.html"
 page_template = "page.html"

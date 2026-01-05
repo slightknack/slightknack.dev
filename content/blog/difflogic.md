@@ -14,6 +14,8 @@ artbit = "1_rocket.png"
 
 <!-- <iframe src="/conway" width="100%" frameborder="0"></iframe> -->
 
+<!-- more -->
+
 <img alt="ghostty with 512 by 512 board of conway's game of life on it" src="/content/conway-tui.png">
 
 # The longer story

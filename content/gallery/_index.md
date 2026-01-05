@@ -1,6 +1,6 @@
 +++
 title = "Gallery"
-weight = 4
+weight = 5
 sort_by = "date"
 template = "section-gallery-2.html"
 page_template = "page-embed.html"

@@ -232,7 +232,7 @@ So how does do notation work?
 
 Do notation is syntactic sugar for the standard then (`>>`) and bind
 (`>>=`) operators. Each line in a `do` block is chained with the next using
-A monadic operator.
+a monadic operator.
 
 To clarify, let's look at a simple case with two lines. When we have two
 simple expressions, one after another, like:
@@ -360,7 +360,7 @@ Wrong.
 We'd actually end up with `friend = "Casper the Ghost"`, and we would
 see the following as output:
 
-```haskell
+```
 Hello, James
 Unreachable
 ```

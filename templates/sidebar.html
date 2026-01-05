@@ -13,9 +13,9 @@
                     index.subsections %} {% set subsection = get_section(path=s) %}
                     <li class="pill">
                         <a class="tag" href="{{ subsection.permalink }}">
-                            {% if current_path == subsection.path %}<strong
+                            {% if current_path == subsection.path or (page and s in page.ancestors) or (section and s in section.ancestors) or (section and current_path == subsection.path) %}<strong
                                 >{% endif %} {{ subsection.title }} {% if
-                                current_path == subsection.path %}</strong
+                                current_path == subsection.path or (page and s in page.ancestors) or (section and s in section.ancestors) or (section and current_path == subsection.path) %}</strong
                             >{% endif %}
                         </a>
                     </li>
