@@ -397,9 +397,17 @@
         let currentOpenTotal = openPanels.reduce((sum, p) => sum + state.heights[p], 0);
 
         if (currentOpenTotal > spaceForOpen) {
+            // Shrink proportionally when too big
             const scale = spaceForOpen / currentOpenTotal;
             openPanels.forEach(p => {
                 state.heights[p] = Math.max(MIN_H, Math.floor(state.heights[p] * scale));
+            });
+        } else if (currentOpenTotal < spaceForOpen) {
+            // Grow proportionally when there's extra space
+            const extra = spaceForOpen - currentOpenTotal;
+            const perPanel = Math.floor(extra / openPanels.length);
+            openPanels.forEach(p => {
+                state.heights[p] += perPanel;
             });
         }
     }
