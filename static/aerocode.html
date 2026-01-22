@@ -351,6 +351,7 @@
     const GAP = 8;
     const TOOLBAR_H = 32 + GAP;
     const MIN_SIDEBAR_W = 300;
+    const DEFAULT_SIDEBAR_W = 500;
     const STRIP_W = 16;
 
     const DEFAULTS = {
@@ -361,8 +362,8 @@
 
     // Application state (declarative model)
     const state = {
-        sidebarWidth: 350,
-        prevSidebarWidth: 350,
+        sidebarWidth: DEFAULT_SIDEBAR_W,
+        prevSidebarWidth: DEFAULT_SIDEBAR_W,
         collapsed: false,
         fullscreen: null,
         minimized: { html: false, css: false, js: false },
@@ -628,7 +629,7 @@
         bindStripDrag(dom.previewStrip, () => {
             const maxW = window.innerWidth;
             if (state.prevSidebarWidth >= maxW - STRIP_W - 10) {
-                state.sidebarWidth = Math.min(350, maxW * 0.4);
+                state.sidebarWidth = Math.min(DEFAULT_SIDEBAR_W, maxW * 0.4);
             } else {
                 state.sidebarWidth = state.prevSidebarWidth;
             }
@@ -800,7 +801,7 @@
                 const maxW = window.innerWidth;
 
                 if (newW < 50) {
-                    state.prevSidebarWidth = startWidth || 350;
+                    state.prevSidebarWidth = startWidth || DEFAULT_SIDEBAR_W;
                     state.collapsed = true;
                 } else {
                     state.collapsed = false;
