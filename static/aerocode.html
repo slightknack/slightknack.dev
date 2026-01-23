@@ -1126,6 +1126,7 @@ document.querySelector('button').onclick = () => {
         entries: [],      // { type, message, timestamp, line?, col? }
         expanded: true,   // panel open?
         height: 150,      // panel height in px
+        prevHeight: 150,  // height before fullscreen (for restore)
         filter: 'all',    // 'all' | 'log' | 'warn' | 'error'
         fullscreen: false // fullscreen mode?
     };
@@ -1582,7 +1583,15 @@ document.querySelector('button').onclick = () => {
                     renderConsole();
                 }
                 else if (action === 'console-fullscreen') {
-                    consoleState.fullscreen = !consoleState.fullscreen;
+                    if (consoleState.fullscreen) {
+                        // Exiting fullscreen - restore previous height
+                        consoleState.fullscreen = false;
+                        consoleState.height = consoleState.prevHeight;
+                    } else {
+                        // Entering fullscreen - save current height
+                        consoleState.prevHeight = consoleState.height;
+                        consoleState.fullscreen = true;
+                    }
                     consoleState.expanded = true;
                     renderConsole();
                 }
@@ -1750,6 +1759,10 @@ document.querySelector('button').onclick = () => {
 
                 // Snap to fullscreen if dragged near top
                 if (newHeight > previewHeight - 50) {
+                    // Save height before going fullscreen (use startHeight, not current)
+                    if (!consoleState.fullscreen) {
+                        consoleState.prevHeight = startHeight;
+                    }
                     consoleState.fullscreen = true;
                     consoleState.expanded = true;
                 }
