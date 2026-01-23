@@ -2019,12 +2019,6 @@ document.querySelector('button').onclick = () => {
             const c = editors.css.getValue();
             const j = editors.js.getValue();
 
-            // If content matches defaults, clear the hash
-            if (h === DEFAULTS.html && c === DEFAULTS.css && j === DEFAULTS.js) {
-                history.replaceState(null, '', location.pathname);
-                return;
-            }
-
             // p=1 means "start in preview mode" (mobile: preview tab, desktop: sidebar collapsed)
             const previewMode = isMobile() ? (state.mobileView === 'preview') : state.collapsed;
             const data = { h, c, j, p: previewMode ? 1 : 0 };
