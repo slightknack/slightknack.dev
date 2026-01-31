@@ -51,7 +51,7 @@ h5,
 h6 {
     line-height: 1.1;
     letter-spacing: 0.05em;
-    /* hyphens: auto; */
+    hyphens: auto;
     margin-top: 40pt;
     margin-bottom: 20pt;
     font-family: var(--font-title);

@@ -10,5 +10,3 @@ artbit = "1_newspaperb.png"
 +++
 
 I'm trying to write a note a day from here going forward. Either about an interesting article I've read, an idea I've been kicking around, a project I've been working on, or a general life update.
-
-(Under construction.)

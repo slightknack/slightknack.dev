@@ -186,9 +186,8 @@ a.plain {
 }
 
 .daily-item {
-    display: inline-block;
-    white-space: nowrap;
-    margin-right: 0.5em;
+    list-style: none;
+    hyphens: auto;
 }
 
 @media only screen and (max-width: 900px) {

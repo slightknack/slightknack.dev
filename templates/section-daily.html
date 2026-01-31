@@ -27,15 +27,13 @@
         {% if page_month == month %}
             {% if first_of_month %}
                 <h2>{{ page.date | date(format="%B %Y") }}</h2>
-                <p>
+                <ul style="padding-left: 0;">
                 {% set_global first_of_month = false %}
             {% endif %}
-                <span class="daily-item"><span class="pill{% if most_recent and page.permalink == most_recent.permalink %}-active{% endif %}"><span class="tag">{{ page.date | date(format="%d") }}</span></span>
-                <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
-                <span class="tag">{{ page.word_count }}&nbsp;words</span></span>
+                <li class="daily-item"><span class="pill{% if most_recent and page.permalink == most_recent.permalink %}-active{% endif %}"><span class="tag">{{ page.date | date(format="%d") }}</span></span>&nbsp;<a href="{{ page.permalink | safe }}">{{ page.title }}</a> <span class="tag">{{ page.word_count }}&nbsp;words</span></li>
         {% endif %}
     {% endfor %}
-    {% if not first_of_month %}</p>{% endif %}
+    {% if not first_of_month %}</ul>{% endif %}
 {% endfor %}
 {% endblock content %}
 
