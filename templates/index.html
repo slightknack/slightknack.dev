@@ -1,47 +1,106 @@
 {% extends "base.html" %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="/index/style.css">
 <link rel="stylesheet" href="/index/index.css">
 <script src="/index/index.js"></script>
 {% endblock extra_head %}
 
 {% block layout %}
-
-<div class="body">
-    <div class="parallax" id="counter" hidden>0</div>
-    <img class="parallax" style="visibility: hidden;" id="mountain-1" src="/index/mountain-skewed.svg">
-    <img class="parallax" style="visibility: hidden;" id="mountain-2" src="/index/mountain-skewed.svg">
-    <img class="parallax" style="visibility: hidden;" id="cloud-1" src="/index/cloud.png">
-    <img class="parallax" style="visibility: hidden;" id="cloud-2" src="/index/cloud.png">
-
-    <div style="max-width: width: 100vw; height: 80vh; text-align: center; display: flex; justify-content: center; align-items: center;">
+<div class="layers">
+    <div class="navbar-overlay">
         <div class="narrow-unpadded">
-        <ul class="menu">
-            {% set index = get_section(path="_index.md") %} {% for s in
-            index.subsections %} {% set subsection = get_section(path=s) %}
-            <li class="pill">
-                <a class="tag" href="{{ subsection.permalink }}">
-                    {% if current_path == subsection.path %}<strong
-                        >{% endif %} {{ subsection.title }} {% if current_path ==
-                        subsection.path %}</strong
-                    >{% endif %}
-                </a>
-            </li>
-            {% endfor %}
-            {{ macros::extranav() }}
-        </ul>
-
-        <div style="color: #f7f2ed;">
-            <h1 style="
-                font-size: calc(min(20vh, 20vw));
-                line-height: 1;
-                text-shadow: 0 0 calc(min(20vh, 20vw)) #414494;
-                user-select: none;
-            ">Isaac Clayton</h1>
-        </div>
+            <ul class="menu">
+                <li class="pill pill-square">
+                    <a class="tag" href="/"><strong>IC</strong></a>
+                </li>
+                {% set index = get_section(path="_index.md") %}
+                {% for s in index.subsections %}
+                    {% set subsection = get_section(path=s) %}
+                    <li class="pill">
+                        <a class="tag" href="{{ subsection.permalink }}">
+                            {% if current_path == subsection.path %}<strong>{% endif %}
+                            {{ subsection.title }}
+                            {% if current_path == subsection.path %}</strong>{% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+                {{ macros::extranav() }}
+            </ul>
         </div>
     </div>
 
+    <div class="name-overlay">
+        <div class="narrow-unpadded">
+            <p class="tagline" style="color: #f7f2ed; margin-bottom: 0;"></p>
+            <h1 class="title" style="margin-top: 0; color: #f7f2ed; text-shadow: 4px 4px 0 var(--fill-accent);">Isaac Clayton</h1>
+        </div>
+    </div>
+
+    <div class="name-overlay-corner">
+        <p class="tagline" style="color: #f7f2ed; margin-bottom: 0;"></p>
+        <h1 class="title" style="margin-top: 0; color: #f7f2ed; text-shadow: 4px 4px 0 var(--fill-accent);">Isaac Clayton</h1>
+    </div>
+
+    <div class="layer layer-clouds">
+        <div class="layer-inner">
+            <div class="placeholder">
+                <img src="/index/clouds-placeholder.png" alt="">
+            </div>
+            <div class="main">
+                <picture>
+                    <source srcset="/index/clouds.avif" type="image/avif">
+                    <img src="/index/clouds.png" alt="">
+                </picture>
+            </div>
+        </div>
+    </div>
+
+    <div class="layer layer-mountains">
+        <div class="layer-inner">
+            <div class="placeholder">
+                <img src="/index/mountains-placeholder.png" alt="">
+                <img src="/index/mountains-placeholder.png" alt="">
+                <img src="/index/mountains-placeholder.png" alt="">
+            </div>
+            <div class="main">
+                <picture>
+                    <source srcset="/index/mountains.avif" type="image/avif">
+                    <img src="/index/mountains.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/index/mountains.avif" type="image/avif">
+                    <img src="/index/mountains.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/index/mountains.avif" type="image/avif">
+                    <img src="/index/mountains.png" alt="">
+                </picture>
+            </div>
+        </div>
+    </div>
+
+    <div class="layer layer-field">
+        <div class="layer-inner">
+            <div class="placeholder">
+                <img src="/index/field-placeholder.png" alt="">
+                <img src="/index/field-placeholder.png" alt="">
+                <img src="/index/field-placeholder.png" alt="">
+            </div>
+            <div class="main">
+                <picture>
+                    <source srcset="/index/field.avif" type="image/avif">
+                    <img src="/index/field.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/index/field.avif" type="image/avif">
+                    <img src="/index/field.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/index/field.avif" type="image/avif">
+                    <img src="/index/field.png" alt="">
+                </picture>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock layout %}

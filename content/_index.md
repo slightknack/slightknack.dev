@@ -1,7 +1,7 @@
 +++
 title = "Home"
 sort_by = "weight"
-template = "index_new.html"
+template = "index.html"
 +++
 
 Welcome to my cozy little corner of the web.
