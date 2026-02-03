@@ -296,6 +296,11 @@ document.addEventListener('DOMContentLoaded', function() {
         "have you written a shader yet?",
         "check out The Book of Shaders",
         "this is the last one!",
+        "thinking about electrostatic motors",
+        "thinking about recursive manufacturing",
+        "thinking about FNPP",
+        "thinking about axial flux motors",
+        "knows hunger intimately",
     ];
     const tagline = taglines[Math.floor(Math.random() * taglines.length)];
     document.documentElement.style.setProperty('--tagline', `"${tagline}"`);
