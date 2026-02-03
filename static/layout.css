@@ -27,7 +27,8 @@
 .pixel-sidebar:hover,
 .pixel-sidebar:active,
 .pixel-sidebar:focus {
-    filter: invert(1) drop-shadow(2px 0px 0 var(--fill-accent))
+    filter: invert(1)
+        drop-shadow(2px 0px 0 var(--fill-accent))
         drop-shadow(-2px 0px 0 var(--fill-accent))
         drop-shadow(0px 2px 0 var(--fill-accent))
         drop-shadow(0px -2px 0 var(--fill-accent));
@@ -43,9 +44,7 @@
     .pixel-sidebar:active,
     .pixel-sidebar:focus {
         filter:
-            /* invert(1) */ drop-shadow(
-                2px 0px 0 var(--fill-accent)
-            )
+            drop-shadow(2px 0px 0 var(--fill-accent))
             drop-shadow(-2px 0px 0 var(--fill-accent))
             drop-shadow(0px 2px 0 var(--fill-accent))
             drop-shadow(0px -2px 0 var(--fill-accent));
@@ -57,8 +56,6 @@
     top: 0;
     margin: 0;
     margin-top: 20pt;
-    /* margin-left: auto; */
-    /* margin-right: 0; */
     padding: 0;
 }
 
@@ -72,7 +69,7 @@
 .narrow-left,
 .narrow-unpadded {
     min-width: 0;
-    max-width: 700px;
+    max-width: 650px;
     padding: 20pt;
     padding-top: 0;
     padding-bottom: 0;
@@ -81,12 +78,40 @@
     margin-bottom: 100vh;
 }
 
+.narrow:has(.aside),
+.narrow-left:has(.aside),
+.narrow-unpadded:has(.aside) {
+    margin-left: auto;
+    margin-right: max(calc((100% - 650px - 40pt) / 2), 250px);
+}
+
+.aside {
+    position: relative;
+    float: right;
+    clear: right;
+    width: calc(250px - 20pt);
+    margin-right: -250px;
+    margin-left: 20pt;
+    margin-bottom: 10pt;
+    margin-top: calc((var(--line-height-body) - var(--line-height-narrow)) / 2 * 1em);
+    font-family: var(--font-narrow);
+    line-height: var(--line-height-narrow);
+    opacity: 0.7;
+}
+
+.aside::before {
+    content: "»";
+    position: absolute;
+    left: -20pt;
+    width: 20pt;
+    text-align: center;
+}
+
 .narrow-left {
     margin-left: 0;
 }
 
 .narrow-unpadded {
-    /* padding: 20pt; */
     margin-bottom: 0pt;
 }
 
@@ -100,21 +125,14 @@
     font-family: var(--font-narrow);
 }
 
-.tag
-/* blockquote */ {
+.tag {
     color: var(--fill-accent);
     font-family: var(--font-narrow);
-    /* font-family: var(--font-mono); */
 }
-
-/* .text-input-container {
-    width: 100%;
-} */
 
 .text-input-container input {
     color: var(--fill-text);
     background-color: var(--fill-soft);
-    /* font-family: var(--font-title); */
     font-size: var(--font-base);
     padding: 10pt;
     box-sizing: border-box;
@@ -185,6 +203,11 @@ a.plain {
     border-radius: 2px;
 }
 
+.pill-square a {
+    padding-left: 6pt;
+    padding-right: 6pt;
+}
+
 .daily-item {
     list-style: none;
     hyphens: auto;
@@ -232,5 +255,38 @@ a.plain {
 
     .menu {
         text-align: center;
+    }
+
+    .narrow,
+    .narrow-left,
+    .narrow-unpadded,
+    .narrow:has(.aside),
+    .narrow-left:has(.aside),
+    .narrow-unpadded:has(.aside) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .aside {
+        float: none;
+        clear: none;
+        display: inline;
+        width: auto;
+        margin: 0;
+        padding: 0;
+        border: none;
+        font-family: var(--font-body);
+        line-height: var(--line-height-body);
+    }
+
+    .aside::before {
+        content: " (";
+        position: static;
+        width: auto;
+        text-align: left;
+    }
+
+    .aside::after {
+        content: ")";
     }
 }

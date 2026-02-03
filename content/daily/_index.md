@@ -16,6 +16,7 @@ I'm trying to write a note a day from here going forward. Either about an intere
 # Things to write about
 
 - habits and transition points
+- have a time and a place for everything
 - reason and passion
 - PTX ISA, how gpus work
 - Aleatoric and Epistemic uncertainty

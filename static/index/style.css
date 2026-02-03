@@ -16,11 +16,6 @@ body {
     width: 100vw;
 }
 
-#mountain-1,
-#mountain-2 {
-    transform: skewY(5deg);
-}
-
 #cloud-1,
 #cloud-2 {
     z-index: -1;

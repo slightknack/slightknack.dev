@@ -13,7 +13,7 @@ artbit = "1_saturn.png"
   <a href ="https://isaac.sh">isaac.sh</a> · Cambridge, Massachusetts
 </div>
 
-A friend of free software, pushing bits around as an undergrad at MIT. Interested in compilers, display hacks, and AI (as one must be in <s>2024</s> 2025).
+A friend of free software, pushing bits around as an undergrad at MIT. Interested in compilers, display hacks, and AI (as one must be in <s>2024</s> <s>2025</s> 2026).
 
 <div class="shader">
     <img

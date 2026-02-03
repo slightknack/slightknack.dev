@@ -2,17 +2,17 @@
 var SCROLL_WINDOW = 0;
 var SCROLL_PERCENT = 0;
 let SPEED = 0.2;
-let MOUNTAIN_OVERLAY = 0.4;
+let MOUNTAIN_OVERLAY = 0.7;
 let MOUNTAIN_DROP = 0.156;
-let CLOUD_OVERLAY = 0.7;
+let CLOUD_OVERLAY = 0.95;
 let CLOUD_DROP = 0.1;
+let REFERENCE_HEIGHT = 800; // Fixed reference height so positioning doesn't depend on window height
 
 function scroll_pos(event) {
   let scroll = Date.now() / 10;
-  let visible = window.innerHeight;
   let full = document.body.offsetHeight;
-  SCROLL_PERCENT = scroll / (full - visible);
-  SCROLL_WINDOW = scroll / visible;
+  SCROLL_PERCENT = scroll / (full - REFERENCE_HEIGHT);
+  SCROLL_WINDOW = scroll / REFERENCE_HEIGHT;
   display_scroll();
   display_scroll_2();
 }
@@ -26,7 +26,7 @@ function display_scroll() {
 
   let image_height = first.offsetHeight;
   let target_height = Math.min(
-    window.innerHeight * MOUNTAIN_OVERLAY,
+    REFERENCE_HEIGHT * MOUNTAIN_OVERLAY,
     image_height * MOUNTAIN_OVERLAY,
   );
   let height = image_height - target_height;
@@ -54,7 +54,7 @@ function display_scroll_2() {
 
   let image_height = first.offsetHeight;
   let target_height = Math.min(
-    window.innerHeight * CLOUD_OVERLAY,
+    REFERENCE_HEIGHT * CLOUD_OVERLAY,
     image_height * CLOUD_OVERLAY,
   );
   let height = image_height - target_height;
