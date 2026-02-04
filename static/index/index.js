@@ -301,6 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "thinking about FNPP",
         "thinking about axial flux motors",
         "knows hunger intimately",
+        "maximize giggles per square foot",
     ];
     const tagline = taglines[Math.floor(Math.random() * taglines.length)];
     document.documentElement.style.setProperty('--tagline', `"${tagline}"`);
