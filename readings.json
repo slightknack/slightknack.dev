@@ -1,0 +1,2067 @@
+[
+  {
+    "date": "2023-09-30",
+    "title": "Going out on a Limb, Efficient Elliptic Curve Arithmetic in OpenSSL",
+    "url": "https://sthbrx.github.io/blog/2023/08/07/going-out-on-a-limb-efficient-elliptic-curve-arithmetic-in-openssl/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-30",
+    "title": "Vitalik: Should ethereum be okay with enshrining more things into the protocol?",
+    "url": "https://vitalik.eth.limo/general/2023/09/30/enshrinement.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-29",
+    "title": "YouTube: Joscha Bach, Artificial Consciousness and the Nature of Reality, Lex Fridman",
+    "url": "https://lexfridman.com/joscha-bach/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-29",
+    "title": "RealFill, Reference-Driven Generation for Authentic Image Completion",
+    "url": "https://realfill.github.io/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-28",
+    "title": "TheAtlantic: As We May Think",
+    "url": "https://www.w3.org/History/1945/vbush/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-28",
+    "title": "Uiua, stack-based concatenative array language",
+    "url": "https://www.uiua.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-28",
+    "title": "NewYorker: The Skyscraper that could have toppled over in the wind",
+    "url": "https://www.newyorker.com/magazine/1995/05/29/the-fifty-nine-story-crisis",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-28",
+    "title": "Eyra is an interesting Rust project",
+    "url": "https://notgull.net/eyra/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-23",
+    "title": "Fixing for loops in go 1.22",
+    "url": "https://go.dev/blog/loopvar-preview",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-17",
+    "title": "A literary history of fake texts in Apple's marketing materials",
+    "url": "https://maxread.substack.com/p/a-literary-history-of-fake-texts-db8",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-16",
+    "title": "Strange Loop's greatest hits",
+    "url": "https://changelog.com/posts/strange-loops-greatest-hits",
+    "note": "I need to watch the list of Strange Loop's greatest hits.",
+    "used": false
+  },
+  {
+    "date": "2023-09-16",
+    "title": "America's Advanced Manufacturing Problem, and How to Fix It",
+    "url": "https://americanaffairsjournal.org/2023/08/americas-advanced-manufacturing-problem-and-how-to-fix-it/",
+    "note": "I need to start a manufacturing company. Manufacturing should be cool again. I mean it is, right? Name any sci-fi future where there isn't some sort of universal assembler that fits in a box.\n\nAdvancing American manufacturing requires a few things:\n\n1.  Institutions researching advancements (check).\n2.  Groups turning advancements into products (check).\n3.  Groups turning products into manufacturing processes (no).\n4.  Groups implementing and optimizing existing manufacturing processes using advancing technology (no).\n5.  Physical factories to produce goods (so-so).\n6.  A highly trained technical manufacturing workforce (no).\n7.  An education system training such highly trained manufacturing workforce (no).\n8.  No distracting \"better capital investments\", like finance, available.\n\nIdeally 1–4 should be vertically integrated, e.g. people are expected and encouraged to research, prototype, manufacture, and scale new products, from start to finish.\n\nNew life goal unlocked: become the Manufacturing King of America. gosh that sounds silly. Anyway:\n\n- You're already a good programmer. Instead of focusing on pure software, focus on learning another 95th percentile.\n- Learn this stuff at MIT. Work on stuff like this at MIT. This of the CNC program in the 80s. What new manufacturing technologies are around the corner today?\n\nI want to be able to make a company that can build anything, vertically integrated. I know this is a big ask. But here's the idea:\n\n- A company comes in, wanting to build a product. It's a keyboard, with a novel switch type.\n- We work with them to design the manufacturing process, using existing factories to prototype\n- We work to identify inefficiencies in the manufacturing process, and figure out how to scale up processes (moving from 3d printing to injection molding, etc.)\n- We efficiently manufacture a set amount of what was requested. The company can maintain their contract, in which case we continue to scale and support the process, or not, in which case we charge a lump sum and integrate the equipment into existing prototyping and manufacturing processes.\n\nThe idea would be to make the factory of factories, as Amazon is the store of stores. You come to us with a product idea and some money, we come back with the most efficient way to make that product with that money. And the answer has to be vertically integrated on American soil.\n\nObviously the right way to start would be to get a big guaranteed contract from a company of government agency, which process utilizes a lot of technology that can be repurposed afterwards.\n\nWould like to meet this guy:\n\n> William B. Bonvillian is a lecturer at MIT teaching science and technology policy",
+    "used": false
+  },
+  {
+    "date": "2023-09-15",
+    "title": "B612 Font Family",
+    "url": "https://www.b612-font.com/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-15",
+    "title": "Akiyoshi's illusion pages",
+    "url": "https://www.ritsumei.ac.jp/~akitaoka/index-e.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-15",
+    "title": "Why my favourite API is a zipfile on the European Central Bank's website",
+    "url": "https://csvbase.com/blog/5",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-12",
+    "title": "Datomic Datalog",
+    "url": "https://docs.datomic.com/query/query.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-12",
+    "title": "Some notes on Local-First Development",
+    "url": "https://bricolage.io/some-notes-on-local-first-development/",
+    "note": "I need to start a local first sync engine company.\n\nEven in distributed contexts, authoritative servers are needed to validate that clients don't violate global invariants.",
+    "used": false
+  },
+  {
+    "date": "2023-09-12",
+    "title": "YouTube: Geoffrey Litt, Riffle, Reactive Relational State",
+    "url": "https://riffle.systems/",
+    "note": "I need to start a local first sync engine company.\n\nEven in distributed contexts, authoritative servers are needed to validate that clients don't violate global invariants.",
+    "used": false
+  },
+  {
+    "date": "2023-09-11",
+    "title": "Veilid",
+    "url": "https://veilid.com/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-10",
+    "title": "My mental model of transducers",
+    "url": "https://blog.danieljanus.pl/2023/09/09/transducers/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-10",
+    "title": "There is plenty of room at the bottom",
+    "url": "https://web.pa.msu.edu/people/yang/RFeynman_plentySpace.pdf",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-10",
+    "title": "Arxiv: SoDaCam, Software-defined Cameras via Single-Photon Imaging",
+    "url": "https://arxiv.org/abs/2309.00066",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-09",
+    "title": "Microsoft: Async Programming in F#",
+    "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/tutorials/async",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-09",
+    "title": "GitHub: eduard-permyakov/peredvizhnikov-engine/docs/lockfree.pdf",
+    "url": "https://github.com/eduard-permyakov/peredvizhnikov-engine",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-08",
+    "title": "Semver violations are common, better tooling is the answer",
+    "url": "https://predr.ag/blog/semver-violations-are-common-better-tooling-is-the-answer/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-08",
+    "title": "TwoWrongs: Response Time Is the System Talking",
+    "url": "https://two-wrongs.com/response-time-is-the-system-talking.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-07",
+    "title": "why not matrix?",
+    "url": "https://benharri.org/why-not-matrix/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-06",
+    "title": "IeeeSpectrum: Cory Doctorow, Interoperability Can Save the Open Web",
+    "url": "https://spectrum.ieee.org/doctorow-interoperability",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-06",
+    "title": "ZX Originals, 8x8 bitmap fonts",
+    "url": "https://damieng.com/typography/zx-origins/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-06",
+    "title": "GPU Gems 3, Chapter 1, Generating Complex Procedural Terrains on the GPU",
+    "url": "https://developer.nvidia.com/gpugems/gpugems3/part-i-geometry/chapter-1-generating-complex-procedural-terrains-using-gpu",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-05",
+    "title": "SimonWillison: LLM now provides tools for working with embeddings",
+    "url": "https://simonwillison.net/2023/Sep/4/llm-embeddings/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-05",
+    "title": "Semantic Line Breaks",
+    "url": "https://sembr.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-05",
+    "title": "Kognize: Putting the You in CPU",
+    "url": "https://cpu.land/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-04",
+    "title": "Using Uninitialized Memory for Fun and Profit",
+    "url": "https://research.swtch.com/sparse",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-04",
+    "title": "The Jargon File",
+    "url": "http://www.catb.org/jargon/html/index.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-03",
+    "title": "The \"Is Something\" Pattern in Agda",
+    "url": "https://danilafe.com/blog/agda_is_pattern/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-03",
+    "title": "The Glitch Gallery",
+    "url": "https://glitchgallery.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-03",
+    "title": "Cell: Relations",
+    "url": "https://www.cell-lang.net/relations.html",
+    "note": "> But what we would probably want to do in a case like this is not to recompute everything from scratch every time something in the (massively multiplayer) game changes, but to update the results incrementally as the game progresses. In a declarative query language, all the queries involved in this particular case can be updated incrementally and automatically by a reasonably sophisticated query engine (or by code generated under the hood by a reasonably sophisticated compiler) without any extra effort on the part of the developer. But in an imperative (or functional) one, incrementally recomputing the output map is significantly more complex than computing it from scratch, and a lot more error-prone. That's because there's a lot of factors than can change the results, all of which have to be accounted for. [...] All of these changes have to propagated to all pieces of information that depend on them, and the exact propagation paths are different in each case.\n\nThis seems to be scratching at such a deeper idea. Gosh. I can't help but think about Witten's Live. Live can be used to write a functional transformation, and efficiently incrementally update the evaluation of that function when inputs change. Is an interpreter over declarative relations like the same thing as reactive programming?\n\nOh my gosh I read like 3 paragraphs further and now he's talking about reactive programming.",
+    "used": false
+  },
+  {
+    "date": "2023-09-03",
+    "title": "Index of Aesthetics",
+    "url": "https://cari.institute/aesthetics",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-02",
+    "title": "Invariants, A Better Debugger?",
+    "url": "https://brooker.co.za/blog/2023/07/28/ds-testing.html",
+    "note": "",
+    "used": true
+  },
+  {
+    "date": "2023-09-02",
+    "title": "GitHub: focus-editor/focus, A simple and fast text editor, written in Jai",
+    "url": "https://github.com/focus-editor/focus",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-02",
+    "title": "How to edit your own lousy writing",
+    "url": "https://stingingfly.org/2017/10/24/edit-lousy-writing/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-02",
+    "title": "The Worst Programmer I Know",
+    "url": "https://dannorth.net/blog/the-worst-programmer/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-02",
+    "title": "Alexander Obenauer, LAB NOTES",
+    "url": "https://alexanderobenauer.com/labnotes/000/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-01",
+    "title": "Factorio: Friday Facts 373, Space Age",
+    "url": "https://factorio.com/blog/post/fff-373",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-09-01",
+    "title": "Explaining The Postgres Meme",
+    "url": "https://avestura.dev/blog/explaining-the-postgres-meme",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-31",
+    "title": "Oleksandr Manenko, Sparse sets",
+    "url": "https://manenko.com/2021/05/23/sparse-sets.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-31",
+    "title": "3D Gaussian Splatting for Real-Time Radiance Field Rendering",
+    "url": "https://arxiv.org/abs/2308.04079",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-30",
+    "title": "The geometry of diffusion guidance",
+    "url": "https://sander.ai/2023/08/28/geometry.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-30",
+    "title": "EvanMiller: Attention Is Off By One",
+    "url": "https://www.evanmiller.org/attention-is-off-by-one.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-29",
+    "title": "Drew DeVault, AI Crap",
+    "url": "https://drewdevault.com/2023/08/29/2023-08-29-AI-crap.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-29",
+    "title": "The Origins and Motivations of Univalent Foundations, A Personal Mission to Develop Computer Proof Verification to Avoid Mathematical Mistakes",
+    "url": "https://www.ias.edu/ideas/2014/voevodsky-origins",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-29",
+    "title": "Substack: I'm so sorry for psychology's loss, whatever it is",
+    "url": "https://www.experimental-history.com/p/im-so-sorry-for-psychologys-loss",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-28",
+    "title": "Vitalik: What do I think about Community Notes?",
+    "url": "https://vitalik.eth.limo/general/2023/08/16/communitynotes.html",
+    "note": "> At least on prestigious topics, most people want relevant institutions to take the following ideal form:\n>\n> Masses recognize elites, who oversee experts, who pick details\n>\n> — Robin Hanson",
+    "used": false
+  },
+  {
+    "date": "2023-08-28",
+    "title": "GitHub: Snektron/pareas, GPU-accelerated compiler",
+    "url": "https://github.com/Snektron/pareas",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-27",
+    "title": "jank development update, Object model results",
+    "url": "https://jank-lang.org/blog/2023-08-26-object-model/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-27",
+    "title": "flat assembler",
+    "url": "https://flatassembler.net/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-25",
+    "title": "Substack: Earning the privilege to work on unoriginal problems",
+    "url": "https://landmines.substack.com/p/earning-the-privilege-to-work-on",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-20",
+    "title": "Kernighan and Pike were right, Do one thing, and do it well",
+    "url": "https://medium.com/source-and-buggy/do-one-thing-and-do-it-well-886b11a5d21",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-19",
+    "title": "We reduced the cost of building Mastodon at Twitter-scale by 100x",
+    "url": "https://blog.redplanetlabs.com/2023/08/15/how-we-reduced-the-cost-of-building-twitter-at-twitter-scale-by-100x/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-10",
+    "title": "Paul Graham on Conversations with Tyler",
+    "url": "https://conversationswithtyler.com/episodes/paul-graham/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-09",
+    "title": "Gumroad: Reflecting on my failure to build a Billion-dollar company",
+    "url": "https://sahillavingia.com/reflecting",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-08",
+    "title": "The Alexander Piano",
+    "url": "https://www.alexanderpiano.nz",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-08",
+    "title": "MadeOfBugs: Graceful behavior at capacity",
+    "url": "https://blog.nelhage.com/post/systems-at-capacity/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-08",
+    "title": "Wikipedia: PGP word list",
+    "url": "https://en.wikipedia.org/wiki/PGP_word_list",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-05",
+    "title": "Pursuit: We're closer to engineering blood vessels",
+    "url": "https://www.eurekalert.org/news-releases/997441",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-04",
+    "title": "A collection of quant riddles with answers",
+    "url": "https://puzzles.nigelcoldwell.co.uk/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-08-02",
+    "title": "A non-mathematical introduction to Kalman Filters for programmers",
+    "url": "https://praveshkoirala.com/2023/06/13/a-non-mathematical-introduction-to-kalman-filters-for-programmers/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-31",
+    "title": "Occluding Contour Breakthroughs",
+    "url": "https://aaronhertzmann.com/2023/07/31/occluding-contours-part-1.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-27",
+    "title": "Building and operating a pretty big storage system called S3",
+    "url": "https://www.allthingsdistributed.com/2023/07/building-and-operating-a-pretty-big-storage-system.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-26",
+    "title": "Pipelined Relational Query Language, a modern language for transforming data",
+    "url": "https://prql-lang.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-23",
+    "title": "Putting the You in CPU",
+    "url": "https://cpu.land/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-21",
+    "title": "A 17th-century font in a 21st-century thesis",
+    "url": "https://www.linyangchen.com/Typography-Fell-Types-font",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-18",
+    "title": "Wolfram: Generative AI Space and the Mental Imagery of Alien Minds",
+    "url": "https://writings.stephenwolfram.com/2023/07/generative-ai-space-and-the-mental-imagery-of-alien-minds/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-14",
+    "title": "Holepunch: Quick Start",
+    "url": "https://docs.holepunch.to/quick-start",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-13",
+    "title": "Wikipedia: Telling the Bees",
+    "url": "https://en.wikipedia.org/wiki/Telling_the_bees",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-07-04",
+    "title": "How the RWKV language model works",
+    "url": "https://johanwind.github.io/2023/03/23/rwkv_details.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-28",
+    "title": "GitHub: misprit7/WireHead, Efficient reimplementation of the Terraria wiring system",
+    "url": "https://github.com/misprit7/WireHead",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-28",
+    "title": "Co-host: how (not) to write a pipeline, @tef",
+    "url": "https://cohost.org/tef/post/1764930-how-not-to-write-a",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-27",
+    "title": "FP2, Fully in-Place Functional Programming",
+    "url": "https://www.microsoft.com/en-us/research/publication/fp2-fully-in-place-functional-programming/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-26",
+    "title": "Spritely: Petnames, A humane approach to secure decentralized naming",
+    "url": "https://files.spritely.institute/papers/petnames.html",
+    "note": "Petnames are very cool. We start with identifiers (IDs) that are globally unique and decentralized (e.g. Public Keys, UUIDs). Like a contact book, people can assign a local human-meaningful name to an ID. They can also choose to share a network name for that resource with their contacts. When a name is encountered, we first try displaying a local name (\"Jane\"), then a network name \"Alyssa → Mom\", then the name suggested by the originator of the ID, with a way to mark that it is untrusted (\"??? Dr. Jane\").",
+    "used": false
+  },
+  {
+    "date": "2023-06-26",
+    "title": "Oils Is Exterior-First (Code, Text, and Structured Data)",
+    "url": "https://www.oilshell.org/blog/2023/06/ysh-design.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-25",
+    "title": "GitHub: XingangPan/DragGAN, Official Code for DragGAN",
+    "url": "https://github.com/XingangPan/DragGAN",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-24",
+    "title": "Yihong Zhang: The E-graph extraction problem is NP-complete",
+    "url": "https://effect.systems/blog/egraph-extraction.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-23",
+    "title": "Combinatorial coordinates for the aperiodic Spectre tiling",
+    "url": "https://www.chiark.greenend.org.uk/~sgtatham/quasiblog/aperiodic-spectre/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-22",
+    "title": "Apple Vision Pro, Part 3, Why It May Be Lousy for Watching Movies On a Plane",
+    "url": "https://kguttag.com/2023/06/21/apple-vision-pro-part-3-why-it-may-be-lousy-for-watching-movies-on-a-plane/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-22",
+    "title": "Butterick: Typography 2024, For America's Best",
+    "url": "https://practicaltypography.com/typography-2024.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-21",
+    "title": "A case for toe socks",
+    "url": "https://herman.bearblog.dev/a-case-for-toe-socks/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-06-21",
+    "title": "Arxiv: Deep reinforcement learning from human preferences",
+    "url": "https://arxiv.org/abs/1706.03741",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-28",
+    "title": "Matrix multiplication with Clash",
+    "url": "https://clash-lang.org/blog/0001-matrix-multiplication/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "Architecture of SQLite introduction",
+    "url": "https://sqlite.org/arch.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "Apollo 11 Guidance Computer (AGC) vs USB-C Chargers",
+    "url": "https://forrestheller.com/Apollo-11-Computer-vs-USB-C-chargers.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "Learn WebGPU for C++, Hello Triangle",
+    "url": "https://eliemichel.github.io/LearnWebGPU/basic-3d-rendering/hello-triangle.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "Rust Analyzer, The Heart of a Language Server",
+    "url": "https://rust-analyzer.github.io/blog/2023/12/26/the-heart-of-a-language-server.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "GitHub: tigerbeetle/tigerbeetle",
+    "url": "https://github.com/tigerbeetle/tigerbeetle",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "The Ladybird browser project",
+    "url": "https://ladybird.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "LRB: A National Evil, Jonah Goodman on the curse of the goitre in Switzerland",
+    "url": "https://www.lrb.co.uk/the-paper/v45/n23/jonah-goodman/a-national-evil",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "ArsTechnica: 4-year campaign backdoored iPhones using possibly the most advanced exploit ever",
+    "url": "https://arstechnica.com/security/2023/12/exploit-used-in-mass-iphone-infection-campaign-targeted-secret-hardware-feature/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "4 billion if statements",
+    "url": "https://andreasjhkarlsson.github.io/jekyll/update/2023/12/27/4-billion-if-statements.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "TwoWrongs: John the Toolmaker",
+    "url": "https://entropicthoughts.com/john-the-toolmaker",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-27",
+    "title": "Visness: I made JSX for Lua, because I hate static sites",
+    "url": "https://bvisness.me/luax/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-26",
+    "title": "Copy-and-patch compilation, a fast compilation algorithm for high-level languages and bytecode",
+    "url": "https://dl.acm.org/doi/10.1145/3485513",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-26",
+    "title": "Stuffwithstuff: Representing Heterogeneous Data",
+    "url": "https://journal.stuffwithstuff.com/2023/08/04/representing-heterogeneous-data/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-26",
+    "title": "Socket Supply Co",
+    "url": "https://socketsupply.co/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-25",
+    "title": "Ruby 3.3",
+    "url": "https://www.ruby-lang.org/en/news/2023/12/25/ruby-3-3-0-released/",
+    "note": "> The one thing I genuinely don't understand is why there is no single task queue that works across ruby and python. [...] a simple task queue that has a unified storage format across both is a better way to connect ruby (rails) based with the ml stack.\n>\n> — rjzzleep on HN\n\nCool project: a language agnostic (rather polyglot) task queue.",
+    "used": false
+  },
+  {
+    "date": "2023-12-25",
+    "title": "Snaptoken, build your own editor",
+    "url": "https://viewsourcecode.org/snaptoken/kilo/index.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-25",
+    "title": "Building The Next Web",
+    "url": "https://berjon.com/next-web/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-25",
+    "title": "Web Tiles",
+    "url": "https://berjon.com/web-tiles/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-24",
+    "title": "Attention, Transformers, in Neural Network Large Language Models",
+    "url": "http://bactra.org/notebooks/nn-attention-and-transformers.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-24",
+    "title": "Superintelligence, The Idea That Eats Smart People",
+    "url": "https://idlewords.com/talks/superintelligence.htm",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-23",
+    "title": "Language Model Sketchbook, or Why I Hate Chatbots",
+    "url": "https://maggieappleton.com/lm-sketchbook",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-23",
+    "title": "Sqlime",
+    "url": "https://sqlime.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-23",
+    "title": "A decade of developing a programming language",
+    "url": "https://yorickpeterse.com/articles/a-decade-of-developing-a-programming-language/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-23",
+    "title": "Hyper hyper space",
+    "url": "https://www.hyperhyperspace.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-22",
+    "title": "Klabnik: Rust's Golden Rule",
+    "url": "https://steveklabnik.com/writing/rusts-golden-rule/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-22",
+    "title": "The Quest for Netflix on Asahi Linux",
+    "url": "https://www.da.vidbuchanan.co.uk/blog/netflix-on-asahi.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-22",
+    "title": "Substack: Live from the hate march",
+    "url": "https://samkriss.substack.com/p/live-from-the-hate-march",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-22",
+    "title": "The dark side of inlining and monomorphization",
+    "url": "https://nickb.dev/blog/the-dark-side-of-inlining-and-monomorphization/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-22",
+    "title": "groqlabs",
+    "url": "https://wow.groq.com/groq-labs/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-22",
+    "title": "Go 1.22: Interactive release notes",
+    "url": "https://antonz.org/go-1-22/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "a very occasional diary, Nikita Danilov, 3-lisp, an infinite tower of meta-circular interpreters",
+    "url": "https://cofault.com/3-lisp.html",
+    "note": "I had this goal of allowing for language zero to be embedded in ilk. I should look into lisp-3 and meta-interpreters to see if I can make language zero the object-level code for ilk.",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "Tom Preston-Werner, Blogging Like a Hacker",
+    "url": "https://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "Stratechery: AI, NIL, and Zero Trust Authenticity",
+    "url": "https://stratechery.com/2023/ai-nil-and-zero-trust-authenticity/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "The Loneliness of the Mid-Level Vimmer",
+    "url": "https://johnwhiles.com/posts/vimming-pains",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "How I have fun with Rust",
+    "url": "https://thoughtbot.com/blog/how-i-have-fun-with-rust",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "Building the fastest Lua interpreter automatically",
+    "url": "https://sillycross.github.io/2022/11/22/2022-11-22/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "Klabnik: Memory Safety is a Red Herring",
+    "url": "https://steveklabnik.com/writing/memory-safety-is-a-red-herring/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "GpuOpen, Occupancy explained",
+    "url": "https://gpuopen.com/learn/occupancy-explained/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-21",
+    "title": "Most 16-year-olds don't have servers in their rooms",
+    "url": "https://varun.ch/server",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-20",
+    "title": "Arxiv: 2312.11514",
+    "url": "https://arxiv.org/abs/2312.11514",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-20",
+    "title": "Switchyard: The Closing of the Bulgarian Frontier, Dimiter Kernarov",
+    "url": "https://www.switchyardmag.com/issue-1/bulgarianfrontier",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-19",
+    "title": "Stratechery: Google's True Moonshot",
+    "url": "https://stratechery.com/2023/googles-true-moonshot/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-19",
+    "title": "Basic Gerrit Walkthrough, For GitHub Users",
+    "url": "https://gerrit-review.googlesource.com/Documentation/intro-gerrit-walkthrough-github.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-19",
+    "title": "Colliding Secure Hashes",
+    "url": "https://www.da.vidbuchanan.co.uk/blog/colliding-secure-hashes.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-18",
+    "title": "Church vs Curry Types",
+    "url": "https://ericnormand.me/article/church-vs-curry-types",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-18",
+    "title": "Arxiv: 2312.01680, With Great Humor Comes Great Developer Engagement",
+    "url": "https://arxiv.org/abs/2312.01680",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-18",
+    "title": "Python, C, Assembly, Faster Cosine Similarity",
+    "url": "https://ashvardanian.com/posts/python-c-assembly-comparison/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-18",
+    "title": "Exhaustive Gleam, Gleam v0.33 released",
+    "url": "https://gleam.run/news/v0.33-exhaustive-gleam/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-17",
+    "title": "GitHub: wangyi-fudan/wyhash",
+    "url": "https://github.com/wangyi-fudan/wyhash",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-17",
+    "title": "Luu: Files are Hard",
+    "url": "https://danluu.com/file-consistency/",
+    "note": "Syscalls are not guaranteed to be ordered or atomic, especially with respect to IO. Fsync isn't even guaranteed to flush to disk. Hardware memory ordering semantics is generally well-specified, but most filesystems built on top throw all this out the window.",
+    "used": false
+  },
+  {
+    "date": "2023-12-17",
+    "title": "Luu: Big companies v startups",
+    "url": "https://danluu.com/startup-tradeoffs/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-17",
+    "title": "Joel: My First BillG Review",
+    "url": "https://www.joelonsoftware.com/2006/06/16/my-first-billg-review/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-17",
+    "title": "Sourcehut: technomancy/fennel",
+    "url": "https://git.sr.ht/~technomancy/fennel",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-17",
+    "title": "Notgull: Evaluating new software forges",
+    "url": "https://notgull.net/finding-a-forge/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-16",
+    "title": "Pipe Dreams, the life and times of Yahoo pipes",
+    "url": "https://retool.com/blog/pipe-dreams-the-life-and-times-of-yahoo-pipes",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-16",
+    "title": "Brooker: Histogram vs eCDF",
+    "url": "https://brooker.co.za/blog/2022/09/02/ecdf.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-16",
+    "title": "Usenix: VectorVisor, A Binary Translation Scheme for Throughput-Oriented GPU Acceleration",
+    "url": "https://www.usenix.org/conference/atc23/presentation/ginzburg",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-16",
+    "title": "Brooker: Distributed Consensus, Beating Impossibility with Probability One",
+    "url": "https://brooker.co.za/blog/2014/01/12/ben-or.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-16",
+    "title": "Crates: raptorq",
+    "url": "https://crates.io/crates/raptorq",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2023-12-16",
+    "title": "GitHub: catid/wirehair, O(N) Fountain Code for Large Data",
+    "url": "https://github.com/catid/wirehair",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-29",
+    "title": "Arxiv: 2402.17764, The Era of 1-bit LLMs, All Large Language Models are in 1.58 Bits",
+    "url": "https://arxiv.org/abs/2402.17764",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-29",
+    "title": "Reactor, The Muslimness of Dune, A Close Reading of Appendix II The Religion of Dune",
+    "url": "https://reactormag.com/the-muslimness-of-dune-a-close-reading-of-appendix-ii-the-religion-of-dune/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-28",
+    "title": "FrostKiwi: Unreasonably effective, How video games use LUTs and how you can too",
+    "url": "https://blog.frost.kiwi/WebGL-LUTS-made-simple/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-27",
+    "title": "GitHub: tigerbeetle/tigerbeetle/docs/TIGER_STYLE.md",
+    "url": "https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-27",
+    "title": "Aeon: Ant Geopolitics",
+    "url": "https://longreads.com/2024/02/19/ant-geopolitics/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-26",
+    "title": "CSS code quality",
+    "url": "https://www.projectwallace.com/css-code-quality",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-26",
+    "title": "Font Review Journal, Windsor, Designed by Eleisha Pechey",
+    "url": "https://fontreviewjournal.com/windsor/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-26",
+    "title": "NewYorker: What a Major Solar Storm Could Do to Our Planet",
+    "url": "https://www.newyorker.com/magazine/2024/03/04/what-a-major-solar-storm-could-do-to-our-planet",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-25",
+    "title": "Withoutboats: Asynchronous clean-up, Rust",
+    "url": "https://without.boats/blog/asynchronous-clean-up/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-25",
+    "title": "Peergos, private online space, the next web",
+    "url": "https://peergos.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-24",
+    "title": "StreetPass, Find your people on Mastodon",
+    "url": "https://streetpass.social/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-23",
+    "title": "Stable Diffusion 3",
+    "url": "https://stability.ai/news/stable-diffusion-3",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-23",
+    "title": "The Blag, Simple Refinement Types for OCaml",
+    "url": "https://blag.cedeela.fr/simple-refinement-types-for-ocaml/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-22",
+    "title": "GitHub: cloudflare/circl, Cloudflare Interoperable Reusable Cryptographic Library",
+    "url": "https://github.com/cloudflare/circl",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-22",
+    "title": "fal.ai, AI Inference faster than you can type",
+    "url": "https://fal.ai/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-22",
+    "title": "Tonsky: Javascript bloat in 2024",
+    "url": "https://tonsky.me/blog/js-bloat/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-21",
+    "title": "Coding Horror, the dancing bunnies problem",
+    "url": "https://blog.codinghorror.com/the-dancing-bunnies-problem/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-20",
+    "title": "Cohost: @sirocyl, I broke IKEA",
+    "url": "https://cohost.org/sirocyl/post/2891449-i-broke-ikea",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-20",
+    "title": "100 things you can do on your personal website",
+    "url": "https://jamesg.blog/2024/02/19/personal-website-ideas",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-19",
+    "title": "Orange Kiwi, Optimization Example, Mandelbrot Set, Part 1",
+    "url": "https://www.orange-kiwi.com/posts/optimization-example-mandelbrot-part-1/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-18",
+    "title": "SPAD: Spatially Aware Multiview Diffusers",
+    "url": "https://yashkant.github.io/spad/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-18",
+    "title": "Bergamot, Exploring Programming Language Inference Rules",
+    "url": "https://danilafe.com/blog/bergamot/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-17",
+    "title": "KGOnTech, Apple Vision Pro's Image Quality Issues, First Impressions",
+    "url": "https://kguttag.com/2024/02/16/apple-vision-pros-avp-image-quality-issues-first-impressions/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-17",
+    "title": "Mathematical and Puzzle fonts and typefaces",
+    "url": "https://erikdemaine.org/fonts/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-16",
+    "title": "Guix: The Full-Source Bootstrap, building from source all the way down",
+    "url": "https://guix.gnu.org/en/blog/2023/the-full-source-bootstrap-building-from-source-all-the-way-down/",
+    "note": "Guix is frocking cool mon. Methinks I shall try it over NixOS.",
+    "used": false
+  },
+  {
+    "date": "2024-02-15",
+    "title": "Calendar Versioning",
+    "url": "https://calver.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-14",
+    "title": "GitHub: Stability-AI/StableCascade",
+    "url": "https://github.com/Stability-AI/StableCascade",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-14",
+    "title": "The story of Signature Plastics, keyboard keycap manufacturer",
+    "url": "https://kbd.news/The-story-of-Signature-Plastics-2271.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-13",
+    "title": "Jascha's blog, Neural network training makes beautiful fractals",
+    "url": "https://sohl-dickstein.github.io/2024/02/12/fractal.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-13",
+    "title": "Maybe everything is a coroutine",
+    "url": "https://adam.nels.onl//blog/maybe-everything-is-a-coroutine/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-11",
+    "title": "Mach Zig Game Engine",
+    "url": "https://machengine.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-09",
+    "title": "Quanta: Scientists find optimal balance of data storage and time",
+    "url": "https://www.quantamagazine.org/scientists-find-optimal-balance-of-data-storage-and-time-20240208/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-08",
+    "title": "Brooker: The power of two random choices",
+    "url": "https://brooker.co.za/blog/2012/01/17/two-random.html",
+    "note": "Nice tip: When load balancing, with a delay to know how busy each server is, choose one of the two least-busy servers at random. This avoids herding but takes real-world info into account.",
+    "used": false
+  },
+  {
+    "date": "2024-02-08",
+    "title": "Acko: I is for Intent, Why your app turned into spaghetti",
+    "url": "https://acko.net/blog/i-is-for-intent/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-08",
+    "title": "Scalable High-Resolution Pixel-Space Image Synthesis with Hourglass Diffusion Transformers",
+    "url": "https://stability.ai/research/hourglass-diffusion-transformer-high-resolution-image-synthesis",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-08",
+    "title": "Youtube: DEFCON 17, That Awesome Time I Was Sued For Two Billion Dollars, Jason Scott until 16:53",
+    "url": "https://ascii.textfiles.com/archives/2364",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-08",
+    "title": "Crates: tap, v1.0.1, Generic extensions for tapping values in Rust",
+    "url": "https://crates.io/crates/tap",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-07",
+    "title": "Huggingface: Explaining the SDXL latent space",
+    "url": "https://huggingface.co/blog/TimothyAlexisVass/explaining-the-sdxl-latent-space",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-07",
+    "title": "Garbage Collection Without Unsafe Code, Rust",
+    "url": "https://fitzgen.com/2024/02/06/safe-gc.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-06",
+    "title": "Vesuvius Challenge 2023 Grand Prize awarded, we can read the first scroll!",
+    "url": "https://scrollprize.org/grandprize",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-05",
+    "title": "Sandspiel, browser sand toy playground",
+    "url": "https://sandspiel.club/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-05",
+    "title": "Everyday Data Science, A/B Testing, An interactive look at Thompson sampling",
+    "url": "https://everyday-data-science.tigyog.app/a-b-testing",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-03",
+    "title": "Zig Language Reference, to 11 Arrays",
+    "url": "https://ziglang.org/documentation/master/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-02",
+    "title": "Sympolymathesy: jj init, What if we actually could replace Git, Jujutsu might give us a real shot",
+    "url": "https://v5.chriskrycho.com/essays/jj-init",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-01",
+    "title": "GitHub: AccessKit/accesskit, UI accessibility infrastructure",
+    "url": "https://github.com/AccessKit/accesskit",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-02-01",
+    "title": "The Theory of Concatenative Combinators",
+    "url": "http://tunes.org/~iepos/joy.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-31",
+    "title": "Substack: Thomas Masencal, The Apparent Simplicity of RGB Rendering",
+    "url": "https://thomasmansencal.substack.com/p/the-apparent-simplicity-of-rgb-rendering",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-31",
+    "title": "Neal: Infinite Craft",
+    "url": "https://neal.fun/infinite-craft/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-30",
+    "title": "Substack: How to deal with a Cease and Desist letter form Big tech",
+    "url": "https://directing.attention.to/p/how-to-deal-with-receiving-a-cease",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-30",
+    "title": "The original magic Emacs garbage collection hack",
+    "url": "https://github.com/emacsmirror/gcmh",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-29",
+    "title": "v-fonts.com, Variable Fonts",
+    "url": "https://v-fonts.com/",
+    "note": "Golos UI Variable font is cool.",
+    "used": false
+  },
+  {
+    "date": "2024-01-29",
+    "title": "Syntax across languages, one big page",
+    "url": "https://rigaux.org/language-study/syntax-across-languages.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-28",
+    "title": "Matklad: On Modularity of Lexical Analysis",
+    "url": "https://matklad.github.io/2023/08/01/on-modularity-of-lexical-analysis.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-28",
+    "title": "Ted Kaminski, Design Duality and the Expression Problem",
+    "url": "https://www.tedinski.com/2018/02/27/the-expression-problem.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-27",
+    "title": "The Hylo Programming Language, Mutable Value Semantics",
+    "url": "https://hylo-lang.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-27",
+    "title": "The Flix Programming Language",
+    "url": "https://flix.dev/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-26",
+    "title": "Portable EPUB",
+    "url": "https://mjtsai.com/blog/2024/01/30/portable-epubs/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-25",
+    "title": "GitHub: ollama/ollama",
+    "url": "https://github.com/ollama/ollama",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-01-25",
+    "title": "Pause and Resume WebAssembly with Binaryen's Asyncify",
+    "url": "https://kripken.github.io/blog/wasm/2019/07/16/asyncify.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-30",
+    "title": "History Today, Life and Land in Anglo-Saxon England",
+    "url": "https://www.historytoday.com/archive/out-margins/life-and-land-anglo-saxon-england",
+    "note": "> The word this poet uses for 'temporary' is læne, an evocative word frequently found in Old English literature. Though usually translated as 'transient' or 'fleeting', its literal meaning is more specific: it is related to modern English loan, so the real sense is that something læne has been 'lent', and can be taken back again.",
+    "used": false
+  },
+  {
+    "date": "2024-04-30",
+    "title": "Quacker News",
+    "url": "https://quackernews.com/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-29",
+    "title": "Text showdown, Gap Buffers vs Ropes",
+    "url": "https://coredumped.dev/2023/08/09/text-showdown-gap-buffers-vs-ropes/",
+    "note": "\"Gap buffers are bad with multiple cursors\" Ok, why not have multiple gaps? Am I retarded?",
+    "used": false
+  },
+  {
+    "date": "2024-04-29",
+    "title": "Ryan Norbauer, Keyboard Academy, the Stabilizer Problem",
+    "url": "https://ryan.norbauer.com/journal/the-stabilizer-problem/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-28",
+    "title": "The Voyage of Magellan, Chapter 5, Underway",
+    "url": "https://analog-antiquarian.net/2024/04/26/chapter-5-underway/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-27",
+    "title": "GitHub: lodefmode/moviecart, Software and Hardware to create full length color movie + audio cartridges for stock Atari 2600",
+    "url": "https://github.com/lodefmode/moviecart",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-26",
+    "title": "Basecamp's new etiquette regarding societal politics at work",
+    "url": "https://world.hey.com/dhh/basecamp-s-new-etiquette-regarding-societal-politics-at-work-b44bef69",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-25",
+    "title": "Nonint: Compute Multipliers",
+    "url": "https://nonint.com/2023/11/05/compute-multipliers/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-25",
+    "title": "Literary Studies, Descartes's Stove",
+    "url": "https://bloomsburyliterarystudiesblog.com/2024/03/descartess-stove.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-25",
+    "title": "GitHub: alexpusch/rust-magic-patterns/rust-stream-visualized/Readme.md, Rust Stream API visualized and exposed",
+    "url": "https://github.com/alexpusch/rust-magic-patterns/blob/master/rust-stream-visualized/Readme.md",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-24",
+    "title": "Extensible Language Support in Zed, Part 1",
+    "url": "https://zed.dev/blog/language-extensions-part-1",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-24",
+    "title": "Vale: Borrow checking, RC, GC, and the Eleven Other Memory Safety Approaches",
+    "url": "https://verdagon.dev/grimoire/grimoire",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-23",
+    "title": "Wikipedia: Pieter Hintjens",
+    "url": "https://en.wikipedia.org/wiki/Pieter_Hintjens",
+    "note": "I just learned about Pieter Hintjens. A true titan. I learned he passed away in 2016. I wish I could have met him.",
+    "used": false
+  },
+  {
+    "date": "2024-04-23",
+    "title": "1961 Goldsboro B-52 crash",
+    "url": "https://en.wikipedia.org/wiki/1961_Goldsboro_B-52_crash",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-22",
+    "title": "Chapter 6, The ZeroMQ Community",
+    "url": "https://zguide.zeromq.org/docs/chapter6/",
+    "note": "> We're not really angels, nor devils, just self-interested winners descended from a billion-year unbroken line of winners.\n>\n> — ZMQ",
+    "used": false
+  },
+  {
+    "date": "2024-04-21",
+    "title": "WithoutBoats: Coroutines and effects",
+    "url": "https://without.boats/blog/coroutines-and-effects/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-20",
+    "title": "Nuberodesign, save changes before quitting?",
+    "url": "https://www.nubero.ch/blog/004/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-19",
+    "title": "GitHub: spawnmason/randar-explanation, exploit for Minecraft which uses LLL lattice reduction to crack random number generator state",
+    "url": "https://github.com/spawnmason/randar-explanation",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-19",
+    "title": "Medium: Porting 8-bit Sonic 2 to the TI-84+ CE",
+    "url": "https://medium.com/@grubbycoder/porting-8-bit-sonic-2-to-the-ti-84-ce-7ec99f9981c9",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-18",
+    "title": "Luu: Normalization of deviance",
+    "url": "https://danluu.com/wat/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-17",
+    "title": "Tonsky: Hardest Problem in Computer Science, Centering Things",
+    "url": "https://tonsky.me/blog/centering/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-16",
+    "title": "ZeroWind: Color, From Hexcodes to Eyeballs",
+    "url": "https://jamie-wong.com/post/color/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-16",
+    "title": "Antirez: Writing an editor in less than 1000 lines of code, just for fun",
+    "url": "https://antirez.com/news/108",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-16",
+    "title": "Paul Bourke, L-System Manual",
+    "url": "https://paulbourke.net/fractals/lsys/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-15",
+    "title": "GitHub: 1fishe2fishe/EXODUS, run TempleOS in userspace",
+    "url": "https://github.com/1fishe2fishe/EXODUS",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-14",
+    "title": "Bitter Southerner, Obituary for a Quiet Life",
+    "url": "https://bittersoutherner.com/feature/2023/obituary-for-a-quiet-life",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-14",
+    "title": "wooo.sh, Computing Adler32 Checksums at 41 GB/s",
+    "url": "https://wooo.sh/adler32.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-13",
+    "title": "BenHoyt: Go performance from version 1.0 to 1.22",
+    "url": "https://benhoyt.com/writings/go-version-performance-2024/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-12",
+    "title": "Oxide and Friends, Discovering the XZ backdoor with Andres Freund",
+    "url": "https://oxide-and-friends.transistor.fm/episodes/discovering-the-xz-backdoor-with-andres-freund",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-11",
+    "title": "Fixing a bug with C++'s >>= operator",
+    "url": "https://astrid.tech/2024/03/19/1/maybe-monad-cpp/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-11",
+    "title": "A Fairly Fast Fibonacci Function",
+    "url": "https://www.oranlooney.com/post/fibonacci/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-11",
+    "title": "Lua Bugs, list of all bugs found in each release of Lua",
+    "url": "https://www.lua.org/bugs.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-11",
+    "title": "Fang-Pen, Elliptic Curve Cryptography Explained",
+    "url": "https://medium.com/@fangpenlin/elliptic-curve-cryptography-explained-f3e7ba394a18",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-10",
+    "title": "Minus Zero, Flattening Bézier Curves and Arcs",
+    "url": "https://minus-ze.ro/posts/flattening-bezier-curves-and-arcs/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-10",
+    "title": "Verge: Kobo announces its first color e-readers",
+    "url": "https://www.theverge.com/24100979/kobo-libra-colour-clara-colour-e-reader-kindle-e-ink",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-10",
+    "title": "Marginalia: Deep Bug",
+    "url": "https://www.marginalia.nu/log/a_104_dep_bug/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-10",
+    "title": "GitHub: fsspec/filesystem_spec",
+    "url": "https://github.com/fsspec/filesystem_spec",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-09",
+    "title": "Eric Portis, Okay, Color Spaces",
+    "url": "https://ericportis.com/posts/2024/okay-color-spaces/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-09",
+    "title": "How to think about HTML responsive images",
+    "url": "https://danburzo.ro/responsive-images-html/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-09",
+    "title": "Cliffle: The server chose violence",
+    "url": "https://cliffle.com/blog/hubris-reply-fault/",
+    "note": "> It might be a good idea to make the limits explicit, and design software around them. That gives predictable performance, and allows the user to manually chunk larger requests in manageable pieces.\n>\n> — matklad\n\nThis is the approach I want to take with Affetto. Acquire all resources up-front, with limits, and rerun incrementally. Always handle the case when limits (memory, timeout, etc.) are reached. Just don't make it hard to explore and debug.",
+    "used": false
+  },
+  {
+    "date": "2024-04-09",
+    "title": "GitHub: tidwall/neco, Concurrency library for C, coroutines",
+    "url": "https://github.com/tidwall/neco",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-09",
+    "title": "sunfishcode, WASI 0.2 Launched",
+    "url": "https://blog.sunfishcode.online/wasi-0-2/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-09",
+    "title": "Matklad: Window, Live, constant-time grep",
+    "url": "https://matklad.github.io/2024/02/10/window-live-constant-time-grep.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-08",
+    "title": "The best WebAssembly runtime may be no runtime at all",
+    "url": "https://00f.net/2023/12/11/webassembly-compilation-to-c/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-07",
+    "title": "Joe Armstrong, Why do we need modules at all?",
+    "url": "https://erlang.org/pipermail/erlang-questions/2011-May/058768.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-07",
+    "title": "Solving Advent of Code 23 Aplenty by Compiling",
+    "url": "https://abhinavsarkar.net/posts/compiling-aoc23-aplenty/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-06",
+    "title": "qntm: the assist",
+    "url": "https://qntm.org/assist",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-05",
+    "title": "Mayerowitz, Mario Meets Pareto",
+    "url": "https://www.mayerowitz.io/blog/mario-meets-pareto",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-04",
+    "title": "Zoomer Tries RSS, In Praise of Yarr",
+    "url": "https://tudorr.ro/blog/2024-04-04-zoomer-tries-rss/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-03",
+    "title": "ParentheticallySpeaking, DrScheme in Space",
+    "url": "https://parentheticallyspeaking.org/articles/drscheme-in-space/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-04-03",
+    "title": "Google open source, Jpegli, advanced jpeg coding library",
+    "url": "https://opensource.googleblog.com/2024/04/introducing-jpegli-new-jpeg-coding-library.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-05",
+    "title": "Gwern: Review Of The Quantum Thief Trilogy",
+    "url": "https://gwern.net/review/quantum-thief",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-05",
+    "title": "Alyssa Rosenzweig, Vulkan 1.3 on the M1 in 1 month",
+    "url": "https://rosenzweig.io/blog/vk13-on-the-m1-in-1-month.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-04",
+    "title": "Wikipedia: One Thousand and One Nights",
+    "url": "https://en.wikipedia.org/wiki/One_Thousand_and_One_Nights",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-04",
+    "title": "Emil Dziewanowski, Technical Artist, Flat Planets",
+    "url": "https://emildziewanowski.com/flat-planets/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-03",
+    "title": "Skeeto: Raw Linux Threads via System Calls",
+    "url": "https://nullprogram.com/blog/2015/05/15/",
+    "note": "So it turns out that to spawn a thread we just mmap some stack space in the current process then call the clone system call. That makes my life easier.",
+    "used": false
+  },
+  {
+    "date": "2024-06-03",
+    "title": "Yingzi, If English was written like Chinese, Mark Rosenfelder",
+    "url": "https://www.zompist.com/yingzi/yingzi.htm",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-03",
+    "title": "Tri Dao, State Space Duality, Mamba-2",
+    "url": "https://tridao.me/blog/2024/mamba2-part1-model/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-02",
+    "title": "How to Copy a File From a 30-year-old Laptop",
+    "url": "https://www.unterminated.com/random-fun/how-to-copy-a-file-from-a-30-year-old-laptop",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-02",
+    "title": "A baseline scrapscript compiler",
+    "url": "https://bernsteinbear.com/blog/scrapscript-baseline/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-06-01",
+    "title": "Orthogonal, by Greg Egan",
+    "url": "https://www.gregegan.net/ORTHOGONAL/ORTHOGONAL.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-31",
+    "title": "ddvault: Writing a Unix clone in about a month",
+    "url": "https://drewdevault.com/2024/05/24/2024-05-24-Bunnix.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-30",
+    "title": "Database Design for Google Calendar, a tutorial",
+    "url": "https://www.yellowduck.be/posts/database-design-for-google-calendar-a-tutorial",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-30",
+    "title": "Donating hundreds of forks to the dining hall",
+    "url": "https://ben.page/forks",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-29",
+    "title": "Noahpinion: Happy fun Cold War 2 update",
+    "url": "https://www.noahpinion.blog/p/happy-fun-cold-war-2-update",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-28",
+    "title": "Terminal Text Effects",
+    "url": "https://github.com/ChrisBuilds/terminaltexteffects",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-28",
+    "title": "Bytecode Alliance, Component Model, SIG Documentation",
+    "url": "https://component-model.bytecodealliance.org/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-27",
+    "title": "Controlling the Taylor Swift Eras Tour wristbands with Flipper Zero",
+    "url": "https://blog.jgc.org/2024/05/controlling-taylor-swift-eras-tour.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-27",
+    "title": "TwoWrongs: Generating Almost Normally Distributed Values",
+    "url": "https://two-wrongs.com/generating-almost-normally-distributed-values.html",
+    "note": "If you have a uniform random number p, you can approximate a normal distribution N(μ, σ) via:\n\nx = μ + 0.55 * σ * log(p / (1 - p))\n\nWhere log is the natural log. The main difference is slightly fatter tails.",
+    "used": false
+  },
+  {
+    "date": "2024-05-26",
+    "title": "Andrew Chan, Diffusion Models",
+    "url": "https://andrewkchan.dev/posts/diffusion.html",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-26",
+    "title": "Toshi Omagari, Comic Code, Font",
+    "url": "https://tosche.net/fonts/comic-code",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-25",
+    "title": "Leafo, Lápis, a web framework for Lua",
+    "url": "https://leafo.net/lapis/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-23",
+    "title": "Daylight Computer, 60fps e-paper tablet",
+    "url": "https://daylightcomputer.com/",
+    "note": "The daylight computer looks pretty cool!",
+    "used": false
+  },
+  {
+    "date": "2024-05-22",
+    "title": "vu128, Efficient variable-length integers",
+    "url": "https://john-millikin.com/vu128-efficient-variable-length-integers",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-20",
+    "title": "Amy Goodchild, Coding My Handwriting",
+    "url": "https://www.amygoodchild.com/blog/cursive-handwriting-in-javascript",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-19",
+    "title": "The Digital Antiquarian, Riven",
+    "url": "https://www.filfre.net/2024/05/riven/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-17",
+    "title": "Jike, The obscure social media app beloved by China's tech scene",
+    "url": "https://restofworld.org/2023/china-tech-workers-investors-founders-app/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-15",
+    "title": "Jepsen, Datomic Pro 1.0.7075",
+    "url": "https://jepsen.io/analyses/datomic-pro-1.0.7075",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-05",
+    "title": "Substack: construction physics, How to Build a $20 Billion Semiconductor Fab",
+    "url": "https://www.construction-physics.com/p/how-to-build-a-20-billion-semiconductor",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-04",
+    "title": "PHP Doesn't Suck Anymore",
+    "url": "https://developerjoy.co/blog/php-doesnt-suck-anymore",
+    "note": "Robert Nystrom once told me that there is a market for a language that compiles to PHP. Interesting, innit?",
+    "used": false
+  },
+  {
+    "date": "2024-05-03",
+    "title": "Substack: abl, Building a Rocket Engine from Scratch",
+    "url": "https://blog.ablspacesystems.com/p/building-e2",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-03",
+    "title": "CONS Should Not CONS Its Arguments, Part II, Cheney on the M.T.A.",
+    "url": "https://dl.acm.org/doi/10.1145/214448.214454",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-02",
+    "title": "Github: GistNoesis/FourierKAN",
+    "url": "https://github.com/GistNoesis/FourierKAN",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-02",
+    "title": "executable.gallery",
+    "url": "https://executable.graphics/",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-02",
+    "title": "GitHub: floooh/sokol, minimal cross-platform standalone C headers",
+    "url": "https://github.com/floooh/sokol",
+    "note": "",
+    "used": false
+  },
+  {
+    "date": "2024-05-01",
+    "title": "Bellard: JSLinux",
+    "url": "https://bellard.org/jslinux/",
+    "note": "",
+    "used": false
+  }
+]

@@ -7,10 +7,15 @@ Usage:
     ./post daily [title]
 """
 
+import json
+import random
 import sys
 import os
 from datetime import date
 from pathlib import Path
+
+REPO = Path(__file__).parent
+READINGS_JSON = REPO / "readings.json"
 
 
 def get_date_slug():
@@ -59,8 +64,38 @@ artbit = ""
     print(f"Created: {filepath}")
 
 
+def pick_reading():
+    """Pick a random unused reading, mark as used, return HTML block."""
+    if not READINGS_JSON.exists():
+        print("readings.json not found.", file=sys.stderr)
+        return None
+
+    entries = json.loads(READINGS_JSON.read_text())
+    unused = [(i, e) for i, e in enumerate(entries) if not e["used"]]
+
+    if not unused:
+        print("No unused readings left!", file=sys.stderr)
+        return None
+
+    idx, entry = random.choice(unused)
+
+    parts = ['<div class=boxed>', '']
+    parts.append(f'**Daily reading: [{entry["title"]}]({entry["url"]})**')
+    if entry["note"]:
+        parts.append("")
+        parts.append(entry["note"])
+    parts.append('')
+    parts.append('</div>')
+
+    # Mark as used
+    entries[idx]["used"] = True
+    READINGS_JSON.write_text(json.dumps(entries, indent=2, ensure_ascii=False) + "\n")
+
+    return "\n".join(parts)
+
+
 def create_daily_post(title=None):
-    """Create a new daily post."""
+    """Create a new daily post with a random reading."""
     today = get_date_slug()
 
     if not title:
@@ -73,15 +108,23 @@ def create_daily_post(title=None):
         print(f"Error: {filepath} already exists")
         sys.exit(1)
 
+    reading = pick_reading()
+
     content = f"""+++
 title = "{title}"
 date = {today}
 +++
 
 """
+    if reading:
+        content += reading + "\n\n"
 
     filepath.write_text(content)
     print(f"Created: {filepath}")
+    if reading and READINGS_JSON.exists():
+        entries = json.loads(READINGS_JSON.read_text())
+        unused = sum(1 for e in entries if not e["used"])
+        print(f"Included a random reading. {unused}/{len(entries)} remaining.")
 
 
 def main():
