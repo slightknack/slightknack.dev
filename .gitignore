@@ -1,2 +1,6 @@
+/.*
+!/.github
+!/.gitignore
+
 .DS_Store
 public
