@@ -51,6 +51,8 @@ I also have accounts on:
 - Discord: `slightknack`
 - *... and so on*
 
+Advice: programs should be built from small, composable parts that you understand and control. Find where an N×M problem hides internal structure, and factor it into a N×1 and 1×M, make the 1 as small and clear as possible.
+
 <!-- For a full list of my accounts, keypairs, and domains, check [elsewhere](https://elsewhere.isaac.sh). -->
 
 <style>

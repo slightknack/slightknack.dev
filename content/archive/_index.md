@@ -1,7 +1,7 @@
 +++
 title = "Archive"
 template = "section-archive.html"
-weight = 2
+weight = 4
 
 [extra]
 artbit = "1_shoebox.png"

@@ -1,6 +1,6 @@
 +++
 title = "Daily"
-weight = 6
+weight = 2
 sort_by = "date"
 template = "section-daily.html"
 page_template = "page-daily.html"
