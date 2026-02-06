@@ -557,7 +557,7 @@
     "title": "Spritely: Petnames, A humane approach to secure decentralized naming",
     "url": "https://files.spritely.institute/papers/petnames.html",
     "note": "Petnames are very cool. We start with identifiers (IDs) that are globally unique and decentralized (e.g. Public Keys, UUIDs). Like a contact book, people can assign a local human-meaningful name to an ID. They can also choose to share a network name for that resource with their contacts. When a name is encountered, we first try displaying a local name (\"Jane\"), then a network name \"Alyssa → Mom\", then the name suggested by the originator of the ID, with a way to mark that it is untrusted (\"??? Dr. Jane\").",
-    "used": false
+    "used": true
   },
   {
     "date": "2023-06-26",

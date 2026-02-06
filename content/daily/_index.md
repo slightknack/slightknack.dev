@@ -15,8 +15,9 @@ I'm trying to write a note a day from here going forward. Either about an intere
 
 # Things to write about
 
-- have a time and a place for everything
+- Asymptotics and internal structure
 - reason and passion
+- have a time and a place for everything
 - PTX ISA, how gpus work
 - Aleatoric and Epistemic uncertainty
 - Moral formation 
@@ -27,7 +28,6 @@ I'm trying to write a note a day from here going forward. Either about an intere
 - Continual learning
 - Impact above replacement
 - Anti-complacency mechanisms
-- Asymptotics and internal structure
 - Priorities
 - "Everyone owes debts to one another in currencies they can’t pay"
 - Responding to messages
