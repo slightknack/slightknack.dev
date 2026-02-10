@@ -15,11 +15,11 @@ I'm trying to write a note a day from here going forward. Either about an intere
 
 # Things to write about
 
+- Aleatoric and Epistemic uncertainty
 - Asymptotics and internal structure
 - reason and passion
 - have a time and a place for everything
 - PTX ISA, how gpus work
-- Aleatoric and Epistemic uncertainty
 - Moral formation 
 - US manufacturing
 - Staying in school vs dropping out
