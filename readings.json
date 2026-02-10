@@ -494,7 +494,7 @@
     "title": "Pipelined Relational Query Language, a modern language for transforming data",
     "url": "https://prql-lang.org/",
     "note": "",
-    "used": false
+    "used": true
   },
   {
     "date": "2023-07-21",
@@ -1789,7 +1789,7 @@
     "title": "Mayerowitz, Mario Meets Pareto",
     "url": "https://www.mayerowitz.io/blog/mario-meets-pareto",
     "note": "",
-    "used": false
+    "used": true
   },
   {
     "date": "2024-04-04",
