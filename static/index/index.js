@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "heuristic: increase the agency of others",
         "reason must be a slave to the passions",
         "when given the choice, choose good",
-        "choose good irationally until it becomes your end",
+        "choose good irrationally until it becomes your end",
         "I want to be responsible for allocating resources for some portion of the world's economy",
         "on one side of the knife edge: technology decreases agency. please don't RLHF VR on dopanine response",
         "on the other side of the knife edge: technology increases agency, fading into the background, enhancing human connection",
