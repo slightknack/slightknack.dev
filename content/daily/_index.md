@@ -16,6 +16,8 @@ I'm trying to write a note a day from here going forward. Either about an intere
 # Things to write about
 
 - Aleatoric and Epistemic uncertainty
+- Precommitment
+- Provenance
 - Asymptotics and internal structure
 - reason and passion
 - have a time and a place for everything

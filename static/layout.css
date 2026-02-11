@@ -208,6 +208,17 @@ a.plain {
     padding-right: 6pt;
 }
 
+.epigraph {
+    font-style: italic;
+    opacity: 0.7;
+    text-align: right;
+}
+
+.epigraph cite {
+    font-style: normal;
+    font-family: var(--font-narrow);
+}
+
 .daily-item {
     list-style: none;
     hyphens: auto;
