@@ -223,9 +223,6 @@ table {
 thead {
     white-space: nowrap;
     background-color: var(--fill-soft);
-    font-family: var(--font-title);
-    font-weight: bold;
-    letter-spacing: 0.05em;
 }
 
 tr:nth-child(even) {
@@ -260,6 +257,8 @@ th {
 
 th {
     font-family: var(--font-narrow);
+    font-weight: bold;
+    letter-spacing: 0.05em;
     vertical-align: bottom;
 }
 
