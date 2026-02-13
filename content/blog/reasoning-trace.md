@@ -115,18 +115,7 @@ This sample is interesting because the model reasons a decent amount before writ
 >
 > <div class=boxed><p>972</p></div>
 
-<!-- modified from https://zola.discourse.group/t/maths-support-via-mathjax/1000 -->
-<script>
-window.MathJax = {
-  tex: {
-    inlineMath: [['$','$']],
-    displayMath: [['$$','$$']],
-  },
-  startup: {
-    ready: () => MathJax.startup.defaultReady(),
-  }
-};
-</script>
+
 
 </details>
 
@@ -344,7 +333,7 @@ What a time to be alive.
 
 <img src="/content/snow.jpg" alt="Fresh snow on the ground in Cambridge, MA.">
 
-<script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{{ mathjax() }}
 
 [ds]: https://arxiv.org/abs/2501.12948
 [cc]: /blog/constraints
