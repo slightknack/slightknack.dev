@@ -263,8 +263,8 @@ th {
     vertical-align: bottom;
 }
 
-td:last-of-type,
-th:last-of-type {
+tr th:last-child,
+tr td:last-child {
     border: none;
 }
 
