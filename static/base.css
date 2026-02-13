@@ -251,7 +251,8 @@ th pre code {
 }
 
 tr:nth-child(even) td,
-th {
+thead th,
+tr:nth-child(even) th {
     border-right: 2px solid var(--fill-bg);
 }
 
