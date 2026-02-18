@@ -1,0 +1,86 @@
+<!--
+date: 2026-02-17
+model: claude-opus-4-6
+driver: Isaac Clayton
+note: No prose on this website is generated, this is provenance for the diagram that follows:
+-->
+<div class="venn" id="venn-entropy">
+<style>
+.venn {
+  width: 100%;
+  margin: 20pt 0;
+}
+.venn .venn-titles {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 10%;
+  margin-bottom: 4px;
+}
+.venn .venn-body {
+  position: relative;
+}
+.venn svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.venn .venn-svg-v { display: none; }
+.venn .venn-labels {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.venn .venn-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.venn .venn-label-soft { color: var(--fill-text); }
+.venn .venn-label-accent { color: var(--fill-bg); }
+.venn .venn-titles-bottom { display: none; }
+@media only screen and (max-width: 900px) {
+  .venn .venn-titles { padding: 0; justify-content: center; }
+  .venn .venn-title-second { display: none; }
+  .venn .venn-titles-bottom { display: flex; justify-content: center; margin-top: 4px; }
+  .venn .venn-svg-h { display: none; }
+  .venn .venn-svg-v { display: block; max-height: 70vh; margin: 0 auto; }
+  .venn .venn-labels {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+</style>
+<div class="venn-titles">
+<span>$H[Y]$</span>
+<span class="venn-title-second">$H[Z]$</span>
+</div>
+<div class="venn-body">
+<svg class="venn-svg-h" viewBox="53 0 294 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="ve-clip-left-h"><circle cx="151" cy="100" r="98"/></clipPath>
+</defs>
+<circle cx="151" cy="100" r="98" fill="var(--fill-soft)"/>
+<circle cx="249" cy="100" r="98" fill="var(--fill-soft)"/>
+<circle cx="249" cy="100" r="98" clip-path="url(#ve-clip-left-h)" fill="var(--fill-accent)"/>
+</svg>
+<svg class="venn-svg-v" viewBox="0 53 200 294" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="ve-clip-top-v"><circle cx="100" cy="151" r="98"/></clipPath>
+</defs>
+<circle cx="100" cy="151" r="98" fill="var(--fill-soft)"/>
+<circle cx="100" cy="249" r="98" fill="var(--fill-soft)"/>
+<circle cx="100" cy="249" r="98" clip-path="url(#ve-clip-top-v)" fill="var(--fill-accent)"/>
+</svg>
+<div class="venn-labels">
+<div class="venn-label venn-label-soft">$H[Y \mid Z]$</div>
+<div class="venn-label venn-label-accent">$I[Y; Z]$</div>
+<div class="venn-label venn-label-soft">$H[Z \mid Y]$</div>
+</div>
+</div>
+<div class="venn-titles venn-titles-bottom">
+<span>$H[Z]$</span>
+</div>
+</div>

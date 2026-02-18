@@ -1,0 +1,262 @@
+<!--
+date: 2026-02-17
+model: claude-opus-4-6
+driver: Isaac Clayton
+note: No prose on this website is generated, this is provenance for the embedded particle simulation code that follows.
+-->
+<div id="particle-widget">
+<div id="particle-controls">
+<span class="pill"><a class="tag" id="particle-reset" href="javascript:void(0)">reset</a></span> <span class="pill"><a class="tag" id="particle-toggle" href="javascript:void(0)">pause</a></span> <span class="pill" id="particle-step-pill" style="display:none"><a class="tag" id="particle-step" href="javascript:void(0)">step</a></span> <code>n = <span id="particle-n">0</span></code> <code>H = <span id="particle-h">0.00</span></code>
+</div>
+<div id="particle-sim">
+<style>
+#particle-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 10pt;
+}
+#particle-sim {
+  display: flex;
+  align-items: stretch;
+  gap: 10pt;
+}
+#particle-box {
+  position: relative;
+  aspect-ratio: 1;
+  background: linear-gradient(to right, var(--fill-soft) 50%, var(--fill-bg) 50%);
+  border: 2px solid var(--fill-soft);
+  border-radius: 2px;
+  overflow: hidden;
+  flex: 2;
+}
+#particle-box .dot {
+  position: absolute;
+  width: 6.25%;
+  height: 6.25%;
+  transition: left 150ms linear, top 150ms linear;
+}
+#particle-box .dot::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--fill-accent);
+  border-radius: 50%;
+}
+#particle-box .dot.bounce::after {
+  background: var(--fill-text);
+  transition: none;
+}
+#particle-hist {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+#particle-hist .hbar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  font-size: 0;
+}
+#particle-hist .hbar .fill {
+  height: 100%;
+  background: var(--fill-accent);
+  border-radius: 2px;
+  min-width: 0;
+  transition: width 150ms linear;
+}
+#particle-hist .hbar.active .fill {
+  background: var(--fill-text);
+}
+#particle-trace {
+  width: 100%;
+  height: 80px;
+  background: var(--fill-bg);
+  border: 2px solid var(--fill-soft);
+  border-radius: 2px;
+  display: block;
+  box-sizing: border-box;
+}
+</style>
+<div id="particle-box"></div>
+<div id="particle-hist"></div>
+</div>
+<canvas id="particle-trace"></canvas>
+</div>
+<script>
+(() => {
+  const N = 16;
+  const NUM = 15;
+  const g = 1.32471795724474602596;
+  const a1 = 1.0 / g;
+  const a2 = 1.0 / (g * g);
+  const box = document.getElementById("particle-box");
+  const particles = [];
+  for (let i = 0; i < NUM; i++) {
+    const x = Math.floor(((0.5 + a1 * (i + 1)) % 1) * N);
+    const y = Math.floor(((0.5 + a2 * (i + 1)) % 1) * N);
+    const dx = (i % 2 === 0) ? 1 : -1;
+    const dy = (Math.floor(i / 2) % 2 === 0) ? 1 : -1;
+    const el = document.createElement("div");
+    el.className = "dot";
+    box.appendChild(el);
+    particles.push({ x, y, dx, dy, el });
+  }
+  const pct = (v) => (v / N * 100) + "%";
+  const nSpan = document.getElementById("particle-n");
+  const hSpan = document.getElementById("particle-h");
+  const hist = new Array(NUM + 1).fill(0);
+  let ticks = 0;
+  const histEl = document.getElementById("particle-hist");
+  const hbars = [];
+  for (let i = 0; i <= NUM; i++) {
+    const bar = document.createElement("div");
+    bar.className = "hbar";
+    bar.innerHTML = '<div class="fill"></div>';
+    histEl.appendChild(bar);
+    hbars.push(bar);
+  }
+  const traceCanvas = document.getElementById("particle-trace");
+  const traceCtx = traceCanvas.getContext("2d");
+  const TRACE_LEN = 200;
+  const trace = [];
+  const css = () => getComputedStyle(document.documentElement);
+  const drawTrace = (count, push) => {
+    const accentColor = css().getPropertyValue('--fill-accent').trim();
+    const softColor = css().getPropertyValue('--fill-soft').trim();
+    if (push !== false) {
+      trace.push(count);
+      if (trace.length > TRACE_LEN) trace.shift();
+    }
+    const w = traceCanvas.width = traceCanvas.offsetWidth * devicePixelRatio;
+    const h = traceCanvas.height = traceCanvas.offsetHeight * devicePixelRatio;
+    traceCtx.clearRect(0, 0, w, h);
+    // midline
+    const midY = h / 2;
+    traceCtx.strokeStyle = softColor;
+    traceCtx.lineWidth = 2 * devicePixelRatio;
+    traceCtx.setLineDash([6 * devicePixelRatio, 4 * devicePixelRatio]);
+    traceCtx.beginPath();
+    traceCtx.moveTo(0, midY);
+    traceCtx.lineTo(w, midY);
+    traceCtx.stroke();
+    traceCtx.setLineDash([]);
+    if (trace.length < 2) return;
+    // fill under curve
+    traceCtx.beginPath();
+    traceCtx.moveTo(0, h);
+    for (let i = 0; i < trace.length; i++) {
+      const x = (i / (TRACE_LEN - 1)) * w;
+      const y = h * (trace[i] / NUM);
+      traceCtx.lineTo(x, y);
+    }
+    traceCtx.lineTo(((trace.length - 1) / (TRACE_LEN - 1)) * w, h);
+    traceCtx.closePath();
+    traceCtx.fillStyle = softColor;
+    traceCtx.fill();
+    // stroke
+    traceCtx.strokeStyle = accentColor;
+    traceCtx.lineWidth = 2 * devicePixelRatio;
+    traceCtx.lineJoin = 'round';
+    traceCtx.lineCap = 'round';
+    traceCtx.beginPath();
+    for (let i = 0; i < trace.length; i++) {
+      const x = (i / (TRACE_LEN - 1)) * w;
+      const y = h * (trace[i] / NUM);
+      if (i === 0) traceCtx.moveTo(x, y);
+      else traceCtx.lineTo(x, y);
+    }
+    traceCtx.stroke();
+  };
+  const render = () => {
+    let count = 0;
+    for (const p of particles) {
+      p.el.style.left = pct(p.x);
+      p.el.style.top = pct(p.y);
+      if (p.x >= N / 2) count++;
+    }
+    nSpan.textContent = count;
+    hist[count]++;
+    ticks++;
+    const max = Math.max(...hist);
+    for (let i = 0; i <= NUM; i++) {
+      const w = max > 0 ? (hist[i] / max * 100) : 0;
+      hbars[i].querySelector(".fill").style.width = w + "%";
+      hbars[i].className = i === count ? "hbar active" : "hbar";
+    }
+    let H = 0;
+    for (let i = 0; i <= NUM; i++) {
+      const p = hist[i] / ticks;
+      if (p > 0) H -= p * Math.log2(p);
+    }
+    hSpan.textContent = H.toFixed(2);
+    drawTrace(count);
+  };
+  const grid = new Uint8Array(N * N);
+  for (const p of particles) grid[p.y * N + p.x] = 1;
+  const oob = (x, y) => x < 0 || x >= N || y < 0 || y >= N;
+  const filled = (x, y) => oob(x, y) || grid[y * N + x];
+  const step = () => {
+    for (const p of particles) {
+      p.el.classList.remove("bounce");
+      const odx = p.dx, ody = p.dy;
+      const bx = filled(p.x + odx, p.y);
+      const by = filled(p.x, p.y + ody);
+      const bd = filled(p.x + odx, p.y + ody);
+      if (bx || (!by && bd)) p.dx = -odx;
+      if (by || (!bx && bd)) p.dy = -ody;
+      if (odx !== p.dx || ody !== p.dy) {
+        p.el.classList.add("bounce");
+      }
+    }
+    for (const p of particles) {
+      const nx = p.x + p.dx, ny = p.y + p.dy;
+      if (!filled(nx, ny)) {
+        grid[p.y * N + p.x] = 0;
+        p.x = nx; p.y = ny;
+        grid[ny * N + nx] = 1;
+      }
+    }
+    render();
+  };
+  render();
+  let iv = setInterval(step, 150);
+  let running = true;
+  const toggleBtn = document.getElementById("particle-toggle");
+  const resetBtn = document.getElementById("particle-reset");
+  toggleBtn.onclick = (e) => {
+    e.preventDefault();
+    if (running) { clearInterval(iv); running = false; toggleBtn.textContent = "play"; stepPill.style.display = ""; }
+    else { iv = setInterval(step, 150); running = true; toggleBtn.textContent = "pause"; stepPill.style.display = "none"; }
+  };
+  const stepPill = document.getElementById("particle-step-pill");
+  const stepBtn = document.getElementById("particle-step");
+  stepBtn.onclick = (e) => {
+    e.preventDefault();
+    if (!running) step();
+  };
+  resetBtn.onclick = (e) => {
+    e.preventDefault();
+    if (running) { clearInterval(iv); running = false; toggleBtn.textContent = "play"; stepPill.style.display = ""; }
+    grid.fill(0);
+    for (let i = 0; i < NUM; i++) {
+      const p = particles[i];
+      p.x = Math.floor(((0.5 + a1 * (i + 1)) % 1) * N);
+      p.y = Math.floor(((0.5 + a2 * (i + 1)) % 1) * N);
+      p.dx = (i % 2 === 0) ? 1 : -1;
+      p.dy = (Math.floor(i / 2) % 2 === 0) ? 1 : -1;
+      p.el.classList.remove("bounce");
+      grid[p.y * N + p.x] = 1;
+    }
+    hist.fill(0);
+    trace.length = 0;
+    ticks = 0;
+    render();
+  };
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (!running && trace.length > 0) drawTrace(null, false);
+  });
+})();
+</script>
