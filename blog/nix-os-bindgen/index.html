@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Getting bindgen working on NixOS · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/5_staplerb.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Getting bindgen working on NixOS</h1>
+<p class="tag">2021-07-08 · About 4 minutes long</p>
+<blockquote>
+<h1 id="note">Note</h1>
+<p>this is a collection of a set of discord messages sent on the NixOS discord server.</p>
+</blockquote>
+<h1 id="troubles-w-nixos">Troubles w/ NixOS</h1>
+<p>I’m back! This is a hard one, I swear, and I’ve been banging my head against it for hours: I’m trying to compile a rust library that wraps <code>libcec</code>. To wrap <code>libc</code>, this library uses <code>bindgen</code>. Here’s what the crate roughly looks like:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>.
+</span><span>├── build.rs
+</span><span>├── Cargo.toml
+</span><span>└── src
+</span><span>    ├── lib.rs
+</span><span>    └── wrapper.h
+</span></code></pre>
+<p>Two important things to note: <code>build.rs</code> invokes bindgen, doing something like the following:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span>bindgen::Builder::default()
+</span><span>    .header(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">src/wrapper.h</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>    </span><span style="color:#888888;">// ...
+</span><span>    .generate()
+</span></code></pre>
+<p>And <code>wrapper.h</code> is just a simple header that includes <code>libcec</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>#include &lt;libcec/cecc.h&gt;
+</span></code></pre>
+<p>On most operating systems, clang or whatever leafs through well-known <code>include</code> locations to toss together a big ol’ binary salad. NixOS, of course, loathes this. So, upon trying to compile this crate via <code>cargo build</code>, we get an error, sensibly enough:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>src/wrapper.h:1:10: fatal error: &#39;libcec/cecc.h&#39; file not found
+</span></code></pre>
+<p>No problemo! We can use <code>.clang_arg(...)</code> to send clang some args about where to look for <code>include</code> locations. Here’s an example that works with macOS, say:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>bindgen::Builder::default()
+</span><span>    .header(&quot;src/wrapper.h&quot;)
+</span><span>    .clang_arg(&quot;-I/usr/local/include&quot;)
+</span><span>    ...
+</span></code></pre>
+<p>So we just need to find the include location for <code>libcec</code> on NixOS, right? tossing this into our <code>shell.nix</code>:</p>
+<pre data-lang="nix" style="background-color:#151515;color:#e8e8d3;" class="language-nix "><code class="language-nix" data-lang="nix"><span>  </span><span style="color:#888888;"># ...
+</span><span>  </span><span style="color:#ffb964;">LIBCEC_PATH</span><span>=</span><span style="color:#99ad6a;">&quot;${</span><span style="color:#ffb964;">libcec</span><span style="color:#99ad6a;">}/include&quot;</span><span>;
+</span></code></pre>
+<p>We then <em>should</em> be able to specify the right include location:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>.clang_arg(&quot;-I$LIBCEC_PATH&quot;)
+</span></code></pre>
+<p>Huh, this doesn’t work, same error as before:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>src/wrapper.h:1:10: fatal error: &#39;libcec/cecc.h&#39; file not found
+</span></code></pre>
+<p>Well, we can always just skip the wrapper and pull in the header file directly, right? Let’s echo <code>$LIBCEC_PATH</code> to find where in the heavens above <code>libcec</code> is, locate the header file, then schloop that in:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>$ tree $LIBCEC_PATH
+</span><span>/nix/store/klsqc20n71gja5b8sa9ncw1jl6lcaxw9-libcec-6.0.2/include
+</span><span>└── libcec
+</span><span>    ├── cecc.h
+</span><span>    └── ...
+</span></code></pre>
+<p>There it is!</p>
+<p>I know this isn’t best practice, but let’s use this as the path to the header file we want in <code>build.rs</code>:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span>bindgen::Builder::default()
+</span><span>    .header(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">/nix/store/klsqc20n71gja5b8sa9ncw1jl6lcaxw9-libcec-6.0.2/include/libcec/cecc.h</span><span style="color:#556633;">&quot;</span><span>)
+</span></code></pre>
+<p>It’s not the prettiest, but it should work, right? … uh… right… ?</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>$ cargo build
+</span><span>...
+</span><span>/nix/store/klsqc20n71gja5b8sa9ncw1jl6lcaxw9-libcec-6.0.2/include/libcec/cectypes.h:38:10:
+</span><span>fatal error: &#39;stdint.h&#39; file not found
+</span></code></pre>
+<p>Drat! Foiled again! It seems NixOS is too clever for me. This time the entirety of <code>libc</code> has gone missing!</p>
+<p>At this point, I spent about another few hours trying to get <code>libc</code> to show up. I also read a ton (e.g. <a rel="noopener nofollow" target="_blank" href="https://nixos.wiki/wiki/C">C on Nix wiki</a>, <a rel="noopener nofollow" target="_blank" href="https://www.gnu.org/software/gnulib/manual/html_node/stdint_002eh.html">stdint in gnulibc manual</a>, <a rel="noopener nofollow" target="_blank" href="https://github.com/NixOS/nixpkgs/issues?q=is%3Aissue+stdint.h+">NixOS issue related to stdint</a>, etc.) to no avail.</p>
+<p>So here’s my question: What am I doing wrong? How can I use <code>bindgen</code> to wrap a c library in a crate? If you need any additional information, ping me and I’ll send it right over! Thank you!</p>
+<h1 id="update-an-incredible-solution">Update! An incredible solution</h1>
+<p>Shortly after I posted this, I reached out to <a rel="noopener nofollow" target="_blank" href="https://github.com/Siraben">Ben Siraphob</a>, a good friend of mine who convinced me to try out NixOS in the first place. We hopped on a call together, and he showed me how to reach a solution. Credit for the solution goes to him, I was in way over my head!</p>
+<p>So, what was the solution, anyway? After searching for similar packages on Nixpkgs, we found that this issue itself was pretty uncommon (go figure). Luckily enough for us, it looked like the derivations of Firefox (I think?) and about two other projects had to deal with linking against evasive c library headers.</p>
+<p>The first order of business was switching out <code>shell.nix</code> for a proper derivation. because it’s a Rust project we’re compiling, it’s best to use <code>rustPlatform.buildRustPackage</code>. After declaring the package and including it’s SHA, the first thing we needed to do was make sure <code>LIBCLANG</code> was in the right spot and could be found. This is simple enough:</p>
+<pre data-lang="nix" style="background-color:#151515;color:#e8e8d3;" class="language-nix "><code class="language-nix" data-lang="nix"><span style="color:#ffb964;">rustPlatform</span><span>.</span><span style="color:#ffb964;">buildRustPackage </span><span>rec {
+</span><span>    </span><span style="color:#888888;"># ...
+</span><span>    </span><span style="color:#ffb964;">LIBCLANG_PATH </span><span>= </span><span style="color:#99ad6a;">&quot;${</span><span style="color:#ffb964;">llvmPackages</span><span style="color:#99ad6a;">.</span><span style="color:#ffb964;">libclang</span><span style="color:#99ad6a;">.</span><span style="color:#ffb964;">lib</span><span style="color:#99ad6a;">}/lib&quot;</span><span>;
+</span><span>    </span><span style="color:#888888;"># ...
+</span><span>}
+</span></code></pre>
+<p>Next thing we needed to do was pass in some c flags to bindgen. I’m not too sure what these do, but they’re what was used by Firefox and they seem to work:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>configurePhase = &#39;&#39;
+</span><span>  BINDGEN_CFLAGS=&quot;$(&lt; ${stdenv.cc}/nix-support/libc-crt1-cflags) \
+</span><span>    $(&lt; ${stdenv.cc}/nix-support/libc-cflags) \
+</span><span>    $(&lt; ${stdenv.cc}/nix-support/cc-cflags) \
+</span><span>    $(&lt; ${stdenv.cc}/nix-support/libcxx-cxxflags) \
+</span><span>    ${lib.optionalString stdenv.cc.isClang &quot;-idirafter ${stdenv.cc.cc.lib}/lib/clang/${lib.getVersion stdenv.cc.cc}/include&quot;} \
+</span><span>    ${lib.optionalString stdenv.cc.isGNU &quot;-isystem ${lib.getDev stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc} -isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc}/${stdenv.hostPlatform.config}&quot;} \
+</span><span>    $NIX_CFLAGS_COMPILE&quot;
+</span><span>  export OUT=${placeholder &quot;out&quot;}
+</span><span>  echo $OUT
+</span><span>&#39;&#39;;
+</span></code></pre>
+<p>Which is a lot, but it isn’t a lot a lot. But wait! how does Rust know where libcec is during compilation? obviously hardcoding something in the <code>store</code> is a bad idea!</p>
+<p>During the patch phase (which happens before the configuration phase seen above), we can perform a substitution. In <code>build.rs</code>, we can switch out the builder to be:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">let</span><span> bindings = bindgen::Builder::default()
+</span><span>    .header(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">LIBCEC_HEADERS/include/libcec/cecc.h</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>    </span><span style="color:#888888;">// ...
+</span></code></pre>
+<p>And then substitute out LIBCEC_HEADERS with the path to the actual headers:</p>
+<pre data-lang="nix" style="background-color:#151515;color:#e8e8d3;" class="language-nix "><code class="language-nix" data-lang="nix"><span style="color:#ffb964;">patchPhase </span><span>= </span><span style="color:#99ad6a;">&#39;&#39;
+</span><span style="color:#99ad6a;">  substituteInPlace build.rs --replace &quot;LIBCEC_HEADERS&quot; &quot;${</span><span style="color:#ffb964;">libcec</span><span style="color:#99ad6a;">}&quot;
+</span><span style="color:#99ad6a;">&#39;&#39;</span><span>;
+</span></code></pre>
+<p>This seems like a bit of a hack, but hey, at least it works! Last but not least, we can set our build inputs, and…</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nativeBuildInputs = [
+</span><span>  llvmPackages.clang
+</span><span>  tree
+</span><span>];
+</span><span>
+</span><span>buildInputs = [
+</span><span>  libcec glibc
+</span><span>];
+</span></code></pre>
+<p>Tada! Everything works as intended! There’s a little cleanup that needs to be done to extract the resulting Rust binary, but I’ll spare you the details.</p>
+<p>NixOS is pretty cool, but it seems to be targeted towards people who like to roll their own solutions and stick to open source software. This is great! If you do decide to go all in, though, be prepared!</p>
+<p>Thanks again to everyone who helped me resolve this issue! Nix has shown me how many assumptions are present when building modern software, and it’s surprising how good of a job they’ve done categorizing different issues and dependencies and making reproducible builds as easy as <code>nix build</code>. ’Til next time!</p>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

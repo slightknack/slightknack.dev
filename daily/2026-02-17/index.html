@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Epistemic and Aleatoric Uncertainty · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                            <strong
+                                > Daily </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<h1 class="title" style="margin-top: 0;"><span class="pill"><a class="tag" href="..">17</a></span><br>Epistemic and Aleatoric Uncertainty</h1>
+<p class="tag">2026-02-17 · 2932 words</p>
+<p>This is a follow-on post to <del>yesterday’s</del>, um, last Friday’s post about <a href="/daily/2026-02-13/"><em>curiosity</em></a> driven approaches to reinforcement learning. <span class=aside>I intended to publish this post on the 14th, but it was Valentine’s day weekend and $\text{irl} &gt; \text{blog}$.</span> To summarize:</p>
+<div class=boxed>
+<p>Imagine we have some black-box environment with a state space $s$. At each timestep, we receive an observation $o$ (derived from $s$), and can pick an action $a$. The environment evolves according to a stochastic state transition dynamic $s’ \sim P(\cdot \mid s, a)$ depending on the current state and our action, producing a new observation $o’$.</p>
+<p>Suppose we don’t have a goal or reward function for our environment; we simply would like to train a neural network to model $P(s’ \mid s, a)$. How can we sample sequences of actions, or <em>episodes</em>, that contain all the information we need to build an accurate model of state transition dynamics?</p>
+<p>The solution looks something like <em>curiosity</em>: construct a reward signal along the lines of “the number of learnable bits of information per observation”, and train a policy $\pi$ using traditional RL techniques like PPO to improve the policy and sample divers information-dense trajectories.</p>
+</div>
+<p>Today I’m going to try to explain the following relation:</p>
+<p>$$\text{uncertainty} = \text{aleatoric} + \text{epistemic}$$</p>
+<p>If that doesn’t make sense now, don’t worry. It should be clear by the end of the post.</p>
+<p>Our goal is to learn a <em>policy</em> that is capable of exploring an arbitrary environment. In essence, we want to seek out states that are surprising, but not totally random; in other words, we want to find states where we are uncertain, but capable of learning through interaction and observation.</p>
+<h1 id="surprisal">Surprisal</h1>
+<p>Let’s start by quantifying this idea of <em>surprise</em>. In information theory, there is this concept of <em>surprisal</em>, which is defined as:</p>
+<p>$$h(y) = -\log P(y)$$</p>
+<p>Here, $y \sim Y$ is some specific outcome; an event sampled from a (discrete) random variable $Y$. Surprisal $h(y)$ is measured in <em>bits</em>. A likely outcome can be encoded in few bits, and likewise tells you little; an unlikely outcome takes many bits to encode, and conversely tells you a lot.</p>
+<p>To make surprisal concrete, rolling a 4 on a fair die has probability $\frac{1}{6}$. The surprisal is $h(⚃) = \log_2 6 \approx 2.58$ bits of information.</p>
+<h1 id="entropy-total-uncertainty">Entropy, total uncertainty</h1>
+<p>Surprisal is concerned with a single event. If we have a distribution $Y$ over multiple events, is there a way to describe how much information we expect to learn upon measuring the outcome?</p>
+<p>Yes, and this is exactly <em>entropy</em> $H[Y]$, or “expected surprisal”:</p>
+<p>$$H[Y] = \mathbb{E}[-\log P(Y)]$$</p>
+<p>We use lowercase $h(y)$ for the surprisal of a single event $y$, and uppercase $H[Y]$ for the surprisal over a distribution of events $Y$. The expectation $\mathbb{E}$ here just measures the surprisal of each event, weighted by how probable it is. Mathematically speaking:</p>
+<p>$$H[Y] = \sum_y P(y) \cdot h(y)$$</p>
+<p>You can think about entropy as, “in expectation, how many bits of information will we gain by making an observation?”</p>
+<h1 id="conditional-entropy">Conditional entropy</h1>
+<p>Entropy measures how much information we expect to learn about $Y$… in isolation. Oftentimes, we’ve observed some correlated event $x$. In that case, how much information do we expect to learn from $Y$, given we already know $x$? This is precisely <em>conditional entropy</em> $H[Y \mid x]$:</p>
+<p>$$H[Y \mid x] = \mathbb{E}[-\log P(Y \mid x)]$$</p>
+<p><span class=aside>We write lowercase $x$ because we’re conditioning on a specific input, rather than averaging over <em>all</em> possible inputs, which is what you normally see.</span></p>
+<p>Note that this is exactly the same thing as entropy, just over the conditional distribution $P(Y \mid x)$ instead of $P(Y)$. If knowing $x$ makes $Y$ easier to predict, the conditional entropy is lower. If $x$ is independent of $Y$, then $H[Y \mid x] = H[Y]$. Like entropy, we can also write conditional entropy as a weighted sum, but conditioned on $x$:</p>
+<p>$$H[Y \mid x] = \sum_y P(y \mid x) \cdot h(y \mid x)$$</p>
+<p>In our environment, if $S$ is the distribution over next states, and $(s, a)$ is our state action pair, then $H[S \mid s, a]$ is an exact measure of how unpredictable the next state is from a given state-action pair. This measures, in essence, how random state transitions are. For a deterministic environment, $H[S \mid s, a] = 0$. <span class=aside>In practice, we observe $o$, not $s$. Reconstructing state from observations is a different <em>filtery, hidden-markov-modelly</em> can of worms. We’ll gloss over this for now, and condition on $s$ directly, but the intractable component of epistemic uncertainty I touch on later comes partly from this gap.</span></p>
+<p>Conditional entropy tells us how uncertain $Y$ is <em>given</em> a specific event $x$. But in general, if we know the value of a correlated random variable $Z$, we often want to ask how much of $Y$ it tells us. If measured in bits, this quantity is called <em>mutual information</em>.</p>
+<h1 id="mutual-information">Mutual information</h1>
+<p>A coin flip has high conditional entropy regardless of context; you can never learn to predict it. For curiosity, we want our policy to seek states that it finds unpredictable because it <em>has not yet seen them</em>, not because the environment is random and can’t be predicted.</p>
+<p>Mutual information between $Y$ and some other variable $Z$ measures how many bits of the expected surprisal of $Y$ are accounted for if you already know $Z$. It’s precisely the gap between entropy and conditional entropy:</p>
+<p>$$I[Y; Z] = H[Y] - H[Y \mid Z]$$</p>
+<p>We can draw this as a Venn diagram, which is nicely symmetric:</p>
+<!--
+date: 2026-02-17
+model: claude-opus-4-6
+driver: Isaac Clayton
+note: No prose on this website is generated, this is provenance for the diagram that follows:
+-->
+<div class="venn" id="venn-entropy">
+<style>
+.venn {
+  width: 100%;
+  margin: 20pt 0;
+}
+.venn .venn-titles {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 10%;
+  margin-bottom: 4px;
+}
+.venn .venn-body {
+  position: relative;
+}
+.venn svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.venn .venn-svg-v { display: none; }
+.venn .venn-labels {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.venn .venn-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.venn .venn-label-soft { color: var(--fill-text); }
+.venn .venn-label-accent { color: var(--fill-bg); }
+.venn .venn-titles-bottom { display: none; }
+@media only screen and (max-width: 900px) {
+  .venn .venn-titles { padding: 0; justify-content: center; }
+  .venn .venn-title-second { display: none; }
+  .venn .venn-titles-bottom { display: flex; justify-content: center; margin-top: 4px; }
+  .venn .venn-svg-h { display: none; }
+  .venn .venn-svg-v { display: block; max-height: 70vh; margin: 0 auto; }
+  .venn .venn-labels {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+</style>
+<div class="venn-titles">
+<span>$H[Y]$</span>
+<span class="venn-title-second">$H[Z]$</span>
+</div>
+<div class="venn-body">
+<svg class="venn-svg-h" viewBox="53 0 294 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="ve-clip-left-h"><circle cx="151" cy="100" r="98"/></clipPath>
+</defs>
+<circle cx="151" cy="100" r="98" fill="var(--fill-soft)"/>
+<circle cx="249" cy="100" r="98" fill="var(--fill-soft)"/>
+<circle cx="249" cy="100" r="98" clip-path="url(#ve-clip-left-h)" fill="var(--fill-accent)"/>
+</svg>
+<svg class="venn-svg-v" viewBox="0 53 200 294" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="ve-clip-top-v"><circle cx="100" cy="151" r="98"/></clipPath>
+</defs>
+<circle cx="100" cy="151" r="98" fill="var(--fill-soft)"/>
+<circle cx="100" cy="249" r="98" fill="var(--fill-soft)"/>
+<circle cx="100" cy="249" r="98" clip-path="url(#ve-clip-top-v)" fill="var(--fill-accent)"/>
+</svg>
+<div class="venn-labels">
+<div class="venn-label venn-label-soft">$H[Y \mid Z]$</div>
+<div class="venn-label venn-label-accent">$I[Y; Z]$</div>
+<div class="venn-label venn-label-soft">$H[Z \mid Y]$</div>
+</div>
+</div>
+<div class="venn-titles venn-titles-bottom">
+<span>$H[Z]$</span>
+</div>
+</div>
+<p>Consider the limiting cases: if $Z$ tells us everything about $Y$, then $H[Y \mid Z] = 0$ and $I[Y; Z] = H[Y]$. All of $Y$’s information is already contained in $Z$; the circles fully overlap. On the other hand, if $Y$ and $Z$ are independent, $Z$ tells us nothing about $Y$, so $I[Y; Z] = 0$, and the circles are disjoint.</p>
+<h1 id="aleatoric-uncertainty">Aleatoric uncertainty</h1>
+<p>Up until this point, we have been talking about information abstractly. With surprisal, (conditional) entropy, and mutual information, we have the tools to quantify <em>how much</em> we learn from an observation, and what it means for a state transition to be “random”.</p>
+<p>In statistics, we talk about <em>models</em>. Models have parameters, often denoted $\theta$, and let us make predictions through inference. (Note that the model $\theta$ is distinct from the policy $\pi$. The model predicts <em>state transitions</em>, and the policy decides <em>actions</em>. We train $\pi$ to seek states where $\theta$ can learn.) <span class=aside>In practice, you often train them together, so the world model is contained either implicitly or explicitly in the policy.</span></p>
+<p>Concretely, with a model $\theta$ we can ask: Given an input $x$, what <em>distribution</em> does the model assign to the outcome $Y$? We can write this as $P(Y = y \mid x, \theta)$, for the probability of a specific outcome $y$.</p>
+<p>We can also talk about <em>uncertainty</em>. Given specific parameters $\theta$ and an input $x$, we can quantify the uncertainty of the outcome $Y$ using conditional entropy:</p>
+<p>$$\text{prediction uncertainty} = H[Y \mid x, \theta]$$</p>
+<p>This “prediction uncertainty” is the noise that the model can never explain. If we had a perfect model of a deterministic process, $H[Y \mid x, \theta] = 0$. However, even if we have a perfect model $\theta^*$ for a random, or stochastic, process, by virtue of being stochastic, $H[Y \mid x, \theta] &gt; 0$. We can never predict a random outcome with 100% certainty.</p>
+<p>In real life, we don’t have perfect models like $\theta^*$. We derive parameters $\theta$ for models from data, $D$, a set of observations. In practice, we often find $\theta$ by randomly initializing a model and training it on $D$. <span class=aside>Training through, for example, stochastic gradient descent.</span> We could end up with many different parameters $\theta$ depending on how the model is initialized. Given a model class, training on $D$ gives us a <em>posterior</em> distribution over all models, which we can write $P(\theta \mid D)$. In English, what is the distribution over model parameters $\theta$, given the training data $D$ we have?</p>
+<p>Different models make different predictions, but no model can explain away noise. We want to quantify this irreducible noise. Since we don’t know which model is correct, the natural way is to average prediction uncertainty over the posterior $P(\theta \mid D)$:</p>
+<p>$$\text{aleatoric} = \mathbb{E}_{P(\theta \mid D)}[H[Y \mid x, \theta]]$$</p>
+<p>This is the noise floor, the uncertainty that remains no matter how much data we collect or how well we train. This quantity is called <em>aleatoric uncertainty</em>. <span class=aside>In Portuguese, the word for “random” is <em>aleatório</em>, so that’s how I remember “aleatoric”.</span></p>
+<p>If we take $H[Y \mid x, \theta]$ and marginalize out $\theta$, we are left with $H[Y \mid x]$, our uncertainty over $Y$ given $x$. There is this gap, then, between total uncertainty $H[Y \mid x]$ and aleatoric uncertainty $\mathbb{E}[H[Y \mid x, \theta]]$. The gap is the uncertainty that comes from <em>not knowing which model is correct</em>. This is the uncertainty <em>in the model</em> that will shrink with more of the right data.</p>
+<h1 id="epistemic-uncertainty">Epistemic uncertainty</h1>
+<p>Uncertainty can come from two places: our environment can be noisy, or our model can be incorrect. We just derived <em>aleatoric uncertainty</em>, which quantifies how noisy our environment is. How do we know when our model is uncertain?</p>
+<p>If we take our total uncertainty $H[Y \mid x]$ and we subtract out the aleatoric uncertainty $\mathbb{E}[H[Y \mid x, \theta]]$, we are left with a gap. This gap is all the uncertainty that is not explained by noise. This gap is precisely how uncertain our model is:</p>
+<p>$$\text{epistemic} = H[Y \mid x] - \mathbb{E}_{P(\theta \mid D)}[H[Y \mid x, \theta]]$$</p>
+<p>Those who were paying attention earlier might have noticed that this quantity, <em>epistemic uncertainty</em> is exactly the <em>mutual information</em> between the outcome $Y$ and model parameters $\theta$, conditioned on our training data $D$ and our input $x$:</p>
+<p>$$\begin{align}
+I[Y; \theta \mid x, D] &amp;= H[Y \mid x] - \mathbb{E}_{P(\theta \mid D)}[H[Y \mid x, \theta]] \\
+\text{epistemic} &amp;= \text{total} - \text{aleatoric}
+\end{align}$$</p>
+<p>Another way to think about this: if the models in the posterior $P(\theta \mid D)$  disagree on what $Y$ will be given the training data $D$ we have, epistemic uncertainty is high.</p>
+<p>If we collect more training data in states where epistemic uncertainty is high, we can reduce it. More data shrinks the disagreement of the posterior. As the distribution of possible models converges, $I[Y; \theta \mid x, D] \to 0$, epistemic uncertainty decreases.</p>
+<p>Curiosity should target states of high epistemic uncertainty. Our goal is to build a dataset $D$ on which we can train a model $\theta$ that accurately models the state transition dynamics of the environment. To do this, we want to learn a policy $\pi$ that can navigate to regions of state space that are hard to reach, and explore all there is to learn.</p>
+<p>If we train a policy to maximize epistemic uncertainty over an episode, we are training the policy to maximize the time it spends in states when the model can still learn.</p>
+<h1 id="decomposition">Decomposition</h1>
+<p>Now we have all the tools to understand the original equation:</p>
+<p>$$\text{uncertainty} = \text{aleatoric} + \text{epistemic}$$</p>
+<p>Where <em>uncertainty</em> $H[Y \mid x]$ is the total uncertainty over outcomes given the input, measured using conditional entropy. <em>Aleatoric uncertainty</em> $\mathbb{E}_{P(\theta \mid D)}[H[Y \mid x, \theta]]$ is the irreducible noise floor, what we can never learn through observation. <em>Epistemic uncertainty</em> $I[Y; \theta \mid x, D]$ is the mutual information between outcomes and model parameters.</p>
+<p>We can make this relationship explicit by drawing it on the mutual information Venn diagram from earlier:</p>
+<!--
+date: 2026-02-17
+model: claude-opus-4-6
+driver: Isaac Clayton
+note: No prose on this website is generated, this is provenance for the diagram that follows:
+-->
+<div class="venn" id="venn-decomposition">
+<style>
+.venn {
+  width: 100%;
+  margin: 20pt 0;
+}
+.venn .venn-titles {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 10%;
+  margin-bottom: 4px;
+}
+.venn .venn-body {
+  position: relative;
+}
+.venn svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.venn .venn-svg-v { display: none; }
+.venn .venn-labels {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.venn .venn-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.venn .venn-label-soft { color: var(--fill-text); }
+.venn .venn-label-accent { color: var(--fill-bg); }
+.venn .venn-titles-bottom { display: none; }
+@media only screen and (max-width: 900px) {
+  .venn .venn-titles { padding: 0; justify-content: center; }
+  .venn .venn-title-second { display: none; }
+  .venn .venn-titles-bottom { display: flex; justify-content: center; margin-top: 4px; }
+  .venn .venn-svg-h { display: none; }
+  .venn .venn-svg-v { display: block; max-height: 70vh; margin: 0 auto; }
+  .venn .venn-labels {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+</style>
+<div class="venn-titles">
+<span>$H[Y \mid x]$</span>
+<span class="venn-title-second">$H[\theta \mid D]$</span>
+</div>
+<div class="venn-body">
+<svg class="venn-svg-h" viewBox="53 0 294 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="vd-clip-left-h"><circle cx="151" cy="100" r="98"/></clipPath>
+</defs>
+<circle cx="151" cy="100" r="98" fill="var(--fill-soft)"/>
+<circle cx="249" cy="100" r="98" fill="var(--fill-soft)"/>
+<circle cx="249" cy="100" r="98" clip-path="url(#vd-clip-left-h)" fill="var(--fill-accent)"/>
+</svg>
+<svg class="venn-svg-v" viewBox="0 53 200 294" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="vd-clip-top-v"><circle cx="100" cy="151" r="98"/></clipPath>
+</defs>
+<circle cx="100" cy="151" r="98" fill="var(--fill-soft)"/>
+<circle cx="100" cy="249" r="98" fill="var(--fill-soft)"/>
+<circle cx="100" cy="249" r="98" clip-path="url(#vd-clip-top-v)" fill="var(--fill-accent)"/>
+</svg>
+<div class="venn-labels">
+<div class="venn-label venn-label-soft"><span>aleatoric</span><span>$\mathbb{E}[H[Y \mid x, \theta]]$</span></div>
+<div class="venn-label venn-label-accent"><span>epistemic</span><span>$I[Y; \theta \mid x, D]$</span></div>
+<div class="venn-label venn-label-soft">$H[\theta \mid Y, x, D]$</div>
+</div>
+</div>
+<div class="venn-titles venn-titles-bottom">
+<span>$H[\theta \mid D]$</span>
+</div>
+</div>
+<p>The left circle is the total uncertainty over outcomes $H[Y \mid x]$, the right circle is the posterior uncertainty over model parameters $H[\theta \mid D]$.</p>
+<p>To minimize uncertainty in our model $\theta$, we must train a policy $\pi$ that maximizes this overlap, epistemic uncertainty, by seeking states where knowing $\theta$ would tell us the most about $Y$. The policy needs to go places where the model we have matters.</p>
+<p>Concretely, if within our posterior $P(\theta \mid D)$, some models say $P(Y = a \mid x, \theta) &gt; P(Y = b \mid x, \theta)$, and other models say the converse, we want to collect more instances of $x$ to determine whether $Y$ is $a$ or $b$. This marginal data helps us shrink parameter space $\theta$ as quickly as possible; this marginal data helps us learn as quickly as possible.</p>
+<p>But what can be learned in the first place?</p>
+<h1 id="learnable-vs-intractable">Learnable vs Intractable</h1>
+<p>You can’t fit a line to a parabola, sometimes even the best parameters are <em>wrong</em> if the model doesn’t make sense.</p>
+<p>Some deterministic processes, like hash functions, are <em>designed to be</em> computationally intractable to run in inverse. Hash functions aren’t <em>random</em>, but they certainly don’t count as a process we can learn with more data.</p>
+<p>What is randomness, anyway? Here is a completely deterministic simulation of 15 balls bouncing around in a 16×16 box, always starting from the same state. (Note that <code>n</code> is the number of particles in the <strong>right half</strong> of the box, and <code>H</code> is the entropy of the empirical distribution.)</p>
+<p>Is $n$ random?</p>
+<!--
+date: 2026-02-17
+model: claude-opus-4-6
+driver: Isaac Clayton
+note: No prose on this website is generated, this is provenance for the embedded particle simulation code that follows.
+-->
+<div id="particle-widget">
+<div id="particle-controls">
+<span class="pill"><a class="tag" id="particle-reset" href="javascript:void(0)">reset</a></span> <span class="pill"><a class="tag" id="particle-toggle" href="javascript:void(0)">pause</a></span> <span class="pill" id="particle-step-pill" style="display:none"><a class="tag" id="particle-step" href="javascript:void(0)">step</a></span> <code>n = <span id="particle-n">0</span></code> <code>H = <span id="particle-h">0.00</span></code>
+</div>
+<div id="particle-sim">
+<style>
+#particle-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 10pt;
+}
+#particle-sim {
+  display: flex;
+  align-items: stretch;
+  gap: 10pt;
+}
+#particle-box {
+  position: relative;
+  aspect-ratio: 1;
+  background: linear-gradient(to right, var(--fill-soft) 50%, var(--fill-bg) 50%);
+  border: 2px solid var(--fill-soft);
+  border-radius: 2px;
+  overflow: hidden;
+  flex: 2;
+}
+#particle-box .dot {
+  position: absolute;
+  width: 6.25%;
+  height: 6.25%;
+  transition: left 150ms linear, top 150ms linear;
+}
+#particle-box .dot::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--fill-accent);
+  border-radius: 50%;
+}
+#particle-box .dot.bounce::after {
+  background: var(--fill-text);
+  transition: none;
+}
+#particle-hist {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+#particle-hist .hbar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  font-size: 0;
+}
+#particle-hist .hbar .fill {
+  height: 100%;
+  background: var(--fill-accent);
+  border-radius: 2px;
+  min-width: 0;
+  transition: width 150ms linear;
+}
+#particle-hist .hbar.active .fill {
+  background: var(--fill-text);
+}
+#particle-trace {
+  width: 100%;
+  height: 80px;
+  background: var(--fill-bg);
+  border: 2px solid var(--fill-soft);
+  border-radius: 2px;
+  display: block;
+  box-sizing: border-box;
+}
+</style>
+<div id="particle-box"></div>
+<div id="particle-hist"></div>
+</div>
+<canvas id="particle-trace"></canvas>
+</div>
+<script>
+(() => {
+  const N = 16;
+  const NUM = 15;
+  const g = 1.32471795724474602596;
+  const a1 = 1.0 / g;
+  const a2 = 1.0 / (g * g);
+  const box = document.getElementById("particle-box");
+  const particles = [];
+  for (let i = 0; i < NUM; i++) {
+    const x = Math.floor(((0.5 + a1 * (i + 1)) % 1) * N);
+    const y = Math.floor(((0.5 + a2 * (i + 1)) % 1) * N);
+    const dx = (i % 2 === 0) ? 1 : -1;
+    const dy = (Math.floor(i / 2) % 2 === 0) ? 1 : -1;
+    const el = document.createElement("div");
+    el.className = "dot";
+    box.appendChild(el);
+    particles.push({ x, y, dx, dy, el });
+  }
+  const pct = (v) => (v / N * 100) + "%";
+  const nSpan = document.getElementById("particle-n");
+  const hSpan = document.getElementById("particle-h");
+  const hist = new Array(NUM + 1).fill(0);
+  let ticks = 0;
+  const histEl = document.getElementById("particle-hist");
+  const hbars = [];
+  for (let i = 0; i <= NUM; i++) {
+    const bar = document.createElement("div");
+    bar.className = "hbar";
+    bar.innerHTML = '<div class="fill"></div>';
+    histEl.appendChild(bar);
+    hbars.push(bar);
+  }
+  const traceCanvas = document.getElementById("particle-trace");
+  const traceCtx = traceCanvas.getContext("2d");
+  const TRACE_LEN = 200;
+  const trace = [];
+  const css = () => getComputedStyle(document.documentElement);
+  const drawTrace = (count, push) => {
+    const accentColor = css().getPropertyValue('--fill-accent').trim();
+    const softColor = css().getPropertyValue('--fill-soft').trim();
+    if (push !== false) {
+      trace.push(count);
+      if (trace.length > TRACE_LEN) trace.shift();
+    }
+    const w = traceCanvas.width = traceCanvas.offsetWidth * devicePixelRatio;
+    const h = traceCanvas.height = traceCanvas.offsetHeight * devicePixelRatio;
+    traceCtx.clearRect(0, 0, w, h);
+    // midline
+    const midY = h / 2;
+    traceCtx.strokeStyle = softColor;
+    traceCtx.lineWidth = 2 * devicePixelRatio;
+    traceCtx.setLineDash([6 * devicePixelRatio, 4 * devicePixelRatio]);
+    traceCtx.beginPath();
+    traceCtx.moveTo(0, midY);
+    traceCtx.lineTo(w, midY);
+    traceCtx.stroke();
+    traceCtx.setLineDash([]);
+    if (trace.length < 2) return;
+    // fill under curve
+    traceCtx.beginPath();
+    traceCtx.moveTo(0, h);
+    for (let i = 0; i < trace.length; i++) {
+      const x = (i / (TRACE_LEN - 1)) * w;
+      const y = h * (trace[i] / NUM);
+      traceCtx.lineTo(x, y);
+    }
+    traceCtx.lineTo(((trace.length - 1) / (TRACE_LEN - 1)) * w, h);
+    traceCtx.closePath();
+    traceCtx.fillStyle = softColor;
+    traceCtx.fill();
+    // stroke
+    traceCtx.strokeStyle = accentColor;
+    traceCtx.lineWidth = 2 * devicePixelRatio;
+    traceCtx.lineJoin = 'round';
+    traceCtx.lineCap = 'round';
+    traceCtx.beginPath();
+    for (let i = 0; i < trace.length; i++) {
+      const x = (i / (TRACE_LEN - 1)) * w;
+      const y = h * (trace[i] / NUM);
+      if (i === 0) traceCtx.moveTo(x, y);
+      else traceCtx.lineTo(x, y);
+    }
+    traceCtx.stroke();
+  };
+  const render = () => {
+    let count = 0;
+    for (const p of particles) {
+      p.el.style.left = pct(p.x);
+      p.el.style.top = pct(p.y);
+      if (p.x >= N / 2) count++;
+    }
+    nSpan.textContent = count;
+    hist[count]++;
+    ticks++;
+    const max = Math.max(...hist);
+    for (let i = 0; i <= NUM; i++) {
+      const w = max > 0 ? (hist[i] / max * 100) : 0;
+      hbars[i].querySelector(".fill").style.width = w + "%";
+      hbars[i].className = i === count ? "hbar active" : "hbar";
+    }
+    let H = 0;
+    for (let i = 0; i <= NUM; i++) {
+      const p = hist[i] / ticks;
+      if (p > 0) H -= p * Math.log2(p);
+    }
+    hSpan.textContent = H.toFixed(2);
+    drawTrace(count);
+  };
+  const grid = new Uint8Array(N * N);
+  for (const p of particles) grid[p.y * N + p.x] = 1;
+  const oob = (x, y) => x < 0 || x >= N || y < 0 || y >= N;
+  const filled = (x, y) => oob(x, y) || grid[y * N + x];
+  const step = () => {
+    for (const p of particles) {
+      p.el.classList.remove("bounce");
+      const odx = p.dx, ody = p.dy;
+      const bx = filled(p.x + odx, p.y);
+      const by = filled(p.x, p.y + ody);
+      const bd = filled(p.x + odx, p.y + ody);
+      if (bx || (!by && bd)) p.dx = -odx;
+      if (by || (!bx && bd)) p.dy = -ody;
+      if (odx !== p.dx || ody !== p.dy) {
+        p.el.classList.add("bounce");
+      }
+    }
+    for (const p of particles) {
+      const nx = p.x + p.dx, ny = p.y + p.dy;
+      if (!filled(nx, ny)) {
+        grid[p.y * N + p.x] = 0;
+        p.x = nx; p.y = ny;
+        grid[ny * N + nx] = 1;
+      }
+    }
+    render();
+  };
+  render();
+  let iv = setInterval(step, 150);
+  let running = true;
+  const toggleBtn = document.getElementById("particle-toggle");
+  const resetBtn = document.getElementById("particle-reset");
+  toggleBtn.onclick = (e) => {
+    e.preventDefault();
+    if (running) { clearInterval(iv); running = false; toggleBtn.textContent = "play"; stepPill.style.display = ""; }
+    else { iv = setInterval(step, 150); running = true; toggleBtn.textContent = "pause"; stepPill.style.display = "none"; }
+  };
+  const stepPill = document.getElementById("particle-step-pill");
+  const stepBtn = document.getElementById("particle-step");
+  stepBtn.onclick = (e) => {
+    e.preventDefault();
+    if (!running) step();
+  };
+  resetBtn.onclick = (e) => {
+    e.preventDefault();
+    if (running) { clearInterval(iv); running = false; toggleBtn.textContent = "play"; stepPill.style.display = ""; }
+    grid.fill(0);
+    for (let i = 0; i < NUM; i++) {
+      const p = particles[i];
+      p.x = Math.floor(((0.5 + a1 * (i + 1)) % 1) * N);
+      p.y = Math.floor(((0.5 + a2 * (i + 1)) % 1) * N);
+      p.dx = (i % 2 === 0) ? 1 : -1;
+      p.dy = (Math.floor(i / 2) % 2 === 0) ? 1 : -1;
+      p.el.classList.remove("bounce");
+      grid[p.y * N + p.x] = 1;
+    }
+    hist.fill(0);
+    trace.length = 0;
+    ticks = 0;
+    render();
+  };
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (!running && trace.length > 0) drawTrace(null, false);
+  });
+})();
+</script>
+<p>Well, no! Despite being chaotic, this simulation is not random! (Try resetting the simulation, and stepping it forward a couple of times to convince yourself of this fact.) For any given state $s$, we can deterministically step the system and observe $n$. There is no aleatoric uncertainty, no randomness. But this doesn’t feel fair.</p>
+<p>Let’s say we can only observe $n$, and want to predict how it evolves over time. Since this system is completely deterministic, if we had <em>perfect</em> information about the position and direction of each particle, we could build a model that perfectly captures $n$.</p>
+<p>However, we can only <em>observe</em> $n$. We don’t know the <em>state</em> of the box. Even if we knew the dimensions of the box, the rules of the game, and the number of balls, it would be <em>very hard</em> to infer the position and direction of each particle purely from observing how $n$ changes over time.</p>
+<blockquote>
+<p><em>N.B.</em> Concretely, there are $\binom{256}{15}$ ways to place 15 particles on a 16×16 grid (~79 bits) and 4 directions each particle can take (30 bits). That’s 109 bits of state total. From $n$ we get $\leq 4$ bits of information per observation. It would take us $&gt;28$ observations to gain $&gt;109$ bits of information. We could only reconstruct the state at this point if we could use the information from each $n$ perfectly, and I would be surprised if there’s a computationally tractable way to do that.</p>
+</blockquote>
+<p>The key insight is that although $n$ is not random, it <em>appears</em> to be random to an outside observer. Empirically, this is what statistics is: how do we model processes that we can not observe perfectly?</p>
+<p>Even though the evolution of $n$ is deterministic, it is not <em>learnable</em>; it will look like a random variable sampled from some distribution. <span class=aside>The distribution is approximated with the histogram we draw to the side.</span></p>
+<p>If a latent variable is not learnable, it might as well be random. So we might as well divide our equation for uncertainty further:</p>
+<p>$$\begin{align}
+\text{uncertainty} &amp;= \text{aleatoric} + \text{epistemic} \\
+&amp;= \text{aleatoric} + (\text{learnable} + \text{intractable})
+\end{align}$$</p>
+<p>This split is a practical or computational one, but there are competing definitions. In general, a portion of epistemic uncertainty is intractable for one of two reasons:</p>
+<ol>
+<li>If our model class cannot represent the true dynamics, no amount of data will close the gap; you can’t fit a line to a parabola.</li>
+<li>If observations never contain information present in some part of state space, that information is inaccessible through the information channel we have.</li>
+</ol>
+<p>In practice, we can train a policy $\pi$ to collect episodes that maximize epistemic uncertainty in a way that ignores this intractable component. If epistemic uncertainty $I[Y; \theta \mid x, D]$ is decreasing as $D$ grows, those bits are learnable. If it plateaus, they are intractable. Instead of maximizing epistemic uncertainty, we maximize <em>learning progress</em>: the rate at which epistemic uncertainty decreases as we collect more data.</p>
+<h1 id="closing-thoughts">Closing thoughts</h1>
+<p>In theory, practice is theory. In practice, theory isn’t. Going from theory to practice requires some good engineering.</p>
+<p>As you can imagine, measuring learning progress by taking the derivative of an estimated epistemic uncertainty value is… quite unstable. Modern research applies a whole slew of tricks to go from theory to practice. This engineering is where the excitement lies.</p>
+<p>I care about this because I want to build data-efficient models of physical systems; the kind where episodes are expensive and you can’t afford to waste trajectories on noise. Flapping airplanes, for instance.</p>
+<p>The next time I write about this, curiosity, I’ll talk about learning progress, stable exploration signals, RND’s practical success, how to compute epistemic and aleatoric uncertainty in practice (ensembles, BALD, SWAG, etc.), and other directions for sussing out learnable structure.</p>
+<p>Until then, you might enjoy:</p>
+<div class=boxed>
+<p><strong>Daily reading: <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/pdf/2601.16175">Learning to Discover at Test Time</a></strong></p>
+</div>
+<!-- modified from https://zola.discourse.group/t/maths-support-via-mathjax/1000 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+  },
+};
+</script>
+<script id="MathJax-script" defer src="/mathjax/tex-mml-chtml.js"></script>
+
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

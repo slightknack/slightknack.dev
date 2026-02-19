@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Inversions of Control · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/1_pretzel.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Inversions of Control</h1>
+<p class="tag">2025-08-29 · About 6 minutes long</p>
+<p>What’s the difference between a library and a framework? It depends on your definitions. Here are mine:</p>
+<ul>
+<li>
+<p>When using a library, <strong>you are in control</strong>: a library provides a collection of behaviors you can choose to call.</p>
+</li>
+<li>
+<p>When using a framework, <strong>the framework is in control</strong>: a framework chooses to call a collection of behaviors you provide.</p>
+</li>
+</ul>
+<p>As a programmer, I prefer using libraries. It is nice to be in control, when the code you’re writing reads straightforwardly. On the other hand, as a library author, figuring out <em>how</em> to package a dependency as a library instead of as a framework can be challenging.</p>
+<p>In this post, I want to show (1) how the relationship between frameworks and libraries has to do with <strong>inversions of control</strong> and (2) how languages can make inversions of control <em>easy</em>, so that authors can write frameworks, which developers can use as libraries.</p>
+<h1 id="a-classic-problem">A classic problem</h1>
+<p>I’m working on a programming language called Affetto. It’s goal is to be “a smaller Rust”. The yet-unreleased compiler has Wasm-Component and C99-header-file backends. Affetto is a language for writing core libraries that can be embedded in other languages. Superficially, Affetto looks a little like Gleam. That shouldn’t really matter for the following examples, because I tried to stick to a simple syntax. I’m also not going to say anything about borrowing. I’ll write more about Affetto some other now, for the time being, consider this a small taste.</p>
+<p>Let’s say you’re writing a library that can do run-length encoding and decoding over streams of data. If you’re in control, writing a run-length encoder is fairly easy. Let’s say we are provided two callbacks, <code>recv</code> and <code>send</code>, that receive a byte and send a byte, respectively. Here’s how we could write an encoder:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>fun encode(
+</span><span>  recv: () -&gt; </span><span style="color:#ffb964;">N8</span><span>,
+</span><span>  send: </span><span style="color:#ffb964;">N8 </span><span>-&gt; (),
+</span><span>) {
+</span><span>  mut last = recv()
+</span><span>  mut count = </span><span style="color:#cf6a4c;">1
+</span><span>  loop {
+</span><span>    next = recv()
+</span><span>    </span><span style="color:#8fbfdc;">if</span><span> next != last or count == </span><span style="color:#cf6a4c;">0xFF </span><span>{
+</span><span>      send(last)
+</span><span>      send(count)
+</span><span>      set last = next
+</span><span>      set count = </span><span style="color:#cf6a4c;">1
+</span><span>    } </span><span style="color:#8fbfdc;">else </span><span>{
+</span><span>      set count += </span><span style="color:#cf6a4c;">1
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>Some affetto-specific notes: <code>N8</code> is an 8-bit natural, or a byte. <code>()</code> is the unit type, as in Rust. (like <code>void</code> in C, or <code>None</code> in Python).</p>
+<p>This is fairly straightforward: we read bytes one at a time, we keep track of runs, we send two bytes for each run. (The byte and how many times it’s repeated).</p>
+<p>The decoder, if anything, is even simpler:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>fun decode(
+</span><span>  recv: () -&gt; </span><span style="color:#ffb964;">N8</span><span>,
+</span><span>  send: </span><span style="color:#ffb964;">N8 </span><span>-&gt; (),
+</span><span>) {
+</span><span>  loop {
+</span><span>    byte = recv()
+</span><span>    repeat = recv()
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span style="color:#ffb964;">_</span><span> in </span><span style="color:#cf6a4c;">0</span><span>..repeat {
+</span><span>      send(byte)
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>The above is our framework for run-length encoding.</p>
+<p>Now, the natural question becomes, let’s say I have some fountain-like source of bytes I’d like to encode, then decode, using the above framework. How would I go about doing it?</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>fun main() {
+</span><span>  source = </span><span style="color:#888888;">// ...
+</span><span>  sink = fun(byte) -&gt; debug(byte)
+</span><span>
+</span><span>  </span><span style="color:#888888;">// then, um, huh?
+</span><span>  encode(source, todo)
+</span><span>  decode(todo, sink)
+</span><span>}
+</span></code></pre>
+<p>Obviously we’d need some sort of channel connecting <code>encode</code> and <code>decode</code>? And maybe threads, so the functions could run concurrently? Does affetto have coroutines, or async await? (Getting warmer.) What is to be done?</p>
+<h1 id="invert-for-a-solution">Invert for a solution</h1>
+<p>Well, to begin, let’s try writing <code>decode</code> as a callback. It will have to close over some state, I suppose. Let’s call this function <code>decode_inverse</code>. <code>decode_inverse</code> will be called whenever <code>encode</code> calls <code>send</code>. This way the functions run in lock-step.</p>
+<p>To create <code>decode_inverse</code>, first, we split <code>decode</code> at the matching calls to <code>recv</code>:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#888888;">// --- snip! state = 0
+</span><span>byte = recv()
+</span><span style="color:#888888;">// --- snip! state = 1
+</span><span>repeat = recv()
+</span><span style="color:#8fbfdc;">for </span><span style="color:#ffb964;">_</span><span> in </span><span style="color:#cf6a4c;">0</span><span>..repeat {
+</span><span>  send(byte)
+</span><span>}
+</span><span style="color:#888888;">// --- snip!
+</span></code></pre>
+<p>We can lift this into a little state machine of sorts:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#888888;">// state machine
+</span><span>b = recv()
+</span><span style="color:#8fbfdc;">match</span><span> state {
+</span><span>  </span><span style="color:#cf6a4c;">0</span><span> -&gt; {
+</span><span>    set byte = b
+</span><span>    set state = </span><span style="color:#cf6a4c;">1
+</span><span>  }
+</span><span>  </span><span style="color:#cf6a4c;">1</span><span> -&gt; {
+</span><span>    set repeat = b
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span style="color:#ffb964;">_</span><span> in </span><span style="color:#cf6a4c;">0 </span><span>.. repeat {
+</span><span>      send(byte)
+</span><span>    }
+</span><span>    set state = </span><span style="color:#cf6a4c;">0
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>And then wrap this up as a closure:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>fun decode_inverse(
+</span><span>  send: </span><span style="color:#ffb964;">N8 </span><span>-&gt; (),
+</span><span>) {
+</span><span>  mut state = </span><span style="color:#cf6a4c;">0
+</span><span>  mut byte = </span><span style="color:#cf6a4c;">0 </span><span style="color:#888888;">// initial undefined value
+</span><span>  mut repeat = </span><span style="color:#cf6a4c;">0 </span><span style="color:#888888;">// &#39;&#39;
+</span><span>
+</span><span>  </span><span style="color:#888888;">// implement send
+</span><span>  </span><span style="color:#8fbfdc;">return</span><span> fun(b) {
+</span><span>    </span><span style="color:#888888;">// state machine
+</span><span>    </span><span style="color:#8fbfdc;">match</span><span> state {
+</span><span>      </span><span style="color:#cf6a4c;">0</span><span> -&gt; {
+</span><span>        set byte = b
+</span><span>        set state = </span><span style="color:#cf6a4c;">1
+</span><span>      }
+</span><span>      </span><span style="color:#cf6a4c;">1</span><span> -&gt; {
+</span><span>        set repeat = b
+</span><span>        </span><span style="color:#8fbfdc;">for </span><span style="color:#ffb964;">_</span><span> in </span><span style="color:#cf6a4c;">0</span><span>..repeat {
+</span><span>          send(byte)
+</span><span>        }
+</span><span>        set state = </span><span style="color:#cf6a4c;">0
+</span><span>      }
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>I call this transformation <strong>an inversion of control</strong>. I find inversions of control to be a fundamental aspect of library design. They show up all the time, in all sorts of systems. Not always as closures: a natural next step is to convert <code>decode_inverse</code> into an object of some sort (struct + function). Sometimes libraries do this from the start. Closures are a poor man’s object, we’ll stick to closures for the time being.</p>
+<p>This is a lot more complicated than the original code! And it closes over non-trivial state! This function, though, becomes something of a library. We can actually use it with <code>encode</code>, because it puts us in control. Here’s what that looks like:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>fun main() {
+</span><span>  </span><span style="color:#888888;">// same setup
+</span><span>  source = </span><span style="color:#888888;">// ...
+</span><span>  sink = fun(byte) -&gt; debug(byte)
+</span><span>
+</span><span>  encode(
+</span><span>    source,
+</span><span>    decode_inverse(sink),
+</span><span>  )
+</span><span>}
+</span></code></pre>
+<p>Not super pretty, as <code>decode_inverse</code> is a closure passed as a callback, but it works. <code>encode</code> is in control, and drives <code>decode_inverse</code>. What about the other way around?</p>
+<p>We could imagine applying a similar process to <code>encode</code> to create <code>encode_inverse</code>. We do this by splitting the function into a state machine at <code>send</code>. The resulting closure, <code>encode_inverse</code>, can be driven by <code>decode</code>:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>decode(
+</span><span>  encode_inverse(source),
+</span><span>  sink,
+</span><span>)
+</span></code></pre>
+<p>Which can also be written without nesting:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>encoded = encode_inverse(source),
+</span><span>decode(encoded, sink)
+</span></code></pre>
+<p>And this code is still streaming the bytes as it encodes and decodes! <code>encoded</code> is a callback we can stream. We are not loading all the bytes into memory, which is great.</p>
+<p>This “convert to state machine” transform seems pretty straightforward. Can we do it automatically? Before I answer that question, let’s explore one more aspect.</p>
+<h1 id="higher-order-inversion">Higher-order inversion</h1>
+<p>Let’s say we have <code>encode_inverse</code> and <code>decode_inverse</code>. We want to wire them up to one another, as above. But in this case, it’s not exactly clear <em>who</em> is driving <em>who</em>.</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>fun main() {
+</span><span>  source = </span><span style="color:#888888;">// ...
+</span><span>  sink = fun(byte) -&gt; debug(byte)
+</span><span>
+</span><span>  encoder = encode_inverse(source)
+</span><span>  decoder = decode_inverse(sink)
+</span><span>  </span><span style="color:#888888;">// then, um, huh?
+</span><span>}
+</span></code></pre>
+<p>Well, what are the types of <code>encoder</code> and <code>decoder</code>?</p>
+<ul>
+<li><code>encoder</code> behaves as <code>recv</code>, so it’s <code>() -&gt; N8</code>.</li>
+<li><code>decoder</code> behaves as <code>send</code>, so it’s <code>N8 -&gt; ()</code>.</li>
+</ul>
+<p>It seems like these types are compatible. We can drive this system with a loop:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#888888;">// ...
+</span><span>loop {
+</span><span>  decoder(encoder())
+</span><span>}
+</span></code></pre>
+<p>If we wanted, we could lift this out as a higher-order function:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>fun pipe(
+</span><span>  recv: () -&gt; </span><span style="color:#ffb964;">N8</span><span>,
+</span><span>  send: </span><span style="color:#ffb964;">N8 </span><span>-&gt; (),
+</span><span>) {
+</span><span>  loop {
+</span><span>    send(recv())
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>And we could replace our loop in main with:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>pipe(encoder, decoder)
+</span></code></pre>
+<h1 id="multiple-inversions">Multiple inversions</h1>
+<p>We’ve been cheating a little. We’ve been assuming that we only care inverting a function along the axis of <code>send</code> or <code>recv</code>. What if we want a function that’s inverted for <em>both</em> send and receive? Let’s start once again with <code>decode</code>. We’ll write a function called <code>decode_actor</code>. It’s been a while, so here’s the code:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span>fun decode(
+</span><span>  recv: () -&gt; </span><span style="color:#ffb964;">N8</span><span>,
+</span><span>  send: </span><span style="color:#ffb964;">N8 </span><span>-&gt; (),
+</span><span>) {
+</span><span>  loop {
+</span><span>    byte = recv()
+</span><span>    repeat = recv()
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span style="color:#ffb964;">_</span><span> in </span><span style="color:#cf6a4c;">0</span><span>..repeat {
+</span><span>      send(byte)
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>As before, we need to slice this into a state machine, but at both <code>recv</code> points and <code>send</code> points:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#888888;">// --- snip! state = 0
+</span><span>byte = recv()
+</span><span style="color:#888888;">// --- snip! state = 1
+</span><span>repeat = recv()
+</span><span style="color:#8fbfdc;">for </span><span style="color:#ffb964;">_</span><span> in </span><span style="color:#cf6a4c;">0</span><span>..repeat {
+</span><span>  </span><span style="color:#888888;">// --- snip! state = 2
+</span><span>  send(byte)
+</span><span>}
+</span><span style="color:#888888;">// --- snip! state = 0
+</span></code></pre>
+<p>We have a for loop here, which for reasons that will become clear later, we will also need to handle. Let’s “desugar” the for loop:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#888888;">// --- snip! state = 0
+</span><span>byte = recv()
+</span><span style="color:#888888;">// --- snip! state = 1
+</span><span>repeat = recv()
+</span><span>mut i = </span><span style="color:#cf6a4c;">0
+</span><span style="color:#888888;">// --- snip! state = 2
+</span><span>send(byte)
+</span><span>set i += </span><span style="color:#cf6a4c;">1
+</span><span style="color:#8fbfdc;">if</span><span> i &lt; repeat {
+</span><span>  </span><span style="color:#888888;">// state = 2
+</span><span>}
+</span><span style="color:#888888;">// --- snip! state = 0
+</span></code></pre>
+<p>We can now lift this into a state machine:</p>
+<pre data-lang="scala" style="background-color:#151515;color:#e8e8d3;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#888888;">// --- snip! state = 0
+</span><span style="color:#cf6a4c;">0</span><span> -&gt; {
+</span><span>  set byte = recv()
+</span><span>  set state = </span><span style="color:#cf6a4c;">1
+</span><span>}
+</span><span style="color:#cf6a4c;">1</span><span> -&gt; {
+</span><span>  set repeat = recv()
+</span><span>  set i = </span><span style="color:#cf6a4c;">0
+</span><span>  set state = </span><span style="color:#cf6a4c;">2
+</span><span>}
+</span><span style="color:#cf6a4c;">2</span><span> -&gt; {
+</span><span>  send(byte)
+</span><span>  set i += </span><span style="color:#cf6a4c;">1
+</span><span>  </span><span style="color:#8fbfdc;">if</span><span> i &lt; repeat {
+</span><span>    set state = </span><span style="color:#cf6a4c;">2
+</span><span>  } </span><span style="color:#8fbfdc;">else </span><span>{
+</span><span>    set state = </span><span style="color:#cf6a4c;">0
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>Now, here’s a conundrum: Our state machine calls <code>recv</code> (<code>R</code>) and <code>send</code> (<code>S</code>) in a specific order. The order of calls looks like this:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>R R S... R R S... R R S...
+</span></code></pre>
+<p>This ordering requires that our code call the state machine with <code>R</code> and <code>S</code> in the right order! Unlike the case where there was only one callback we were lifting, we’re now faced with a choice to make. How do we represent an object, with some state, with different ways to call it depending on the state it’s in?</p>
+<p>If we push this deeper, we stumble upon some beautiful symmetries: actors are a generalization of closures, the purpose of protocols (<a rel="noopener nofollow" target="_blank" href="https://clojure.org/reference/protocols">as in clojure</a>), <a rel="noopener nofollow" target="_blank" href="https://cliffle.com/blog/rust-typestate/">type-state programming</a>, the sequencing of algebraic effects, and so on.</p>
+<p>I hate to end on a cliff-hanger, but I would like to get this piece published, as it’s been sitting on my disk for about a month. In the next post, we will relate inversions of control to Algebraic Effects in Affetto. Stay tuned!</p>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

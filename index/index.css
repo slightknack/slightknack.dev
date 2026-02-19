@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(#00ACE6, #CAECF7);
+    min-height: 100vh;
+}
+
+.layers {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.layer {
+    --parallax-x: 0;
+    --parallax-y: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Inner container for parallax movement */
+/* Image width: min(80vw, 86.33vh) ensures mountains stay below 2/3 screen height */
+.layer-inner {
+    --img-width: clamp(max(50vh, 50vw), 80vw, 86.33vh);
+    position: absolute;
+    bottom: calc(var(--parallax-y) * 1px);
+    left: calc(50% - var(--img-width) * 1.5 + var(--parallax-x) * 1px);
+    display: flex;
+    flex-direction: row;
+    width: calc(var(--img-width) * 3);
+}
+
+/* Placeholder styling */
+.layer .placeholder {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    filter: blur(20px);
+    transform: scale(1.05);
+    transition: opacity 0.5s ease-out;
+}
+
+.layer .placeholder img {
+    width: var(--img-width);
+    height: auto;
+    display: block;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* Main images */
+.layer .main {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    opacity: 0;
+    filter: blur(20px);
+    transition: opacity 1.5s ease-in, filter 2.5s ease-out;
+}
+
+.layer .main.loaded {
+    opacity: 1;
+    filter: blur(0px);
+}
+
+/* Closer layers unblur faster */
+.layer-field .main {
+    transition: opacity 1.5s ease-in, filter 1.5s ease-out;
+}
+
+.layer-mountains .main {
+    transition: opacity 1.5s ease-in, filter 2.5s ease-out;
+}
+
+.layer-clouds .main {
+    transition: opacity 1.5s ease-in, filter 3.5s ease-out;
+}
+
+.layer .main picture {
+    display: block;
+    width: var(--img-width);
+    flex-shrink: 0;
+}
+
+.layer .main img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/* Overlap images (1px) and feather edges (1px) to blend */
+.layer .main picture {
+    margin-left: -1px;
+    margin-right: -1px;
+    -webkit-mask: linear-gradient(to right, transparent 0px, #000 1px, #000 calc(100% - 1px), transparent 100%);
+    mask: linear-gradient(to right, transparent 0px, #000 1px, #000 calc(100% - 1px), transparent 100%);
+}
+
+.layer .main picture:first-child {
+    margin-left: 0;
+    -webkit-mask: linear-gradient(to right, #000 0%, #000 calc(100% - 1px), transparent 100%);
+    mask: linear-gradient(to right, #000 0%, #000 calc(100% - 1px), transparent 100%);
+}
+
+.layer .placeholder img {
+    margin-left: -1px;
+    margin-right: -1px;
+    -webkit-mask: linear-gradient(to right, transparent 0px, #000 1px, #000 calc(100% - 1px), transparent 100%);
+    mask: linear-gradient(to right, transparent 0px, #000 1px, #000 calc(100% - 1px), transparent 100%);
+}
+
+.layer .placeholder img:first-child {
+    margin-left: 0;
+    -webkit-mask: linear-gradient(to right, #000 0%, #000 calc(100% - 1px), transparent 100%);
+    mask: linear-gradient(to right, #000 0%, #000 calc(100% - 1px), transparent 100%);
+}
+
+/* The blurry placeholder */
+.blur-load {
+    filter: blur(20px);
+    transform: scale(1.05);
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+/* The main image (initially hidden) */
+.main-art {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+    z-index: 10;
+}
+
+/* Class added via JS when loaded */
+.main-art.loaded {
+    opacity: 1;
+}
+
+.layer-clouds {
+    z-index: 1;
+}
+
+.layer-clouds .layer-inner {
+    --cloud-margin: calc(max(50vw - var(--img-width) / 2, var(--img-width) / 2 - 50vw) * -0.1);
+    bottom: calc(var(--img-width) * 0.57 + var(--parallax-y) * 1px);
+    left: calc(var(--cloud-margin) + var(--parallax-x) * 1px);
+    width: var(--img-width);
+}
+
+.layer-mountains {
+    z-index: 2;
+}
+
+.layer-mountains .layer-inner {
+    bottom: calc(var(--img-width) * 0.38 + var(--parallax-y) * 1px);
+}
+
+.layer-field {
+    z-index: 3;
+}
+
+.layer-field .layer-inner {
+    bottom: calc(0px + var(--parallax-y) * 1px);
+}
+
+.navbar-overlay {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+.name-overlay {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.name-overlay-corner {
+    display: none;
+}
+
+.tagline {
+    text-wrap: balance;
+}
+
+.tagline::before {
+    content: var(--tagline);
+    font-style: italic;
+}
+
+@media (min-width: 900px) {
+    .name-overlay {
+        display: none;
+    }
+
+    .name-overlay-corner {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        padding: 2rem;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(#000, #414494);
+    }
+
+    .art-container img {
+        filter: hue-rotate(30deg) brightness(90%);
+    }
+
+    .blur-load {
+        filter: blur(20px) hue-rotate(30deg) brightness(90%);
+    }
+}

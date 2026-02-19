@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            We need an LLVM project for browser engines · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/1_saturn.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">We need an LLVM project for browser engines</h1>
+<p class="tag">2025-04-18 · About 10 minutes long</p>
+<div class="boxed">
+<p><em>N.B.</em> I’m publishing some gems from writing I did over the course of two years while living in Brazil. Read <a href="/blog/writing">the first post</a> for more context.</p>
+</div>
+<p class="tag">2023-09-13 · Isaac Clayton</p>
+<p>You’re reading this in Chrome. Or, probably Firefox. Or Safari. Heaven-forbid Edge (only joking).</p>
+<p>There is a web browser hegemony. <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Usage_share_of_web_browsers#Summary_tables">More than 60% of the world uses Chrome</a>. As we’ve seen with recent proposals for <a rel="noopener nofollow" target="_blank" href="https://arstechnica.com/gadgets/2023/07/googles-web-integrity-api-sounds-like-drm-for-the-web/">Web Integrity</a>, <a rel="noopener nofollow" target="_blank" href="https://www.osnews.com/story/136502/apple-already-shipped-attestation-on-the-web-and-we-barely-noticed/">Attestation</a>, and the antonymic meme that is the <a rel="noopener nofollow" target="_blank" href="https://arstechnica.com/gadgets/2023/09/googles-widely-opposed-ad-platform-the-privacy-sandbox-launches-in-chrome/">Privacy Sandbox</a>, all roads from a browser monopoly lead to undesirable outcomes. How can we keep the open web resilient against the whims of a few vendors?</p>
+<p>Everyone uses Chrome because <a rel="noopener nofollow" target="_blank" href="https://stackoverflow.com/questions/598841/how-to-get-started-building-a-web-browser">writing a browser is <em>hard</em></a> (and at some point, Chrome sucked the least). The Web Standard is incredibly <a rel="noopener nofollow" target="_blank" href="https://www.w3.org/standards/">huge</a>. It has many <a rel="noopener nofollow" target="_blank" href="https://html.spec.whatwg.org/#obsolete">quirks</a>; major browsers <a rel="noopener nofollow" target="_blank" href="https://v4.chriskrycho.com/2017/chrome-is-not-the-standard.html">deviate</a> from the standard. A proper ‘modern’ browser is, frankly, too big for any one individual to implement. If an individual could write a full browser in a weekend, we might not have this problem. Sounds impossible, right?</p>
+<p>Let’s talk about programming languages. Writing an optimizing compiler backend <em>used</em> to be hard, too. There are a number of instruction sets, hundreds of platforms, and thousands of optimizations that can be applied. Where to begin? For a long time there was something of a language monopoly. Any hobbyist could hack together a lisp interpreter, but a <em>Real Language</em> required a <a rel="noopener nofollow" target="_blank" href="https://isocpp.org/std/the-committee">committee</a> or a <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Sun_Microsystems">corporate sponsor</a>.</p>
+<p>This all changed after <a rel="noopener nofollow" target="_blank" href="https://llvm.org">LLVM</a>. LLVM is a <em>universal compiler backend</em>. LLVM started its life as the backend for <a rel="noopener nofollow" target="_blank" href="https://clang.llvm.org">clang</a>, the C compiler. It has since been picked up by a number of your favorite projects, including <a rel="noopener nofollow" target="_blank" href="https://rustc-dev-guide.rust-lang.org/backend/codegen.html">Rust</a>, <a rel="noopener nofollow" target="_blank" href="https://github.com/swiftlang/llvm-project">Swift</a>, <a rel="noopener nofollow" target="_blank" href="https://docs.julialang.org/en/v1/devdocs/llvm/">Julia</a>, and <a rel="noopener nofollow" target="_blank" href="https://kristoff.it/blog/zig-new-relationship-llvm/">Zig</a>.</p>
+<p>LLVM is a big tool that does a lot of heavy lifting. It’s popular because (compared to writing an optimizing compiler) it’s very easy to use. There’s an <a rel="noopener nofollow" target="_blank" href="https://llvm.org/docs/tutorial/">official guide</a> showing how, in about a weekend, one may implement a small language (Kaleidoscope) that <a rel="noopener nofollow" target="_blank" href="https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/LangImpl08.html">compiles to machine code</a>, with <a rel="noopener nofollow" target="_blank" href="https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/LangImpl04.html">optimization passes</a>, that can <a rel="noopener nofollow" target="_blank" href="https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/LangImpl03.html">interact with existing C libraries</a>. LLVM grows with you: keep at it for a few months, and you’ll have a full compiler on your hands.</p>
+<p>In this sense, programming languages have been democratized. Anyone can write a compiler for any language. Better yet, we have hundreds of competing languages. As the <a rel="noopener nofollow" target="_blank" href="https://craftinginterpreters.com">pedagogical ramp</a> improves, creating a new programming language will only become easier. Now, what of the web?</p>
+<p>To keep the dream of the open web alive, we need something of a <em>universal browser backend</em>. Call it an LLVM for browsers:</p>
+<p>This universal browser backend would have to implement a large useful subset of the web standard. Ideally as many composable componentized modules, possessing simple interfaces, with bindings for many languages.</p>
+<p>Developers could ‘mix and match’ modules for https, layout, rendering, JS, websockets, Wasm, and so on to develop their own browser engine. Library authors could write higher-level interfaces that help people to compose their own browser from greater component parts. Using such libraries, people could write a browser in a weekend, and, with a little work, a full browser in a few months.</p>
+<p>Just as the diversity of popular languages has exploded since the arrival of LLVM, we should expect an equivalent explosion of the types of browsers available once a universal browser backend arrives. Anyone could write a browser for any subset (or superset!) of standards, and we would have hundreds of competing browsers, filling hundreds of different niches. The web would fulfill its goal of becoming a <em>universal application platform</em>. What type of browser would you write?</p>
+<p>A universal browser engine would need a project to drive it forward. Before LLVM’s cambrian explosion, it was a backend for clang, a standard C compiler. Likewise, for a universal browser backend to happen, we’ll need ‘a clang’: a standards-compliant tabbed web browser driving development forward. This ‘clang’-type project could come from:</p>
+<ol>
+<li>
+<p>An independent organization, with a lot of capital, that wants to break into the browser market (e.g. Microsoft).</p>
+</li>
+<li>
+<p>Motivated developers, modularizing the implementation of an existing browser engine like Firefox or Chromium.</p>
+</li>
+<li>
+<p>Browser engineers, starting a <a rel="noopener nofollow" target="_blank" href="https://ladybird.dev">new project</a>, built from the ground up, that has reached escape velocity and has paved the road for others to do the same.</p>
+</li>
+</ol>
+<p>You are in a position to do something, right now. If you’re reading this in Chrome, stop. Please give <a rel="noopener nofollow" target="_blank" href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a>—or <a rel="noopener nofollow" target="_blank" href="https://lynx.browser.org">literally</a> <a rel="noopener nofollow" target="_blank" href="https://browser.kagi.com">any</a> <a rel="noopener nofollow" target="_blank" href="https://arc.net">other</a> <a rel="noopener nofollow" target="_blank" href="https://github.com/SerenityOS/ladybird">browser</a>—a try.</p>
+<p>If you’re curious about how browsers work, try implementing one. There are plenty of guides: here’s a <a rel="noopener nofollow" target="_blank" href="https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html">good place to start</a>.</p>
+<p>If you work on browsers, share what you know with others. I fell in love with computers reading blogs and exploring the better parts of the open web. I learned things I wouldn’t’ve learned otherwise. It pains me to see people using their web-browser without an adblocker, or running into broken websites with no idea how to fix them. I like to think about the web I would want the <em>next generation</em> to explore. I would like to work towards realizing that vision. As a kid, one of the things that annoyed me most was that it cost money to <del>buy</del> rent a domain name. Why limit browsers to http via dns? What if kids could write <em>real websites</em> in an editor based on Scratch, shared P2P in a little community? What if there was a standard protocol for extending browsers  with new protocols and presentation formats (in a secure sandboxed manner)? What wonderful types of application platforms and paradigms exist but are yet to be discovered? (Or have been lost and must be <a rel="noopener nofollow" target="_blank" href="https://www.amber-lang.net/">rediscovered</a>?) As the open web becomes ravaged by scrapers and bots, a tight-knit web of alternate browser communities might be woven together. What primitives might a browser expose if it were <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Beaker_(web_browser)">built to support local-first software by default</a>? What powerful content-presentation tools would a browser expose if enabling online advertizing weren’t a priority? The sky is the limit! We’re counting on you!</p>
+<p>There is a browser hegemony: it’s stifling innovation and limiting the web’s potential of becoming a universal application platform. Just as LLVM made it possible for anyone to write a compiler, we need a <em>universal browser backend</em>, so that <em>anyone</em> can write a browser. What type of browser would you write?</p>
+<h1 id="postscript-solidarity">Postscript, Solidarity</h1>
+<p class="tag">2025-04-18 · Isaac Clayton</p>
+<p>In 2020, I started messing around with a project I called <a rel="noopener nofollow" target="_blank" href="https://github.com/sldty">Solidarity</a>. It was more of a proof-of-concept; I haven’t worked on it in years. The goal was to build a fun exploratory alternate to the web, from first principles. As a joke, I called it “The Internet, 2”.</p>
+<p>I wanted to write a browser where a client-server architecture was obsolete, so over-the-network collaboration was the default. To that end, Solidarity introduced a new protocol, <code>kitbag</code>, for realtime P2P replication of data over UDP; an unfinished crdt library, <code>together</code>, for data synchronization; a self-describing binary data format, <code>d3t</code>, for encoding messages for the network; a WebAssembly runtime for running apps and browser components (named <code>jiggle</code>, I guess?); an implementation of a distributed consensus algorithm, <code>drop-in-fba</code>, for creating a global linear order of events (when CRDTs fell short). On top of this, systems for assigning names to content-addresses could be built.</p>
+<p>Everything was content-addressed, so apps and static assets were replicated to your device on demand. All parts of the browser ran as little components compiled to WebAssembly, exposing interfaces to interact with other components and the host system. The browser could be extended with new protocols and formats by installing an app with the right capabilities. The browser was also the application editor. As easily as you could download an app, you could also fork an app and edit it in-browser to work however you wanted it to!</p>
+<p>There were lots of other ideas in the works. Instead of html and css, applications could be written in any language (compiled to Wasm), and would render pages by interfacing with a WebGPU component (also providing an accessibility tree, of course). There was no such thing as a ‘per-website account’: only a browser-wide component providing high-level primitives for identity, through public-key cryptography. Browsers weren’t limited to a single machine: if you had a beefy home server you owned (or, say, a desktop tied to your phone), apps could offload computationally-intensive tasks to run on the more powerful machine (application code and processed data automatically being replicated between the beefy computer and your edge device using <code>kitbag</code>, of course). If you wanted to, you could rent, say, a beefy computer from aws; this is your homeserver; you control what runs on it. All the benefits of the cloud, none of the drawbacks.</p>
+<p>The foundation, <code>kitbag</code>, is a protocol for real-time data sync. All apps are collaborative and local-first by default. If an app pointed two different computers at the same <code>kitbag</code> document, the computers would find each other, sync up, and start exchanging edits. What if making an application collaborative was as easy as telling the browser, “yes, both these identities can now edit the same document”, and it <em>just worked</em>?</p>
+<p>I’m still very excited by this idea, and perhaps one day I’ll write it up in full. If the web ever becomes unbearable, I’ll build Solidarity for my friends. I hope we never reach that point :)</p>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

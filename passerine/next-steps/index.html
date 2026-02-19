@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Macros, Types, and Next Steps · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                            <strong
+                                > Passerine </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/4_shoe.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Macros, Types, and Next Steps</h1>
+<p class="tag">2021-06-01 · About 10 minutes long</p>
+<p>Passerine is at an interesting point: we’ve established a few language features, and built this easily extensible functional core on which to base the rest of the language. We currently have two implementations of the language, one written in Rust, the other in D, and it’s imperative we set the course of the language before divergence occurs.</p>
+<span id="continue-reading"></span><h1 id="revisiting-macros">Revisiting Macros</h1>
+<p>Currently, macros take the form:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>syntax &lt;argpat&gt; { &lt;body&gt; }
+</span></code></pre>
+<p>Form-based macros are very fun, as it’s easy to quickly prototype new language features. There are a few rough points though:</p>
+<ol>
+<li>Macros are strictly form-based, and can’t access Passerine’s richer syntax.</li>
+<li>Compile-time expansion of macros is fairly limited.</li>
+</ol>
+<p>At this point, macros are mostly templates. But the general idea is pretty simple: argument patterns define a finite state machine that extracts AST from forms, and these ASTs are then spliced (hygienically, I might add) into the body to produce a new AST. Here’s what that looks like:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>syntax &#39;if cond then &#39;else otherwise {
+</span><span>    ...
+</span><span>}
+</span><span>
+</span><span>if (n &lt; 2) {
+</span><span>    print n
+</span><span>} else {
+</span><span>    print &quot;small&quot;
+</span><span>}
+</span></code></pre>
+<p>This is neat and all, but we can’t do things like repeating some code a variable number of times at compile time, or matching in forms to leverage existing syntax. To address the two issues I raised earlier, I think it’s time to introduce a generalized mechanism through which we can build macros in the future.</p>
+<p>But before we do that, a quick reminder. <strong>Macros must respect lexical scope and hygiene</strong>. A macro defined in a function body is only accessible inside that body. It’s not possible to return a macro from a function, but it is from a module. We’ll discuss this more later.</p>
+<h2 id="token-based-macros">Token Based Macros</h2>
+<p>Token based macros are powerful enough to represent the syntax-based macros we currently have in the language. The core idea is pretty simple: a macro is a function that is run at compile time: it takes a list of tokens, and produces a new list of tokens, which is then compiled.</p>
+<p>So, what does that look like? We need a way to embed Passerine’s token stream in the language itself: for that, we’ll declare a few union types:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Token {
+</span><span>    Iden String,
+</span><span>    Op   String,
+</span><span>    Data Data,
+</span><span>    Group {
+</span><span>        delim: Delim,
+</span><span>        tokens: [Token],
+</span><span>    }
+</span><span>    Sep,
+</span><span>    -- and so on...
+</span><span>}
+</span><span>
+</span><span>type Delim {
+</span><span>    Paren,  -- ()
+</span><span>    Curly,  -- {}
+</span><span>    Square, -- []
+</span><span>}
+</span><span>
+</span><span>-- etc...
+</span></code></pre>
+<blockquote>
+<p>If you’re not familiar with union types, we’ll discuss them later on in the ADT section.</p>
+</blockquote>
+<p>So, for example, the variable <code>hello</code> would be the token <code>Iden "hello"</code>. The most important things to note are as follows:</p>
+<ol>
+<li>
+<p>Delimiters, such as parenthesis <code>()</code>, curly braces <code>{}</code>, or square brackets <code>[]</code> are defined via the <code>Group</code> variant. This means that these tokens must be balanced.</p>
+</li>
+<li>
+<p>Macro transformations occur <em>before</em> the AST is constructed. This reduces the complexity implementation-wise, and allows for more flexible macros.</p>
+</li>
+</ol>
+<p>with <code>Token</code> in place, let’s look at a sample token macro. These macros are denoted with the <code>macro</code> keyword, and take the following form:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>macro &lt;keyword&gt; = &lt;function&gt;
+</span></code></pre>
+<p>What’s important to note is that the <code>&lt;function&gt;</code> must be of type <code>[Token] -&gt; comptime [Token]</code>. <code>comptime</code> is an algebraic effect representing a compile-time transformation. We’ll get into the meaning of <code>comptime</code> more when we discuss algebraic effects later on.</p>
+<p>Here’s what a token macro looks like:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>-- import token variants
+</span><span>use Token::*
+</span><span>use Delim::*
+</span><span>
+</span><span>macro while = [
+</span><span>    Iden &quot;while&quot;,
+</span><span>    ..cond,
+</span><span>    Group {
+</span><span>        delim: Curly,
+</span><span>        tokens: body,
+</span><span>    },
+</span><span>] -&gt; [
+</span><span>    Iden &quot;loop&quot;, Op &quot;=&quot;,
+</span><span>    Iden &quot;_&quot;, Op &quot;-&gt;&quot; Iden &quot;if&quot;,
+</span><span>    Group { delim: Paren, tokens: cond },
+</span><span>    Group { delim: Curly, tokens: ... }
+</span><span>    -- and so on...
+</span><span>]
+</span></code></pre>
+<p>In this case, we’re using pattern matching to match the incoming token stream, then immediately filling in an output token stream. It’s important to remember that a macro is just a function, so just about <em>any</em> strategy for writing functions can be used for writing macros.</p>
+<p>When you think about it though, the above token macro implementing a while loop is a lot more verbose compared to its syntax equivalent:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>syntax &#39;while cond body {
+</span><span>    loop = _ -&gt; if cond {
+</span><span>        body
+</span><span>        loop ()
+</span><span>    } else {
+</span><span>        ()
+</span><span>    }
+</span><span>    loop ()
+</span><span>}
+</span></code></pre>
+<p>To improve the quality-of-life of using token macros, we can write a few utilities — which are also token macros — the first of which is <code>quote</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>x = Data (Int 3)
+</span><span>tokens = quote [1, 2, splice x]
+</span></code></pre>
+<p><code>quote</code> takes some passerine code, and expands it into a token stream, splicing in other variables using <code>splice</code>. For instance, the above example expands to:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>tokens == [
+</span><span>    Group {
+</span><span>        delim: Square,
+</span><span>        tokens: [
+</span><span>            Data (Int 1),
+</span><span>            Data (Int 2),
+</span><span>            Data (Int 3),
+</span><span>        ]
+</span><span>    }
+</span><span>]
+</span></code></pre>
+<p>This makes it easier to write the bodies of token macros - for instance, our incomplete while-loop body now becomes:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>... -&gt; quote {
+</span><span>    loop = _ -&gt; if (splice cond) {
+</span><span>        splice body
+</span><span>        loop ()
+</span><span>    } else {
+</span><span>        ()
+</span><span>    }
+</span><span>    loop ()
+</span><span>}
+</span></code></pre>
+<p>Which is a lot nicer. The second utility we can introduce is <code>argpat</code>, which is used for pattern matching on macros:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>argpat { &#39;while cond body } = tokens
+</span></code></pre>
+<p>This expands to something like this:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>[Iden &quot;while&quot;, cond, body] = tokens
+</span></code></pre>
+<p><code>argpat</code> is useful because it allows us to quickly match on token streams to extract useful data. What’s important to remember is that both <code>quote</code> and <code>argpat</code> can be implemented using token macros: we’re not introducing any new syntax here.</p>
+<p>As Passerine currently has two implementations - the <a rel="noopener nofollow" target="_blank" href="https://github.com/vrtbl/passerine">Rust</a> one by me and the <a rel="noopener nofollow" target="_blank" href="https://github.com/ShawSumma/purr/tree/main/ext/passerine">D</a> one by Shaw, it’s important we try to ensure compatibility between them. Token macros allow us to put language features like <code>syntax</code>, etc. in the prelude, resulting in less work for us, and greater compatibility between implementations.</p>
+<p>So, if we introduce token macros, will we be getting rid of syntax macros? The answer is no: after token macros are implemented, we can implement syntax macros in terms of them.</p>
+<p>With both <code>quote</code> and <code>argpat</code>, it’s easy to see how something like <code>syntax</code> can be implemented: it would be a macro that generates a macro, using <code>argpat</code> to match on the token stream, and quote to expand the resulting body. Some care has to be taken to ensure that names present in the argument pattern are automatically spliced; needless to say, <code>syntax</code> would look something like this, when implemented as a token macro:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>macro syntax = [
+</span><span>    Iden &quot;syntax&quot;
+</span><span>    ..argument_pattern
+</span><span>    Group {
+</span><span>        delim: Curly,
+</span><span>        tokens: body,
+</span><span>    }
+</span><span>] -&gt; {
+</span><span>    kw = extract_argpat_kw argument_pattern
+</span><span>    -- more omitted...
+</span><span>    quote {
+</span><span>        macro (splice kw) =
+</span><span>            argpat (splice argument_pattern)
+</span><span>        -&gt; quote {
+</span><span>            (splice body)
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>The above isn’t a concrete implementation, but should show the intended structure of the <code>syntax</code> macro. Remember that a token macro is just a function, so we can use any strategy imaginable to expand macros.</p>
+<p>Now that I’ve explained how token macros work, two questions remain: how do we preserve macro hygiene, and how do we know when to apply macros?</p>
+<p>Macro hygiene can be a complex issue, especially with respect to macro-generating macros. Even in languages known for their hygiene, like scheme, researchers have shown that there are ways to break hygiene (see, i.e. anaphoric macros). What even is macro hygiene?</p>
+<p>Primarily, macro hygiene means that macros, when expanded, must not mess with the local lexical scope. This means that a macro can not reference variables explicitly passed to the macro. In practice, a macro can’t define new identifiers, or redefine existing ones not passed to it. For instance, assuming a small lisp-like hygienic macro system:</p>
+<pre data-lang="lisp" style="background-color:#151515;color:#e8e8d3;" class="language-lisp "><code class="language-lisp" data-lang="lisp"><span style="color:#888888;">; define a macro that swaps two variables
+</span><span>(macro (swap! a b)
+</span><span>    (define tmp a)
+</span><span>    (set! a b)
+</span><span>    (set! b tmp))
+</span><span>
+</span><span style="color:#888888;">; tmp is used in the macro,
+</span><span style="color:#888888;">; here, we define our own
+</span><span>(define tmp </span><span style="color:#cf6a4c;">1</span><span>)
+</span><span>(define x   </span><span style="color:#cf6a4c;">2</span><span>)
+</span><span>(define y   </span><span style="color:#cf6a4c;">3</span><span>)
+</span><span>
+</span><span style="color:#888888;">; expand the macro
+</span><span>(swap! x y)
+</span><span style="color:#888888;">; becomes:
+</span><span style="color:#888888;">; | (define _tmp x)
+</span><span style="color:#888888;">; | (set! x y)
+</span><span style="color:#888888;">; | (set! y _tmp)
+</span><span>
+</span><span style="color:#888888;">; note that the expanded _tmp is mangled
+</span><span style="color:#888888;">; our tmp is still 1
+</span></code></pre>
+<p>As you can see from the above example, even though we define <code>tmp</code> outside the macro <code>swap!</code>, because <code>tmp</code> is not passed to <code>swap!</code>, expanding the macro will not affect the outside definition. How can we enforce this at the token-stream level?</p>
+<p>Before expanding a macro, we build a set of all <code>Iden</code> tokens passed to the macro. These are tokens that the macro is allowed to reference. After the macro has produced its expansion, we scan through the resulting list of tokens, and mangle any new <code>Iden</code>s introduced.</p>
+<p>To ensure that mangled tokens don’t get it the way of macro expansion, all tokens are unmangled before being passed into a macro. This ensures that references to other macros within macros work as intended.</p>
+<p>The second question we need to address is that of ‘when should macros be applied’? Traditionally, <code>syntax</code> macros operate on forms. For instance, consider the following expression:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>a b c + d e f
+</span></code></pre>
+<p>This is two forms:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>(a b c) + (d e f)
+</span></code></pre>
+<p>To build</p>
+<blockquote>
+<p>TODO</p>
+</blockquote>
+<p>These are my plans for macros. Next up, we’ll talk types.</p>
+<h1 id="so-algebraic-data-types">So, Algebraic Data Types</h1>
+<p>Passerine primarily uses a structural type system, meaning types are represented by structure rather than by name. This works a lot of the time, but breaks down when we have two things that are structurally the same but conceptually distinct. As an example, both fractions and complex numbers can be represented as tuples of two numbers:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>my_fraction = (1, 4) -- 1/4
+</span><span>my_complex  = (4, 3) -- 4+3i
+</span></code></pre>
+<p>Then, if we try to do something like implement a squaring number for fractions, it works on complex numbers too, which is less than ideal:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>square_fraction = (num, den)
+</span><span>    -&gt; (num * num, den * den)
+</span><span>
+</span><span>square my_fraction -- ok, is 1/16
+</span><span>square my_complex  -- Aaaahhh! 16+9i is not correct!
+</span></code></pre>
+<p>To deal with this, Passerine already has the concept of <em>Labels</em>. Like atoms in other languages, these currently serve as markers, i.e. loose nominal types. In other words, a <em>Label</em> gives us a way to separate types that would otherwise look exactly alike. With the above example in mind, using labels we get:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>my_fraction = Fraction (1, 4) -- 1/4
+</span><span>my_complex  = Complex  (4, 3) -- 4+3i
+</span><span>
+</span><span>square = Fraction (num,       den      )
+</span><span>      -&gt; Fraction (num * num, den * den)
+</span><span>
+</span><span>square my_fraction -- ok, is 1/16
+</span><span>square my_complex  -- error is raised
+</span></code></pre>
+<p>This is all well and good, and works well in practice. There are two downsides to labels, though:</p>
+<ol>
+<li>
+<p>They can be created willy-nilly. Although compiled down to little more than integers, in the sense of ensuring correctness, they are no better than strings. If you accidentally misspell a label, it’s a different type, resulting in spurious runtime errors.</p>
+</li>
+<li>
+<p>They are strictly nominal. If your function expects a <code>Message (a, b)</code>, and I have my own label <code>Message (c, d)</code>, I could pass by <code>Message</code> to your function, whether or not it even means the same thing. In this case, we’re back where we started.</p>
+</li>
+</ol>
+<p>To get around this, I’ve finally introduced a fully-formed notion of nominal types. Types must be declared, so a misspelling is a compile-time error; additionally, types are now <em>scoped</em>, so it’s possible to have two types with the same label, while still preserving uniqueness.</p>
+<p>So how to define types? Types will follow the form of macros, in essence: <code>type &lt;name&gt; &lt;definition&gt;</code>. <code>&lt;name&gt;</code>, of course, is a label, and must be capitalized. <code>&lt;definition&gt;</code> looks similar to a pattern, but in place of bindings, we have types. I’ll get to what this looks like in a second.</p>
+<p>Here’s an example type:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Fraction (Int, Int)
+</span><span>my_fraction = Fraction (1, 4)
+</span></code></pre>
+<p>Nothing too surprising here. We can define named struct-like types by wrapping a bare record with a label:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Person {
+</span><span>    name:  String,
+</span><span>    age:   Nat,
+</span><span>    skill: T,
+</span><span>}
+</span></code></pre>
+<p>Here, you can see we have a skill <code>T</code>. This is a generic parameter. All generic parameters must be single letters; for this reason, a non-generic type must be at least two letters long.</p>
+<blockquote>
+<p>TODO: unions, methods (traits), etc.</p>
+</blockquote>
+<h1 id="module-system">Module System</h1>
+<blockquote>
+<p>TODO</p>
+</blockquote>
+<h1 id="native-over-magic">Native over Magic</h1>
+<p>Currently, to use FFI functions, we have used a hack that I’m not particularly proud of: the <code>magic</code> keyword. For those not familiar with it, while compiling a passerine module we can specify an FFI, which is a map from string names to Rust functions. For instance, if we have the following function in the FFI:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#888888;">// bound to string &quot;add_seven&quot; in FFI
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">add_seven</span><span>(</span><span style="color:#ffb964;">data</span><span>: Data) -&gt; Result&lt;Data, String&gt; {
+</span><span>    </span><span style="color:#8fbfdc;">match</span><span> data {
+</span><span>        Data::Real =&gt; Ok(Data::Real(f + </span><span style="color:#cf6a4c;">7.0</span><span>)),
+</span><span>        _ =&gt; Err(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Expected a Real</span><span style="color:#556633;">&quot;</span><span>.into()),
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>We can use it from Passerine like so:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>-- call the rust function:
+</span><span>magic &quot;add_seven&quot; 3.5
+</span><span>-- is 10.5
+</span></code></pre>
+<p>This works well enough. What I’m not a fan of is the way we select the function to run: e.g. the <code>magic "add"</code>.</p>
+<p>After some discussion with Shaw, I think that the best course of action is to remove <code>magic</code> in favor of a new construct, <code>native</code>. Like <code>use syntax</code>, <code>use native</code> is an import modifier that tells Passerine to look in the FFI for an import. Assuming the Rust <code>add</code> function we defined earlier is in scope:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>use native add_seven
+</span><span>add_seven 3.5
+</span><span>-- is 10.5
+</span></code></pre>
+<p>This is nicer on a couple of fronts: native functions now act just like any other function.</p>
+<blockquote>
+<h2 id="note">Note</h2>
+<p>I’m currently considering making native a module; in other words, we’d do:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>native::add_seven 3.5
+</span></code></pre>
+<p>or:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>use native::add_seven
+</span><span>add_seven 3.5
+</span></code></pre>
+<p>Another line of thought is that native items should just be algebraic effects, with handlers implemented natively. We discuss algebraic effects in the next section.</p>
+</blockquote>
+<h1 id="algebraic-effects">Algebraic Effects</h1>
+<blockquote>
+<p>TODO</p>
+</blockquote>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

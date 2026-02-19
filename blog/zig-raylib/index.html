@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            One day with Zig, Raylib, and jj · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/2_asleep.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">One day with Zig, Raylib, and jj</h1>
+<p class="tag">2024-12-25 · About 15 minutes long</p>
+<h1 id="merry-christmas">Merry Christmas!</h1>
+<p>Back from the mission, first semester at MIT is in the books! Now I am at home, with family, on a break from school.</p>
+<p>A couple days ago, I was telling my younger brother how cool Zig (the programming language) was. He was like, “if Zig is so cool, why don’t you … like, use it?” Oof. So I <a rel="noopener nofollow" target="_blank" href="https://ziglang.org/learn/getting-started/#managers">installed Zig</a>, pulled in <a rel="noopener nofollow" target="_blank" href="https://github.com/Not-Nik/raylib-zig">some neat bindings for raylib</a>, and spent the afternoon writing a little interactive scrabble board demo to make sure that I understood what I was talking about (while he worked on some music for it, which I haven’t yet included):</p>
+<iframe src="/scrabble" width="100%" height="600px" frameborder="0"></iframe>
+<p>So that I can stop worrying about this project and lay it to rest, I decided to write a little blog post. The above demo doesn’t really work on mobile, and it may be broken (Wasm, JS, about 1MB in size, etc.), so here’s a screenshot:</p>
+<p><img src="/content/scrabble-devlog.png" alt="Screenshot of a scrabble board in a window on top of a Zed editor." /></p>
+<p>When I showed my brother the demo, he was like, “that’s cool beta, but where’s the game?”</p>
+<p>You can’t win every battle.</p>
+<blockquote>
+<p>N.B. “Maybe if you made it a game you could” — my brother</p>
+</blockquote>
+<p>Anyway, the code <del>will be</del> <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/scrabble">is now up on GitHub</a>, it’s like <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/scrabble/blob/master/src/main.zig">~500 lines</a> and has <a rel="noopener nofollow" target="_blank" href="https://github.com/Not-Nik/raylib-zig">like one dependency</a> (<code>raylib-zig</code>) so it shouldn’t be too hard to get the native build working if you’d like to follow along then. The web build is a little hacky and left as an exercise to the reader.</p>
+<h1 id="why-zig">Why Zig</h1>
+<p>I have been eyeballing Zig for a while. I think I first heard of the language via a talk Andrew Kelly gave at the recurse center … ah yep here it is: <a rel="noopener nofollow" target="_blank" href="https://youtu.be/Z4oYSByyRak?t=157"><em>Software Should Be Perfect</em></a>. 6 years ago, wow.</p>
+<p>I really vibe with the language. From a language design PoV, generics through <code>comptime</code> functions is pretty fun. “Compiler as an interpreter over the static elements of the program” and all that. Also, I think @matklad has mentioned that there’s this goal of making Zig an incremental “real-time” compiler. Incrementally compiling code at 60 fps! Now that’s a goal I can get behind! From a tooling PoV, also very cool: I love the cross-compilation, and <code>build.zig</code>, while a bit to absorb all at once, is very useful and powerful, especially for e.g. embedding a C library like raylib.</p>
+<p>I also came across the <a rel="noopener nofollow" target="_blank" href="https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md">TigerStyle document</a> out of TigerBeetle and it has changed the way I think about code. This project was for fun, but I can see how Zig can help scale the ideas in this document. It doesn’t try to hide anything from you. And like, aesthetically, I find the idea of e.g. statically allocating all memory up front to be very appealing.</p>
+<h1 id="walk-me-through-the-code">Walk me through the code</h1>
+<p>I put <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/scrabble">the code up on GitHub</a>, and I thought it would be fun to walk through some of it and point out some interesting stuff as we go along. Clone if you want to follow along!</p>
+<blockquote>
+<p>N.B. I used <a rel="noopener nofollow" target="_blank" href="https://github.com/jj-vcs/jj">jujutsu (jj)</a> to do version control instead of git (without colocating) so I am figuring out whether I try to convert the jj repo to a git repo or just <code>git init</code> and <code>push</code> without any history. I’ll read the jj docs, there’s probably an easy way to export/convert/colocate.</p>
+<p>Update: Steve Klabnik, the <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/stable/book/">Rust book guy</a> (and now I guess also the <a rel="noopener nofollow" target="_blank" href="https://steveklabnik.github.io/jujutsu-tutorial/introduction/introduction.html">jj tutorial guy</a>?) <a rel="noopener nofollow" target="_blank" href="https://lobste.rs/s/1wbfuj/one_day_with_zig_raylib_jj#c_irzgui">pointed out on Lobsters</a> that, because jj repos are backed by git repos, you can just <a rel="noopener nofollow" target="_blank" href="https://steveklabnik.github.io/jujutsu-tutorial/sharing-code/remotes.html">add a remote</a> and <code>jj git push</code>. In brief detail, we can add a git remote:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">jj</span><span> git remote add origin git@github.com:slightknack/scrabble.git
+</span></code></pre>
+<p>Then we can set a bookmark named <code>master</code> pointing at the most recent commit:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">jj</span><span> bookmark set master
+</span></code></pre>
+<p>Which we can then push to GitHub, the bookmark becoming the <code>master</code> branch:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">jj</span><span> git push</span><span style="color:#ffb964;"> --allow-new
+</span></code></pre>
+<p>The integration jj has with git is very cool! From the <em>little time</em> I’ve spent using jj and the <em>lot of time</em> I’ve spent reading about jj, I think that jj’s UI is much nice than git’s. On Lobsters, I observed that perhaps “jj is positioned to ameliorate the git world as TS ameliorated JS”. I’d like to live in that world; I’d better blog about jj more.</p>
+</blockquote>
+<p>The approach I took to writing this project was essentially the approach that Casey Muratori outlines in his post <a rel="noopener nofollow" target="_blank" href="https://caseymuratori.com/blog_0015"><em>Semantic Compression</em></a>. I’m not going to explain it here, he does a much better job than I have space to. The core idea of this process is to add the next most obvious feature in the simplest way possible, not trying to abstract beforehand. Once a feature is working, gradually refactor out common ‘stack frames’ into structs, and functions that use those structs. Over time the codebase sort of organizes itself. I think this approach works really well when it comes to making game-like things, which makes sense: Muratori is a game programmer, after all.</p>
+<blockquote>
+<p>N.B. I kinda missed the whole AI train (long story) so all this code was written by hand, reading the documentation (e.g. the entire Zig language <a rel="noopener nofollow" target="_blank" href="https://ziglang.org/documentation/master">is just one page</a>!), etc. Mistakes are my own!</p>
+</blockquote>
+<h2 id="a-note-on-comptime">A note on comptime</h2>
+<p>I’d like to walk through the file and pull out interesting bits of code, just to give you a feel for the project, and maybe introduce some bits of Zig I found cool. The whole project largely exists in a single ~500 line <code>main.zig</code> file. At the top of the file, I have two imports:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">const</span><span> std = </span><span style="color:#8fbfdc;">@import</span><span>(</span><span style="color:#99ad6a;">&quot;std&quot;</span><span>);
+</span><span style="color:#8fbfdc;">const</span><span> rl = </span><span style="color:#8fbfdc;">@import</span><span>(</span><span style="color:#99ad6a;">&quot;raylib&quot;</span><span>);
+</span></code></pre>
+<p>Two pretty cool items of language design, right away:</p>
+<ol>
+<li>A top-level <code>const</code> like this means that this code is evaluated at compile-time (comptime)!</li>
+<li>Symbols starting with <code>@</code>, like <code>@import</code>, are special to the compiler. <code>@import("std")</code> essentially adds a source file to the build, producing a struct, which we then can assign to a symbol, like <code>std</code>. Neat!</li>
+</ol>
+<p>We see this idea of comptime echoed a lot. Modules are just comptime structs in other files. Types are first-class values at comptime. Generics are functions that return types at comptime. And so on.</p>
+<p>After our imports, we embed some static resources in the binary, sounds and textures:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">const</span><span> image_table = @embedFile(</span><span style="color:#99ad6a;">&quot;./assets/table-light.jpg&quot;</span><span>);
+</span><span style="color:#8fbfdc;">const</span><span> sound_place = @embedFile(</span><span style="color:#99ad6a;">&quot;./assets/place.wav&quot;</span><span>);
+</span><span style="color:#8fbfdc;">const</span><span> sound_pickup = @embedFile(</span><span style="color:#99ad6a;">&quot;./assets/pickup.wav&quot;</span><span>);
+</span><span style="color:#8fbfdc;">const</span><span> sound_tap = @embedFile(</span><span style="color:#99ad6a;">&quot;./assets/tap.wav&quot;</span><span>);
+</span><span style="color:#8fbfdc;">const</span><span> sound_shuffle = @embedFile(</span><span style="color:#99ad6a;">&quot;./assets/shuffle.wav&quot;</span><span>);
+</span></code></pre>
+<p>The comptime function <code>@embedFile</code> is pretty cool, similar to the <code>include_bytes!</code> macro in Rust.</p>
+<h2 id="structs-and-the-shape-of-a-stack-frame">Structs and the shape of a stack frame</h2>
+<p>As I programmed, I ended up organizing game state into a few different structs, one generic:</p>
+<ul>
+<li><code>Grid(rows, cols)</code>: fixed-size grid of squares, each square may contain a tile.</li>
+<li><code>Tile</code>: A tile with a single letter on it.</li>
+<li><code>Rack</code>: Contains a <code>Grid(1, 7)</code> and a <code>Button</code>, which can be used to refill the rack.</li>
+<li><code>Bag</code>: Shuffles all 98 scrabble tiles and returns them one by one, <a rel="noopener nofollow" target="_blank" href="https://harddrop.com/wiki/Random_Generator">similar to tetris</a>.</li>
+<li><code>Button</code>: A single button that can be clicked.</li>
+</ul>
+<p>The <code>Grid</code> struct is generic. In Zig, this means it is a function that we call (at comptime!) with the number of rows and columns, to produce a concrete type with a statically-known size. We do this so we know how big of an array to allocate to hold all the tiles in the grid. I’m actually rather proud of this fact: by virtue of never using an allocator, this code never allocates on the heap! (Caveat, raylib internals.) Here’s how <code>Grid</code> is defined:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">Grid</span><span>(
+</span><span>    </span><span style="color:#8fbfdc;">comptime </span><span style="color:#ffb964;">num_rows</span><span>: </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>    </span><span style="color:#8fbfdc;">comptime </span><span style="color:#ffb964;">num_cols</span><span>: </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>) </span><span style="color:#8fbfdc;">type </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">return struct </span><span>{
+</span><span>        </span><span style="color:#8fbfdc;">const</span><span> Self = @This();
+</span><span>        </span><span style="color:#ffb964;">rows</span><span>: </span><span style="color:#8fbfdc;">usize </span><span>= num_rows,
+</span><span>        </span><span style="color:#ffb964;">cols</span><span>: </span><span style="color:#8fbfdc;">usize </span><span>= num_cols,
+</span><span>        </span><span style="color:#ffb964;">posX</span><span>: </span><span style="color:#8fbfdc;">i32</span><span>,
+</span><span>        </span><span style="color:#ffb964;">posY</span><span>: </span><span style="color:#8fbfdc;">i32</span><span>,
+</span><span>        </span><span style="color:#ffb964;">tile_width</span><span>: </span><span style="color:#8fbfdc;">i32</span><span>,
+</span><span>        </span><span style="color:#ffb964;">tile_height</span><span>: </span><span style="color:#8fbfdc;">i32</span><span>,
+</span><span>        </span><span style="color:#ffb964;">gap</span><span>: </span><span style="color:#8fbfdc;">i32</span><span>,
+</span><span>        </span><span style="color:#888888;">// like some text in a book, left to right, top to bottom
+</span><span>        </span><span style="color:#ffb964;">tiles</span><span>: [num_rows * num_cols]?</span><span style="color:#8fbfdc;">Tile</span><span>,
+</span><span>
+</span><span>        </span><span style="color:#888888;">// methods, etc. ...
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Raylib is essentially an immediate mode library for graphics. Meaning, each frame, we have to generate a sequence of draw events that will produce the picture we see on the screen. Each of the above structs (except for <code>Bag</code>) has an <code>update</code> method and a <code>draw</code> method that can be called each frame. It’s refreshingly simple.</p>
+<p>Again, I wrote the code in a procedural style and ‘pulled out stack frames’ as I went along. I wasn’t trying to take an object-oriented approach, or confine structs to a given interface. These were the patterns that emerged in the code that I pulled out of <code>main</code>.</p>
+<p>I don’t know why, but I find this to be such a fun way to code. Here’s the method that draws the grid, for example:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#888888;">/// draw the grid background and all the tiles on the grid
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">draw</span><span>(
+</span><span>    </span><span style="color:#ffb964;">self</span><span>: </span><span style="color:#8fbfdc;">Self</span><span>,
+</span><span>    </span><span style="color:#ffb964;">color</span><span>: </span><span style="color:#8fbfdc;">rl.Color</span><span>,
+</span><span>) </span><span style="color:#8fbfdc;">void </span><span>{
+</span><span>    </span><span style="color:#888888;">// draw the grid background
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span>(0..self.rows) |row| {
+</span><span>        </span><span style="color:#8fbfdc;">for </span><span>(0..self.cols) |col| {
+</span><span>            </span><span style="color:#8fbfdc;">const </span><span style="color:#ffb964;">r</span><span>: </span><span style="color:#8fbfdc;">i32 </span><span>= @intCast(row);
+</span><span>            </span><span style="color:#8fbfdc;">const </span><span style="color:#ffb964;">c</span><span>: </span><span style="color:#8fbfdc;">i32 </span><span>= @intCast(col);
+</span><span>            rl.</span><span style="color:#ffb964;">drawRectangle</span><span>(
+</span><span>                self.posX + c * self.tile_width,
+</span><span>                self.posY + r * self.tile_height,
+</span><span>                self.</span><span style="color:#ffb964;">width</span><span>(),
+</span><span>                self.</span><span style="color:#ffb964;">height</span><span>(),
+</span><span>                color,
+</span><span>            );
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#888888;">// draw the tiles on top
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span>(self.tiles) |maybe_tile| {
+</span><span>        </span><span style="color:#8fbfdc;">if </span><span>(maybe_tile) |tile| {
+</span><span>            tile.</span><span style="color:#ffb964;">draw</span><span>(rl.Color.white, rl.Color.light_gray, rl.Color.black);
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Isn’t that so … satisfying? I mean sure, it’s not a beautiful Haskell one-liner, yet it contains <em>exactly</em> everything that needs to happen, no less, and no more.</p>
+<blockquote>
+<p>N.B. I also really love Zig’s block syntax <code>|...| { ... }</code> for <code>for</code> and <code>if</code>. The way Zig does nulls is very cool and I’ll have to write about it some more sometime.</p>
+</blockquote>
+<p>The way I did tiles is pretty fun. Here’s a <code>Tile</code>:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">const </span><span style="color:#ffb964;">Tile </span><span>= </span><span style="color:#8fbfdc;">struct </span><span>{
+</span><span>    </span><span style="color:#ffb964;">pos</span><span>: </span><span style="color:#8fbfdc;">rl.Vector2</span><span>,
+</span><span>    </span><span style="color:#ffb964;">width</span><span>: </span><span style="color:#8fbfdc;">i32</span><span>,
+</span><span>    </span><span style="color:#ffb964;">height</span><span>: </span><span style="color:#8fbfdc;">i32</span><span>,
+</span><span>    </span><span style="color:#ffb964;">hover</span><span>: </span><span style="color:#8fbfdc;">f32</span><span>,
+</span><span>    </span><span style="color:#ffb964;">thick</span><span>: </span><span style="color:#8fbfdc;">i32</span><span>,
+</span><span>    </span><span style="color:#ffb964;">letter</span><span>: </span><span style="color:#8fbfdc;">u8</span><span>,
+</span><span>
+</span><span>    </span><span style="color:#888888;">// ...
+</span><span>}
+</span></code></pre>
+<p>Note that <code>rl.Vector2</code> is a type defined by raylib (<code>rl</code>) and essentially amounts to two <code>f32</code>s. Elsewhere, <code>hover</code> is the height the tile is floating above the ground, and <code>letter</code> is a byte representing the ASCII code for the letter on the tile.</p>
+<h2 id="animations-falling-into-place">Animations falling into place</h2>
+<p>What’s really great is how naturally the tile animations fall out of this. When we place a <code>Tile</code> in a <code>Grid</code>, the grid stores it in a linearized array, <code>Grid.tiles</code>:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#888888;">// like some text in a book, left to right, top to bottom
+</span><span style="color:#ffb964;">tiles</span><span>: [num_rows * num_cols]?</span><span style="color:#8fbfdc;">Tile</span><span>,
+</span></code></pre>
+<p>When we update the grid each frame, we animate each tile in <code>tiles</code> towards the resting position it should be in. Here’s what that looks like:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#888888;">/// animate placed tiles towards their resting grid positions. should be called once per frame.
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">update</span><span>(</span><span style="color:#ffb964;">self</span><span>: *</span><span style="color:#8fbfdc;">Self</span><span>) </span><span style="color:#8fbfdc;">void </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span>(0..self.rows) |row| {
+</span><span>        </span><span style="color:#8fbfdc;">for </span><span>(0..self.cols) |col| {
+</span><span>            </span><span style="color:#8fbfdc;">const </span><span style="color:#ffb964;">r</span><span>: </span><span style="color:#8fbfdc;">i32 </span><span>= @intCast(col);
+</span><span>            </span><span style="color:#8fbfdc;">const </span><span style="color:#ffb964;">c</span><span>: </span><span style="color:#8fbfdc;">i32 </span><span>= @intCast(row);
+</span><span>            </span><span style="color:#888888;">// guaranteed to be within bounds
+</span><span>            </span><span style="color:#8fbfdc;">const</span><span> index = self.</span><span style="color:#ffb964;">toIndex</span><span>(r, c).?;
+</span><span>            </span><span style="color:#8fbfdc;">const</span><span> target = self.</span><span style="color:#ffb964;">toTarget</span><span>(r, c);
+</span><span>            </span><span style="color:#8fbfdc;">var</span><span> tile = &amp;(self.tiles[index] </span><span style="color:#8fbfdc;">orelse continue</span><span>);
+</span><span>            tile.</span><span style="color:#ffb964;">settleInPlace</span><span>(target);
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>I have no clue whether there’s a better way to get a reference to <code>tile</code> than the approach I used. Surely there is, compared to this:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">var</span><span> tile = &amp;(self.tiles[index] </span><span style="color:#8fbfdc;">orelse continue</span><span>);
+</span><span>tile.</span><span style="color:#ffb964;">settleInPlace</span><span>(target);
+</span></code></pre>
+<p>We have an array of optional tiles (<code>[]?Tile</code>) and a reference to an item in that array is a <code>*?Tile</code>, but we need a <code>*Tile</code>. I had fun here but there’s probably a very simple way to do this. I digress</p>
+<p>We go through each tile and nudge it towards where it needs to be on the grid. The method <code>tile.settleInPlace</code> just nudges the tile towards the target position, and lowers the <code>hover</code>ing tile to the ground:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#888888;">/// animate the tile towards a given target. should be called once per frame
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">settleInPlace</span><span>(</span><span style="color:#ffb964;">self</span><span>: *</span><span style="color:#8fbfdc;">Tile</span><span>, </span><span style="color:#ffb964;">target</span><span>: </span><span style="color:#8fbfdc;">rl.Vector2</span><span>) </span><span style="color:#8fbfdc;">void </span><span>{
+</span><span>    self.pos = rl.math.</span><span style="color:#ffb964;">vector2Lerp</span><span>(self.pos, target, </span><span style="color:#cf6a4c;">0.3</span><span>);
+</span><span>    self.hover = rl.math.</span><span style="color:#ffb964;">lerp</span><span>(self.hover, </span><span style="color:#cf6a4c;">0.0</span><span>, </span><span style="color:#cf6a4c;">0.08</span><span>);
+</span><span>}
+</span></code></pre>
+<p>Here <code>lerp</code> is a <a rel="noopener nofollow" target="_blank" href="https://scratch.mit.edu/projects/40796964/editor/">classic trick older than time</a>. I’m sure other people have their own names for this, but I don’t think it needs a name. I think of it as the <code>pos += (target - pos) / speed</code> trick. In the APL tradition, if something is simple enough that it is about as long as its name, why name it?</p>
+<p>We use a similar trick for when a tile is hovering over a grid. We want the tile to be “magnetically attracted” to the grid spaces but also follow the mouse. We can use the tension between two <code>lerp</code>s to make that happen:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#888888;">/// animate the tile towards the mouse, biased towards the grid. should be called once per frame.
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">followMouse</span><span>(</span><span style="color:#ffb964;">self</span><span>: *</span><span style="color:#8fbfdc;">Tile</span><span>, </span><span style="color:#ffb964;">mouse</span><span>: </span><span style="color:#8fbfdc;">rl.Vector2</span><span>, </span><span style="color:#ffb964;">snap</span><span>: </span><span style="color:#8fbfdc;">rl.Vector2</span><span>) </span><span style="color:#8fbfdc;">void </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">const</span><span> pos_mouse = rl.math.</span><span style="color:#ffb964;">vector2Lerp</span><span>(self.pos, mouse, </span><span style="color:#cf6a4c;">0.1</span><span>);
+</span><span>    </span><span style="color:#8fbfdc;">const</span><span> pos_snap = rl.math.</span><span style="color:#ffb964;">vector2Lerp</span><span>(pos_mouse, snap, </span><span style="color:#cf6a4c;">0.2</span><span>);
+</span><span>    self.pos = pos_snap;
+</span><span>}
+</span></code></pre>
+<p>The parameter <code>snap</code> is computed elsewhere, but it’s the screenspace coordinates of the nearest grid cell.</p>
+<blockquote>
+<p>N.B. I was considering keeping track of velocities to make the tile springy and give it some mass (another classic trick). Here’s what that looks like, if curious</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>vel += vel * friction + (target - pos) / speed
+</span><span>pos += vel
+</span></code></pre>
+</blockquote>
+<p>What is really cool about this procedural stateless approach to animating tiles is that when we add a tile to a grid, or have it follow the mouse, it naturally smoothly travels to the right place. Complex dynamic behaviour is best driven by simple behavior compounded over time.</p>
+<h2 id="randomness-and-the-bag">Randomness and the bag</h2>
+<p>One thing I wanted to get right was the <code>Bag</code>. I didn’t want to allocate anything, but I wanted the distribution of scrabble tiles to be correct. Well, the second part is easy, we just need a bag with each tile:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#888888;">/// don&#39;t ask
+</span><span style="color:#8fbfdc;">const </span><span style="color:#ffb964;">scrabble_bag</span><span>: *</span><span style="color:#8fbfdc;">const</span><span> [</span><span style="color:#cf6a4c;">98</span><span>:</span><span style="color:#cf6a4c;">0</span><span>]</span><span style="color:#8fbfdc;">u8 </span><span>= </span><span style="color:#99ad6a;">&quot;EEEEEEEEEEEEAAAAAAAAAIIIIIIIIIOOOOOOOONNNNNNRRRRRRTTTTTTLLLLSSSSUUUUDDDDGGGBBCCMMPPFFHHVVWWYYKXJQZ&quot;</span><span>;
+</span></code></pre>
+<p><a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Scrabble_letter_distributions">Thank you Wikipedia</a>.</p>
+<p>We’ll just allocate, on the stack I suppose, a single large struct with space to hold all these letters:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">const </span><span style="color:#ffb964;">Bag </span><span>= </span><span style="color:#8fbfdc;">struct </span><span>{
+</span><span>    </span><span style="color:#ffb964;">scrambled</span><span>: [</span><span style="color:#cf6a4c;">98</span><span>]</span><span style="color:#8fbfdc;">u8</span><span>,
+</span><span>    </span><span style="color:#ffb964;">next</span><span>: </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>
+</span><span>    </span><span style="color:#888888;">// ...
+</span><span>}
+</span></code></pre>
+<blockquote>
+<p>N.B. I don’t know how Zig internally deals with large structs like this. I know that, in principle, when a function is called, structs are passed by value, “making a fresh immutable copy”. I would hope that in practice Zig optimizes this to a reference to an earlier stack frame or similar.</p>
+</blockquote>
+<p>All we’ll do is shuffle our <code>scrabble_bag</code> into <code>Bag.scrambled</code>, then empty out the bag by incrementing <code>next</code>, shuffling again when we reach the end. Oh. How does one shuffle in Zig? I will note that this was a little non-trivial to find docs for because there is a deprecated API that shows up higher in the search results, but the long story short is we want to use <code>std.Random</code> via <code>std.crypto.random</code>, and that’s something you can look up.</p>
+<p>Here’s the code that shuffles the bag:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">fresh</span><span>() </span><span style="color:#8fbfdc;">Bag </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">const</span><span> rand = std.crypto.random;
+</span><span>    </span><span style="color:#8fbfdc;">var </span><span style="color:#ffb964;">loc</span><span>: [</span><span style="color:#cf6a4c;">98</span><span>]</span><span style="color:#8fbfdc;">u8 </span><span>= scrabble_bag.*;
+</span><span>    rand.</span><span style="color:#ffb964;">shuffle</span><span>(u8, &amp;loc);
+</span><span>    </span><span style="color:#8fbfdc;">return Bag</span><span>{
+</span><span>        .scrambled = loc,
+</span><span>        .next = </span><span style="color:#cf6a4c;">0</span><span>,
+</span><span>    };
+</span><span>}
+</span></code></pre>
+<p>Figuring out <code>var loc: [98]u8</code> also took a little work. Zig doesn’t have full Hindley-Milner type inference, as Rust does. Sometimes you have to guide the compiler along by using <code>@as</code> or explicit bindings. Not necessarily a bad thing, it’s good to know what types are flowing through the program. A good balance between Rust’s type inference magic and Austral’s <a rel="noopener nofollow" target="_blank" href="https://borretti.me/article/introducing-austral#anti-features">purposeful lack thereof</a>.</p>
+<blockquote>
+<p>N.B. This makes total sense, in the context of Zig’s comptime! When generic types are built function calls, type information flows in one direction. Flowing program information backwards is what we see in languages like Prolog, where rules can be thought of as bidirectional functions. I briefly explored this direction in a compiler I am working on, which has (had?) first-class support for datalog-like queries. “Type inference as a comptime datalog query.” Maybe someday.</p>
+</blockquote>
+<p>Okay, and just for completion’s sake, here’s the rest of <code>Bag</code>:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#888888;">/// pick a tile from the bag. if the bag is empty, replace with a fresh bag.
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">pick</span><span>(</span><span style="color:#ffb964;">self</span><span>: *</span><span style="color:#8fbfdc;">Bag</span><span>) </span><span style="color:#8fbfdc;">u8 </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">const</span><span> drawn = self.scrambled[self.next];
+</span><span>    self.next += </span><span style="color:#cf6a4c;">1</span><span>;
+</span><span>    </span><span style="color:#8fbfdc;">if </span><span>(self.next &gt;= self.scrambled.len) {
+</span><span>        self.* = Bag.</span><span style="color:#ffb964;">fresh</span><span>();
+</span><span>    }
+</span><span>    </span><span style="color:#8fbfdc;">return</span><span> drawn;
+</span><span>}
+</span></code></pre>
+<p>I was surprised that <code>std.crypto.random</code> worked out of the box for the wasm build of the demo. From my experience with Rust and <code>rand</code>, this is not always something that automatically works.</p>
+<h2 id="my-main-man">My main man</h2>
+<p>We’ve already talked about most of the project, structured as follows:</p>
+<ul>
+<li>Imports and embeddings</li>
+<li>Structs and methods</li>
+<li>The <code>main</code> function
+<ul>
+<li>Startup code</li>
+<li>Per-frame loop</li>
+</ul>
+</li>
+</ul>
+<p>I’d like to talk about the <code>main</code> function, because it’s the beating heart of this whole thing. As I mentioned, I wrote this project by writing a main function, and then pulling out functions and bundles of local variables as things got repetitive. So <code>main</code> really is the driver of the whole codebase, both literally and conceptually.</p>
+<p>Raylib is delightful to work with. Here’s how we set up our window:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">pub fn </span><span style="color:#fad07a;">main</span><span>() </span><span style="color:#8fbfdc;">anyerror</span><span>!</span><span style="color:#8fbfdc;">void </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">const</span><span> screenWidth = </span><span style="color:#cf6a4c;">800</span><span>;
+</span><span>    </span><span style="color:#8fbfdc;">const</span><span> screenHeight = </span><span style="color:#cf6a4c;">600</span><span>;
+</span><span>
+</span><span>    rl.</span><span style="color:#ffb964;">initWindow</span><span>(screenWidth, screenHeight, </span><span style="color:#99ad6a;">&quot;game game&quot;</span><span>);
+</span><span>    rl.</span><span style="color:#ffb964;">initAudioDevice</span><span>();
+</span><span>    rl.</span><span style="color:#ffb964;">setTargetFPS</span><span>(</span><span style="color:#cf6a4c;">60</span><span>);
+</span><span>    </span><span style="color:#8fbfdc;">defer</span><span> rl.</span><span style="color:#ffb964;">closeWindow</span><span>();
+</span><span>    </span><span style="color:#8fbfdc;">defer</span><span> rl.</span><span style="color:#ffb964;">closeAudioDevice</span><span>();
+</span><span>
+</span><span>    </span><span style="color:#888888;">// Startup code and per-frame loop
+</span><span>}
+</span></code></pre>
+<p>I love how I can use <code>defer</code> here. It’s a nice way to pair together functions that must be called together, but at different times. A lot of old C APIs expect this sort of “manual nesting by the programmer” to enter and exit over e.g. taking a callback. I prefer <code>defer</code> over RAII, though. At least in this context: raylib is simple and global and single-threaded, what do I know.</p>
+<p>The startup code that comes after builds a lot of structs. It looks like this:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">var</span><span> grid = </span><span style="color:#8fbfdc;">GridBoard</span><span>{
+</span><span>    .posX = </span><span style="color:#cf6a4c;">175</span><span>,
+</span><span>    .posY = </span><span style="color:#cf6a4c;">45</span><span>,
+</span><span>    .tile_width = </span><span style="color:#cf6a4c;">30</span><span>,
+</span><span>    .tile_height = </span><span style="color:#cf6a4c;">30</span><span>,
+</span><span>    .gap = </span><span style="color:#cf6a4c;">2</span><span>,
+</span><span>    .tiles = [</span><span style="color:#cf6a4c;">_</span><span>]?</span><span style="color:#8fbfdc;">Tile</span><span>{null} ** (</span><span style="color:#cf6a4c;">15 </span><span>* </span><span style="color:#cf6a4c;">15</span><span>),
+</span><span>};
+</span><span>
+</span><span style="color:#888888;">// more structs
+</span></code></pre>
+<p>I considered factoring this out into a bunch of unique <code>init</code> functions, but that’s like squeezing a water balloon. The lines are just going to pop up somewhere else in the codebase, and I’d rather have all this initialization code in the same place for easy tweaking. Maybe if the project were bigger.</p>
+<p>Then we load all the sound and image data for the game. Remember, this was embedded into the binary earlier with <code>@embedFile</code>. Honestly I am so impressed by how nice and logically organized raylib’s API is, what a treat:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">const</span><span> image_table_mem = rl.</span><span style="color:#ffb964;">loadImageFromMemory</span><span>(</span><span style="color:#99ad6a;">&quot;.jpg&quot;</span><span>, image_table);
+</span><span style="color:#8fbfdc;">const</span><span> image_table_tex = rl.</span><span style="color:#ffb964;">loadTextureFromImage</span><span>(image_table_mem);
+</span><span>
+</span><span style="color:#8fbfdc;">const</span><span> sound_pickup_mem = rl.</span><span style="color:#ffb964;">loadWaveFromMemory</span><span>(</span><span style="color:#99ad6a;">&quot;.wav&quot;</span><span>, sound_pickup);
+</span><span style="color:#8fbfdc;">const</span><span> sound_place_mem = rl.</span><span style="color:#ffb964;">loadWaveFromMemory</span><span>(</span><span style="color:#99ad6a;">&quot;.wav&quot;</span><span>, sound_place);
+</span><span style="color:#8fbfdc;">const</span><span> sound_tap_mem = rl.</span><span style="color:#ffb964;">loadWaveFromMemory</span><span>(</span><span style="color:#99ad6a;">&quot;.wav&quot;</span><span>, sound_tap);
+</span><span style="color:#8fbfdc;">const</span><span> sound_shuffle_mem = rl.</span><span style="color:#ffb964;">loadWaveFromMemory</span><span>(</span><span style="color:#99ad6a;">&quot;.wav&quot;</span><span>, sound_shuffle);
+</span><span style="color:#8fbfdc;">const</span><span> sound_pickup_wav = rl.</span><span style="color:#ffb964;">loadSoundFromWave</span><span>(sound_pickup_mem);
+</span><span style="color:#8fbfdc;">const</span><span> sound_place_wav = rl.</span><span style="color:#ffb964;">loadSoundFromWave</span><span>(sound_place_mem);
+</span><span style="color:#8fbfdc;">const</span><span> sound_tap_wav = rl.</span><span style="color:#ffb964;">loadSoundFromWave</span><span>(sound_tap_mem);
+</span><span style="color:#8fbfdc;">const</span><span> sound_shuffle_wav = rl.</span><span style="color:#ffb964;">loadSoundFromWave</span><span>(sound_shuffle_mem);
+</span><span>
+</span><span style="color:#888888;">// per-frame loop.
+</span></code></pre>
+<p>If only I were better at naming things, haha.</p>
+<p>Onto the per-frame loop. We start by clearing and drawing the background. Another useful appearance of <code>defer</code>:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">while </span><span>(!rl.</span><span style="color:#ffb964;">windowShouldClose</span><span>()) {
+</span><span>    rl.</span><span style="color:#ffb964;">beginDrawing</span><span>();
+</span><span>    </span><span style="color:#8fbfdc;">defer</span><span> rl.</span><span style="color:#ffb964;">endDrawing</span><span>();
+</span><span>
+</span><span>    rl.</span><span style="color:#ffb964;">clearBackground</span><span>(rl.Color.white);
+</span><span>    rl.</span><span style="color:#ffb964;">drawTexture</span><span>(image_table_tex, </span><span style="color:#cf6a4c;">0</span><span>, </span><span style="color:#cf6a4c;">0</span><span>, rl.Color.white);
+</span><span>    </span><span style="color:#8fbfdc;">defer</span><span> rl.</span><span style="color:#ffb964;">drawFPS</span><span>(</span><span style="color:#cf6a4c;">10</span><span>, </span><span style="color:#cf6a4c;">10</span><span>);
+</span><span>
+</span><span>    </span><span style="color:#888888;">// ... update and draw
+</span><span>}
+</span></code></pre>
+<p>I wanted to draw the FPS counter on top of everything, which I can do by drawing it last through <code>defer</code>.</p>
+<p>There’s a lot of pretty dense game state updating that I don’t want to bore you with, but it’s nothing complicated. I probably should break it up into a few functions. Here’s how we update and draw the grid:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span>grid.</span><span style="color:#ffb964;">update</span><span>();
+</span><span>grid.</span><span style="color:#ffb964;">draw</span><span>(rl.Color.dark_brown.</span><span style="color:#ffb964;">alpha</span><span>(</span><span style="color:#cf6a4c;">0.2</span><span>));
+</span></code></pre>
+<p>And to give you an idea of the logic, here’s the logic for trying to pick up a tile:</p>
+<pre data-lang="zig" style="background-color:#151515;color:#e8e8d3;" class="language-zig "><code class="language-zig" data-lang="zig"><span style="color:#8fbfdc;">if </span><span>(mouse_click) {
+</span><span>    </span><span style="color:#8fbfdc;">if </span><span>(grid.</span><span style="color:#ffb964;">pickUp</span><span>(tile.pos)) |got_tile| {
+</span><span>        tile = got_tile;
+</span><span>        tile_visible = true;
+</span><span>        rl.</span><span style="color:#ffb964;">playSound</span><span>(sound_place_wav);
+</span><span>    } </span><span style="color:#8fbfdc;">else if </span><span>(rack.grid.</span><span style="color:#ffb964;">pickUp</span><span>(tile.pos)) |got_tile| {
+</span><span>        tile = got_tile;
+</span><span>        tile_visible = true;
+</span><span>        rl.</span><span style="color:#ffb964;">playSound</span><span>(sound_pickup_wav);
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>There’s similar code for placing a tile, how to swap a tile, updating the tile to follow the mouse, and so on.</p>
+<p>Again, look at that beautiful raylib API for playing a sound!</p>
+<h1 id="final-thoughts">Final thoughts</h1>
+<p>I had a lot of fun messing around with Zig and raylib!</p>
+<p>I really do enjoy picking up new tools like this. Trying out a project like this is low stakes, and experience is the best teacher. I have read a lot of Zig code, but this is the first time I really write something. Thank you Andrew Kelley and everyone who works on Zig and, well, @raysan5 for raylib (and @Not-Nik for the bindings)!</p>
+<p>One thing I missed coming from Rust was pattern matching. Zig doesn’t have pattern matching, I suppose? Reading some discussion online, it seems to be that Zig’s <code>switch</code> statement—the moral equivalent to Rust’s <code>match</code>—compiles to a jump table, but pattern matching can lead to non-obvious control flow. I can see how that goes against the ethos of Zig, but man pattern matching would be nice. Maybe there’s a <a rel="noopener nofollow" target="_blank" href="https://github.com/TheHonestHare/zkinder">library that emulates pattern matching</a>? Could a library generate pattern matching code at comptime? Who knows!</p>
+<p>I don’t know if I will add more to this game, but if I do, stay tuned. I have been thinking about what it would take to add online multiplayer. I have also been sketching out a fun little CRDT library. We’ll see what happens.</p>
+<p>Oh yeah! and I totally forgot to touch on <code>build.zig</code>! I’ll have to touch on that the next time I write about Zig.</p>
+<p>And jujutsu was really fun. I even got to use <code>amend</code>. Another topic for another post!</p>
+<p>Merry Christmas, and to all a good night!</p>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

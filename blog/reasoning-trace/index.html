@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Reasoning Trace · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/2_skeletons.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Reasoning Trace</h1>
+<p class="tag">2025-01-28 · About 14 minutes long</p>
+<p><a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/2501.12948">DeepSeek-R1-Zero is cool</a>. I <a href="/blog/constraints">wrote about reasoning models</a> before o1, and I’m excited to the way this area of research has been cracked wide open, it seems. It’s also remarkably simple. I’m messing around with llama (running locally!), trying to see if I can at least partially reproduce the results (for fun). I figure I can collect reasoning chains and then adapt some existing RLHF code to fine-tune the model on successful chains vs. unsuccessful chains, maybe by prefixing the response with a reward token, a la <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/pdf/2106.01345">decision transformer</a>.</p>
+<blockquote>
+<p><em>N.B.</em> I’m doing something a little more complicated where the model is allowed to write and run python programs to arrive at an answer. I’m testing on some <a rel="noopener nofollow" target="_blank" href="https://projecteuler.net/archives"><em>Project Euler</em></a> questions, because I think they are a fun blend of a mathematical and computational challenge.</p>
+</blockquote>
+<p>It turns out that <code>llama-3.2-3b-instruct</code> is pretty bad at <em>Project Euler</em>. I’ve tested it on the first <s>77</s> 109 questions, and it’s gotten about 12 right. About half the time (43 cases), it gets stuck in a reasoning loop and never produces an answer (like generating Python code that isn’t properly indented and then trying everything to debug the syntax error <em>except indenting the code</em>). Sometimes this makes llama frustrated:</p>
+<span id="continue-reading"></span><img src="/content/driving-me-crazy.png" alt="llama: This problem is driving me crazy. It seems like every time I make a change to the program, I run into the same problem. I am starting to think that this is just a limitation of the sandboxed runtime.">
+<p>Yet sometimes it gets lucky!</p>
+<p>I wanted to share a couple of the successful cases, because they’re mildly amusing.</p>
+<p>(There’s the question of whether the model has seen these problems before in its training set—maybe, but it’s so bad at solving them that if RL improves even the baseline success rate, I’ll see that as a success.)</p>
+<details>
+<summary> <em>Here's the prompt I'm using</em></summary>
+<div class="tag-light">
+<blockquote>
+<p>A conversation between user and assistant. The user asks a question, and the assistant solves it by reasoning and writing a Python program:</p>
+<ol>
+<li>
+<p>The assistant first thinks about the reasoning process in the mind and then writes a program.</p>
+</li>
+<li>
+<p>The program is then run, and the program output is given to the assistant.</p>
+</li>
+<li>
+<p>The assistant then reasons about the output. If the output is correct, the assistant provides the user with a final answer. If the output is incorrect, the assistant may write another program in the same manner as before.</p>
+</li>
+</ol>
+<p>The format of the assistant response is important:</p>
+<ul>
+<li>
+<p>The reasoning process is enclosed within <code>&lt;think&gt;</code> <code>&lt;/think&gt;</code> tags.</p>
+</li>
+<li>
+<p>The program is enclosed within <code>&lt;program&gt;</code> <code>&lt;/program&gt;</code> tags. The program is directly passed to a sandboxed runtime, and the output of the program is recorded. The assistant must be sure to indent the program correctly.</p>
+</li>
+<li>
+<p>The output of the program is enclosed within <code>&lt;output&gt;</code> <code>&lt;/output&gt;</code> tags. The program should print any results the assistant wants.</p>
+</li>
+<li>
+<p>The summary of the final answer is enclosed within <code>&lt;summary&gt;</code> <code>&lt;/summary&gt;</code> tags. From the summary the assistant will box a final answer.</p>
+</li>
+<li>
+<p>The final answer is enclosed within <code>&lt;boxed&gt;</code> <code>&lt;/boxed&gt;</code> tags. The answer must be a single number, as specified by the user.</p>
+</li>
+</ul>
+<p>An example of the conversation format:</p>
+<p>user: question here</p>
+<p>assistant: <code>&lt;think&gt;</code> reasoning process here <code>&lt;/think&gt;</code></p>
+<p><code>&lt;program&gt;</code> program here <code>&lt;/program&gt;</code><br>
+<code>&lt;output&gt;</code> output here <code>&lt;/output&gt;</code><br>
+<code>&lt;think&gt;</code> reasoning process here <code>&lt;/think&gt;</code><br>
+…<br>
+<code>&lt;summary&gt;</code> summary here <code>&lt;/summary&gt;</code><br>
+<code>&lt;boxed&gt;</code> boxed answer here <code>&lt;/boxed&gt;</code></p>
+<p>Here is the actual conversation:</p>
+<p>user: <code>QUESTION</code></p>
+<p>assistant: <code>ANSWER</code></p>
+</blockquote>
+</div>
+<p>The code I used to collect reasoning traces samples tokens from the model such that the format of <code>ANSWER</code> matches the format described in the prompt. In the examples reproduced below, I’ve decided to format the model response based on the corresponding tag (e.g. <code>&lt;think&gt;</code> is quoted) and use <a rel="noopener nofollow" target="_blank" href="https://www.mathjax.org/">MathJAX</a> to format the LaTeX.</p>
+</details>
+<blockquote>
+<p>⚠️ <em>ACHTUNG:</em> This post contains spoilers for <em>Project Euler</em>, which is why the model’s reasoning traces are collapsed by default. <em>Project Euler</em> is a lot of fun (and in fear of spoiling the fun, I’m conflicted as to whether I should even <em>include</em> the model’s answers…) so I <em>strongly</em> suggest that you try some of these problems for yourself before looking at what the model did! (And to be clear: I verified these answers myself, and did not submit them to the <em>Project Euler</em> website.)</p>
+</blockquote>
+<p>In no particular order, here are some problems that <em>were</em> solved successfully:</p>
+<h1 id="problem-56">Problem 56</h1>
+<blockquote>
+<p><a rel="noopener nofollow" target="_blank" href="https://projecteuler.net/problem=56">Try it here</a>!</p>
+</blockquote>
+<p>This sample is interesting because the model reasons a decent amount before writing some code. It also correctly computes a few expressions while reasoning (e.g. $99^2 = 9801$ and $1+9+8+0+1 = 19$). The reasoning however is faulty in a few places: the maximum number is $99^{99}$, not $99^2$. Despite this, the generated code works without revision.</p>
+<details>
+<summary> <em>Expand trace...</em></summary>
+<blockquote>
+<p><code>user:</code></p>
+<p>A googol ($10^{100}$) is a massive number: one followed by one-hundred zeros; $100^{100}$ is almost unimaginably large: one followed by two-hundred zeros. Despite their size, the sum of the digits in each number is only $1$.</p>
+<p>Considering natural numbers of the form, $a^b$, where $a, b \lt 100$, what is the maximum digital sum?</p>
+<p><code>assistant:</code></p>
+<blockquote>
+<p class="tag-light"> To solve this problem, we need to think about the numbers in the form, $a^b$, where $a, b \lt 100$. The problem asks for the maximum digital sum of such numbers. In order to solve this problem, we should start by finding the maximum possible value of $a^b$ where $a, b \lt 100$. We know that $a$ can be at most $99$, and $b$ can be at most $99$. Let's try to find the maximum value of $a^b$ where $a, b \lt 99$. We can see that the maximum value is $99^2$, and we can also see that $99^2 = 9801$, which has a maximum digital sum of $1+9+8+0+1 = 19$. So we should find the maximum digital sum of $a^b$ where $a, b \lt 99$ by trying all the numbers $a^b$ in the given range. We can use a loop to try all the numbers in the given range, and find the maximum digital sum. </p>
+</blockquote>
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span>max_digit_sum = </span><span style="color:#cf6a4c;">0
+</span><span style="color:#8fbfdc;">for </span><span>a </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">range</span><span>(</span><span style="color:#cf6a4c;">1</span><span>, </span><span style="color:#cf6a4c;">100</span><span>):
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span>b </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">range</span><span>(</span><span style="color:#cf6a4c;">1</span><span>, </span><span style="color:#cf6a4c;">100</span><span>):
+</span><span>        digit_sum = </span><span style="color:#cf6a4c;">0
+</span><span>        </span><span style="color:#8fbfdc;">for </span><span>digit </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">str</span><span>(a**b):
+</span><span>            digit_sum += </span><span style="color:#ffb964;">int</span><span>(digit)
+</span><span>        </span><span style="color:#8fbfdc;">if </span><span>digit_sum &gt; max_digit_sum:
+</span><span>            max_digit_sum = digit_sum
+</span><span style="color:#ffb964;">print</span><span>(max_digit_sum)
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>972
+</span></code></pre>
+<blockquote>
+<p class="tag-light"> Based on the output of the program, we can see that the maximum digital sum is $972$. So the maximum digital sum of $a^b$ where $a, b \lt 100$ is $972$. </p>
+</blockquote>
+<p>The maximum digital sum of numbers in the form $a^b$ where $a, b \lt 100$ is $972$.</p>
+<div class=boxed><p>972</p></div>
+</blockquote>
+</details>
+<h1 id="problem-53">Problem 53</h1>
+<blockquote>
+<p><a rel="noopener nofollow" target="_blank" href="https://projecteuler.net/problem=53">Try it here</a>!</p>
+</blockquote>
+<p>This sample is interesting because the model fixes a couple of formatting bugs, and arrives at the correct answer. The fact that it was able to generate the (incorrectly-formatted) program with little thought suggests it has seen this type of problem before, though. It’s also a brute-force solution.</p>
+<details>
+<summary> <em>Expand trace...</em></summary>
+<blockquote>
+<p><code>user:</code></p>
+<p>There are exactly ten ways of selecting three from five, 12345:</p>
+<p>123, 124, 125, 134, 135, 145, 234, 235, 245, and 345</p>
+<p>In combinatorics, we use the notation, $\displaystyle \binom 5 3 = 10$.</p>
+<p>In general, $\displaystyle \binom n r = \dfrac{n!}{r!(n-r)!}$, where $r \le n$, $n! = n \times (n-1) \times … \times 3 \times 2 \times 1$, and $0! = 1$.</p>
+<p>It is not until $n = 23$, that a value exceeds one-million: $\displaystyle \binom {23} {10} = 1144066$.</p>
+<p>How many, not necessarily distinct, values of $\displaystyle \binom n r$ for $1 \le n \le 100$, are greater than one-million?</p>
+<p><code>assistant:</code></p>
+<blockquote>
+<p class="tag-light"> The problem can be solved by iterating through all values of n and r, calculating the binomial coefficient, and checking if it exceeds one million. </p>
+</blockquote>
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8fbfdc;">import </span><span>math
+</span><span>
+</span><span>max_value = </span><span style="color:#cf6a4c;">1000000
+</span><span>
+</span><span style="color:#8fbfdc;">for </span><span>n </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">range</span><span>(</span><span style="color:#cf6a4c;">1</span><span>, </span><span style="color:#cf6a4c;">101</span><span>):
+</span><span style="color:#8fbfdc;">for </span><span>r </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">range</span><span>(</span><span style="color:#cf6a4c;">1</span><span>, n + </span><span style="color:#cf6a4c;">1</span><span>):
+</span><span>binomial_coefficient = math.</span><span style="color:#ffb964;">comb</span><span>(n, r)
+</span><span style="color:#8fbfdc;">if </span><span>binomial_coefficient &gt; max_value:
+</span><span>answer += </span><span style="color:#cf6a4c;">1
+</span><span style="color:#ffb964;">print</span><span>(answer)
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>  File &quot;/var/folders/vp/h53p2mbs5f334wqgcfz9ntq80000gn/T/tmpfgsnmgii.py&quot;, line 6
+</span><span>    for r in range(1, n + 1):
+</span><span>    ^^^
+</span><span>IndentationError: expected an indented block after &#39;for&#39; statement on line 5
+</span></code></pre>
+<blockquote>
+<p class="tag-light">I made a mistake in the program. The indentation is incorrect. The inner loop should be indented to 4 spaces.  </p>
+</blockquote>
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8fbfdc;">import </span><span>math
+</span><span>
+</span><span>max_value = </span><span style="color:#cf6a4c;">1000000
+</span><span>
+</span><span style="color:#8fbfdc;">for </span><span>n </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">range</span><span>(</span><span style="color:#cf6a4c;">1</span><span>, </span><span style="color:#cf6a4c;">101</span><span>):
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span>r </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">range</span><span>(</span><span style="color:#cf6a4c;">1</span><span>, n + </span><span style="color:#cf6a4c;">1</span><span>):
+</span><span>        binomial_coefficient = math.</span><span style="color:#ffb964;">comb</span><span>(n, r)
+</span><span>        </span><span style="color:#8fbfdc;">if </span><span>binomial_coefficient &gt; max_value:
+</span><span>            answer += </span><span style="color:#cf6a4c;">1
+</span><span style="color:#ffb964;">print</span><span>(answer)
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Traceback (most recent call last):
+</span><span>  File &quot;/var/folders/vp/h53p2mbs5f334wqgcfz9ntq80000gn/T/tmpnkfk79sn.py&quot;, line 9, in &lt;module&gt;
+</span><span>    answer += 1
+</span><span>    ^^^^^^
+</span><span>NameError: name &#39;answer&#39; is not defined
+</span></code></pre>
+<blockquote>
+<p class="tag-light"> I forgot to define the variable answer. </p>
+</blockquote>
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8fbfdc;">import </span><span>math
+</span><span>
+</span><span>max_value = </span><span style="color:#cf6a4c;">1000000
+</span><span>
+</span><span>answer = </span><span style="color:#cf6a4c;">0
+</span><span style="color:#8fbfdc;">for </span><span>n </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">range</span><span>(</span><span style="color:#cf6a4c;">1</span><span>, </span><span style="color:#cf6a4c;">101</span><span>):
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span>r </span><span style="color:#8fbfdc;">in </span><span style="color:#ffb964;">range</span><span>(</span><span style="color:#cf6a4c;">1</span><span>, n + </span><span style="color:#cf6a4c;">1</span><span>):
+</span><span>        binomial_coefficient = math.</span><span style="color:#ffb964;">comb</span><span>(n, r)
+</span><span>        </span><span style="color:#8fbfdc;">if </span><span>binomial_coefficient &gt; max_value:
+</span><span>            answer += </span><span style="color:#cf6a4c;">1
+</span><span style="color:#ffb964;">print</span><span>(answer)
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>4075
+</span></code></pre>
+<blockquote>
+<p class="tag-light">The final answer is correct. I found 4075 values of $\displaystyle \binom n r$ that are greater than one-million.  </p>
+</blockquote>
+<p>The final answer is $\boxed{4075}$.</p>
+<div class=boxed><p>4075</p></div>
+</blockquote>
+</details>
+<h1 id="problem-3">Problem 3</h1>
+<blockquote>
+<p><a rel="noopener nofollow" target="_blank" href="https://projecteuler.net/problem=3">Try it here</a>!</p>
+</blockquote>
+<p>This sample is interesting because the code generated is a little non-trivial—there’s a lot of indentation which could mess it up—but the model gets it right the first time. The model doesn’t really ever verify its responses, maybe if I collected more reasoning traces there would be examples of that that could be magnified during fine tuning?</p>
+<details>
+<summary> <em>Expand trace...</em></summary>
+<blockquote>
+<p><code>user:</code></p>
+<p>The prime factors of $13195$ are $5, 7, 13$ and $29$.</p>
+<p>What is the largest prime factor of the number $600851475143$?</p>
+<p><code>assistant:</code></p>
+<blockquote>
+<p class="tag-light"> First, let's list the factors of 600851475143 and then we will find the prime factorization. </p>
+</blockquote>
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8fbfdc;">def </span><span style="color:#fad07a;">find_prime_factors</span><span>(</span><span style="color:#ffb964;">n</span><span>):
+</span><span>    i = </span><span style="color:#cf6a4c;">2
+</span><span>    factors = []
+</span><span>    </span><span style="color:#8fbfdc;">while </span><span>i * i &lt;= n:
+</span><span>        </span><span style="color:#8fbfdc;">if </span><span>n % i:
+</span><span>            i += </span><span style="color:#cf6a4c;">1
+</span><span>        </span><span style="color:#8fbfdc;">else</span><span>:
+</span><span>            n //= i
+</span><span>            factors.</span><span style="color:#ffb964;">append</span><span>(i)
+</span><span>    </span><span style="color:#8fbfdc;">if </span><span>n &gt; </span><span style="color:#cf6a4c;">1</span><span>:
+</span><span>        factors.</span><span style="color:#ffb964;">append</span><span>(n)
+</span><span>    </span><span style="color:#8fbfdc;">return </span><span>factors
+</span><span>
+</span><span>prime_factors = </span><span style="color:#ffb964;">find_prime_factors</span><span>(</span><span style="color:#cf6a4c;">600851475143</span><span>)
+</span><span>prime_factors.</span><span style="color:#ffb964;">sort</span><span>()
+</span><span>max_prime_factor = prime_factors[-</span><span style="color:#cf6a4c;">1</span><span>]
+</span><span>
+</span><span style="color:#ffb964;">print</span><span>(max_prime_factor)
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>6857
+</span></code></pre>
+<blockquote>
+<p class="tag-light"> The output shows that 6857 is the largest prime factor of 600851475143. Since 6857 is indeed a prime number, this is our final answer. </p>
+</blockquote>
+<p>The largest prime factor of 600851475143 is 6857.</p>
+<div class=boxed><p>6857</p></div>
+</blockquote>
+</details>
+<h1 id="problem-15">Problem 15</h1>
+<blockquote>
+<p><a rel="noopener nofollow" target="_blank" href="https://projecteuler.net/problem=15">Try it here</a>!</p>
+</blockquote>
+<p>This sample is interesting because the problem contains an image (that is missing), yet the model is still able to reduce the problem to something much simpler, and outputs a very minimal python program to compute the solution.</p>
+<details>
+<summary> <em>Expand trace...</em></summary>
+<blockquote>
+<p><code>user:</code></p>
+<p>Starting in the top left corner of a $2 \times 2$ grid, and only being able to move to the right and down, there are exactly $6$ routes to the bottom right corner.</p>
+<p>[missing image]</p>
+<p>How many such routes are there through a $20 \times 20$ grid?</p>
+<p><code>assistant:</code></p>
+<blockquote>
+<p class="tag-light"> To solve this problem, we can use combinatorics. The number of routes is equal to the number of ways to choose 20 steps to the right and 20 steps down from a total of 40 steps. This is a combination problem. The number of routes can be calculated using the formula for combinations: C(n, k) = n! / (k!(n-k)!), where n is the total number of steps, k is the number of steps to the right, and C(n, k) is the number of combinations. In this case, n = 40 and k = 20. So, we need to calculate C(40, 20). </p>
+</blockquote>
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8fbfdc;">import </span><span>math
+</span><span>n = </span><span style="color:#cf6a4c;">40
+</span><span>k = </span><span style="color:#cf6a4c;">20
+</span><span>ans = math.</span><span style="color:#ffb964;">comb</span><span>(n, k)
+</span><span style="color:#ffb964;">print</span><span>(ans)
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>137846528820
+</span></code></pre>
+<blockquote>
+<p class="tag-light"> The number of routes through a 20x20 grid is equal to the number of combinations of 40 steps taken 20 at a time, which is C(40, 20). Using the formula for combinations, we get C(40, 20) = 40! / (20! * 20!) = 137846528820. Therefore, there are 137846528820 routes through a 20x20 grid. </p>
+</blockquote>
+<p>There are 137846528820 routes through a 20x20 grid.</p>
+<div class=boxed><p>137846528820</p></div>
+</blockquote>
+</details>
+<h1 id="final-thoughts">Final Thoughts</h1>
+<p>Quite obviously the next step is to try some real RL on the collected reasoning traces! I have access to some compute through MIT (as a member of the <a rel="noopener nofollow" target="_blank" href="https://aialignment.mit.edu/">MIT AI Alignment</a> group), so we’ll see what comes of that. (Classes also start next week, so I have no idea how much time I’ll <em>actually</em> have …)</p>
+<p>I’ll also try to clean the code up and put it up on GitHub, at some point. It’s a little hacky. Stay tuned?</p>
+<blockquote>
+<p>Okay, <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/reasoning-trace">the project is now up on GitHub</a>. Go have fun!</p>
+</blockquote>
+<p>On a more personal note: I first got excited about AI around 2015. This was after <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1312.5602">Deepmind played Atari</a>, when we caught the first glimpse that RL could <a rel="noopener nofollow" target="_blank" href="https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf">scale beyond human performance</a>. This was before <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1707.06347">PPO</a> (though <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1502.05477">TRPO</a> was new), before <a rel="noopener nofollow" target="_blank" href="https://www.youtube.com/watch?v=WXuK6gekU1Y">AlphaGo versus Lee Sedol</a>. Most importantly, this was before <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1706.03762">Transformers</a>, GPT2, or anything of that sort. I was excited, and I was excited about GOFAI too (scheme, prolog, and things of that sort). I decided then and there that I wanted to do RL and work on AI.</p>
+<p>A few years later, though, when all the AI research labs started scaling transformers on reams of data (yes, I was impressed by GPT2!), I was at least a little internally disappointed. I thought back to <a rel="noopener nofollow" target="_blank" href="https://cgi.cse.unsw.edu.au/~claude/papers/MI15.pdf">percent behaviour cloning</a>: In a supervised training regime, a model will never be able to do better than the best examples from training data. What do we do when we run out of examples? What do we do when we want to scale beyond expert performance? The dream of AI is not to discover new things. It’s learning new ways to discover new things!</p>
+<p>Disillusioned with the <a rel="noopener nofollow" target="_blank" href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html"><em>Bitter Lesson</em></a> and GPU-poor, I moved on to other things, like <a rel="noopener nofollow" target="_blank" href="https://github.com/vrtbl/passerine">compilers</a>. I still followed AI research, but it wasn’t my main obsession. I had all these crazy ideas for RL—new approaches in the vein of <a rel="noopener nofollow" target="_blank" href="https://openai.com/index/reinforcement-learning-with-prediction-based-rewards/">Random Network Distillation</a>, <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1901.10995">Go-Explore</a>; an information-optimal strategy for extracting observations from stochastic environment.</p>
+<blockquote>
+<p><em>N.B.</em> The idea is still very cool! Essentially, if we have a way to compute <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1703.01732">surprisal</a> (information gain), we can use a <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/pdf/2106.01345">decision transformer</a> to sample trajectories that maximize surprisal-to-go. To handle the <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1810.12894">noisy-tv problem</a>, we quantify <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/pdf/2206.01558">surprisal as epistemic uncertainty</a>, which can be computed by subtracting observed aleatoric uncertainty from the KL-divergence (expected excess surprise) of the observed state vs. the predicted state (using the state transition dynamics of the decision transformer). Perhaps I’ll write about this sometime.</p>
+</blockquote>
+<p>Despite my excitement for RL, it seemed as though the field had moved on, pouring resources into a direction that seemed … like it’d hit a wall at some point, I don’t know. I also felt the sting when AI research companies stopped releasing open-source model training code. (Which I could read, learn from, and try to reproduce.)</p>
+<p>Deepseek-R1 has me got excited again. The technique is remarkably simple, it scales, <em>and it <u>extracts information from the environment</u> which can be used to <u>improve existing models beyond the performance of expert examples</u> in training data</em>. I wish I could underscore how cool this is. Wait, this is my website, I can.</p>
+<p>I’m excited because there’s an <a rel="noopener nofollow" target="_blank" href="https://github.com/huggingface/open-r1">open effort to reproduce R1</a>. I can read and learn from that code. I can try to reproduce it. My younger self really wanted to go to MIT to “become an AI researcher”. Consciously or not, I’ve continued to work toward that goal, and now I’m here. If you want to do foundational work, you still need a lot of compute. (Or maybe not, post-R1.) What next?</p>
+<p>I’m excited to do research. Maybe the research I do won’t work, for whatever reason. Maybe it doesn’t really matter: it’s fun to be able to try, once more.</p>
+<p>What a time to be alive.</p>
+<img src="/content/snow.jpg" alt="Fresh snow on the ground in Cambridge, MA.">
+<!-- modified from https://zola.discourse.group/t/maths-support-via-mathjax/1000 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+  },
+};
+</script>
+<script id="MathJax-script" defer src="/mathjax/tex-mml-chtml.js"></script>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Blog · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/3_hey.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<h1 class="title" style="margin-top: 0;">
+    Blog
+</h1>
+<p>Below is a collection of my thoughts, organized from most to least recent. Posts that I’m particularly fond of will have a little preview. Happy Reading!</p>
+
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/inversion/">Inversions of Control</a>
+        </h1>
+        <p class="tag">2025-08-29 · About 6 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/difflogic/">Compiling a Neural Net to C for a 1,744× speedup</a>
+        </h1>
+        <p class="tag">2025-05-27 · About 25 minutes long</p>
+        
+            <p><strong>tl;dr:</strong> I trained a neural network (NN), with logic gates in the place of activation functions, to learn a 3×3 kernel function for Conway’s Game of Life. I wanted to see if I could speed up inference by extracting the learned logic circuit from the NN. So, I wrote some code to extract and compile the extracted logic circuit to bit-parallel C (with some optimizations to remove gates that don’t contribute to the output). I benchmarked the original NN against the extracted 300-line single-threaded C program.; compiling the NN to C resulted in a 1,744× speedup! Crazy, right? <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/difflogic">Here’s the repo</a>: <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/difflogic/blob/6f01c83a0e6d02dcec59ab91c64eaf91ee4a3776/main.py">~354 lines of Python/JAX</a>, <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/difflogic/blob/master/gate.c">~331 lines of C</a>, if you want to <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/difflogic/tree/89e2ed2f2c018122132598ea610a960900079bea?tab=readme-ov-file#to-reproduce">reproduce it</a> and/or mess around.</p>
+<!-- <iframe src="/conway" width="100%" frameborder="0"></iframe> -->
+
+            <p class="tag"><a href="https://slightknack.dev/blog/difflogic/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/garden/">Seeds of a Digital Garden</a>
+        </h1>
+        <p class="tag">2025-04-25 · About 9 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/browser/">We need an LLVM project for browser engines</a>
+        </h1>
+        <p class="tag">2025-04-18 · About 10 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/sleep/">The Piano-Sleep Effect</a>
+        </h1>
+        <p class="tag">2025-04-17 · About 3 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/replication/">Replication &gt; REST</a>
+        </h1>
+        <p class="tag">2025-04-16 · About 5 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/writing/">Habits for daily writing</a>
+        </h1>
+        <p class="tag">2025-04-14 · About 10 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/do-notation/">What&#x27;s up with Haskell&#x27;s do notation?</a>
+        </h1>
+        <p class="tag">2025-01-30 · About 14 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/reasoning-trace/">Reasoning Trace</a>
+        </h1>
+        <p class="tag">2025-01-28 · About 14 minutes long</p>
+        
+            <p><a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/2501.12948">DeepSeek-R1-Zero is cool</a>. I <a href="/blog/constraints">wrote about reasoning models</a> before o1, and I’m excited to the way this area of research has been cracked wide open, it seems. It’s also remarkably simple. I’m messing around with llama (running locally!), trying to see if I can at least partially reproduce the results (for fun). I figure I can collect reasoning chains and then adapt some existing RLHF code to fine-tune the model on successful chains vs. unsuccessful chains, maybe by prefixing the response with a reward token, a la <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/pdf/2106.01345">decision transformer</a>.</p>
+<blockquote>
+<p><em>N.B.</em> I’m doing something a little more complicated where the model is allowed to write and run python programs to arrive at an answer. I’m testing on some <a rel="noopener nofollow" target="_blank" href="https://projecteuler.net/archives"><em>Project Euler</em></a> questions, because I think they are a fun blend of a mathematical and computational challenge.</p>
+</blockquote>
+<p>It turns out that <code>llama-3.2-3b-instruct</code> is pretty bad at <em>Project Euler</em>. I’ve tested it on the first <s>77</s> 109 questions, and it’s gotten about 12 right. About half the time (43 cases), it gets stuck in a reasoning loop and never produces an answer (like generating Python code that isn’t properly indented and then trying everything to debug the syntax error <em>except indenting the code</em>). Sometimes this makes llama frustrated:</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/reasoning-trace/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/offline-ok/">I&#x27;m offline, and that&#x27;s OK</a>
+        </h1>
+        <p class="tag">2025-01-22 · About 4 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/zig-raylib/">One day with Zig, Raylib, and jj</a>
+        </h1>
+        <p class="tag">2024-12-25 · About 15 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/constraints/">Intelligence and the importance of consistency</a>
+        </h1>
+        <p class="tag">2024-08-13 · About 14 minutes long</p>
+        
+            <blockquote>
+<p>Note: This post was published before the release of o1 on 2024-9-12.</p>
+</blockquote>
+<p>People are quick to point out that Large Language Models (LLMs) tend to
+hallucinate facts and lack the ability to reason. LLMs are not grounded
+in reality. Hallucination is an architectural limitation due to how
+Transformers, as auto-regressive sequence predictors, are constructed.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/constraints/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/rust-cycles/">Dealing with Cyclic Data in Rust, Part I</a>
+        </h1>
+        <p class="tag">2022-07-22 · About 20 minutes long</p>
+        
+            <blockquote>
+<p>Or, a <em>GhostCell Deep Dive</em>.</p>
+<p>In this two-part series, we build <em>GhostCell</em> from first principles. In <em>Part I</em> we go over the underlying theory required to understand GhostCell. This post’s been sitting on my hard drive for about 9 months, so I’ve decided to bite the bullet, split what I’ve written in two, and hit publish on <em>Part I</em>. Hope you enjoy!</p>
+</blockquote>
+<p>Over the past month or so, something I’ve repeatedly run into is <em>GhostCell</em>, a technique that (ab)uses Rust’s lifetime system to detach ownership of data from the permission to mutate it. In short, this makes it possible to write datatypes that rely on shared interior mutability (think doubly-linked lists and other cyclical graph-like structures). In this post I wanted to explore Rust’s lifetime system to explain GhostCell from first principles, and why it’s kinda a big deal.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/rust-cycles/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/shift/">Building a Rust Mentality</a>
+        </h1>
+        <p class="tag">2022-07-21 · About 5 minutes long</p>
+        
+            <p>What really helped me begin to <em>grok</em> how Rust really worked was working towards building an understanding of how its <em>compiler</em> works.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/shift/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/late/">Late Night Conversations about Nothing in Particular</a>
+        </h1>
+        <p class="tag">2022-07-15 · About 22 minutes long</p>
+        
+            <h2 id="the-beginning-of-the-end-of-today">The Beginning of the End (of Today)</h2>
+<p>As I write this today, it’s tomorrow.</p>
+<h2 id="and-we-re-talking-about-school">And… We’re talking about school?</h2>
+<blockquote>
+<p>N.B. This post is not about school, bear with me.</p>
+</blockquote>
+<p>Throughout the school year, I’m usually pretty consistent with my sleep schedule. It’s like a rhythm, every hour of my day planned out. I wake up at 5:55 exactly, do some morning studying (it’s always so much easier to get stuff done in the morning), shower an hour later, breakfast, and I’m out the door.</p>
+<p>School’s rhythmic too. This was my last year of high school, my senior year. I think I overdid it a bit, to be honest. 6 APs and 2 college math courses, on top of, you know, everything else that goes on in life, is a bit much for anyone, <em>especially</em> for a simple-minded guy like me. I appreciate the rhythm school brings to my life.</p>
+<p>So why am I writing this at 1 AM?</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/late/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/note/">Sketchnoting: a spontaneous but needed reflection</a>
+        </h1>
+        <p class="tag">2022-02-11 · About 6 minutes long</p>
+        
+            <h1 id="preface">Preface</h1>
+<p>Since September of last year, I’ve been chipping away at a long-form post on how to take <em>good</em> notes. This, sadly, is not that post—consider this post a teaser to tide you over until then.</p>
+<p><img src="/content/note-vols.jpg" alt="Four filled notebooks and one new empty one." /></p>
+<p>Today I finished my fourth book of sketchnotes. Each book has about 240 blank A5 pages, so I guess I’m fast-approaching the thousand-page mark. In celebration of filling yet another volume, I took a trip down memory lane and dug out <em>Volumes 1-3</em>. Taking the time to read through some of my older notes, it’s easy to see that I’ve improved quite a lot.</p>
+<p>While reading through my second notebook, though, I found a short hand-written collection of my thoughts on note-taking. Although it’s been a few years since then, I feel like the core of what I had to say then rings true today.</p>
+<p>Below I’ve typed up those few pages of notes, I hope you find them interesting:</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/note/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/2027/">Predicting the technology of 2027</a>
+        </h1>
+        <p class="tag">2022-01-04 · About 4 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/dynamic-pow-backpressure/">Using Proof-of-Work to Manage Backpressure</a>
+        </h1>
+        <p class="tag">2021-12-01 · About 6 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/backing-crdt-store/">Thinking about efficient backing stores for CRDTs</a>
+        </h1>
+        <p class="tag">2021-08-02 · About 9 minutes long</p>
+        
+            <p>A <em>Conflict-Free Replicated Datatype</em> is a bit like a smoothie: the same ingredients will produce the same result, regardless of the order in which they are added. In the context of, say, text editing in a distributed context, merging two documents will always succeed in a deterministic manner. In other words, A CRDT is a bit like a git repository that never has merge conflicts.</p>
+<p>There are many different ways to approach the construction of CRDTs, each construction having its own strengths and weaknesses. Today, we’re going to focus on creating out an efficient backing store for a particular family of algorithms known as <em>Replicated Growth Arrays</em> (RGA).</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/backing-crdt-store/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/nix-os-bindgen/">Getting bindgen working on NixOS</a>
+        </h1>
+        <p class="tag">2021-07-08 · About 4 minutes long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/first/">A Small Test Post for this New Blog</a>
+        </h1>
+        <p class="tag">2021-04-30 · About 1 minute long</p>
+        
+    </div>
+</li>
+
+<li style="list-style: none;">
+    <div class="boxed">
+        <h1 style="margin-top: 20pt">
+            <a href="https://slightknack.dev/blog/parser/">A Tiny Introduction to Parsers</a>
+        </h1>
+        <p class="tag">2020-07-08 · About 3 minutes long</p>
+        
+            <h1 id="a-question">A Question</h1>
+<p>The other day, someone asked how parsers worked on The Programmer’s Hangout Discord server. Here’s an an abridged version of my explanation.</p>
+
+            <p class="tag"><a href="https://slightknack.dev/blog/parser/#continue-reading">Continue reading...</a></p>
+        
+    </div>
+</li>
+
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

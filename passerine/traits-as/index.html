@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Traits as implicit conversion · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                            <strong
+                                > Passerine </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/3_wire.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Traits as implicit conversion</h1>
+<p class="tag">2022-02-28 · About 17 minutes long</p>
+<p>The joy of writing a <a rel="noopener nofollow" target="_blank" href="https://passerine.io">new programming language</a> is coming up with novel ideas and seeing if they stick.</p>
+<p>The challenge I’m attempting to solve stems from dealing with different types of objects that share common structure or behavior. For this reason I’ve been thinking a lot about how to rectify open/closed enumerations, traits, and type constructors.</p>
+<p>Traditional object-oriented languages deal with this through the use of inheritance. For example since both a <code>Wizard</code> and a <code>Person</code> have a <code>name</code>, they may both inherit from a single <code>Named</code> class. In Java, we may write this as:</p>
+<pre data-lang="java" style="background-color:#151515;color:#e8e8d3;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#8fbfdc;">class </span><span style="color:#ffb964;">Named </span><span>{
+</span><span>    </span><span style="color:#ffb964;">String </span><span>name;
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">class </span><span style="color:#ffb964;">Person </span><span>extends </span><span style="color:#ffb964;">Named </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">int </span><span>age;
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">class </span><span style="color:#ffb964;">Wizard </span><span>extends </span><span style="color:#ffb964;">Named </span><span>{
+</span><span>    </span><span style="color:#ffb964;">String </span><span>title;
+</span><span>    </span><span style="color:#8fbfdc;">int </span><span>skill;
+</span><span>}
+</span></code></pre>
+<p>This is all well and dandy, but problems quickly arise. Java only supports single inheritance, so if we want a new class to extend both <code>Named</code> and, say <code>Aged</code>, we’d either have to create a new class (like <code>NamedAndAged</code>, gross), or use a language with <em>multiple inheritance</em>.</p>
+<p>Multiple inheritance sucks for other reasons, though, mostly due to the <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond dependency problem</a>. If we even create a class that inherits from two superclasses with the same field, which field gets used? Does the object have two fields?</p>
+<p>This is a problem as old as the hills, and it’s why we’ve developed sayings—like ‘always choose composition over inheritance’—that have been passed down from developer to developer, generation after generation.</p>
+<p>We don’t have to be stuck with the pains inheritance, though! Inheritance is really just ensuring that different objects share certain structure and/or behavior. Ultimately this is what composition over inheritance means: Instead of having a <code>Person</code> that is <code>Named</code>, just make a <code>Person</code> have a <code>Name</code>, and pass that <code>Name</code> around when required:</p>
+<pre data-lang="java" style="background-color:#151515;color:#e8e8d3;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#8fbfdc;">class </span><span style="color:#ffb964;">Name </span><span>{
+</span><span>    </span><span style="color:#ffb964;">String </span><span>name;
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">class </span><span style="color:#ffb964;">Person </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">int </span><span>age;
+</span><span>    </span><span style="color:#ffb964;">Name </span><span>name;
+</span><span>}
+</span></code></pre>
+<p>While nice, this required that person carry around a <code>name</code> field; if the name can be derived from existing class data, this may be redundant. We could use a method, of course:</p>
+<pre data-lang="java" style="background-color:#151515;color:#e8e8d3;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#8fbfdc;">class </span><span style="color:#ffb964;">Person </span><span>{
+</span><span>    </span><span style="color:#888888;">// ...
+</span><span>    </span><span style="color:#ffb964;">Name </span><span style="color:#fad07a;">name</span><span>() { 
+</span><span>        </span><span style="color:#888888;">// ... 
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>But the problem here is that there’s no real <em>consistency</em> between the various ways of representing that a <code>Person</code> has a name. Do we access a field, call a method, etc?</p>
+<p>But you know the solution to this! Just use typeclasses/traits/interfaces, you shout! Instead of adding methods and fields ad-hoc, we declare a shared <code>trait</code> (to use the Rust parlance) with common behavior:</p>
+<pre data-lang="Rust" style="background-color:#151515;color:#e8e8d3;" class="language-Rust "><code class="language-Rust" data-lang="Rust"><span style="color:#8fbfdc;">pub trait </span><span style="color:#ffb964;">Named </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">name</span><span>(&amp;</span><span style="color:#ffb964;">self</span><span>) -&gt; String;
+</span><span>}
+</span></code></pre>
+<p>Then, if we have a person, we can implement <code>Named</code> for <code>Person</code> to show that a person indeed has a name:</p>
+<pre data-lang="Rust" style="background-color:#151515;color:#e8e8d3;" class="language-Rust "><code class="language-Rust" data-lang="Rust"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">Person </span><span>{
+</span><span>    </span><span style="color:#ffb964;">name</span><span>: String,
+</span><span>    </span><span style="color:#ffb964;">age</span><span>:  </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">impl </span><span>Named for </span><span style="color:#ffb964;">Person </span><span>{
+</span><span>    name(&amp;</span><span style="color:#ffb964;">self</span><span>) -&gt; String {
+</span><span>        </span><span style="color:#ffb964;">self</span><span>.name.to_string()
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>We can access this field using regular method call syntax, like <code>person.name()</code>. If we implement another trait that <em>also</em> has a name method, then we must use Rust’s Uniform Function Call Syntax (UFCS) to disambiguate: <code>Named::name(&amp;person)</code>.</p>
+<p>Whatever you call it, the core idea behind traits/typeclasses/interfaces/etc. is simple: define a single interface with a number of behaviors through which the underlying object is accessed.</p>
+<p>My largest issue with these systems is that <em>another layer</em> on top of the language itself. This description may not be entirely clear, so let’s jump into some examples in Passerine:</p>
+<h1 id="a-modest-proposal">A modest proposal</h1>
+<p>Say we have a struct; it’s for a <code>Person</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Person = {
+</span><span>    name: String,
+</span><span>    age:  Nat,
+</span><span>}
+</span></code></pre>
+<p>If we wanted to make a new <code>Person</code>, we’d just construct it:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person {
+</span><span>    name: &quot;Gerald&quot;,
+</span><span>    age:  69,
+</span><span>}
+</span></code></pre>
+<p>We can write functions that update <code>Person</code>, too:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>birthday = Person { name, age          } 
+</span><span>        -&gt; Person { name, age: age + 1 }
+</span></code></pre>
+<p>So far, this is all pretty standard. When you think about it, constructing a <code>Person</code> is just wrapping a bare struct in the <code>Person</code> newtype. In fact, this is completely valid:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>inner = { name: &quot;Bob&quot;, age: 27 }
+</span><span>bob = Person inner
+</span></code></pre>
+<p>In essence, <code>Person</code> is a constructor: a function that takes some data and produces some data of that type:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person : { name: String, age: Nat } -&gt; Person
+</span><span>       = { name,         age      } -&gt; Person { name, age }
+</span></code></pre>
+<p>In fact, for any type we define, we essentially get the following constructor for free:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Type : Inner -&gt; Type
+</span></code></pre>
+<p>By default, <code>Inner</code> is a single type: it’s literally the inner contents of <code>Type</code>.</p>
+<h1 id="dynamic-dispatch">Dynamic dispatch</h1>
+<p>This brings me to traits. A trait is essentially a set of different objects that share the same behavior. In Rust, for example:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">trait </span><span style="color:#ffb964;">Animal </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">feed</span><span>()  -&gt; String;
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">speak</span><span>() -&gt; String;
+</span><span>}
+</span></code></pre>
+<p>Anything that you can <code>feed</code> or <code>say</code> can be defined to be an <code>Animal</code>:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">Cat
+</span><span>
+</span><span style="color:#888888;">// A cat is an Animal
+</span><span>impl Animal for Cat {
+</span><span>    fn feed()  { &quot;not hungry&quot;.to_string() }
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">speak</span><span>() {      </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">meow!</span><span style="color:#556633;">&quot;</span><span>.to_string() }
+</span><span>}
+</span></code></pre>
+<p>Traits are useful for modeling systems that expect different objects with defined shared behavior. For example, we can define a trait that represents <code>Iterator</code> over an arbitrary stream:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#888888;">// Abridged from Rust&#39;s standard library
+</span><span style="color:#8fbfdc;">trait </span><span style="color:#ffb964;">Iterator </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">type </span><span style="color:#ffb964;">Item</span><span>;
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">next</span><span>(&amp;</span><span style="color:#8fbfdc;">mut </span><span style="color:#ffb964;">self</span><span>) -&gt; Option&lt;</span><span style="color:#8fbfdc;">Self::</span><span>Item&gt;;
+</span><span>}
+</span></code></pre>
+<p>Anything has a notion of being advanced via <code>next</code>, whether that be moving a cursor through an array or traversing nodes in a tree, can be used as an <code>Iterator</code>. For example, here’s how we might iterate through a <code>Vec</code>:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">type </span><span style="color:#ffb964;">VecIter</span><span>&lt;T&gt; {
+</span><span>    index: </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>    vec:   Vec&lt;T&gt;
+</span><span>}
+</span><span>
+</span><span>
+</span><span style="color:#888888;">// Ignoring some lifetime stuff for the sake of simplicity
+</span><span style="color:#8fbfdc;">impl</span><span>&lt;T&gt; Iterator for </span><span style="color:#ffb964;">VecIter</span><span>&lt;T&gt; {
+</span><span>    </span><span style="color:#8fbfdc;">type </span><span style="color:#ffb964;">Item </span><span>= T;
+</span><span>    
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">next</span><span>(&amp;</span><span style="color:#8fbfdc;">mut </span><span style="color:#ffb964;">self</span><span>) -&gt; Option&lt;T&gt; {
+</span><span>        </span><span style="color:#ffb964;">self</span><span>.index += </span><span style="color:#cf6a4c;">1</span><span>;
+</span><span>        </span><span style="color:#ffb964;">self</span><span>.vec.get(</span><span style="color:#ffb964;">self</span><span>.index - </span><span style="color:#cf6a4c;">1</span><span>)
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">vec_to_iter</span><span>&lt;T&gt;(</span><span style="color:#ffb964;">vec</span><span>: Vec&lt;T&gt;) -&gt; VecIter {
+</span><span>    VecIter { index: </span><span style="color:#cf6a4c;">0</span><span>, vec }
+</span><span>}
+</span></code></pre>
+<p>That’s simple enough. calling <code>vec_to_iter(vec![1, 2, 3])</code> will produce a <code>VecIter</code> which can be used as an <code>impl Iterator&lt;Item=usize&gt;</code>, an iterator over the numbers 1, 2, and 3.</p>
+<p>But if you were to represent an iterator as an <em>actual type</em>, how would you go about doing that?</p>
+<p>Well, we know that an iterator produces <code>Item</code>s of a certain type, and has a single function that advances state:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">Iterator</span><span>&lt;Item&gt; {
+</span><span>    </span><span style="color:#ffb964;">next</span><span>: Box&lt;dyn FnMut() -&gt; Option&lt;Item&gt;&gt;,
+</span><span>}
+</span></code></pre>
+<p>And then why don’t we just have <code>vec_to_iter</code> return, well, an <code>Iterator</code>?</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#888888;">// Again, completely ignoring the borrow checker lol
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">vec_to_iter</span><span>&lt;T&gt;(</span><span style="color:#ffb964;">vec</span><span>: Vec&lt;T&gt;) -&gt; Iterator {
+</span><span>    </span><span style="color:#8fbfdc;">let mut</span><span> index = </span><span style="color:#cf6a4c;">0</span><span>;
+</span><span>    </span><span style="color:#8fbfdc;">let mut</span><span> vec = vec;
+</span><span>    
+</span><span>    Iterator {
+</span><span>        next: Box::new(|| {
+</span><span>            index += </span><span style="color:#cf6a4c;">1</span><span>;
+</span><span>            vec.get(</span><span style="color:#ffb964;">self</span><span>.index - </span><span style="color:#cf6a4c;">1</span><span>)
+</span><span>        })
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>As you can see, an iterator is just a concrete type containing a higher-order function. In this non-trait version, implementing <code>Iterator</code> is as simple as <em>constructing</em> Iterator.</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">let</span><span> iter = vec_to_iter(vec![</span><span style="color:#cf6a4c;">1</span><span>, </span><span style="color:#cf6a4c;">2</span><span>, </span><span style="color:#cf6a4c;">3</span><span>])
+</span><span>
+</span><span>(vec.next)(); </span><span style="color:#888888;">// Some(1)
+</span><span>(vec.next)(); </span><span style="color:#888888;">// Some(2)
+</span><span>(vec.next)(); </span><span style="color:#888888;">// Some(3)
+</span><span>(vec.next)(); </span><span style="color:#888888;">// None
+</span></code></pre>
+<p>Rust makes this a bit harder because none of the code we just wrote would actually compile, but this should illustrate the point.</p>
+<p>But the point is: traits can be represented as plain old types.</p>
+<blockquote>
+<p><strong>Aside:</strong> Agda and inference</p>
+<p>TODO: Write about how Agda builds off this, it’s really cool!</p>
+</blockquote>
+<p>Anyway, let’s hop back to Passerine.</p>
+<h1 id="wizards-are-people-too">Wizards are people too.</h1>
+<p>Starting with our definition for <code>Person</code> from earlier, let’s also define a <code>Wizard</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Person = {
+</span><span>    name: String,
+</span><span>    age:  Nat,
+</span><span>}
+</span><span>
+</span><span>type Wizard = {
+</span><span>    title: String,
+</span><span>    name: String,
+</span><span>    skill:  Nat,
+</span><span>}
+</span></code></pre>
+<p>Now wizards are people too. All wizards are actually as physically fit as a 25 year old (how else do you think they are so darn fast?), but their outward age-defined appearance is a pure function of <code>skill</code>.</p>
+<p>So let’s say we have a function that takes a <code>Person</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>call_for_dinner = Person { name, .. } -&gt; {
+</span><span>    println &quot;Hey {name}, it&#39;s time for dinner! Come and eat!&quot;
+</span><span>}
+</span></code></pre>
+<p>Now wizards are people too: wouldn’t it be nice if we could call our wizard friends over for dinner as well?</p>
+<p>We could write a conversion function that temporarily converts a <code>Wizard</code> into a <code>Person</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>wizard_to_person = Wizard { title, name, skill } 
+</span><span>    -&gt; Person {
+</span><span>        name: &quot;{name} the {title}&quot;,
+</span><span>        age:  25 + skill / 10,
+</span><span>    }
+</span></code></pre>
+<p>So if we have a <code>Wizard</code>, say <code>merlin</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>merlin = Wizard {
+</span><span>    title: &quot;Wise&quot;,
+</span><span>    name:  &quot;Merlin&quot;,
+</span><span>    skill: 930,
+</span><span>}
+</span></code></pre>
+<p>We can call <code>merlin</code> over to dinner:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>call_to_dinner (wizard_to_person merlin)
+</span></code></pre>
+<p>Hey Merlin the Wise, it’s time for dinner! Come and eat!</p>
+<p>The only thing missing for this to be a trait system would be some way to convert <code>merlin</code> to a <code>Person</code> automatically…</p>
+<h1 id="from-a-to-b">from A to B</h1>
+<p>So, back to constructors.</p>
+<p>Remember that when we’re constructing a <code>Person</code>, <code>Person</code> essentially serves as a function with the following type:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person : { name: String, age: Nat } -&gt; Person
+</span></code></pre>
+<p>In other words, we take a record (i.e. struct) representing a person, and produce a semi-opaque object of type <code>Person</code>. Reasonable enough.</p>
+<p>But what if we could make <code>Person</code> construct over additional types?</p>
+<p>The most obvious extension would be some sort of row polymorphism (as Passerine aims to eventually be row-polymorphic, in the tradition of ML-style languages). If we provide a record with additional fields to <code>Person</code>, person should ignore those fields:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person { 
+</span><span>    name: &quot;Joe&quot;, 
+</span><span>    age: &quot;5&quot;, 
+</span><span>    birthday: &quot;2022-05-23&quot; 
+</span><span>}
+</span></code></pre>
+<p>In this case, the <code>birthday</code> field would be ignored. If we were to write this as a type, we could say that:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person : { name: Nat, age: String } 
+</span><span>       | { name: Nat, age: String, .. } -&gt; Person
+</span></code></pre>
+<p>Remember that <code>|</code> is a sum type (i.e. enum). This is a bit redundant, as the former type is a subtype of the latter.</p>
+<p>Taking some more creative liberties, let’s say that we want a person constructed with no <code>age</code> to take on a default value of <code>0</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>jack = Person { name: &quot;Baby Jack&quot; }
+</span><span>jack.age
+</span><span>-------- this is 0
+</span></code></pre>
+<p>Whether this is a good idea or not is debatable, but it wouldn’t be too hard to write as a function:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>baby_person = { name } -&gt; Person { name, age: 0 }
+</span></code></pre>
+<p>If <code>Person</code> accepted this as well, we’d write the type of the <code>Person</code> constructor function as:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person : { name: String, age: Nat }
+</span><span>       | { name: String, age: Nat, .. }
+</span><span>       | { name: String }
+</span><span>      -&gt; Person
+</span></code></pre>
+<p>Let’s get a little crazy. Remember our <code>Wizards</code> from earlier? what if it was possible to construct a <code>Person</code> from a <code>Wizard</code>, you know, using our <code>wizard_to_person</code> routine:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>merlin = Wizard {
+</span><span>    title: &quot;Wise&quot;,
+</span><span>    name:  &quot;Merlin&quot;,
+</span><span>    skill: 930,
+</span><span>}
+</span><span>
+</span><span>Person merlin
+</span></code></pre>
+<p>This would mean that the <code>Person</code> constructor could really take anything of the following type:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person : { name: String, age: Nat }
+</span><span>       | { name: String, age: Nat, .. }
+</span><span>       | { name: String }
+</span><span>       | Wizard
+</span><span>       | ...
+</span><span>      -&gt; Person
+</span></code></pre>
+<p>In all these cases — wizards, row polymorphism, default parameters, or otherwise, what we’re trying to do is simple — treat a some type that isn’t a <code>Person</code> as a <code>Person</code> by extending the constructor. By extending the constructor, we’re essentially treating <code>Person</code> in the similitude of a trait: a common target for shared behavior, namely having a <code>name</code> and an <code>age</code>.</p>
+<p>In essence, we want <em>open membership</em> over <code>Person</code>’s constructor. What if we could define our own <code>Person T</code>, creating people from arbitrary people-likes of type <code>T</code>?</p>
+<p>Something I’ve been considering is a <code>impl ... from</code> syntax, specifically for this purpose:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>-- So that `Person Wizard` works
+</span><span>impl Person from Wizard = 
+</span><span>    Wizard { title, name, skill } 
+</span><span>-&gt; Person {
+</span><span>    name: &quot;{name} the {title}&quot;,
+</span><span>    age:  25 + skill / 10,
+</span><span>}
+</span></code></pre>
+<p>This, essentially, would add a case to <code>Person</code>’s constructor so that constructing a <code>Person</code> from a wizard now makes sense. This essentially acts as a form of dynamic dispatch!</p>
+<p>In fact, we’re not limited to the second type being a named type. We could implement baby-by-default (the case where the default age is zero) in the following manner:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>impl Person from { name: String } =
+</span><span>    { name } -&gt; Person { name, age: 0 }
+</span></code></pre>
+<p>Which is pretty cool! There are lots of things you can do, like defining a <code>Default</code> type that wraps unit, <code>()</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Default = ()
+</span></code></pre>
+<p>Now we can add a default implementation to person!</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>impl Person from Default 
+</span><span>    = Default -&gt; Person {
+</span><span>        name: &quot;&quot;,
+</span><span>        age:  0,
+</span><span>    }
+</span></code></pre>
+<p>So now it’s possible to write:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person Default
+</span></code></pre>
+<p>Or use row splicing to fill in a <code>Person</code> from the <code>Default</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ug = Person {
+</span><span>    name: &quot;ug&quot;,
+</span><span>    .. Person Default,
+</span><span>}
+</span></code></pre>
+<p>Where <code>.. Person Default</code> essentially means fill the rest of this struct from <code>Person Default</code>.</p>
+<p>But I guess you could argue that <code>Person</code> isn’t really a trait. Don’t we have this backwards? Wouldn’t we want to <code>impl Default from Person</code>, whatever that means?</p>
+<p>Well yes and no. Let’s look at some iterators.</p>
+<h1 id="iterators-in-passerine">Iterators in Passerine</h1>
+<p>So Passerine has a little problem, and it’s twofold:</p>
+<ol>
+<li>It only supports inductive datatypes (i.e. anything you could trivially serialize to JSON, no cycles).</li>
+<li>Closures can only capture immutable values.</li>
+</ol>
+<p>In Rust we defined our type representing an iterator using, well, a mutable closure:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">Iterator</span><span>&lt;Item&gt; {
+</span><span>    </span><span style="color:#ffb964;">next</span><span>: Box&lt;dyn FnMut() -&gt; Option&lt;Item&gt;&gt;,
+</span><span>}
+</span></code></pre>
+<p>So to model <code>Iterator</code> in Passerine, we’d essentially have to make the internal state explicit:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Iterator = all State Item -&gt; {
+</span><span>    state: State,
+</span><span>    _next: State -&gt; Option (State, Item)
+</span><span>}
+</span></code></pre>
+<p>Which isn’t too bad, because we can define a function <code>next</code> that operates on iterators, instead of calling <code>iterator._next</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>next : all S I 
+</span><span>    -&gt; (Iterator S I) 
+</span><span>    -&gt; Option (Iterator S I, T)
+</span><span>= Iterator { state, _next } -&gt; match (_next state) {
+</span><span>    Some (new_state, item) -&gt; Some (
+</span><span>        Iterator { state: new_state, _next }, 
+</span><span>        item,
+</span><span>    ),
+</span><span>    None -&gt; None,
+</span><span>}
+</span></code></pre>
+<blockquote>
+<p><strong>Aside:</strong> In the future, it might be possible to model hidden state using Passerine’s effect system.</p>
+</blockquote>
+<p>Yeah, it kinda looks like a mess, and I invented some syntax, but bear with me.</p>
+<p>Let’s define an iterator, <code>Fib</code>, that we can use to calculate the fibonacci sequence:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Fib = ()
+</span><span>
+</span><span>impl Iter (Nat, Nat) Nat for Fib = Fib -&gt; Iter {
+</span><span>    state: (0, 1),
+</span><span>    _next: (a, b) -&gt; Some ((a + b, a), a),
+</span><span>}
+</span></code></pre>
+<p>So our internal <code>State</code> is a pair of numbers <code>(Nat, Nat)</code>, and at each iteration we produce an <code>Item</code>, which is a number <code>Nat</code>.</p>
+<p>Let’s say we define a function that takes an <code>Iter</code>, and prints out all its elements:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>println_all_iter = (iter: Iter) -&gt; match (next iter) {
+</span><span>    None -&gt; None,
+</span><span>    Some (new_iter, item) -&gt; {
+</span><span>        println item
+</span><span>        print_all_iter new_iter
+</span><span>    },
+</span><span>}
+</span></code></pre>
+<p>Printing out all the fibonacci numbers (warning!) is as easy as:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>println_all_iter (Iter (Fib ()))
+</span></code></pre>
+<p>Which we can write using <code>|&gt;</code> notation as follows:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Fib () |&gt; Iter |&gt; println_all_iter
+</span></code></pre>
+<h1 id="some-sugar">Some sugar!</h1>
+<p>Converting a <code>Wizard</code> to a <code>Person</code> is all well and good, but what if we just want a <code>Wizard</code>’s age? Currently, you’d have to do something like:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>(Person merlin).age
+</span></code></pre>
+<p>Which isn’t that bad. But what if we made <code>Type.field</code> sugar for <code>object -&gt; (Type object).field</code>? Then the above would be:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Person.age merlin
+</span></code></pre>
+<p>which is reminiscent of a uniform function call syntax (UFCS), used to disambiguate when multiple traits are present.</p>
+<p>Speaking of multiple traits…</p>
+<h1 id="disambiguating-multiple-traits">Disambiguating Multiple Traits</h1>
+<p>Currently, our functions can really only operate on one trait at a time. If our function accepts an <code>Iterator</code>, we can’t also specify that that type also implements the trait <code>Length</code>. Let’s take a second to flesh out this line of reasoning.</p>
+<p>So we have two traits:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>type Iterator = ... -- see previous definition
+</span><span>type Length   = Nat -- the length of a collection
+</span></code></pre>
+<p>We can implement both <code>Iterator</code> and <code>Length</code> from a list <code>[T]</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>all T -&gt; impl Iterator Nat T from [T] 
+</span><span>= list -&gt; Iterator {
+</span><span>    state: 0
+</span><span>    _next: index -&gt; if (list.length == index) {
+</span><span>        None
+</span><span>    } else {
+</span><span>        Some (index + 1)
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>all T -&gt; impl Length from [T] = list -&gt; list.length
+</span></code></pre>
+<p>Let’s say we’re writing a function that takes an <code>Iterator</code> it needs to know the <code>Length</code> of. We <em>could</em> require the function to take both separately:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>println_half = iter length -&gt; {
+</span><span>    for _ in (length / 2) {
+</span><span>        (iter, item) = next iter |&gt; unwrap
+</span><span>        println item
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>But this is bad because there’s no <em>requirement</em> that <code>length</code> is actually the length of <code>iter</code>. If we pass in an incorrect length, we could cause <code>println_half</code> to <code>unwrap</code> a <code>None</code> value! Aaaaaah!</p>
+<p>Ideally, we’d want to be able to specify that <code>iter</code> implements both <code>Iterator</code> and <code>Length</code>. Let’s start by writing out the type of <code>println_half</code> as-is:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>println_half : all S I 
+</span><span>    -&gt; Iterator S I 
+</span><span>    -&gt; Nat 
+</span><span>    -&gt; ()
+</span></code></pre>
+<p>One step we could take is just passing <code>iter</code> to <code>println_half</code> <em>twice</em>, and then constructing <code>Length</code> and <code>Iterator</code> once inside the function:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>println_half = list -&gt; {
+</span><span>    iter   = Iter list
+</span><span>    length = Length list
+</span><span>
+</span><span>    for _ in (length / 2) {
+</span><span>        (iter, item) = next iter |&gt; unwrap
+</span><span>        println item
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>If we were to write this as a type, we’d need some way to say that <code>iter</code> implements <em>both</em> <code>Iterator</code> and <code>Length</code>. What would this type <code>???</code> be?</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>println_half : all S I
+</span><span>    -&gt; ???
+</span><span>    -&gt; ()
+</span></code></pre>
+<p>Rust already has a solution for this; it’s to use <code>+</code> to constrain a generic type to a trait:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">println_half</span><span>&lt;T, U: Iterator&lt;Item=T&gt; + Length&gt;(</span><span style="color:#ffb964;">list</span><span>: U) -&gt; { ... }
+</span></code></pre>
+<p>Here <code>U</code> represents a type that is both an <code>Iterator</code> and has a <code>Length</code>. I feel like we could adopt something like this for Passerine wholesale, but as Passerine’s generic story isn’t that strong yet (heck, I haven’t even decided on a syntax!), I wouldn’t want to overstretch the language in this manner.</p>
+<p>One thing I have been working on, though, are type sets, in relation to Passerine’s effect system.</p>
+<p>I’m not going to go into too much depth here, but for those familiar, under an effect system, functions may produce a set of side effects:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>print_random_number: () -&gt; {Console, Random} () {
+</span><span>    random_number ()
+</span><span>    |&gt; to_string
+</span><span>    |&gt; println
+</span><span>}
+</span></code></pre>
+<p>So <code>{Console, Random}</code> represents what side effects <code>print_random_number</code> causes. Because this is an effect <em>set</em>, <code>{A, B}</code>, is equivalent to <code>{B, A}</code>, and so on.</p>
+<p>A <em>type set</em> could be a generalization of this to types. It’s the set of possible types another type implements as a trait. The type set of something that is iterable and has a length is:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>{Iterator, Length}
+</span><span>-- leaving out the generics
+</span></code></pre>
+<p>Which means we can treat anything of that type as both an <code>Iterator</code> and a <code>Length</code>, using a UFCS-like syntax (sugar) to disambiguate when necessary, as shown above.</p>
+<p>So we could write the type of this updated <code>println_half</code> as follows:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>println_half : all S I
+</span><span>    -&gt; {Iterator S I, Length}
+</span><span>    -&gt; ()
+</span></code></pre>
+<p>Which I think is fairly clean.</p>
+<h1 id="something-deeper">Something deeper?</h1>
+<p>I think that this relationship between traits and algebraic effects is interesting. It’s something I’ve discussed with others in the past, and it’s something I’d like to continue to explore in the future.</p>
+<p>When you think about it, effects are really just dynamically scoped traits; traits whose implementations change depending on dynamic, as opposed to lexically-resolved nominal, scope.</p>
+<p>If Rust implemented algebraic effects, would they use <code>+</code> (as discussed earlier) and look like, well, traits? Makes me wonder…</p>
+<p>I feel like there’s something deeper here. In essence, our trait system has boiled down to dynamic dispatch over conversion between types.</p>
+<p>If I wanted a real trait system, I’d probably adopt HKTs and typeclasses. But part of designing a programming language is choosing a limiting set of axioms, and I think that having a separate language for type-level programming goes against Passerine’s design, which boils down to a functional scripting language. I’m already worried that typechecking will make Passerine take too long to compile; my goal is to have startup times as fast as something like Python.</p>
+<p>I know that what I’ve been getting at — representing typeclasses as explicit datastructures — is nothing new, and has been common in both languages without higher-kinded types (such as F#, to get around limitations in the language), and languages with higher-kinded types (such as Agda, where types are just objects, so why couldn’t they be represented as ‘plain datastructures’?).</p>
+<p>I feel like all languages in this area are slowly tending towards Agda. Then again, a while back it seemed like everything tended towards Scheme, so maybe it’s just a matter of perspective.</p>
+<p>Anyway, I digress. I hope you found this little post interesting, thanks for reading!</p>
+<h1 id="one-last-note">One last note</h1>
+<p>I’ve noticed something interesting. When dealing with closed enumerations, we allow users of that closed enumeration to see any of the members that constitute that enumeration:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">enum </span><span style="color:#ffb964;">TrafficLight </span><span>{
+</span><span>    Red,
+</span><span>    Yellow,
+</span><span>    Green,
+</span><span>}
+</span></code></pre>
+<p>When we match of traffic light, we can be sure to handle every pattern:</p>
+<pre data-lang="Rust" style="background-color:#151515;color:#e8e8d3;" class="language-Rust "><code class="language-Rust" data-lang="Rust"><span>use TrafficLight::*;
+</span><span>
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">name</span><span>(&amp;</span><span style="color:#ffb964;">self</span><span>) -&gt; String {
+</span><span>    </span><span style="color:#8fbfdc;">match </span><span style="color:#ffb964;">self </span><span>{
+</span><span>        Red =&gt; </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">red</span><span style="color:#556633;">&quot;</span><span>,
+</span><span>        Yellow =&gt; </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">yellow</span><span style="color:#556633;">&quot;</span><span>,
+</span><span>        Green =&gt; </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">green</span><span style="color:#556633;">&quot;</span><span>,
+</span><span>    }.to_string()
+</span><span>}
+</span></code></pre>
+<p>I want you to stop for a second an just realize that each match branch is a bit like a function. For example, the first branch takes an object of type <code>TrafficLight::Red</code> and returns a static string (<code>&amp;'static str</code>). We could write this type out as:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>TrafficLight::Red -&gt; &amp;&#39;static str
+</span></code></pre>
+<p>So each match branch is really like a function, a closure. “Take the type that matches this pattern, produce this result”. Note that all match arms produce a result of the same type, so a <code>match</code> expression is a bit like a fan-out that compresses each possible branch into a single value.</p>
+<p>So why do I bring this up now? Well, when you’re using an open enumeration, like a trait, <em>you can’t possibly know all the types that a value could be</em>. Behind the scenes, though, there’s still a massive match expression.</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>// `Named` trait
+</span><span>match type {
+</span><span>    Person =&gt; ...
+</span><span>    Wizard =&gt; ...
+</span><span>}
+</span></code></pre>
+<p>So when we implement a trait for yet another type, we’re really just adding another branch to the behind-the-scenes match expression. For example:</p>
+<pre data-lang="Rust" style="background-color:#151515;color:#e8e8d3;" class="language-Rust "><code class="language-Rust" data-lang="Rust"><span style="color:#8fbfdc;">impl </span><span>Named for </span><span style="color:#ffb964;">TrafficLight </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">name</span><span>(&amp;</span><span style="color:#ffb964;">self</span><span>) -&gt; String {
+</span><span>        </span><span style="color:#888888;">// ...
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>The method <code>name</code> is just a function of type <code>TrafficLight -&gt; String</code>. Note the parallels here!</p>
+<p>Under closed enumeration, we declare all the potential types (i.e. variants) up-front, and then match on these variants to extract common structure/behavior:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#888888;">// infinite number of behaviors
+</span><span>behavior = </span><span style="color:#8fbfdc;">match</span><span> Closed {
+</span><span>    </span><span style="color:#888888;">// finite number of variants
+</span><span>    Variant -&gt; Dispatch,
+</span><span>    Variant -&gt; Dispatch,
+</span><span>}
+</span></code></pre>
+<p>But under an open enumeration, there are possibly an infinite number of variants! So we declare all possible behaviors up front:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#888888;">// infinite number of variants
+</span><span style="color:#8fbfdc;">trait </span><span style="color:#ffb964;">Open </span><span>{
+</span><span>    </span><span style="color:#888888;">// finite number of behaviors
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">behavior</span><span>() -&gt; Dispatch;
+</span><span>}
+</span></code></pre>
+<p>Whenever we want to add a <code>Variant</code> to <code>Open</code>, we have to provide a match arm for each ‘behind-the-scenes’ <code>behavior</code> match expression:</p>
+<pre data-lang="Rust" style="background-color:#151515;color:#e8e8d3;" class="language-Rust "><code class="language-Rust" data-lang="Rust"><span style="color:#8fbfdc;">impl </span><span>Open for </span><span style="color:#ffb964;">Variant </span><span>{
+</span><span>    </span><span style="color:#888888;">// This is just a match arm!
+</span><span>    </span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">behavior</span><span>() -&gt; Dispatch { 
+</span><span>        </span><span style="color:#888888;">// ...
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>So for each <code>behavior</code> in the <code>Open</code> enumeration, we provide a match arm: <code>Variant -&gt; Dispatch</code>.</p>
+<p>The compiler stitches all these disparate match arms together to form these behind the scene match expressions:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#888888;">// finite number of behaviors
+</span><span>behavior = </span><span style="color:#8fbfdc;">match</span><span> Open {
+</span><span>    </span><span style="color:#888888;">// infinite number of variants
+</span><span>    </span><span style="color:#8fbfdc;">impl </span><span>Open for </span><span style="color:#ffb964;">Variant</span><span>,
+</span><span>    </span><span style="color:#ffb964;">impl Open for Variant</span><span>,
+</span><span>    </span><span style="color:#888888;">// ...
+</span><span>}
+</span></code></pre>
+<p>Each implementation is like an opaque match arm.</p>
+<p>To summarize:</p>
+<ol>
+<li>
+<p>Under closed enumerations, we have a finite number of variant branches; we must handle each branch while being able to implement arbitrarily many behaviors.</p>
+</li>
+<li>
+<p>Under open enumerations, we have an infinite number of possible variant branches; to add a new variant, we must provide the ‘match-arms’ for a finite number of behaviors.</p>
+</li>
+</ol>
+<p>Now because open enumerations are defined around a finite set of behaviors, it makes sense that each variant <em>must</em> provide a function.</p>
+<p>It is simply not possible to have both an infinite number of behaviors and an infinite number of variants. You can pick one or the other, and the structure of the resulting code will be affected by that decision.</p>
+<p>I just love this parallel, and think that it drastically simplified my mental model of traits vs enums.</p>
+<p>Traits as implicit conversion is essentially makes types open enumerations over the behavior of their constructor function. This model is really elegant because it reifies types and traits (we’re not ‘adding an extra layer’ to the language), but on the other hand it does complicate things somewhat.</p>
+<p>I think this is honestly the pain of being a language designer. You get a <em>feeling</em> that there are these fundamental underlying constructs that underpin the way the world works. You spend a lot of time refining these feelings—writing them down, building prototypes—only to realize that everything old is new again, or that there are new cases you haven’t thought about that don’t neatly fit your model.</p>
+<p>I wish there was just <em>a</em> language, a silver bullet, where these sorts of tradeoffs didn’t exist. A language where there was one single <em>obvious</em> way to implement something. A language where all semantic symmetries were wrapped up in symmetrical syntax, all constructs discovered through intuitive exploration and composition.</p>
+<p>I know that this youthful idealism is unwarranted. The rubber has to hit the road somewhere, tradeoffs will always exist, and software is never developed alone. We need a Go of functional programming, whatever what that ends up looking like: a smaller Rust, a minimal Agda, a typed Scheme.</p>
+<p>I can’t claim that Passerine will be that language. I’ve worked hard to engineer a minimal set of orthogonal features that <em>compose</em>. Once I’ve figured out how to unify effects and fibers (it’s mostly a matter of notation at this point), and have more cleanly delineated the line between the macro system and the type system, I think I may have an unstoppable seed of a language on my hands.</p>
+<p>We’ll see where it goes from here :)</p>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

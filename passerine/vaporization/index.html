@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Vaporization and Modern Memory Management · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                            <strong
+                                > Passerine </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/5_frog.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Vaporization and Modern Memory Management</h1>
+<p class="tag">2021-02-24 · About 16 minutes long</p>
+<blockquote>
+<h2 id="note">Note</h2>
+<p>This piece is a work in progress.</p>
+</blockquote>
+<p>An interesting design space in the field of programming language design is that of memory management. In short, programs produce data while running. This in of itself isn’t much of a problem: in fact, it’s a good thing! If your programming language doesn’t allow for the production of any useful data, you might want to take a closer look at it…</p>
+<p>As time goes on, our program may no longer needs certain data. We could just leave this garbage floating around forever, but, alas computers a finite amount of space to work with. It’s trivial to produce useful data; the more difficult task is figuring out when it’s no longer needed.</p>
+<span id="continue-reading"></span>
+<p>Originally, this work — the management of a program’s memory — was done by the programmer; older languages (like C) require memory to be explicitly <code>malloc</code>ed and <code>free</code>d.</p>
+<p>While giving more low-level control to the programmer, the overhead of keeping track of all the lifetimes of data currently in scope is hard for a person to keep in their head, especially when slogging through some other tough, non-trivial problem.</p>
+<p>In this post, we’ll take a journey through time and take a look at ways to manage memory. We’ll conclude by introducing Vaporization, a novel joint compile-time/runtime memory-management strategy that guarantees two things:</p>
+<ol>
+<li>Values are only alive where they are still useful.</li>
+<li>Data will be mutated in-place wherever possible.</li>
+</ol>
+<p>But before we reach that point, it’s useful to have some background. And <em>oh</em> some background we will have:</p>
+<h2 id="manual-memory-management">Manual Memory Management</h2>
+<h3 id="words-and-ram-what-is-memory-anyway">Words and RAM: What is memory, anyway?</h3>
+<blockquote>
+<p>If you’re already familiar with how memory management works, i.e. you’ve written some C or know what a pointer is, this next section will probably be very boring; just skip it.</p>
+</blockquote>
+<p>To better understand memory <em>management</em>, we first must better understand <em>memory</em>.</p>
+<p>Memory, in the broadest sense, is some hardware that data can be written to or read from. All computers ship with some amount of <em>Random Access Memory</em> (RAM), which is fast temporary memory used to store program state. My laptop, for instance, has a measly 4 gigabytes of RAM, whereas some higher-end desktops can ship with as much as 128GB (which I find disturbing).</p>
+<p>RAM can be thought of as a very long list of addressed slots of the same size; on modern 64-bit computers, for instance, each slot stores 8 bytes, or 64 bits (hence the name). The number of bits a computer stores per slot is known as the <em>word size</em> of the machine.</p>
+<blockquote>
+<p>In the following text, we’ll assume a 64-bit system, which I’d say are the most common today, and will likely be the most common for years to come: although 32-bit systems can only address 2^32 = ~4GB of memory, 64-bit systems can address 16.8 million <em><strong>terabytes</strong></em>, which is a metric-crap-tonne of memory. (Modern architectures usually limit this to something closer to a single terabyte, which is still a <em>lot</em>). Anyway, on a 64-bit system:</p>
+</blockquote>
+<p>Each word can represent anything that can fit in that finite amount of space. These 8 bytes can represent whatever you like: an integer (from 2^-31 to 2^31), a double-precision floating-point number, or even <em>another</em> set of 8 bytes. You can do a lot with 8 bytes, but you can’t do everything.</p>
+<blockquote>
+<p>I’ll refer use slots and words interchangeably, preferably sticking to the former. Although there are some slightly differing semantics, these two definitions are close enough for our purposes.</p>
+</blockquote>
+<h3 id="structs">Structs</h3>
+<p>To build data-structures larger than 8 bytes, series of slots can be reserved. In compiled programming languages, these product-typed regions of memory are known as structs. Here’s a struct representing an (x, y) coordinate pair in good-ol’ C:</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">coordinate </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">double</span><span> x;
+</span><span>    </span><span style="color:#8fbfdc;">double</span><span> y;
+</span><span>}
+</span></code></pre>
+<p>A <code>double</code> is an IEEE double-precision floating point number — it requires 64 bits of memory. Because this struct, <code>coordinate</code>, has <em>two</em> doubles, 128 bits of memory, 16 bytes, or two slots are required to store it.</p>
+<blockquote>
+<p>It’s important to note that in theory, memory can be used however you’d like — In most cases, no higher-level representation is enforced by the operating system — a struct is just a convenient and reliably abstraction that we can use to talk about blocks of memory that span multiple slots, each slot (or group of slots) in that region referring to field in the struct.</p>
+</blockquote>
+<p>Memory slots are required to be used in full, so structs are also <em>padded</em> to the nearest slot. For example, a C <code>char</code> is usually 8 bytes of memory.</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">char_pair </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">char</span><span> first;
+</span><span>    </span><span style="color:#8fbfdc;">char</span><span> second;
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">char_number </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">char</span><span> letter;
+</span><span>    </span><span style="color:#8fbfdc;">double</span><span> number;
+</span><span>}
+</span></code></pre>
+<p><code>char_pair</code> would only take one slot to store on &gt;16-bit systems, as the struct is 16 bits long. Likewise, on a 64 bit system, <code>char_number</code> would take 2 slots to store. Although it only uses 9 bytes of actual memory, the struct is padded to the nearest 8 bytes.</p>
+<blockquote>
+<h4 id="optimization-memory-alignment">Optimization: Memory Alignment</h4>
+<p>Instead of storing values back-to-back, individual values are aligned to the nearest slot. Instead of layout out <code>char_number</code> like so:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>CDDDDDDD
+</span><span>D_______
+</span></code></pre>
+<p>The compiler tries to align number to the nearest slot:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>C_______
+</span><span>DDDDDDDD
+</span></code></pre>
+<p>This makes is faster to access individual values, as each field is stored in its own slot and no bit-twiddling has to be done to extract the data. Data can also be aligned along cache lines for even faster access, but that’s a bit out-of-scope at the moment.</p>
+</blockquote>
+<h3 id="arrays">Arrays</h3>
+<p>The primary issue with structs is that they’re static; once one is constructed, it can’t grow in size. This isn’t much of an issue for values that rely on a constant number of bits, but it is a large issue when a variable-sized collection datum needs to be kept.</p>
+<p>To allocate multiple values, we can allocate a region of memory of a certain size. These arrays are inherently statically sized — an array can only hold the number of items it is allocated with — to store a larger number of items, the a larger array needs to be reallocated.</p>
+<p>A dynamically sized array (a <em>vector</em>), common in most programming languages (such as Rust, Python, or whatever-have you), is simply a wrapper around an array that automatically reallocates it to the needed size as more values are added or removed. These allocations occur as the array grows or shrinks by an order of magnitude.</p>
+<img style="background-color: #fff; padding: 10px;" alt="A picture describing a dynamic array." src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Dynamic_array.svg/220px-Dynamic_array.svg.png">
+<blockquote>
+<p>“Several values are inserted at the end of a dynamic array using geometric expansion. Grey cells indicate space reserved for expansion. Most insertions are fast (constant time), while some are slow due to the need for reallocation (Θ(n) time, labelled with turtles). The logical size and capacity of the final array are shown.”</p>
+<p>— Wikipedia</p>
+</blockquote>
+<h3 id="pointers">Pointers</h3>
+<p>The main issue with vectors is that they can take up a variable amount of space. If you tried to cram a vector directly into a struct, for instance, the entire struct would have to be reallocated along with the array.* In this case, it’d be much easier to describe <em>where the array is</em> than *what it <em>contains</em>.</p>
+<blockquote>
+<p>*Of course, this doesn’t really make much sense, which is why it’s not possible.</p>
+</blockquote>
+<p>As memory is simply a long series of slots, to <em>reference</em> another location in memory, any slot can be referenced by its index. This index, or <em>pointer</em>, is usually less than or equal to the slot size of the architecture.</p>
+<p>So, for example, the structure definition of a dynamically sized vector of <code>double</code>s might look like so in C:</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">vector </span><span>{
+</span><span>    </span><span style="color:#8fbfdc;">int</span><span> capacity;
+</span><span>    </span><span style="color:#8fbfdc;">int</span><span> count;
+</span><span>    </span><span style="color:#8fbfdc;">double</span><span>* doubles;
+</span><span>}
+</span></code></pre>
+<p><code>*</code> in c represents a pointer to another location in memory. Because <code>pointer</code> and <code>int</code> are both usually the size of a machine word, this struct will only take up 3 slots, even if it contains millions of values.</p>
+<blockquote>
+<h4 id="aside-linked-lists">Aside: Linked Lists</h4>
+<p>Pointers can reference any location in memory, including other structures. Another way to implement a growable collection of elements is to use a linked list A linked list is a structure that contains a pointer to the next node in memory:</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">link </span><span>{
+</span><span>    link *next;
+</span><span>    </span><span style="color:#8fbfdc;">double</span><span> item;
+</span><span>}
+</span></code></pre>
+<p>The above is a singly-linked list of <code>double</code>s. To add an item, construct a new <code>link</code> and update next to be the a pointer to that <code>link</code>.</p>
+</blockquote>
+<h2 id="tagged-unions-i-e-enums">Tagged Unions, i.e. Enums</h2>
+<p>As you know at this point, a struct is just a region of memory, where different slots correspond to different fields. It’s possible to make a struct that can represent different types of values: this sum-typed region of memory is is known as a tagged union or enumeration in most programming languages - here’s one in Rust:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">enum </span><span style="color:#ffb964;">Size </span><span>{
+</span><span>    Small {
+</span><span>        one: </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>    },
+</span><span>    Big {
+</span><span>        one: </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>        two: </span><span style="color:#8fbfdc;">usize
+</span><span>    },
+</span><span>}
+</span></code></pre>
+<blockquote>
+<p>For the uninitiated, in Rust a <code>usize</code> is an unsigned integer the size of a word. The following is mostly Rust-specific, but the concepts can be applied generally:</p>
+</blockquote>
+<p><code>Size</code> can be one of two structs: <code>Size::Small</code>, or <code>Size::Big</code> - each of these sub-items is known as a <em>variant</em>. <code>Small</code> contains a single <code>usize</code> and is therefore only one slot big, whereas <code>Big</code> contains two <code>usize</code>s, and is therefore two slots big.</p>
+<p>How does the computer we know which struct we’re talking about, though? Given a reference to <code>Size</code>, how can we determine which variant it is?</p>
+<p>The usual solution is to store a hidden field, called the variant <em>tag</em>, which is a number (usually a byte) that points out which variant we’re referring to. <code>0x00</code>, for instance, could be <code>Small</code>, and <code>0x01</code> could be <code>Big</code>.</p>
+<blockquote>
+<p>Pro-tip: this is why it’s called a ‘Tagged Union’ ;).</p>
+</blockquote>
+<p>An enum takes on the size of its largest variant, plus a byte for the variant, padded out to the nearest word. Following this logic, we can easily see that <code>Size</code> should be 3 slots large: 2 slots because of <code>Big</code>, 1 for of the tag (+ padding). In memory this looks something like so:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>T_______
+</span><span>XXXXXXXX
+</span><span>XXXXXXXX
+</span></code></pre>
+<p>Where <code>T</code> is the tag, and <code>X</code> are either variant.</p>
+<h2 id="the-anatomy-of-the-program">The Anatomy of the Program</h2>
+<p>After that grueling section, We’ve finally finished the appetizer and started the first course. From here on out, I assume you’re comfortable talking about memory. (Later, we’ll introduce a few new concepts, such as reference counting and Copy-on-Write pointers.)</p>
+<p>When a program is run,</p>
+<h3 id="the-stack">The Stack</h3>
+<h3 id="the-heap">The Heap</h3>
+<h3 id="what-is-garbage-exactly">What is Garbage, Exactly?</h3>
+<h3 id="data-lifetimes">Data Lifetimes</h3>
+<h2 id="problems-with-data">Problems with Data</h2>
+<h3 id="use-after-free">Use-After-Free</h3>
+<h3 id="dangling-pointers">Dangling Pointers</h3>
+<h1 id="memory-management-strategies">Memory Management Strategies</h1>
+<p>At this point, we’ve covered how m</p>
+<h2 id="a-simple-example-reference-counting">A Simple Example: Reference Counting</h2>
+<h3 id="a-not-so-simple-example-cycles">A Not-so-Simple Example: Cycles</h3>
+<blockquote>
+<h4 id="aside-breaking-cycles">Aside: Breaking Cycles</h4>
+</blockquote>
+<h2 id="garbage-collection-taking-out-the-trash">Garbage Collection: Taking Out the Trash</h2>
+<blockquote>
+<h4 id="aside-functional-programming-and-persistent-datatypes">Aside: Functional Programming and Persistent Datatypes</h4>
+</blockquote>
+<h2 id="compile-time-garbage-collection">Compile Time Garbage Collection</h2>
+<h3 id="borrow-checking">Borrow Checking</h3>
+<h3 id="compile-time-paths">Compile-Time Paths</h3>
+<blockquote>
+<h4 id="aside-generational-arenas">Aside Generational Arenas</h4>
+</blockquote>
+<h2 id="vaporization">Vaporization</h2>
+<p>You’ve made it! you’re finally here! Now that we understand what memory <em>is</em> and how we <em>manage</em> it, I’m going to introduce Passerine (a novel programming language) and Vaporization.</p>
+<p>Vaporization boils down to a set of compile-time optimizations that ensure that only useful data is accessible through the lifetime of the program, with minimum support for the language runtime. However, a runtime is still required, so Vaporization remains more suited to interpreted languages.</p>
+<p>What’s most interesting about this, however, is that this system requires minimal interference from the compiler when used in conjunction with a VM. All the compiler has to do is annotate the last usage of the value of any variables; the rest can be done automatically and very efficiently at runtime.</p>
+<p>Vaporization is an automatic memory management system that allows for <em>Functional but in Place</em> style (we’ll get to this) programming. For Vaporization to work, the compiler makes the following invariants hold:</p>
+<ol>
+<li>All functions parameters are passed by value, via Copy on Write reference (CoW).</li>
+<li>A form of SSA is performed so that the last usage of any value is that value itself, and is not CoW reference to that value.</li>
+<li>All values captured by closures are immutable.</li>
+<li>All functions must return a value that is not CoW.</li>
+</ol>
+<p>We’ll work through each of these rules and various examples in the following section to build an intuition as to why Vaporization works. Afterwards, we’ll write a semi-formal proof as to why this holds, and discuss Vaporization’s tradeoffs and limitations.</p>
+<h3 id="what-is-copy-on-write">What is Copy on Write?</h3>
+<p>A copy on write reference (CoW) is a pointer to some immutable data, that when written to, is copied to a new memory location first.</p>
+<p>Let’s develop a better intuition for how this works. Say we have a struct that looks like this. I’ll use Rust* for this example:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span>use std::borrow::Cow;
+</span><span>
+</span><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">Thing </span><span>{
+</span><span>    </span><span style="color:#ffb964;">first</span><span>:  </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>    </span><span style="color:#ffb964;">second</span><span>: </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">change_first</span><span>(
+</span><span>    </span><span style="color:#ffb964;">thing</span><span>: &amp;</span><span style="color:#8fbfdc;">mut </span><span>Cow&lt;Thing&gt;,
+</span><span>    </span><span style="color:#ffb964;">value</span><span>: </span><span style="color:#8fbfdc;">usize
+</span><span>) {
+</span><span>    </span><span style="color:#8fbfdc;">if</span><span> value &gt; thing.first {
+</span><span>        </span><span style="color:#888888;">// clone thing on write
+</span><span>        thing.to_mut().first = value;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">main</span><span>() {
+</span><span>    </span><span style="color:#888888;">// make a Cow reference to a `Thing`
+</span><span>    </span><span style="color:#8fbfdc;">let</span><span> thing = Thing {
+</span><span>        first: </span><span style="color:#cf6a4c;">420</span><span>,
+</span><span>        second: </span><span style="color:#cf6a4c;">69
+</span><span>    }
+</span><span>    </span><span style="color:#8fbfdc;">let ref </span><span>= Cow::from(&amp;thing);
+</span><span>
+</span><span>    </span><span style="color:#888888;">// 100 is less than 420, so no copy is made
+</span><span>    change_first(&amp;</span><span style="color:#8fbfdc;">mut ref</span><span>, </span><span style="color:#cf6a4c;">100</span><span>);
+</span><span>
+</span><span>    </span><span style="color:#888888;">// 9000 is over 420, so copy is made
+</span><span>    change_first(&amp;</span><span style="color:#8fbfdc;">mut ref</span><span>, </span><span style="color:#cf6a4c;">9000</span><span>);
+</span><span>}
+</span></code></pre>
+<blockquote>
+<p>* Rust technically calls this a ‘Clone on Write’, because ‘cloning’ (deep copy) and ‘copying’ (memory copy) have slightly different semantics. Luckily both ‘clone’ and ‘copy’ start with a ‘c’, So I’ll just be referring to the general concept as ‘CoW’.</p>
+</blockquote>
+<p>That was a big example, but there are basically a few things to take away:</p>
+<ol>
+<li>When we pass a <code>Cow</code> reference to a function, no copy of the wrapped value is made.</li>
+<li>Only upon writing to the thing (<code>thing.to_mut().first = value</code>) is the copy made.</li>
+</ol>
+<p>This means that the immutable data wrapped in the <code>Cow</code> is safe, and can not be mutated - yet functions can mutate the <em>reference</em>, producing new useful values.</p>
+<h3 id="passing-by-value-with-cow">Passing by Value with CoW</h3>
+<p>Passerine, unlike Rust, does not allow for pass-by-mutable-reference* (that’s what the <code>&amp;mut</code> means) — instead, Passerine is completely pass by value. If we approach pass by value naïvely, it’s tempting to make a copy of every object before it’s passed to a function. However, if we have a million-element list, imagine what havoc that could wreak:</p>
+<pre data-lang="elm" style="background-color:#151515;color:#e8e8d3;" class="language-elm "><code class="language-elm" data-lang="elm"><span style="color:#888888;">-- this is Passerine, by the way
+</span><span style="color:#888888;">-- I&#39;m using this as a notation for a big list
+</span><span style="color:#888888;">-- just note that the items are elided
+</span><span style="color:#fad07a;">big_list </span><span>= [ ... ]
+</span><span>
+</span><span style="color:#fad07a;">for </span><span>_ in </span><span style="color:#cf6a4c;">0</span><span>..</span><span style="color:#cf6a4c;">100 </span><span>{
+</span><span>    </span><span style="color:#888888;">-- some function that just reads `big_list`
+</span><span>    print (conswizzle big_list)
+</span><span>}
+</span></code></pre>
+<p>If a copy of <code>big_list</code> were made every time it were passed to <code>conswizzle</code>, 100 copies would be made! That’s no good for performance!</p>
+<blockquote>
+<h4 id="aside-pass-by-value-vs-pass-by-reference">Aside: Pass by Value vs. Pass by Reference</h4>
+<p>Pass by value means that when you pass something to a function, that function only has the value itself to work with. For example, if we have:</p>
+<pre data-lang="elm" style="background-color:#151515;color:#e8e8d3;" class="language-elm "><code class="language-elm" data-lang="elm"><span style="color:#fad07a;">set_to_2 </span><span>= n -&gt; { n = </span><span style="color:#cf6a4c;">2 </span><span>}
+</span><span>
+</span><span style="color:#fad07a;">x </span><span>= </span><span style="color:#cf6a4c;">3
+</span><span style="color:#fad07a;">set_to_2 </span><span>x
+</span></code></pre>
+<p>The <code>n = 2</code> in the function <code>set_to_2</code> will <strong>not</strong> overwrite the value of <code>x</code>; <code>x</code> is still 3. This goes for larger collections as well, such as lists or records (structs), which is not always enforced by all languages that appear to be pass by value (Python comes to mind).</p>
+<p>In Rust, however, we can pass by value, so the following is perfectly valid (albeit not <strong>exactly</strong> idiomatic):</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">set_to_2</span><span>(</span><span style="color:#ffb964;">n</span><span>: &amp;</span><span style="color:#8fbfdc;">mut usize</span><span>) {
+</span><span>    *n = </span><span style="color:#cf6a4c;">2</span><span>;
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">let mut</span><span> x = </span><span style="color:#cf6a4c;">3</span><span>;
+</span><span>set_to_2(&amp;</span><span style="color:#8fbfdc;">mut</span><span> x);
+</span></code></pre>
+<p>Luckily for us, Rust makes the fact that <code>x</code> may be overwritten perfectly clear, as you can see with the generous sprinkling of <code>mut</code> used throughout the listing. Anyway, back to not copying things with every function call:</p>
+</blockquote>
+<p>So, how do we overcome unnecessarily copying values before passing them to functions? With our good friend Copy on Write, of course! Recall our earlier example: a value passed via CoW to a function is not mutated, no copy is made. So as long as <code>conswizzle</code> is read-only, even if it’s called thousands times, no copies will be made:</p>
+<pre data-lang="elm" style="background-color:#151515;color:#e8e8d3;" class="language-elm "><code class="language-elm" data-lang="elm"><span style="color:#fad07a;">big_list </span><span>= [ ... ]
+</span><span>
+</span><span style="color:#fad07a;">loop </span><span>{
+</span><span>    </span><span style="color:#888888;">-- to the moon!
+</span><span>    print (conswizzle big_list)
+</span><span>}
+</span></code></pre>
+<p>But what <em>if</em> mutations are made? We’ve addressed invariant #1:</p>
+<blockquote>
+<p>All functions parameters are passed by value, via Copy on Write reference (CoW).</p>
+</blockquote>
+<p>Now on to #2!</p>
+<h3 id="static-single-assignment-mutate-on-last-use">Static Single Assignment: Mutate on Last Use</h3>
+<p>If a function doesn’t mutate a list, it doesn’t copy it. Consider the following situation:</p>
+<pre data-lang="elm" style="background-color:#151515;color:#e8e8d3;" class="language-elm "><code class="language-elm" data-lang="elm"><span style="color:#fad07a;">x </span><span>= [ ... ]
+</span><span style="color:#fad07a;">x </span><span>= modify_value x
+</span><span style="color:#fad07a;">print </span><span>x
+</span></code></pre>
+<blockquote>
+<p>By the way: in Passerine, mutations can be made to values in their local scope. This is not altogether that dissimilar from a let-style redefinition, for those familiar.</p>
+</blockquote>
+<p>So, just looking at this listing, it’s apparent that <code>modify_value</code> modifies <code>x</code>! Because <code>[ ... ]</code> will be passed as a CoW reference to <code>modify_value</code>, a copy of the list will be made, right?</p>
+<p>Wrong. Let’s reintroduce Vaporization’s rule #2:</p>
+<blockquote>
+<p>A form of SSA is performed so that the last usage of any value is that value itself, and is not CoW reference to that value.</p>
+</blockquote>
+<p>SSA? What’s that? and how does it help?</p>
+<p>Single Static Assignment (SSA) is a family of optimizations that have existed in compilers for about forever. It basically boils down to marking mutations to variables as separate variables. So, if we use a subscript notation to represent that a variable by the same name holds a different value, the above listing now looks like this:</p>
+<pre data-lang="elm" style="background-color:#151515;color:#e8e8d3;" class="language-elm "><code class="language-elm" data-lang="elm"><span>x₀ = [ ... ]
+</span><span>x₁ = modify_value x₀
+</span><span style="color:#fad07a;">print </span><span>x₁
+</span></code></pre>
+<p>Ok, so that’s the first part of SSA. What about the second part? Let’s annotate the last usage of each variable in the scope - we’ll do this by appending (<code>'</code>) to the last occurrence:</p>
+<pre data-lang="elm" style="background-color:#151515;color:#e8e8d3;" class="language-elm "><code class="language-elm" data-lang="elm"><span>x₀ = [ ... ]
+</span><span>x₁ = modify_value x₀&#39;
+</span><span style="color:#fad07a;">print </span><span>x₁&#39;
+</span></code></pre>
+<p>At this point, I can see some of you smiling smugly in the back of the class.</p>
+<p>Notice that the last occurrence of <code>x₀'</code> is passed to <code>modify_value</code>. After this point in time, by definition it is <em>impossible</em> for the program to reference the value of <code>x₀</code>.</p>
+<p>Because this is the last usage of <code>x₀</code>, it doesn’t matter if we mutate it, etc. — which means, we can pass the value of <code>x₀</code> to <code>modify_value</code> without wrapping it in a CoW reference first. Then, when <code>modify_value</code> modifies the unwrapped value, it will mutate <code>x</code> in place without making a copy.</p>
+<p>I’ll reiterate this: the last usage of a value is always the value itself, so mutations to that value <strong>do not copy it</strong>. This means that from <code>x = [ ... ]</code> to <code>print x</code>, no copies of the big list are made! This is the foundation of functional-but-in-place programming. Even though we write our code in a functional pipelined manner, all modifications to the data will occur in-place.</p>
+<h3 id="returning-by-value">Returning by Value</h3>
+<p>Only one reference.</p>
+<h3 id="closures-capture">Closures Capture</h3>
+<blockquote>
+<h4 id="aside-a-cyclic-problem">Aside: A Cyclic Problem</h4>
+</blockquote>
+<h3 id="why-closures-must-be-immutable">Why Closures Must be Immutable</h3>
+<blockquote>
+<h4 id="aside-optimizing-this-away">Aside: Optimizing this away</h4>
+</blockquote>
+<p>TODO: stack charts and pull reference from comments on HN</p>
+<h3 id="functional-but-in-place-fbip">Functional, but in Place (FBIP)</h3>
+<p>As far as I’m aware, this phrase originates from Koka, a programming language that focuses on algebraic effect handlers. Although Passerine doesn’t use the same automatic memory management strategy as Koka (which is called Perceus, btw), the same idea stands. From the Koka website:</p>
+<blockquote>
+<p>With Perceus reuse analysis, we can write algorithms that dynamically adapt to use in-place mutation when possible (and use copying when used persistently). […] This style of programming leads to a new paradigm that we call FBIP: “functional but in place”. Just like tail-call optimization lets us describe loops in terms of regular function calls, reuse analysis lets us describe in-place mutating imperative algorithms in a purely functional way (and get persistence as well).</p>
+</blockquote>
+<p>TODO: more</p>
+<h3 id="tradeoffs-and-limitations">Tradeoffs and Limitations</h3>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

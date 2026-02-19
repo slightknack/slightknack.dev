@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Replication &gt; REST · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/1_cabinet.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Replication &gt; REST</h1>
+<p class="tag">2025-04-16 · About 5 minutes long</p>
+<blockquote>
+<p>I’m publishing a backlog of writing I’ve done. Read <a href="/blog/writing">the first post</a> for more context. On today’s menu: I have been thinking about CRDTs and synchronization for a few years (e.g. this <a href="/blog/backing-crdt-store">old post</a> about CRDTs). I’m a fan also of functional-relational programming (but think in its purest form it can look <em>so much cooler</em> than React). In the post that follows, I try to pull some of these disparate threads together. Enjoy!</p>
+</blockquote>
+<h1 id="stop-building-databases">Stop Building Databases</h1>
+<p class="tag">
+2023-12-02 · Isaac Clayton · In response to <a rel="noopener nofollow" target="_blank" href="https://sqlsync.dev/posts/stop-building-databases/">Stop Building Databases</a>
+<p>It pains me to admit how long it took for me to understand the <em>raison
+d’être</em> of databases. For the longest time I thought of databases as
+bloated storage engines for “webscale” projects. This dangerous line of
+thought may be due to my exposure to database ORMs in Python
+<a rel="noopener nofollow" target="_blank" href="https://github.com/Tloru/NovelWrite">while using Flask as a child</a>.</p>
+<p>(I really didn’t understand what I was doing at the time and just
+copy-pasted ORM code and SQLite migrations, praying that it would work.
+When the migration inevitably failed, I’d just delete the database and
+start over… which defeats the <em>entire</em> purpose of having a database, and
+is probably why I never learned to trust them.)</p>
+<p>Today, I am happy to report that my understanding of databases is a
+little more mature. A while back I read <em>Designing Data Intensive Applications</em> (what a great read!). I now understand that
+databases are engines for managing and querying state (no way!); I understand why relational modeling encodes real-world data so readily
+and the benefits of normalization; the purpose of consistency guarantees and distributed
+consensus; the need for a relational query language. (Objects are not
+relations, and ORMs fundamentally <em>cannot</em> capture this distinction.)</p>
+<p>It pains me that SQL is such an… <em>unergonomic</em> language. I can’t bring
+myself around to invest the time it would take to truly master it. I
+have lingering hopes that a newcomer like PRQL will become popular
+before I take the plunge and learn all of SQL’s little warts. In the
+meantime, however, I’ll remain partial to relational logic languages
+like prolog or datomic datalog. Until PRQL usurps the old guard, you can
+find me messing around with miniKanren from the comfort of my own home.</p>
+<p>Which reminds me: datomic datalog’s tight integration with Clojure is, I
+believe to be, a step in the right direction. The functional-relational
+ideal has always been the inclusion of relations in the language
+<em>itself</em>. There’s this beautiful mapping between functional <em>relational</em>
+programming and functional <em>reactive</em> programming. What is reactive
+programming but code that incrementally updates when underlying data
+relations change?</p>
+<p>On the web, if you’re doing reactive programming, you’re probably using
+React. It is an oft-quoted mantra that UI should be a function of
+application state. Managing application state is hard (…this is why we
+have databases). React’s development has driven this huge
+Redux-industrial complex of libraries seeking to be the one true manager of application state. As we
+approach the limit, Greenspun silently pines an echo lost to time, “any
+sufficiently complicated Redux cache is an ad hoc implementation of half
+of Postgres.”</p>
+<p>Greenspun, a pioneer of database-backed websites, probably groks the
+irony. We have a full <em>relational</em> database on the backend, and a fancy
+<em>reactive</em> UI on the frontend, and they’re synchronized by… manually
+exchanging handcrafted trees of data? In a perfect world, there is no
+manual synchronization: the app should be a function of database state.
+In practice, however, we cache a poor denormalized copy of a database in
+the browser and synchronize it through REST, or maybe GraphQL. (If you’re
+lucky?) It’s 2023, <em>why</em>?</p>
+<p>Synchronizing state through REST is like emptying a lake with a cup.
+Open the floodgates, replicate the database client-side, and a sea of
+possibilities opens up. What would websites look like if we could query
+a replica of a database from the browser?</p>
+<p>This is the amable vision of <a rel="noopener nofollow" target="_blank" href="https://www.inkandswitch.com/local-first/">local first software</a>, that “everyone owns
+their data, in spite of the cloud”. With this shift in perspective, we
+can imagine a React app that reactively streams database updates
+between the browser’s replica and other computers they own (or the cloud). (To paint a fuller
+picture of this vision, see Geoffrey Litt’s <a rel="noopener nofollow" target="_blank" href="https://www.youtube.com/watch?v=zjl7CpG9h3w">talk on Riffle and reactive
+relational state</a>.)</p>
+<p>These are all old ideas cast in a new light, of course. There are a
+number of competing client-side data synchronizers: the most promising
+solutions generally follow the pattern of wrapping a small relational
+database (like SQLite) with conflict-free replicated data types (CRDTs).</p>
+<p>I <em>love</em> CRDTs, but must remain clear-eyed. Having written and worked
+with CRDTs, I can say that they are no silver bullet. CRDTs enforce
+eventual consistency by maintaining <em>local invariants</em>. They guarantee
+nothing about the <em>global validity</em> of merged states. As time progresses,
+the need for “authoritative servers” will become clear: it is impossible
+to enforce global invariants using CRDTs, and clients can’t be trusted
+to always be honest.</p>
+<p>This limitation leads to a nice business model for database replication
+companies, I guess: keep the popular CRDT libraries open source and easy
+to integrate, but charge a subscription for hosted conflict resolution
+of global invariants, and long-term state storage. I’m certain you could market that a little better,
+and I’m certain people will.</p>
+<p class="tag">~540 words in 47 minutes, 11 wpm sustained</p>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

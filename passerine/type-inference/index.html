@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Mirror: Hindley Milner Type Inference · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                            <strong
+                                > Passerine </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/2_question.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Mirror: Hindley Milner Type Inference</h1>
+<p class="tag">2021-05-01 · About 15 minutes long</p>
+<blockquote>
+<p>This is a frozen mirror of <a rel="noopener nofollow" target="_blank" href="https://www.cs.cornell.edu/courses/cs3110/2016fa/l/17-inference/notes.html">notes from Cornell’s CS3110</a>. Full disclosure, I did not write this.</p>
+</blockquote>
+<h2 id="topics">Topics</h2>
+<ul>
+<li>Type inference and reconstruction</li>
+<li>Constraint collection</li>
+<li>Constraint solving (unification)</li>
+</ul>
+<h2 id="intro">Intro</h2>
+<p>Java and OCaml are <em>statically typed</em> languages, meaning every binding has
+a type that is determined at <em>compile time</em>—that is, before any part of
+the program is executed. The type-checker is a compile-time procedure
+that either accepts or rejects a program. By contrast, JavaScript and
+Ruby are dynamically-typed languages; the type of a binding is not
+determined ahead of time and computations like binding 42 to <code>x</code> and
+then treating <code>x</code> as a string result in run-time errors.</p>
+<p>Unlike Java, OCaml is <em>implicitly typed</em>, meaning programmers rarely need
+to write down the types of bindings. This is often convenient,
+especially with higher-order functions. (Although some people disagree
+as to whether it makes code easier or harder to read). But implicit
+typing in no way changes the fact that OCaml is statically typed. Rather,
+the type-checker has to be more sophisticated because it must infer what
+the <em>type annotations</em> “would have been” had the programmers written all
+of them. In principle, type inference and type checking could be
+separate procedures (the inferencer could figure out the types then the
+checker could determine whether the program is well-typed), but in
+practice they are often merged into a single procedure called
+<em>type reconstruction</em>.</p>
+<h2 id="ocaml-type-reconstruction">OCaml type reconstruction</h2>
+<p>OCaml was rather cleverly designed so that type reconstruction is a
+straightforward algorithm. At a very high level, that algorithm works as
+follows:</p>
+<ul>
+<li>
+<p>Determine the types of definitions in order, using the types of earlier
+definitions to infer the types of later ones. (Which is one reason you
+may not use a name before it is bound in an OCaml program.)</p>
+</li>
+<li>
+<p>For each <code>let</code> definition, analyze the definition to determine
+<em>constraints</em> about its type. For example, if the inferencer sees
+<code>x+1</code>, it concludes that <code>x</code> must have type <code>int</code>. It gathers
+similar constraints for function applications, pattern matches, etc.
+Think of these constraints as a system of equations like you might
+have in algebra.</p>
+</li>
+<li>
+<p>Use that system of equations to solve for the type of the name
+begin defined.</p>
+</li>
+</ul>
+<p>The OCaml type reconstruction algorithm attempts to never reject a
+program that could type-check, if the programmer had written down types.
+It also attempts never to accept a program that cannot possibly type
+check. Some more obscure parts of the language can sometimes make type
+annotations either necessary or at least helpful (see RWO chapter 22,
+“Type inference”, for examples).  But for most code you write, type
+annotations really are completely optional.</p>
+<p>Since it would be verbose to keep writing “the OCaml type reconstruction
+algorithm,” we’ll call the algorithm HM. That name is used throughout
+the programming languages literature, because the algorithm was
+independently invented by Roger <u>H</u>indley and Robin <u>M</u>ilner.</p>
+<h2 id="collecting-and-solving-constraints-examples">Collecting and solving constraints: Examples</h2>
+<p>To gather the constraints for a definition, HM does the following:</p>
+<ul>
+<li>
+<p>Assign a preliminary type to every subexpression in the definition.
+For known operations and constants, such as <code>+</code> and <code>3</code>, use the
+type that is already known for it. For anything else, use a new type
+variable that hasn’t been used anywhere else.</p>
+</li>
+<li>
+<p>Use the “shape” of the expressions to generate constraints. For
+example, if an expression involves applying a function to an
+argument, then generate a constraint requiring the type of the
+argument to be the same as the function’s input type.</p>
+</li>
+</ul>
+<p>We’ll give some examples of this first, then we’ll give the algorithms
+for doing it.</p>
+<h4 id="example-1">Example 1.</h4>
+<p>Here’s an example utop interaction:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># let g x = 5 + x;;
+</span><span>val g : int -&gt; int = &lt;fun&gt;
+</span></code></pre>
+<p>How did OCaml infer the type of <code>g</code> here?  Let’s work it out.</p>
+<p>First, let’s rewrite <code>g</code> syntactically to make our work a little easier:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>let g = fun x -&gt; ((+) 5) x
+</span></code></pre>
+<p>We’ve made the anonymous function explicit, and we’ve made the
+binary infix operator a prefix function application.</p>
+<p><strong>1. Assign preliminary types.</strong></p>
+<p>For each subexpression of <code>fun x -&gt; (+) 5 x</code>, including the entire
+expression itself, we assign a preliminary type. We already know the
+types of <code>(+)</code> and <code>5</code>, because those are baked into the language
+itself, but for everything else we “play dumb” and just invent a new
+type variable for it. For now we will use uppercase letters to represent
+those type variables, rather than the OCaml syntax for type variables
+(e.g., <code>'a</code>).</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Subexpression         Preliminary type
+</span><span>------------------    --------------------
+</span><span>fun x -&gt; ((+) 5) x    R
+</span><span>    x                 U
+</span><span>         ((+) 5) x    S
+</span><span>         ((+) 5)      T
+</span><span>          (+)         int -&gt; (int -&gt; int)
+</span><span>              5       int
+</span><span>                 x    V
+</span></code></pre>
+<p><strong>2. Collect constraints.</strong></p>
+<p>Here are some observations we could make about the “shape” of subexpressions
+and some relationships among them:</p>
+<ul>
+<li>
+<p>Since function argument <code>x</code> has type <code>U</code> and function body <code>((+) 5) x</code>
+has type <code>S</code>, it must be the case that <code>R</code>, the type of the anonymous
+function expression, satisfies the constraint <code>R = U -&gt; S</code>.
+That is, <em>the type of the anonymous function</em> is <em>the type of its argument</em>
+arrow <em>the type of its body</em>.</p>
+</li>
+<li>
+<p>Since function <code>((+) 5)</code> has type <code>T</code> and function
+application <code>((+) 5) x</code> has type <code>S</code>, and since the argument <code>x</code> has
+type <code>V</code>, it must be the case that <code>T = V -&gt; S</code>.  That is,
+<em>the type of the function being applied</em> is <em>the type of the argument it’s
+being applied to</em> arrow <em>the type of the function application expression</em>.</p>
+</li>
+<li>
+<p>Since function <code>(+)</code> has type <code>int -&gt; (int -&gt; int)</code> and function
+application <code>(+) 5</code> has type <code>T</code>, and since the argument <code>5</code>
+has type <code>int</code>, it must be the case that <code>int -&gt; (int-&gt;int) = int -&gt; T</code>.
+Once again,
+<em>the type of the function being applied</em> is <em>the type of the argument it’s
+being applied to</em> arrow <em>the type of the function application expression</em>.</p>
+</li>
+<li>
+<p>Since <code>x</code> occurs with both type <code>U</code> and <code>V</code>, it must be the case that <code>U = V</code>.</p>
+</li>
+</ul>
+<p>The set of constraints thus generated is:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>                  U = V
+</span><span>                  R = U -&gt; S
+</span><span>                  T = V -&gt; S
+</span><span>int -&gt; (int -&gt; int) = int -&gt; T
+</span></code></pre>
+<p><strong>3. Solve constraints.</strong></p>
+<p>You can solve that system of equations easily. Starting from the last
+constraint, we know <code>T</code> must be <code>int -&gt; int</code>. Substituting that into the
+second constraint, we get that <code>int -&gt; int</code> must equal <code>V -&gt; S</code>, hence
+<code>V = S = int</code>. Since <code>U=V</code>, <code>U</code> must also be <code>int</code>. Substituting for <code>S</code>
+and <code>U</code> in the first constraint, we get that <code>R = int -&gt; int</code>. So the
+inferred type of <code>g</code> is <code>int -&gt; int</code>.</p>
+<h4 id="example-2">Example 2.</h4>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># let apply f x = f x;;
+</span><span>val apply : (&#39;a -&gt; &#39;b) -&gt; &#39;a -&gt; &#39;b = &lt;fun&gt;
+</span></code></pre>
+<p>Again we rewrite:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>let apply = fun f -&gt; (fun x -&gt; f x)
+</span></code></pre>
+<p><strong>1. Assign preliminary types.</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Subexpression              Preliminary type
+</span><span>-----------------------    ------------------
+</span><span>fun f -&gt; (fun x -&gt; f x)    R
+</span><span>    f                      S
+</span><span>         (fun x -&gt; f x)    T
+</span><span>              x            U
+</span><span>                   f x     V
+</span><span>                   f       S
+</span><span>                     x     U
+</span></code></pre>
+<p><strong>2. Collect constraints.</strong></p>
+<ul>
+<li><code>R = S -&gt; T</code>, because of the anonymous function expression.</li>
+<li><code>T = U -&gt; V</code>, because of the nested anonymous function expression.</li>
+<li><code>S = U -&gt; V</code>, because of the function application.</li>
+</ul>
+<p><strong>3. Solve constraints.</strong></p>
+<p>Using the third constraint, and substituting for <code>S</code> in the first
+constraint, we have that <code>R = (U -&gt; V) -&gt; T</code>.  Using the second
+constraint, and substituting for <code>T</code> in the first constraint,
+we have that <code>R = (U -&gt; V) -&gt; (U -&gt; V)</code>.  There are no further
+substitutions that can be made, so we’re done solving the constraints.
+If we now replace the preliminary type variables with actual OCaml
+type variables, specifically <code>U</code> with <code>'a</code> and <code>V</code> with <code>'b</code>, we get that
+the type of <code>apply</code> is <code>('a -&gt; 'b) -&gt; ('a -&gt; 'b)</code>, which is the same as
+<code>('a -&gt; 'b) -&gt; 'a -&gt; 'b</code>.</p>
+<h4 id="example-3">Example 3.</h4>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># apply g 3;;
+</span><span>- : int = 8
+</span></code></pre>
+<p>We rewrite that as <code>(apply g) 3</code>.</p>
+<p><strong>1. Assign preliminary types.</strong></p>
+<p>In this running example, the inference for <code>g</code> and <code>apply</code> has already
+been done, so we can fill in their types as known, much like the type
+of <code>+</code> is already known.</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Subexpression     Preliminary type
+</span><span>-------------     ------------------------------------------
+</span><span>(apply g) 3       R
+</span><span>(apply g)         S  
+</span><span> apply            (U -&gt; V) -&gt; (U -&gt; V)
+</span><span>       g          int -&gt; int
+</span><span>          3       int
+</span></code></pre>
+<p><strong>2. Collect constraints.</strong></p>
+<ul>
+<li><code>S = int -&gt; R</code></li>
+<li>`(U -&gt; V) -&gt; (U -&gt; V) = (int -&gt; int) -&gt; S</li>
+</ul>
+<p><strong>3. Solve constraints.</strong></p>
+<p>Breaking down the last constraint, we have that <code>U = V = int</code>, and
+that <code>S = U -&gt; V</code>, hence <code>S = int -&gt; int</code>.  Substituting that into
+the first constraint, we have that <code>int -&gt; int = int -&gt; R</code>.  Therefore
+<code>R = int</code>, so the type of <code>apply g 3</code> is <code>int</code>.</p>
+<h4 id="example-4">Example 4.</h4>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># apply not false;;
+</span><span>- : bool = true
+</span></code></pre>
+<p>By essentially the same reasoning as in example 3, HM can infer that the
+type of this expression is <code>bool</code>. This illustrates the polymorphism of
+<code>apply</code>: because the type <code>(U -&gt; V) -&gt; (U -&gt; V)</code> of
+<code>apply</code> contains type variables, the function can be applied to any
+arguments, so long as those arguments’ types can be consistently
+substituted for the type variables.</p>
+<h2 id="collecting-constraints-algorithm">Collecting constraints: Algorithm</h2>
+<p>We now present an algorithm that generates constraints. This algorithm
+is a precise description of how constraint gathering works in the
+examples we discussed above. The algorithm is not exactly what HM does,
+because HM actually performs type checking at the same time as type
+inference. However, the resulting types are the same, and separating
+inference from checking hopefully will give you a clearer idea of how
+inference itself works.</p>
+<p>The algorithm takes as input an expression <code>e</code>. We’ll
+assume that every function <code>fun x -&gt; e'</code> in that expression has an
+argument with a different name. (If not, our algorithm could make a
+pre-pass to rename variables. This is feasible because of lexical scope.)
+The output of the algorithm is a set of constraints.</p>
+<p>The first thing the algorithm does is to assign unique preliminary
+type variables, e.g. <code>R</code> or <code>S</code>,</p>
+<ul>
+<li>one to each <em>defining</em> occurrence of a variable, which could be as
+a function argument or a let binding, and</li>
+<li>one to each occurrence of each subexpression of <code>e</code>.</li>
+</ul>
+<p>Call the type variable assigned to <code>x</code> in the former clause
+<code>D(x)</code>, and call the type variable assigned to occurrence of a
+subexpression <code>e'</code> in the latter clause <code>U(e')</code>.  The names of these
+are mnemonics:  <code>U</code> stands for the <u>u</u>se of an expression,
+and <code>D</code> stands for the <u>d</u>efinition of a variable name.</p>
+<p>Next, the algorithm generates the following constraints:</p>
+<ul>
+<li>For integer constants <code>n</code>:  <code>U(n) = int</code>.  This constraints follows
+from the type checking rule for integers, which says that every
+integer constant has type <code>int</code>.  Constraints for other types of
+constants are generated in a similar way.</li>
+<li>For variables <code>x</code>:  <code>D(x) = U(x)</code>.  This constraint follows from the type
+checking rule for variables, which says the type of a variable use (in this case, <code>U(x)</code>)
+must be the same as the type at which that variable was defined (here, <code>D(x)</code>).</li>
+<li>For function application <code>e1 e2</code>: <code>U(e1) = U(e2) -&gt; U(e1 e2)</code>,
+as well as any constraints resulting from <code>e1</code> and <code>e2</code>.  This constraint follows
+from the type checking rule for function application.</li>
+<li>For anonymous functions <code>fun x -&gt; e</code>: <code>U(fun x -&gt; e) = D(x) -&gt; U(e)</code>,
+as well as any constraints resulting from <code>e</code>.  This constraint follows from the
+type checking rule for anonymous functions.</li>
+<li>For let expressions <code>let x=e1 in e2</code>: <code>D(x)=U(e1)</code>, <code>U(let x=e1 in e2) = U(e2)</code>,
+as well as any constraints resulting from <code>e1</code> and <code>e2</code>.  This constraint follows
+from the type checking rule for let expressions.</li>
+<li>Other expression forms:  similar kinds of constraints likewise derived from the
+type checking rule for the expression form.</li>
+</ul>
+<p>The result is a set of constraints, which is the output of the
+algorithm. It’s not too hard to implement this algorithm as a recursive
+function over a tree representing the syntax of <code>e</code>.</p>
+<p><strong>Example.</strong>
+Given expression <code>fun x -&gt; (fun y -&gt; x)</code>, a type variable <code>R</code> is
+associated with argument <code>x</code>, and <code>S</code> with argument <code>y</code>.  For
+subexpressions, <code>T</code> is associated with the occurrence of <code>fun x -&gt; (fun y -&gt; x)</code>, and <code>X</code> with the occurrence of <code>(fun y -&gt; x)</code>, and <code>Y</code> with
+the occurrence of <code>x</code>. (Note that the names we’ve chosen for the type
+variables are completely arbitrary.) The constraints generated are <code>T = R -&gt; X</code>, and <code>X = S -&gt; Y</code>, and <code>Y = R</code>.</p>
+<h2 id="solving-constraints-algorithm">Solving constraints: Algorithm</h2>
+<p>What does it mean to solve a set of constraints? To answer this
+question, we define <em>type substitutions</em>. A type substitution is a map
+from a type variable to a type. We’ll write <code>{t/X}</code> for the
+substitution that maps type variable <code>X</code> to type <code>t</code>. The way a
+substitution <code>S</code> operates on a type can be defined recursively:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>S(X)        = if S = {t/X} then t else X
+</span><span>S(t1 -&gt; t2) = S(t1) -&gt; S(t2)
+</span></code></pre>
+<p>A substitution <code>S</code> can be applied to a constraint <code>t = t'</code>; the result
+<code>S(t = t')</code> is defined to be <code>S(t) = S(t')</code>. And a substitution can be
+applied to a set <code>C</code> of constraints; the result <code>S(C)</code> is the result of
+applying <code>S</code> to each of the individual constraints in <code>C</code>.</p>
+<p>Given two substitutions <code>S</code> and <code>S'</code>, we write <code>S;S'</code> for their
+composition: <code>(S;S')(t) = S'(S(t))</code>.</p>
+<p>A substitution <em>unifies</em> a constraint <code>t_1 = t_2</code> if <code>S(t_1) = S(t_2)</code>.
+A substitution <code>S</code> unifies a set <code>C</code> of constraints if <code>S</code> unifies every
+constraint in <code>C</code>. For example, substitution
+<code>S = {int-&gt;int/Y};{int/X}</code> unifies constraint <code>X -&gt; (X -&gt; int) = int -&gt; Y</code>.</p>
+<p>To solve a set of constraints <code>C</code>, we need to find a substitution that
+unifies <code>C</code>. If there are no substitutions that unify <code>C</code>, where <code>C</code>
+is the constraints generated from expression <code>e</code>, then <code>e</code> is not
+typeable.</p>
+<p>To find a substitution that unifies <code>C</code>, we use an algorithm
+appropriately called the <em>unification</em> algorithm. It is defined as
+follows:</p>
+<ul>
+<li>
+<p>if <code>C</code> is the empty set, then <code>unify(C)</code> is the empty substitution.</p>
+</li>
+<li>
+<p>if <code>C</code> is the union of a constraint <code>t = t'</code> with other constraints <code>C'</code>, then
+<code>unify(C)</code> is defined as follows, based on that constraint:</p>
+<ul>
+<li>
+<p>if <code>t</code> and <code>t'</code> are both the same type variable, e.g. <code>X</code>,
+then return <code>unify(C')</code>.</p>
+</li>
+<li>
+<p>if <code>t = X</code> for some type variable <code>X</code>, and <code>X</code> does not occur in <code>t'</code>,
+then let <code>S = {t'/X}</code>, and return <code>unify(S(C'));S</code>.</p>
+</li>
+<li>
+<p>if <code>t' = X</code> for some type variable <code>X</code>, and <code>X</code> does not occur in <code>t</code>,
+then let <code>S = {t/X}</code>, and return <code>unify(S(C'));S</code>.</p>
+</li>
+<li>
+<p>if <code>t = t0 -&gt; t1</code> and <code>t' = t'0 -&gt; t'1</code>,
+then let <code>C''</code> be the union of <code>C'</code> with the constraints
+<code>t0 = t'0</code> and <code>t1 = t'1</code>, and return <code>unify(C'')</code>.</p>
+</li>
+<li>
+<p>if <code>t = t0 * t1</code> and <code>t' = t'0 * t'1</code>,
+then let <code>C''</code> be the union of <code>C'</code> with the constraints
+<code>t0 = t'0</code> and <code>t1 = t'1</code>, and return <code>unify(C'')</code>.</p>
+</li>
+<li>
+<p>if <code>t = (t0, ..., tn) tc</code> and <code>t' = (t'0, ..., t'n) tc</code> for some
+type constructor <code>tc</code>,
+then let <code>C''</code> be the union of <code>C'</code> with the constraints
+<code>ti = t'i</code>, and return <code>unify(C'')</code>.</p>
+</li>
+<li>
+<p>otherwise, fail. There is no possible unifier.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>In the second and third subcases, the check that <code>X</code> should
+not occur in <code>t</code> ensures that the algorithm doesn’t produce a cyclic
+substitution—for example, <code>{(X -&gt; X) / X}</code>.</p>
+<p>It’s possible to prove that the unification algorithm always terminates,
+and that it produces a result if and only a unifier actually exists—that
+is, if and only if the set of constraints has a solution. Moreover, the
+solution the algorithm produces is the <em>most general unifier</em>, in the
+sense that if <code>S = unify(C)</code> and <code>S'</code> unifies <code>C</code>, then there
+must exist some <code>S''</code> such that <code>S' = S;S''</code>.</p>
+<p>If <code>R</code> is the type variable assigned to represent the type of the entire
+expression <code>e</code>, and if <code>S</code> is the substitution produced by the
+algorithm, then <code>S(R)</code> is the type inferred for <code>e</code> by HM type
+inference. Call that type <code>t</code>. It’s possible to prove <code>t</code> is the
+<em>principal</em> type for the expression, meaning that if <code>e</code> also has type
+<code>t'</code> for any other <code>t'</code>, then there exists a substitution <code>S</code> such that
+<code>t' = S(t)</code>. So HM actually infers the most lenient type that is possible
+for any expression.</p>
+<h2 id="let-expressions">Let expressions</h2>
+<p>Consider the following code:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>let double f z = f (f z) in
+</span><span>(double (fun x -&gt; x+1) 1, double (fun x -&gt; not x) false)
+</span></code></pre>
+<p>The inferred type for <code>f</code> in <code>double</code> would be <code>X -&gt; X</code>. In the
+algorithm we’ve described so far, the use of <code>double</code> in the first
+component of the pair would produce the constraint <code>X = int</code>, and the
+use of <code>double</code> in the definition of <code>b</code> would produce the constraint <code>X = bool</code>. Those constraints would be contradictory, causing unification
+to fail!</p>
+<p>There is a very nice solution to this called <em>let-polymorphism</em>, which
+is what OCaml actually uses. Let-polymorphism enables a polymorphic
+function bound by a <code>let</code> expression behave as though it has multiple
+types. The essential idea is to allow each usage of a polymorphic
+function to have its own instantiation of the type variables, so that
+contradictions like the one above can’t happen.</p>
+<p>We won’t cover let-polymorphism here, but you can learn more about it
+in the reading given below.</p>
+<h2 id="efficiency-of-hm">Efficiency of HM</h2>
+<p>HM is usually a very efficient algorithm—you’ve probably never had to
+wait for the REPL to print the inferred types of your programs. In
+practice, it runs in approximately linear time. But in theory, there are
+some very strange programs that can cause its running-time to blow up.
+(Technically, it’s DEXPTIME-complete.) For fun, try typing the following
+code in utop:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>let b = true;;
+</span><span>let f0 = fun x -&gt; x+1;;
+</span><span>let f = fun x -&gt; if b then f0 else fun y -&gt; x y;;
+</span><span>let f = fun x -&gt; if b then f else fun y -&gt; x y;;
+</span><span>(* keep repeating that last line *)
+</span></code></pre>
+<p>You’ll see the types get longer and longer, and eventually type inference
+will cause a notable delay.</p>
+<h2 id="the-history-of-hm">The history of HM</h2>
+<p>HM has been rediscovered many times by many people. Curry used it
+informally in the 1950’s (perhaps even the 1930’s). He wrote it up
+formally in 1967 (published 1969). Hindley discovered it independently
+in 1969; Morris in 1968; and Milner in 1978. In the realm of logic,
+similar ideas go back perhaps as far as Tarski in the 1920’s. Commenting
+on this history, Hindley wrote,</p>
+<blockquote>
+<p>There must be a moral to this story of continual re-discovery;
+perhaps someone along the line should have learned to read. Or someone
+else learn to write.</p>
+</blockquote>
+<h2 id="summary">Summary</h2>
+<p>Hindley–Milner type inference is one of the core algorithms that
+makes the OCaml language, and many other functional languages, possible.
+It is fundamentally based on traversing the source code to collect
+a system of equations, then solving that system to determine the types.</p>
+<h2 id="terms-and-concepts">Terms and concepts</h2>
+<ul>
+<li>constraint</li>
+<li>Hindley–Milner (HM) type inference algorithm</li>
+<li>implicit typing</li>
+<li>let polymorphism</li>
+<li>preliminary type variable</li>
+<li>static typing</li>
+<li>substitution</li>
+<li>type annotation</li>
+<li>type inference</li>
+<li>type reconstruction</li>
+<li>unification</li>
+<li>unifier</li>
+</ul>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a rel="noopener nofollow" target="_blank" href="https://newcatalog.library.cornell.edu/catalog/8324012"><em>Types and Programming Languages</em></a>, chapter 22, by Benjamin C. Pierce.</li>
+</ul>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

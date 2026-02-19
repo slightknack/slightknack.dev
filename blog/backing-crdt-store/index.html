@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Thinking about efficient backing stores for CRDTs · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/1_fileview.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Thinking about efficient backing stores for CRDTs</h1>
+<p class="tag">2021-08-02 · About 9 minutes long</p>
+<p>A <em>Conflict-Free Replicated Datatype</em> is a bit like a smoothie: the same ingredients will produce the same result, regardless of the order in which they are added. In the context of, say, text editing in a distributed context, merging two documents will always succeed in a deterministic manner. In other words, A CRDT is a bit like a git repository that never has merge conflicts.</p>
+<p>There are many different ways to approach the construction of CRDTs, each construction having its own strengths and weaknesses. Today, we’re going to focus on creating out an efficient backing store for a particular family of algorithms known as <em>Replicated Growth Arrays</em> (RGA).</p>
+<span id="continue-reading"></span>
+<p>Before we begin, though, I guess I should establish my motivation for writing this piece. I can’t begin to think about CRDTs without also considering distributed network topologies, and peer-to-peer collaboration. My goal, for this article, is to lay out the skeleton of a backing store for CRDTs that is both easy to work with in-memory and easy to replicate over the network. I hope you’ll see how the solution I derive addresses both these goals.</p>
+<p>Under RGA, we represent documents as trees of strings. If this sounds familiar, that because it’s a bit like a <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Rope_">Rope</a>. To ensure that these trees always merge, we provide an algorithm for merging two trees together in a deterministic manner.</p>
+<p>The merging algorithm behind RGA is pretty elegant. Each character in the tree points to the one before it. If two characters have the same parent, we order them from back to front, the latest character going first (sorting by user in case of a tie).</p>
+<p><img src="/content/crdt-rga.svg" alt="An image of an RGA tree spelling out the word “Cat!”" /></p>
+<p>In the above example, Bob typed <code>C!</code>. Later, Mia slides in and makes a two character edit by inserting the letters <code>at</code> after <code>C</code>, so the document now reads <code>Cat!</code>. When Bob synchronizes her changes, they’re inserted before the <code>!</code>, because her edits happened happened later. Now both Bob and Mia have <code>Cats!</code> on their screen!</p>
+<p>Note that although <em>conceptually</em> RGA operates on trees, implementation-wise, it’s not a requirement. Trees are an inefficient substrate for RGA for a number of reasons, the largest being wasted space and the fact that they don’t play well with the L1 cache. If we flatten the tree out into a list (still inefficient for other reasons), the RGA insertion algorithm discussed above looks something like this:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#888888;">// Adapted from https://josephg.com/blog/crdts-go-brrr/
+</span><span style="color:#888888;">// Insert an edit (the `Entry`) into a CRDT (`self`)
+</span><span style="color:#8fbfdc;">fn </span><span style="color:#fad07a;">automerge_insert</span><span>(&amp;</span><span style="color:#8fbfdc;">mut </span><span style="color:#ffb964;">self</span><span>, </span><span style="color:#ffb964;">entry</span><span>: Entry&lt;T&gt;) {
+</span><span>    </span><span style="color:#888888;">// (1) Insert at least after parent
+</span><span>    </span><span style="color:#8fbfdc;">let</span><span> parent_index = </span><span style="color:#ffb964;">self</span><span>.find_item(entry.parent);
+</span><span>
+</span><span>    </span><span style="color:#8fbfdc;">let mut</span><span> index = </span><span style="color:#ffb964;">self</span><span>.contents.len();
+</span><span>    </span><span style="color:#8fbfdc;">for</span><span> i in parent_index..</span><span style="color:#ffb964;">self</span><span>.contents.len() {
+</span><span>        </span><span style="color:#888888;">// (2) Compare to later entries
+</span><span>        </span><span style="color:#8fbfdc;">let</span><span> old_entry = &amp;</span><span style="color:#ffb964;">self</span><span>.contents[i];
+</span><span>        </span><span style="color:#8fbfdc;">if</span><span> entry.seq &gt; old_entry.seq { index = i; </span><span style="color:#8fbfdc;">break</span><span>; }
+</span><span>        </span><span style="color:#8fbfdc;">let</span><span> old_parent_index = </span><span style="color:#ffb964;">self</span><span>.find_item(old_entry.parent);
+</span><span>
+</span><span>        </span><span style="color:#888888;">// Check if this is the right spot
+</span><span>        </span><span style="color:#8fbfdc;">if</span><span> old_parent_index &lt; parent_index
+</span><span>        || (old_parent_index == parent_index
+</span><span>            &amp;&amp; (entry.seq == old_entry.seq)
+</span><span>            &amp;&amp; entry.id &lt; old_entry.id
+</span><span>        ) { index = i; </span><span style="color:#8fbfdc;">break</span><span>; }
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#888888;">// (3) Insert entry at the right spot
+</span><span>    </span><span style="color:#ffb964;">self</span><span>.contents.insert(index, entry);
+</span><span>}
+</span></code></pre>
+<p>I’m not going to go into how this works in a lot of detail (If you’d like to, take a look at <a rel="noopener nofollow" target="_blank" href="https://josephg.com/blog/crdts-go-brrr/">this</a>!). But there are a few things I think are important to note.</p>
+<p>Each of the numbered comments (<code>(1)</code>, etc.) annotates a performance-critical or otherwise common operation. Based on these requirements, we can derive a decent picture of what a good backing data structure should look like:</p>
+<ol>
+<li>
+<p>When we call <code>self.find_item(...)</code>, we’re trying to lookup the index of an id. Thus, this algorithm needs a backing data structure where entries can be found quickly by key.</p>
+</li>
+<li>
+<p>Later, in <code>self.contents[i]</code> we iterate through the array in a sequential manner by index. For this reason, the data structure must be ordered, indexable, and easy to iterate through.</p>
+</li>
+<li>
+<p>Finally, we need to actually perform the insertion. <code>self.contents.insert(index, entry)</code> does the trick, but this is a very slow operation for arrays as all later elements must be reallocated. A good data structure should support efficient insertion of new elements.</p>
+</li>
+</ol>
+<p>In the above example, we’re using a Rust <code>Vec</code>, which is a dynamically growable array. Vectors are really efficient in cache, but as mentioned, horrifically slow for insertion (which requires reallocation) or indexing by key (an <code>O(n)</code> linear search).</p>
+<p>In light of this, a few people have come up with better backing data structures that exist the fill the gap. Most of these are build around Ropes or Range Trees. These work great in practice, but still have some overhead when looking up entries by key or storing many small edits.</p>
+<p>I’ve been thinking about this issue for the past few days, and I think I have an interesting possible solution. I’m no expert, but I do have some experience with OT and optimization, so we’ll see how it goes. I’m calling this solution a <em>Backed Tree Log</em>, and it functions as an append-only log + a backing key-value tree for efficient key lookup. Here’s what that looks like:</p>
+<blockquote>
+<p>Revised up to here</p>
+</blockquote>
+<h2 id="backed-tree-log">Backed Tree Log</h2>
+<p>Each <em>item</em> in the CRDT is uniquely uniquely identified by an <em>ID</em>. For our purposes, IDs will be represented as three-tuples of a user’s ID (or public key), the index of the item’s <code>Entry</code>, and the specific <em>sub-item</em> within that <code>Entry</code>.</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#888888;">// User is also a usize under the hood
+</span><span style="color:#888888;">// User, entry index, sub-item index
+</span><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">Id</span><span>(User, </span><span style="color:#8fbfdc;">usize</span><span>, </span><span style="color:#8fbfdc;">usize</span><span>)
+</span></code></pre>
+<p>There’s an important distinction to be made between entries and items. An item is something atomic, like a character in a string or an <em>item</em> in a list. An entry is a group of items that were created at a similar time or place.</p>
+<p>The way I find easiest to conceptualize the distinction between items and entries is as follows: instead of storing individual <em>letters</em> in a text CRDT, for instance, we store <em>runs</em> of letters as <em>strings</em>. Each <em>entry</em> operates on the level of runs, rather than at the base level of letters. Although we’re grouping items together in entries, each letter is accessible as its own item.</p>
+<p>So, an <code>Entry</code> is an edit, which may refer to a group of items. In addition to this, it contains enough information about the surrounding nodes to be able to construct a full graph from it (if needed). <code>seq</code> is the sequence number, i.e. timestamp for when the entry was inserted, and should be increased by the length of the entry so each item in the Tree Log has it’s own index and sequence number. Here’s the definition:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">Entry </span><span>{
+</span><span>    </span><span style="color:#ffb964;">start</span><span>:  </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>    </span><span style="color:#ffb964;">length</span><span>: </span><span style="color:#8fbfdc;">usize</span><span>,
+</span><span>    </span><span style="color:#ffb964;">parent</span><span>: Id,
+</span><span>    </span><span style="color:#ffb964;">seq</span><span>:    </span><span style="color:#8fbfdc;">usize
+</span><span>}
+</span></code></pre>
+<p>As mentioned earlier, it’s important to note that an entry represents a run of items. To ensure we don’t waste space by allocating a separate collection for each entry, all items are stored together in a larger in collection. A UTF-8 encoded <code>String</code> may be used as a backing store for some text, likewise, a <code>Vec&lt;T&gt;</code> may be used as a backing store for an arbitrary list of items <code>T</code>. To disambiguate what items a particular entry is referring to, we use <code>start</code> and <code>length</code> to keep track of the location of the slice within the larger collection.</p>
+<blockquote>
+<p>Why not <code>start</code> and <code>end</code>? By using <code>start</code> and <code>length</code>, we can ensure that <code>end</code> is never less than start. I think it’s easier to write correct code when invalid states are hard to represent in general.</p>
+</blockquote>
+<p>For each <code>User</code> in the CRDT, we keep track of a column, that looks something like this:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">Column</span><span>&lt;T&gt; {
+</span><span>    </span><span style="color:#ffb964;">user</span><span>:    User,
+</span><span>    </span><span style="color:#ffb964;">backing</span><span>: T,
+</span><span>    </span><span style="color:#ffb964;">entries</span><span>: Vec&lt;Entry&gt;,
+</span><span>}
+</span></code></pre>
+<p><code>backing</code>, of course, is something that can be indexed and appended to, like a <code>String</code> or a <code>Vec</code>. Whenever we create a new entry, we append the contents onto <code>backing</code> (or look them up if they already exist in <code>backing</code> - more on that later) and include the <code>start</code> and <code>length</code> of those contents with respect to <code>backing</code>. It’s important to note that both <code>backing</code> and <code>entries</code> are append-only. This makes it insanely trivial to synchronize over the network - just send what’s been added - and can be cryptographically signed and verified using a backing merkle tree, a la DAT.</p>
+<p>Remember that the second field of <code>Id</code> contains the <em>index</em> of an <code>Entry</code> in a <code>Column</code>. This means that, given an <code>Id</code>, we can locate the corresponding <code>Entry</code> in <code>O(1)</code> time. But how to we preserve order?</p>
+<p>We use a set of <code>Columns</code> to form a <code>TreeLog</code>:</p>
+<pre data-lang="rust" style="background-color:#151515;color:#e8e8d3;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#8fbfdc;">struct </span><span style="color:#ffb964;">TreeLog</span><span>&lt;T&gt; {
+</span><span>    </span><span style="color:#888888;">// could use a BTreeMap instead
+</span><span>    </span><span style="color:#ffb964;">columns</span><span>: HashMap&lt;User, Column&lt;T&gt;&gt;,
+</span><span>    </span><span style="color:#ffb964;">tree</span><span>:    RangeMap&lt;Id&gt;,
+</span><span>}
+</span></code></pre>
+<p>As mentioned earlier, we need a way to <em>order</em> every entry, so it’s fast to index into the datastructure. To do this, we build a backing <code>RangeMap</code>. This <code>RangeMap</code> stores the <code>Id</code> of each entry, across multiple users, in total order. Thus, both traversing the CRDT by <code>Id</code> in order, and being able to quickly index into the tree in a reasonable amount of time (<code>O(log N)</code>) become feasible.</p>
+<h2 id="takeaways">Takeaways</h2>
+<p>Returning to our three original goals:</p>
+<ol>
+<li>A backing data structure in which entries can be found quickly by key. We do this through an append-only log, identified by index.</li>
+<li>Must also be ordered, and easy to iterate through. We do this through an auxiliary Range Map.</li>
+<li>Must support efficient insertion of new elements. The log is append-only, and insertion is fast for Range Maps.</li>
+</ol>
+<p>The auxiliary range map can be built entirely from the content of <code>columns</code>, through a modified version of <code>automerge_insert</code>. I think I’d call this <code>automerge_sort</code>, as it’s building an ordered tree by performing a merge sort across all columns. I might right a bit more about this algorithm in the future.</p>
+<p>It’s also good to know that traditional CRDT operations, like insertion, deletion, etc. do not require a full rebuild of either the <code>tree</code> or the columns in it - i.e. both can be updated in a reliable manner, whether that be via insertion, or through some other mechanism.</p>
+<p>This whole spiel is CPU-friendly, of course. Almost all data is stored in cache-friendly <code>Vec</code>s; Range Maps, although less ideal, will be smaller than usual when compared to the way they’re <em>usually</em> used as the only backing store for CRDTs.</p>
+<p>Also, note that the generic <code>T</code> is not an individual entry, but a <em>collection</em> that can be indexed into. We do this so we can put everything into a single backing store per-user. To uphold the CRDT invariant that everything must have a unique ID and sequence number, when inserting we increment the sequence number by the length of the entry.</p>
+<p>I hope what I’ve presented makes some sense, I just wanted to get my heads out of my head and onto proverbial paper. If you’re interested in what becomes of this project, I’ve put a <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/together/">GitHub repo up</a> that contains some preliminary work, and is where I plan to explore the idea further.</p>
+<p>Dear reader, you’ve reached the end!</p>
+<blockquote>
+<p>TODO: Incorporate Lamport timestamp as discussed with 02Keith</p>
+</blockquote>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

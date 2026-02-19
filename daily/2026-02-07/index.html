@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Isocore and the Internet · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                            <strong
+                                > Daily </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<h1 class="title" style="margin-top: 0;"><span class="pill"><a class="tag" href="..">07</a></span><br>Isocore and the Internet</h1>
+<p class="tag">2026-02-07 · 2185 words</p>
+<p><strong>tl;dr:</strong> Today I typed up the first ~13-pages of a WIP <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/isocore/blob/master/SPEC.md">specification for Isocore</a>. <span class=aside>The spec is about halfway done. I wrote it to be fairly approachable.</span> Isocore is a distributed runtime for local-first applications. (Think of it like a BEAM-like runtime for untrusted Wasm Components.) I want to write an alternative to the web, and this is the first step. (Isocore is still under heavy development.)</p>
+<p>The internet is the network of networks. There’s only really one internet. <span class=aside>Well, two I guess.</span> The web is a layer on top of the internet, and today it serves as something of a “universal application platform”. I’m surprised there’s only really one web.</p>
+<p>First, this isn’t <em>exactly</em> true. There are a lot of web-like protocols, that are more document-centric, like gemini and gopher. <span class=aside>No, not that Gemini.</span><span class=aside>Email is also a protocol for distributing documents; not in a linkable way, though.</span> If we define the web as “servers owned by different people that can be connected to by a client-side application speaking some common protocol”, then I guess like, yeah, sure, Minecraft is an alternative to the web. But you don’t browse minecraft; there aren’t portals that take you between Minecraft servers. <span class=aside>Wait that would actually be very cool. Someone should get on this.</span></p>
+<p>Besides the web, though, there are no other major “universal application platforms”. There aren’t many other apps where you can just enter some text or click a link to load a page and download an app on demand. <span class=aside>I mean, if you don’t count superapps like e.g. WeChat. Then again, WeChat is not just one client of many among many servers. So I don’t think this counts.</span></p>
+<p>I suppose I should stop beating around the bush and first define what I mean by “a web”, and what makes the current dominant web, the world-wide-web, unique. To begin,</p>
+<ol>
+<li>A web is a collection of standard protocols that allow users to download and execute applications on the fly. <span class=aside>For the world-wide web, those protocols are dns, https, html, css, js, wss, etc.</span></li>
+<li>A web is distributed, meaning individuals can bring their own browsers and servers, as long as they speak the same protocols.</li>
+<li>A web is a network, meaning applications can link to one another and interact with one another. <span class=aside>This is what makes a web, well, a web.</span></li>
+</ol>
+<p>Let’s talk about what the world-wide-web has going for it. I should start by saying that I love the web; I wouldn’t have a website if I didn’t. I love that the web is developed in the open. The W3C is a great steward of the web, and so many great ideas, protocols, and internet technologies have come out of it. Second, the web has many competing browsers, and an ever greater diversity of code run on servers. Third, the web has great network effects: everyone knows what a URL is, anyone with a URL and a browser can access a page, there’s no centralized app directory; any page can point to any other page, and through the tireless work of its constant indexing, we have a great way to discover pages we need to find!</p>
+<p>But there are a few issues with the web as it currently stands. Browser engines are extremely complex. There are many strange behaviors and incompatibilities; a lot of cruft has accumulated as APIs have evolved over the years. The client-server application model means that applications and data are mainly controlled by the server side of the equation; this leads to <a rel="noopener nofollow" target="_blank" href="https://ikennd.ac/blog/2026/01/old-man-yells-at-modern-software-design/">‘shoebox’ applications</a> that don’t interoperate well with one another. Each website requires that you enter a username and password because each server rolls auth from scratch: there is no standard for allowing browsers to provide credentials to websites in a privacy-preserving manner. Finally, if you want to collaborate with someone on a document, even if on the same local network, you probably have to go through someone else’s server first. <span class=aside>For those who know how the internet is plumbed, some of these limitations can be a little bit frustrating.</span> DDoS attacks are also common, and discourage smaller players from hosting their own stuff. <span class=aside>As a result, one company has man-in-the-middled like 80% of the internet (or whatever the meme is).</span></p>
+<p>The current web incentivises ‘a web of ivory walls’. There are too many platforms that ‘protect’ users from their own data. Everything feels clunky and slow, because it is. There’s this horrible bot-and-troll tragedy of the commons unfolding, and my friends seem to be retreating to their private walled-garden (Discord/WhatsApp/iMessage) group chats in response. <span class=aside>Or spending time on the open web allowing memes to slopfen their brains.</span></p>
+<p>What I’d like to see is a smaller web, one that is scoped in audience and private by default. Software should be local-first, meaning you own your data locally; browsers help you work with your information by providing professional tools available on demand. I’d like for people to blog again, to run servers that host their own group chats, to build malleable software together.</p>
+<p>Now, with all that being said, I think the current web is headed in the right direction. There are many cool new efforts, like WebAssembly (Wasm) and WebGPU, that turn the web from a clunky document viewer into a native-competitive capability-based application platform. <span class=aside>A part of me is fascinated by the idea of building a browser that doesn’t speak JS or HTML or CSS and just runs Wasm blobs that interface with WebGPU over WIT.</span> What if you were to sever off Wasm and these next-generation web technologies and build a new web from scratch, incorporating all the lessons we’ve picked up in the 30-odd years we’ve been running the experiment of the web for?</p>
+<p>Around 7 years ago, I started working on this project I called <a rel="noopener nofollow" target="_blank" href="https://github.com/sldty">Solidarity</a>. (<a href="/blog/browser/#postscript-solidarity">Which I also blogged about</a>). More recently, I’ve started pulling these threads together again with a project called <a rel="noopener nofollow" target="_blank" href="https://github.com/slightknack/isocore">Isocore</a>, for lack of a better name. Whereas Solidarity was a grand vision, strung together with a loose bag of protocols and runtimes, Isocore is a concrete, scoped server specification with an example runtime that can be implemented in any language.</p>
+<p>I don’t aim to replace the web with Isocore, at least not yet. Instead, I want to create an open source ‘webserver’ that changes the way web applications are built.</p>
+<p>Isocore is designed to make client-server request-response apps deeply unfun to write. On the web today, browsers are mostly dumb clients that offload all data, logic, and access to servers; every interaction is a request-response round-trip to a machine you don’t own.</p>
+<p>Isocore is designed to make local-first applications fun to write. Under this vision of the web, servers become dumb relays that can replicate data, manage access, and crunch numbers <em>on behalf of the authorized individuals</em>. Anyone with some technical grit can run their own Isocore server node. You can pull someone else’s app and have it run fully locally, or against your own server. What makes Isocore uniquely suited for this?</p>
+<p>First, Isocore has <em>channels</em>, and channels replace request-response as the primary data synchronization primitive. All data lives in signed append-only logs of <em>events</em>, similar to dat or hypercore, that any Isocore node can replicate. When you subscribe to a channel, events are synchronized in real-time; you don’t need to poll for updates. Channels are not owned by servers, but by whoever holds the signing key that created that channel. You can start a channel locally, in your browser, and a friend on another device can subscribe to it. Any node that has a copy can serve it to others.</p>
+<p>Second, Isocore nodes use fine-grained work-based rate-limiting to dynamically shed load. Isocore nodes communicate by sending messages to one another. If a node gets overloaded, it temporarily increases the computational cost for other nodes sending incoming messages, and prioritizes messages to maintain a steady state. <span class=aside>I have an old blog post that outlines an <a href="/blog/dynamic-pow-backpressure/">earlier sketch of this idea</a>. You can think of Isocore’s version like fine-grained invisible souped-up <a rel="noopener nofollow" target="_blank" href="https://github.com/TecharoHQ/anubis">Anubis</a>.</span> This approach makes request-response expensive, but replication via subscription cheap. Remember, the channel you’re writing to on your local machine is the source of truth, not the node you’re replicating to. Because channels are replicated, you don’t need a beefy server to serve a million people at once. You can publish to a handful of servers, and they can replicate to a few others, until everyone subscribed to your channel is served.</p>
+<p>Third, clients and servers stand on equal footing. Capability-based access replaces server-side authorization. Instead of a server deciding what you can do based on your account, access is determined by holding unforgeable capabilities or references to resources. These capabilities can be narrowed in scope (e.g. write to read) and passed between nodes. A client node and a server node have the same kind of authority; whoever has the capability can act.</p>
+<p>Fourth, components run locally, and not on a remote server. Applications are Wasm components downloaded on demand and executed on your own node. <span class=aside>Indeed, an application is just a channel of application versions the application author can publish to.</span> They import interfaces (for storage, networking, rendering) and export interfaces (for other components to use). The code runs on your hardware against your local data. A ‘web application’ isn’t some remote service you talk to; instead application state is built by synchronizing state with peers over channels, and creating unified views of data with CRDTs.</p>
+<p>Fifth, Isocore is a ‘protocol-protocol’. Any component can publish an interface that other nodes can call. An isocore server is just a node that is always online at a consistent address and publishes some interfaces. A client is an intermittently-online node. The node-to-node messaging layer is symmetric, be it client-to-server, client-to-client, server-to-server, server-to-client; that is, encrypted, difficulty-gated, and bidirectional over the same connection. To expand on this idea:</p>
+<blockquote>
+<p><em>Abridged from the specification.</em> Isocore provides a common way to specify interfaces and run components that implement them. Today, your browser doesn’t support JPEG-XL for many reasons. With Isocore, however, if someone writes a component that can handle JPEG-XL images, your website can load JPEG-XL images. […] As new system interfaces become available—e.g. spatial UI interfaces for Isocore on a VR device—existing applications will be able to provide presentation layers for protocols that did not exist at the time Isocore itself was devised.</p>
+</blockquote>
+<p>Finally, Isocore will be fully interoperable with the world-wide-web, at least at the beginning. I am working on a version of Isocore that compiles to Wasm and can be run on the web. When an existing browser connects to an Isocore server, the server will serve a trojanesque response containing a little ‘web Isocore’ payload. This payload will connect with the original server and other nodes that it becomes aware of, and provide all sorts of little niceties—like auth, sync, replication, RPC, and a capability-based component runtime—to whatever code happens to be running on the client.</p>
+<p>I plan to run an instance of isocore at <code>home.isaac.sh</code> in not too long, and run a little community there for people who are interested in writing this type of software together. Isocore is not anywhere near being finished, but it is my hope that one day many people will run Isocore nodes and we will all write and use local-first software together.</p>
+<hr />
+<p><span class=aside>My girlfriend wanted me to write a post today titled “Adventure Capitalists,” about how VCs should take on <em>even more risk</em> than they do today. I told her that I wouldn’t even know where to begin, were I to write about that, but as a compromise, I would include this aside at the end.</span></p>
+<p>I hope you enjoyed that post. If you would like to read a level-headed engaging take on what someone thinks the next web should look like, why not check out this incredible post?</p>
+<div class=boxed>
+<p><strong>Daily reading: <a rel="noopener nofollow" target="_blank" href="https://berjon.com/next-web/">Building The Next Web</a></strong></p>
+<p>By Robin Berjon, former co-chair of many groups on the W3C. He wants the web to be built on—by structural default—local-first principles, user agency, and interoperability. (And so do I.)</p>
+</div>
+
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

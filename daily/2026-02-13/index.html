@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Curiosity, some intuition · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                            <strong
+                                > Daily </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<h1 class="title" style="margin-top: 0;"><span class="pill"><a class="tag" href="..">13</a></span><br>Curiosity, some intuition</h1>
+<p class="tag">2026-02-13 · 2246 words</p>
+<p>I figure I’ll publish this long post in a couple parts, over today and tomorrow or perhaps the day after (as tomorrow is going to be a busy day). In today’s post I plan to go over curiosity and the Noisy TV Problem, to help build some practical and mathematical intuition. Tomorrow, I’d like to talk about some information theory, specifically aleatoric and epistemic uncertainty, and how this framing can be used to improve learning through exploration.</p>
+<p>One of my favorite ML papers of all time was published in 2018. It’s called <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1810.12894">Exploration by Random Network Distillation (RND)</a>, by Burda et al.. <span class=aside>Some other favorites are <a rel="noopener nofollow" target="_blank" href="https://mlg.eng.cam.ac.uk/pub/pdf/DeiRas11.pdf">PILCO</a> and <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/pdf/2210.08277">DLGN</a>.</span> Let’s start with some background:</p>
+<h1 id="rl-and-rewards">RL and rewards</h1>
+<p>Reinforcement Learning (RL) is concerned with learning a <em>policy</em> (rules about how to act in a situation) to complete some general objective in an <em>environment</em>. The environment can be anything, like chess or a video game or chatting with a human or writing code or working on a math problem. The objective is traditionally given using a <em>reward function</em>, which assigns a numeric value to each possible state of an environment. <span class=aside>For example, +1 if the policy did something good, -1 if it did not.</span></p>
+<p>To train an RL policy, we traditionally “roll out” many <em>episodes</em>—or recordings—of a policy acting in a given environment. We then calculate the <em>total reward</em> for each episode by applying the reward function to each state in the episode and summing. Policies are then iteratively trained to maximize the total reward collected over the course of an episode, using techniques like <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1707.06347">PPO</a>, <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/2402.03300">GRPO</a>, etc..</p>
+<p>As you can imagine, it’s hard to come up with a good reward function. If a new policy is learning chess, initialized to make random moves, it is very unlikely that the policy will randomly checkmate its opponent. A reward function that assigns +100 to winning, -100 to losing, and 0 reward otherwise is considered to be a very <em>sparse</em> reward signal. Sparse rewards are few and far between, so it’s hard for the policy to learn stepping-stone milestones and make partial progress. To overcome this problem, we can enrich reward functions with added heuristics—e.g. which side has more pieces, whether a piece was taken on the last turn, whether a king was put in check, etc.—and these heuristics can provide enough of an intermediate <em>dense</em> reward signal to guide the policy towards discovering the large rewards we know exist at the end.</p>
+<h1 id="human-curiosity">Human curiosity</h1>
+<p>Why do we know things exist? Side-stepping existentialism, we know things exist because people are naturally curious. When we don’t know what the reward for doing something is, we generally try it out. We like to learn and make discoveries; this pioneering spirit has pushed us to the four corners of the globe. You could say that humans are intrinsically motivated to explore; we find boredom to be boring, and boring in excess quantities to be bad. We feel a thrill of surprise when we experience something new and unexpected.</p>
+<p>There is this idea of the “expected free energy” model of intelligence. (This is more “nice model to think about” than an “empirical claim about how the brain works”.) It goes something like this: if you accept that intelligence is prediction, then it follows that an intelligent system, like the brain, is a prediction-error-minimization machine. To improve its models of the world, the brain seeks out states that, when observed, will decrease prediction error.</p>
+<p>Talking about humans, you can take the expected free energy model pretty far: there might be some predictions wired into us, like “feeling full”. Then, hunger is the feeling of the prediction error we intuit when our body is not full. Likewise, when you pick up an orange, your brain predicts that you will be holding an orange, and your body, being acutely aware of the fact that you are not holding an orange, moves to correct that error. There’s this wave of prediction crashing into this wave of sensory input, and the differences are noted in one direction to learn and in the other direction to act.</p>
+<p>Returning to the land of RL: there’s a current school of thought that instead of hand-crafting bespoke <em>dense</em> reward functions, we should emulate expected free energy when training policies. We decompose the reward function into two parts: the sparse reward we ultimately care about (e.g. win/loss), and the dense reward tracking the “exploration” of new states. We can combine these two parts together to derive a reward function that better guides the policy towards interesting and rewarding states.</p>
+<h1 id="curiosity-and-rnd">Curiosity and RND</h1>
+<p>How can you quantify which states are new and exciting to explore, and which states are routine and boring?</p>
+<p>Usually we treat an environment like something of a black box. The environment has an internal state, which we’ll denote with $s$. This state $s$ is then mapped to some observation $o$ (which may not contain all the information present in $s$). Our policy $\pi$ receives a history of observations $o^*$, and from it we sample an action $a$. This action is then sent to the environment, and the next state $s’$ is stochastically determined from $(s, a)$, the state and the action. In the literature, this is called a <em>partially-observable markov decision process</em>, or POMDP for short (let’s not worry about reward for now).</p>
+<p>As a simplifying assumption, let’s say observations map fairly directly to states. Suppose we had an embedding of all observations in a well-structured vector space $O$. Then, for any pair of observations $a, b \in O$, we can directly measure their distance using $|a - b|^2$.</p>
+<p>Imagine we collected episodes using a policy $\pi$, and recorded all observation vectors from each episode in a large database $D \subseteq O$. Upon receiving a new observation $o’$, one way to determine how “novel” the observation was would be to see how far it is from each of the previously seen observation vectors in the database, and return the smallest distance:</p>
+<p>$$\text{novelty}(o’) = \min_{d \in D} |o’ - d|^2$$</p>
+<p>This is a sound approach in theory, but in practice, if $D$ grows to be quite large, this process could get quite slow: calculating novelty is linear in $|D|$.</p>
+<p>The Random Network Distillation paper proposes a clever hack. The key idea is to approximate $D$, the set of seen observations, using two neural networks. In more detail:</p>
+<ol>
+<li>We start with two neural networks mapping from observation space $O$ to a smaller <em>embedding</em> space $V$: call the first the <em>target</em> network $T$ and the second the <em>predictor</em> network $\hat{T}$. Initialize $T$ and $\hat{T}$ using different initial random weights, but freeze the weights of the target.</li>
+<li>In each training step, using the current policy $\pi$, collect an episode of observations $o_{1:n}$. For each observation $o_i \in o_{1:n}$, use the target network $T$ to embed this observation: $v_{i} = T(o_{i})$. Then use the predictor $\hat{T}$ to estimate ${\hat{v}}_i = \hat{T}(o_i)$, the target’s embeddings.</li>
+<li>We can calculate the “surprise” for any individual observation $o_i$ to be $\text{surprise}(o_i) = |T(o_i) - \hat{T}(o_i)|^2 = |v_i - \hat{v}_i|^2$, the MSE between the embeddings. If the target and the predictor agree, surprise is low. Otherwise, surprise is high.</li>
+<li><strong>This is the important part:</strong> As we train, keep the target $T$ fixed, but train the predictor $\hat{T}$ to predict the output of $T$ for the previous observation and embedding pairs $(o, v)^*$ we have seen. This means that, for observations similar to previously-seen observations, the surprise $|v - \hat{v}|^2$ will be very small, but for new observations, the surprise will be very large.</li>
+<li>Label each observation with surprise in lieu of (or in combination with) a reward function, to intrinsically motivate the behavior of “seeking out surprising states” in the policy. (Otherwise train the policy $\pi$ along with the predictor $\hat{T}$ as you normally would.)</li>
+</ol>
+<p>This intrinsic exploration reward is often called <em>curiosity</em>, and I like that name quite a bit. (What was revolutionary about RND was that it made great progress on <em>Montezuma’s Revenge</em>, an old Atari game that is very exploration-driven and thus provides very sparse rewards. It’s hard to emphasize how plain <em>cool</em> this result was at the time.)</p>
+<h1 id="rnd-and-tv">RND and TV</h1>
+<p>Let’s say you’re a very curious fellow. I show you a coin. Will it land heads or tails?</p>
+<p>I flip the coin. Tails! Were you right? I flip it again and again. For whatever reason, you can only seem to predict when it lands heads-up about half the time. Stochastic? Sounds pretty unfair. I can hardly pronounce the word. How are you ever supposed to learn my trick!?</p>
+<p>Different from RND, previous exploration approaches used forward-prediction to estimate surprise. <span class=aside>Surprise from prediction is very intuitive: “how different is what I expected from what I observed?”</span> Forward-prediction, however, falls apart if <em>state transitions</em> are random: it’s impossible to predict a coin flip, for instance. A TV playing static is a coin-flip per pixel. Agents getting stuck trying to predict noise is called, quite unsurprisingly, the <em>Noisy TV Problem</em>.</p>
+<p>RND, by virtue of <em>not</em> using forward prediction, is not vulnerable to stochastic state transitions like earlier approaches were, and this is one of the key contributions of the paper. There are a couple issues with RND as I’ve formulated it in this post, though:</p>
+<p>First, while RND <em>overcame</em> a temporal version of the Noisy TV Problem, policies can get distracted. Imagine an environment with a TV that changed to a random, unpredictable picture every frame. The target $T$ would always produce some unique random embedding $v_{\text{wow}}$, and our predictor $\hat{T}$ would produce a completely different embedding $\hat{v}_{\text{hmm}}$. As these embeddings are different (because the picture is new!), the policy receives a very high reward for staying near and observing the TV. The policy becomes glued to the TV, addicted to a random stream of meaningless information that is impossible to learn.</p>
+<p>Second, as a brief aside, we assumed that states could be mostly recovered from observations. This means we assumed (mostly-)total information, which is true of games like chess, but not true in general. If you’re playing a video game, there are a lot of things the computer is keeping track of in $s$ (like the location of enemies offscreen), that cannot necessarily be deduced from observation alone. In the real world, we’d like some way to model the underlying environment <em>state</em>, and not just our observations of this unobservable state.</p>
+<p>Taking a step back, though: <em>why</em> does RND work at all?</p>
+<p>Is it possible to solve the Noisy TV problem generally, in a way that is theoretically sound and computationally tractable? The Noisy TV Problem goes far beyond literal noise in the environment: anything that is random, or otherwise too complicated for the model to realistically learn, may become an unwanted distraction. <span class=aside>You can’t fit a line to a parabola, no matter how much data you have.</span> How do we seek out the signal in the noise?</p>
+<h1 id="you-ll-have-to-stay-tuned-because-it-s-way-too-late-and-i-m-going-to-bed">You’ll have to stay tuned because it’s way too late and I’m going to bed</h1>
+<p>Surprise! I’m sure you saw that coming. I’m *so good* at writing exposition I didn’t even get to the fun part!</p>
+<p>Tomorrow I’ll write a little primer on information theory, including entropy, surprisal, aleatoric uncertainty, epistemic uncertainty, total uncertainty (spoiler: it’s just entropy!), and learnable uncertainty. The key point is that we want <em>curiosity</em> to map to the “number of learnable bits collected throughout the course of an episode”.</p>
+<p>If I have time tomorrow, and if not sometime the day after or next week, I will write about how to compute and approximate these quantities, some state of the art approaches and other tricks (ensembles, <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1902.02476">SWAG</a>, <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1112.5745">BALD</a>, <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/1503.05671">KFAC</a>, <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/2106.09675">BAIT</a>, etc.). I’ll then wrap things up by talking about some approaches I find fun and/or promising, like <a rel="noopener nofollow" target="_blank" href="https://arxiv.org/abs/2106.01345">Decision Transformers</a> with “learnable bits of information to go” in place of reward-to-go. <span class=aside>Let’s make <em>mid-training</em> a thing!</span></p>
+<!--- RND
+  - curiosity
+  - state, action, reward, done
+- Noisy TV Problem
+- Information theory
+  - Entropy
+  - KL Divergence
+    - connects surprisal to decomposition
+  - Surprisal
+- Entropy is total uncertainty
+  - Aleatoric + Epistemic
+  - Aleatoric
+    - Noise in environment
+  - Epistemic
+    - Noise in model
+- We want to reduce epistemic uncertainty
+  - Collect trajectories that maximize epistemic bits
+- What is learnable anyway?
+  - RAIR
+  - Epistemic bits -> learnable bits
+    - learning progress, rate of epistemic bit decrease
+      - hard to compute, noisy
+  - you can't fit a line to a curve, some things can't be learned, you should not treat this error as epistemic uncertainty.
+- How to compute things
+  - Ensembles and decomposition
+    - BALD
+    - SWAG, distribution over weights
+  - Fisher information and KFAC
+    - BAIT
+- Pre-training, post-training. Mid-training?
+  - Expected free energy; goal-->
+<p>To tide you over until next time, you might enjoy this thematically-appropriate post:</p>
+<div class=boxed>
+<p><strong>Daily reading: <a rel="noopener nofollow" target="_blank" href="https://jessylin.com/2025/10/20/continual-learning">The Continual Learning Problem</a></strong></p>
+</div>
+<!-- modified from https://zola.discourse.group/t/maths-support-via-mathjax/1000 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+  },
+};
+</script>
+<script id="MathJax-script" defer src="/mathjax/tex-mml-chtml.js"></script>
+
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

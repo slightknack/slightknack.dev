@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            What&#x27;s up with Haskell&#x27;s do notation? · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/1_raccoon.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">What&#x27;s up with Haskell&#x27;s do notation?</h1>
+<p class="tag">2025-01-30 · About 14 minutes long</p>
+<p>Managing side effects in <a rel="noopener nofollow" target="_blank" href="https://wiki.haskell.org/index.php?title=Functional_programming#Purity">pure</a> functional programming
+languages has <a href="/pdfs/church-lambda.pdf">always been</a> something of a challenge.
+Functions in <em>purely</em> functional languages produce outputs
+solely dependent on their inputs, by definition. Purity
+makes it easy to reason about functions:
+because all context is explicit, functions also become easy to break
+apart and refactor.</p>
+<p>The issue, however, with <em>explicit</em> context is that it quickly
+becomes verbose. Unlike imperative languages, I/O is no
+longer as simple as a call to print: each function that prints
+something requires a <em>context</em> to print it in, and must
+return this context to the function that called it for later use (lest
+the output be lost).</p>
+<p>Like a game of hot potato, this I/O context must be handed up and
+down the call stack, passing through the hands of every function in between.
+A task as simple as adding logging to a deep leaf function becomes an
+immense <a rel="noopener nofollow" target="_blank" href="https://stackoverflow.com/questions/6310961/how-do-i-do-logging-in-haskell#answer-6311338">chore</a>, as every function that calls the
+leaf function that now performs I/O must accept and return an I/O context.</p>
+<p>Practical functional languages—those of the <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">Lisp</a> and
+<a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/ML_(programming_language)">ML families</a>—tend to take the easy way out by adding an imperative
+<a rel="noopener nofollow" target="_blank" href="https://ocaml.org/docs/mutability-imperative-control-flow">escape hatch</a>. I/O is special-cased: every function
+“implicitly” takes a global context in which to print. While practically
+viable, this solution is inflexible and can get messy when there are many
+types of side effects that useful programs need to perform.</p>
+<p>Personally, I am a fan of the more composable <a rel="noopener nofollow" target="_blank" href="https://homepages.inf.ed.ac.uk/gdp/publications/Effect_Handlers.pdf"><em>Algebraic
+Effects</em></a> approach to handling side effects.
+While probably deserving an essay in their own right,
+Algebraic Effects neatly unify <a rel="noopener nofollow" target="_blank" href="http://www.n-a-n-o.com/lisp/cmucl-tutorials/LISP-tutorial-12.html">dynamically scoped</a> <a rel="noopener nofollow" target="_blank" href="https://monte.readthedocs.io/en/latest/intro.html#object-capability-discipline">capabilities</a>
+with the benefits of <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Effect_system">type system</a> and inference.
+While <em>definitionally</em> more complex than a language with
+implicit side effects, <a rel="noopener nofollow" target="_blank" href="https://koka-lang.github.io/koka/doc/book.html#sec-effect-types">in <em>practice</em></a>, Algebraic Effects are deceptively
+simple. You can write code as if it were imperative.
+The compiler keeps track of what effects are used where,
+threading context as needed, and lowers your imperative-looking code
+to something functional, pure, and easy to reason about.</p>
+<h1 id="i-swear-this-is-not-a-monad-tutorial">I swear this is not a monad tutorial</h1>
+<p>Another way to manage side effects are through <a rel="noopener nofollow" target="_blank" href="https://wiki.haskell.org/All_About_Monads"><em>Monads</em></a>, as
+exemplified by Haskell et … uh, just Haskell, <a rel="noopener nofollow" target="_blank" href="https://lean-lang.org/functional_programming_in_lean/monads.html">really</a>. Monads describe a <a rel="noopener nofollow" target="_blank" href="http://wiki.haskell.org/Type_class">class of
+types</a> with associated properties that generally make them
+amenable to modeling side effects.</p>
+<p>This is not a monad tutorial, so with complete lack of tact, I’d
+like to restate that a Monad is, in general, <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Monad_(functional_programming)#More_examples">anything that is
+thenable</a>. Semantically, Monads are quite simple: A Monad is a class
+of types where the following three operations are available, and
+obey the so-called <em>Monad Laws</em> (which I describe later):</p>
+<ol>
+<li>
+<p><em>Return</em>, which wraps a value in the default context.</p>
+</li>
+<li>
+<p><em>Then (<code>&gt;&gt;</code>)</em>, which takes two contexts, and merges them
+together as if one happened after the other.</p>
+</li>
+<li>
+<p><em>Bind (<code>&gt;&gt;=</code>)</em>, which takes a value in a context, applies a
+transformation to that value, and produces a new context.</p>
+</li>
+</ol>
+<p>In Haskell we’d define a Monad as:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>class </span><span style="color:#ffb964;">Monad m </span><span>where
+</span><span>  </span><span style="color:#fad07a;">return </span><span>:: </span><span style="color:#ffb964;">a </span><span>-&gt; </span><span style="color:#ffb964;">m a
+</span><span>  </span><span style="color:#fad07a;">(&gt;&gt;) </span><span>:: </span><span style="color:#ffb964;">m a </span><span>-&gt; </span><span style="color:#ffb964;">m b </span><span>-&gt; </span><span style="color:#ffb964;">m b
+</span><span>  </span><span style="color:#fad07a;">(&gt;&gt;=) </span><span>:: </span><span style="color:#ffb964;">m a </span><span>-&gt; (</span><span style="color:#ffb964;">a </span><span>-&gt; </span><span style="color:#ffb964;">m b</span><span>) -&gt; </span><span style="color:#ffb964;">m b
+</span></code></pre>
+<p>Note that, in Haskell, both <em>then</em> (<code>&gt;&gt;</code>) and <em>bind</em>
+(<code>&gt;&gt;=</code>) are defined as infix operators.</p>
+<p>There are many different instances of Monads that exist in the wild. A
+relatively simple Monad is <code>Maybe</code>, whose context is whether
+or not a value exists. The implementation is not too complex:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#888888;">-- The value exists or it does not.
+</span><span>data </span><span style="color:#7697d6;">Maybe</span><span> a = </span><span style="color:#7697d6;">Just</span><span> a | </span><span style="color:#7697d6;">Nothing
+</span><span>
+</span><span>instance </span><span style="color:#8fbfdc;">Monad Maybe </span><span>where
+</span><span>  </span><span style="color:#888888;">-- By default the value exists.
+</span><span>  return a = </span><span style="color:#7697d6;">Just</span><span> a
+</span><span>  </span><span style="color:#888888;">-- Preserve context and replace value.
+</span><span>  </span><span style="color:#fad07a;">(&gt;&gt;)</span><span> (</span><span style="color:#7697d6;">Just</span><span> a) b = b
+</span><span>  </span><span style="color:#fad07a;">(&gt;&gt;) </span><span style="color:#7697d6;">Nothing</span><span> _ = </span><span style="color:#7697d6;">Nothing
+</span><span>  </span><span style="color:#888888;">-- Can only transform existing values.
+</span><span>  </span><span style="color:#fad07a;">(&gt;&gt;=)</span><span> (</span><span style="color:#7697d6;">Just</span><span> a) f = f a
+</span><span>  </span><span style="color:#fad07a;">(&gt;&gt;=) </span><span style="color:#7697d6;">Nothing</span><span> _ = </span><span style="color:#7697d6;">Nothing
+</span></code></pre>
+<p>And here’s how you would use return, then (<code>&gt;&gt;</code>), and bind
+(<code>&gt;&gt;=</code>) with the Maybe Monad:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>return </span><span style="color:#cf6a4c;">7 </span><span>:: </span><span style="color:#7697d6;">Maybe
+</span><span style="color:#888888;">-- Just 7
+</span><span>
+</span><span style="color:#7697d6;">Just </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Hello</span><span style="color:#556633;">&quot; </span><span>&gt;&gt; </span><span style="color:#7697d6;">Nothing </span><span>&gt;&gt; </span><span style="color:#7697d6;">Just </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Bye</span><span style="color:#556633;">&quot;
+</span><span style="color:#888888;">-- Nothing
+</span><span>
+</span><span style="color:#7697d6;">Just </span><span style="color:#cf6a4c;">7 </span><span>&gt;&gt;= </span><span style="color:#7697d6;">Just </span><span>. </span><span style="color:#fad07a;">(+) </span><span style="color:#cf6a4c;">2
+</span><span style="color:#888888;">-- Just 9
+</span></code></pre>
+<p>These allow us to chain together monadic operations.
+Note that in the last example, the context wrapping the value <code>7</code> is
+preserved (e.g. we get <code>Just 9</code>). If we were to use
+<code>Nothing</code> instead, we would get <code>Nothing</code>:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#7697d6;">Nothing </span><span>&gt;&gt;= </span><span style="color:#7697d6;">Just </span><span>. </span><span style="color:#fad07a;">(+) </span><span style="color:#cf6a4c;">2
+</span><span style="color:#888888;">-- Nothing
+</span></code></pre>
+<p>Because we can’t <em>add two</em> to a value we don’t know!</p>
+<p>Now the infix operator syntax for chaining monads is nice,
+especially when writing point-free code, because we can define
+these monadic transformations a bit like steps in a pipeline:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#fad07a;">get </span><span>:: </span><span style="color:#8fbfdc;">AddressBook </span><span>-&gt; </span><span style="color:#8fbfdc;">String </span><span>-&gt; </span><span style="color:#8fbfdc;">Maybe String
+</span><span style="color:#fad07a;">parse_email </span><span>:: </span><span style="color:#8fbfdc;">String </span><span>-&gt; </span><span style="color:#8fbfdc;">Maybe Email
+</span><span style="color:#fad07a;">send_email </span><span>:: </span><span style="color:#8fbfdc;">String </span><span>-&gt; </span><span style="color:#8fbfdc;">Email </span><span>-&gt; </span><span style="color:#8fbfdc;">Maybe Thread
+</span><span>
+</span><span>get contacts </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Euclid</span><span style="color:#556633;">&quot;
+</span><span>&gt;&gt;= parse_email
+</span><span>&gt;&gt;= send_email message
+</span></code></pre>
+<p>This example is short and reads well, because <code>parse_email</code> and
+<code>send_email message</code> are functions with the exact type
+signatures we expect at each stage in the pipeline.</p>
+<h1 id="points-and-legos">Points and legos</h1>
+<p>Sometimes, however, the lego bricks in our pipeline don’t quite lock
+together, as we have to adopt a style that uses <em>points</em>. In a
+point-ful style, we use explicit anonymous functions (i.e.
+<em>lambdas</em>) to pipe values together. I like to remember that the
+arrow in a lambda is <em>pointy</em>:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#fad07a;">add_two </span><span>:: </span><span style="color:#8fbfdc;">Int </span><span>-&gt; </span><span style="color:#8fbfdc;">Int
+</span><span>
+</span><span style="color:#888888;">-- Point-free style
+</span><span>add_two = </span><span style="color:#fad07a;">(+) </span><span style="color:#cf6a4c;">2
+</span><span>
+</span><span style="color:#888888;">-- Pointed style
+</span><span>add_two = \n -&gt; </span><span style="color:#cf6a4c;">2 </span><span>+ n
+</span></code></pre>
+<p>To demonstrate the increased verbosity of using explicit points with
+Monadic operations, here is the previous email snippet rewritten in a
+point-ful style, using lambdas:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>get contacts </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Euclid</span><span style="color:#556633;">&quot;
+</span><span>&gt;&gt;= (\raw_email -&gt;
+</span><span>  parse_email raw_email
+</span><span>  &gt;&gt;= (\email -&gt;
+</span><span>    send_email message email))
+</span></code></pre>
+<p>Which is, admittedly, quite a lot worse than:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>get contacts </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Euclid</span><span style="color:#556633;">&quot;
+</span><span>&gt;&gt;= parse_email
+</span><span>&gt;&gt;= send_email message
+</span></code></pre>
+<p>Although Haskell is generally pretty flexible, and provides plenty
+of tools for wrangling pointed expressions into their equivalent
+point-free forms, there are times where a pointed style is
+simpler to understand than the convoluted currying and type
+wrangling that may be required to enforce a strict
+point-free style.</p>
+<h1 id="do-notation-at-last">Do notation at last</h1>
+<p>Enter, Haskell’s <em>do notation</em>.</p>
+<p>Haskell’s do notation is a compact notation for writing monadic
+pipelines: it is powerful syntactic sugar that helps make
+composing Monads easier. Here is the previous email snippet
+written as a <code>do</code> expression:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  raw_email &lt;- get contacts </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Euclid</span><span style="color:#556633;">&quot;
+</span><span>  email &lt;- parse_email raw_email
+</span><span>  send_email message email
+</span></code></pre>
+<p>Which almost reads like imperative code. (This surface-level
+similarity to straight-line code can be a pitfall for
+beginners, but more on that later.)</p>
+<p>So how does do notation work?</p>
+<p>Do notation is syntactic sugar for the standard then (<code>&gt;&gt;</code>) and bind
+(<code>&gt;&gt;=</code>) operators. Each line in a <code>do</code> block is chained with the next using
+a monadic operator.</p>
+<p>To clarify, let’s look at a simple case with two lines. When we have two
+simple expressions, one after another, like:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  </span><span style="color:#7697d6;">Nothing
+</span><span>  </span><span style="color:#7697d6;">Just </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Hello</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>This <code>do</code> expression will desugar to the then (<code>&gt;&gt;</code>) operator:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#7697d6;">Nothing </span><span>&gt;&gt; </span><span style="color:#7697d6;">Just </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Hello</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>Which is <code>Nothing</code>.
+When an line yields a wrapped monadic value, we can use <code>&lt;-</code> to
+extract the value inside the Monad for use in the rest of the
+expression:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  seven &lt;- </span><span style="color:#7697d6;">Just </span><span style="color:#cf6a4c;">7
+</span><span>  return (seven + </span><span style="color:#cf6a4c;">2</span><span>)
+</span></code></pre>
+<p>This <code>&lt;-</code> desugars to the bind (<code>&gt;&gt;=</code>) operator and a lambda as
+follows:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#7697d6;">Just </span><span style="color:#cf6a4c;">7 </span><span>&gt;&gt;= (\seven -&gt; return (seven + </span><span style="color:#cf6a4c;">2</span><span>))
+</span></code></pre>
+<p>Note that an implicit lambda was introduced, wrapping the rest
+of the <code>do</code> expression. This is where the power of the <code>do</code>
+expression lies: it allows us to express multiple pointed binds as a
+straight-line series of expressions, which <em>eliminates nesting</em> and
+becomes easier to read. The context of the previous expression is
+transparently carried forward to the next, meaning we don’t have
+to write out deeply-nested callbacks. Do notation slices apart
+nested monadic transformations at the joints.</p>
+<p>Haskell’s do notation is deeply related to <a rel="noopener nofollow" target="_blank" href="https://koka-lang.github.io/koka/doc/book.html#sec-with"><em>with notation</em></a>
+in Koka (which does for Algebraic Effects what do
+notation does for Monads) and <a rel="noopener nofollow" target="_blank" href="https://gleam.run/news/v0.25-introducing-use-expressions/"><em>use notation</em></a> in
+Gleam. How these map to Haskell’s do notation (via the <a rel="noopener nofollow" target="_blank" href="https://siraben.dev/2020/02/20/free-monads.html"><em>Free Monad</em></a>) will perhaps be
+the topic of another post.</p>
+<h1 id="when-do-notation-doesn-t-run-sequentially">When do notation doesn’t… run sequentially</h1>
+<p>There are, however, a couple of pitfalls, which trap those new
+to Haskell. On the surface, do notation looks similar to
+imperative code: people coming from imperative languages
+gravitate towards using <code>do</code> in simple cases where an idiomatic
+point-free style is more appropriate. Using <code>do</code> can
+needlessly complicate simple code:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  line &lt;- get_line ()
+</span><span>  return line
+</span></code></pre>
+<p>While ostensibly sensible, this do block becomes:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>get_line () &gt;&gt; (\line -&gt; return line)
+</span></code></pre>
+<p>Which is equivalent to:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>get_line ()
+</span></code></pre>
+<p>This is a lot shorter (and point free)!</p>
+<p>The second pitfall beginners face is not ever learning about the Monadic
+operations that underlie do notation. (Which is a pitfall I hope I have
+addressed in this post.)</p>
+<p>To elaborate, do notation is usually used as a shorthand in
+contexts that require I/O. This tight coupling in
+presentation may cause beginners to think that do notation is just
+‘how one does’ imperative-style I/O in Haskell. In reality, do notation
+is a much more powerful tool: it can handle <em>any</em> Monad, not
+just the IO Monad.</p>
+<p>Additionally, thinking of do notation as an ‘imperative escape hatch’ is
+also incorrect and has its pitfalls. Consider the following snippet:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#fad07a;">get_line </span><span>:: () -&gt; </span><span style="color:#8fbfdc;">IO String
+</span><span style="color:#fad07a;">print_line </span><span>:: </span><span style="color:#8fbfdc;">String </span><span>-&gt; </span><span style="color:#8fbfdc;">IO </span><span>()
+</span><span>
+</span><span>friend = </span><span style="color:#8fbfdc;">do
+</span><span>  name &lt;- get_line ()
+</span><span>  print_line (</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Hello, </span><span style="color:#556633;">&quot; </span><span>++ name)
+</span><span>  return name
+</span><span>  print_line </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Unreachable</span><span style="color:#556633;">&quot;
+</span><span>  return </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Casper the Ghost</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>Let’s say you run this snippet, type <code>James</code> and hit enter. What is
+printed, and who ends up as your <code>friend</code>?</p>
+<p>Adopting an imperative lens, one might think:</p>
+<blockquote>
+<p>First, we store <code>"James"</code> in the <code>name</code> variable. Next, we print
+<code>Hello, James</code>. We then encounter <code>return name</code> right in the middle
+of our <code>do</code> block: since <code>return</code> short circuits control flow in
+most other languages, it must certainly do the same in Haskell, so our
+<code>friend</code> would be <code>"James"</code>, and the only output we should see would
+be that of the first print statement…</p>
+</blockquote>
+<p>Right?</p>
+<p>Wrong.</p>
+<p>We’d actually end up with <code>friend = "Casper the Ghost"</code>, and we would
+see the following as output:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Hello, James
+</span><span>Unreachable
+</span></code></pre>
+<p>Why?</p>
+<p>Do notation is just sugar for chaining Monads: it is not
+<em>actually</em> imperative code. Unlike other languages, <code>return</code> does
+<em>not</em> short-circuit control flow: <code>return</code> is a normal
+function like any other:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#fad07a;">return </span><span>:: </span><span style="color:#ffb964;">a </span><span>-&gt; </span><span style="color:#ffb964;">m a
+</span></code></pre>
+<p>In the case of <code>IO</code>, it just wraps a string in an I/O context,
+creating an <code>IO String</code>:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#fad07a;">io_string </span><span>:: </span><span style="color:#8fbfdc;">String </span><span>-&gt; </span><span style="color:#8fbfdc;">IO String
+</span><span>return = io_string
+</span></code></pre>
+<p>With these definitions in place, we could desugar the above example as
+follows:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>friend = get_line ()
+</span><span>  &gt;&gt;= (\name -&gt;
+</span><span>    print_line (</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Hello, </span><span style="color:#556633;">&quot; </span><span>++ name)
+</span><span>    &gt;&gt; io_string name
+</span><span>    &gt;&gt; print_line </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Unreachable</span><span style="color:#556633;">&quot;
+</span><span>    &gt;&gt; io_string </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Casper the Ghost</span><span style="color:#556633;">&quot;</span><span>)
+</span></code></pre>
+<p>As you can see, <code>return name</code> in the middle reduces to creating an
+<code>IO String</code> that is immediately discarded by the following
+Monadic then (<code>&gt;&gt;</code>). This is very important:</p>
+<p>Do notation does <em>not</em> imply sequential imperative
+evaluation. (This is especially true because Haskell is
+<em>lazy</em>.)</p>
+<h1 id="the-monad-laws-at-last">The Monad Laws at last!</h1>
+<p>With that it mind, I can finally motivate an
+aesthetic presentation of the three <a rel="noopener nofollow" target="_blank" href="https://wiki.haskell.org/Monad_laws">Monad Laws</a> using do-notation.
+These are rules that then (<code>&gt;&gt;</code>), bind (<code>&gt;&gt;=</code>), and return must follow
+for an instance of the <code>Monad</code> typeclass to <em>actually</em> be a monad, mathematically.
+(If you break the Monad Laws, the <em>Monad Police</em> will
+show up and throw you in <em>Monad Jail</em> where you will labor
+on the <a rel="noopener nofollow" target="_blank" href="https://wiki.haskell.org/All_About_Monads#A_physical_analogy_for_monads"><em>Monad Assembly Line</em></a> until all values lost
+have been bound then returned to their former state of <em>purity</em>. Ahem.)</p>
+<h2 id="left-identity">Left identity</h2>
+<table>
+<tr>
+<th>This:</th>
+<th>becomes:</th>
+</tr>
+<tr>
+<td>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  y &lt;- return x
+</span><span>  f y
+</span></code></pre>
+</td>
+<td>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  f x
+</span><span>
+</span></code></pre>
+</td>
+</table>
+<h2 id="right-identity">Right identity</h2>
+<table>
+<tr>
+<th>This:</th>
+<th>becomes:</th>
+</tr>
+<tr>
+<td>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  x &lt;- m
+</span><span>  return x
+</span></code></pre>
+</td>
+<td>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  m
+</span><span>
+</span></code></pre>
+</td>
+</table>
+<h1 id="associativity">Associativity</h1>
+<table>
+<tr>
+<th>This:</th>
+<th>or:</th>
+<th>becomes:</th>
+</tr>
+<tr>
+<td>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  y &lt;- </span><span style="color:#8fbfdc;">do
+</span><span>    x &lt;- m
+</span><span>    f x
+</span><span>  g y
+</span></code></pre>
+</td>
+<td>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  x &lt;- m
+</span><span>  </span><span style="color:#8fbfdc;">do
+</span><span>    y &lt;- f x
+</span><span>    g y
+</span></code></pre>
+</td>
+<td>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  x &lt;- m
+</span><span>  y &lt;- f x
+</span><span>  g y
+</span><span>
+</span></code></pre>
+</td>
+</table>
+<h1 id="what-s-to-do-has-been-done">What’s to do has been done</h1>
+<p>So, to recap:</p>
+<p>Side effects in pure functional languages
+require propagating context, which results in
+verbose code that is brittle to change. Haskell
+circumvents this issue with Monads, which are a general way to
+wrap a value in a context, and chain transformations on
+a value within a given context.</p>
+<p>However, operations on Monads—when written in a pointed
+style—can quickly become verbose and nested. Do
+notation is a simple syntax for flattening complex
+chains of operations, offering a number of advantages over the
+traditional then (<code>&gt;&gt;</code>) and bind (<code>&gt;&gt;=</code>) syntax.</p>
+<p>Those new to Haskell coming from imperative languages
+often misinterpret the core calculus of do notation and use it
+overzealously. However, by knowing the Monadic operations that
+underlie do notation, one can learn when to use it to drastically
+simplify code.</p>
+<h2 id="what-s-up-with-haskell-s-do-notation">What’s up with Haskell’s do notation?</h2>
+<p>So you’ve read a lot about do notation but
+I still haven’t explained <em>what the big deal is</em>.
+Apologies. Talk about burying the lede.</p>
+<p>Human languages, like English, are typically read in a linear sequence, from beginning to end.
+Like programming languages, human languages map to <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Parse_tree#Nomenclature">parse trees</a>, according to a
+grammar—or set of rules—and we can ascribe semantic <em>meaning</em> to those trees.</p>
+<p>Most human languages favor parse trees that <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Branching_(linguistics)#Full_trees">branch</a> in a particular direction.
+English, for example, is primarily a <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Right-branching_sentences_in_English">right-branching</a> language,
+meaning that right-branching sentences are more common, due to the grammar of the language favoring their construction.
+A right-branching sentence starts with a <em>subject</em> and is followed by a sequence of modifiers
+that progressively add more information about the subject. To borrow <a rel="noopener nofollow" target="_blank" href="https://upload.wikimedia.org/wikipedia/commons/6/66/Branching6.jpg">an image</a> from Wikipedia,
+after a certain point in a sentence, all subsequent nodes branch right:</p>
+<img src="/content/branching.svg" alt="A parse tree for the sentence: 'The child did not try to eat anything'. From 'did' onward, the tree grows down and to the right.">
+<p>Speakers of English are pretty good at processing deeply-nested trees that branch to the right.
+Reading right-branching sentences doesn’t feel like parsing some complicated grammatical structure.
+The nesting, while deep, is simple: we always branch to the right.
+Because the nesting is simple, we can treat the tree almost as a linear sequence:
+we can ignore the nesting, because it is trivial.
+I feel like humans are pretty good at communicating ideas by starting with a subject
+and progressively adding information,
+as opposed to incrementally constructing some sort of
+complex tree structure the mind, which is then evaluated.</p>
+<p>How is this related to do notation?</p>
+<p>Haskell is also a language, and it also maps to parse trees.
+Parse trees in Haskell, like in English, can lean to the left or to the right.
+And when chaining operations together, like with Monads,
+the parse trees can tend to lean pretty far in one direction.
+Consider, for example, our pointed email-parsing example from earlier:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>get contacts </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Euclid</span><span style="color:#556633;">&quot;
+</span><span>&gt;&gt;= (\raw_email -&gt;
+</span><span>  parse_email raw_email
+</span><span>  &gt;&gt;= (\email -&gt;
+</span><span>    send_email message email))
+</span></code></pre>
+<p>In case it’s not visible from the intendation, this is a right-branching parse tree!</p>
+<p>When we rewrite this expression using do-notation, the code is flattened:</p>
+<pre data-lang="haskell" style="background-color:#151515;color:#e8e8d3;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#8fbfdc;">do
+</span><span>  raw_email &lt;- get contacts </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Euclid</span><span style="color:#556633;">&quot;
+</span><span>  email &lt;- parse_email raw_email
+</span><span>  send_email message email
+</span></code></pre>
+<p>This is a lot easier to read,
+because humans are pretty good at communicating ideas by starting with a subject
+and progressively adding information.
+The nesting, of course, is still there,
+but the <code>do</code> keyword keys us in that the parse tree will be leaning to the right.
+The nesting, while deep, is simple, so we can ignore it.
+If Monads are context, then each line is information added to that context.
+By eliminating nesting, it becomes easier to communicate hard ideas.</p>
+<p>That’s what’s up with Haskell’s do notation.</p>
+<p>We see this flattening a lot, in the space of programming languages.
+A classic example is method call syntax, going from <code>foo(bar(baz))</code> to <code>baz.bar().foo()</code>,
+which makes it easier to flatten a chain function calls, eliminating nesting along the way.
+And in imperative languages, the sequencing of statements with <code>;</code>
+can be seen as a kind of flattening composition in of itself.
+Notational tweaks like these, while seemingly simple,
+can make it a lot easier to express hard programs,
+and thus solve hard problems.</p>
+<p>That’s all for today. In a future post, I hope to explore how Koka’s
+<em>with</em> <em>notation</em> is a variation of Haskell’s do notation
+specialized for modeling Algebraic Effects using the Free
+Monad. Until next time!</p>
+<div class="boxed">
+<p>Thank you to my friend <a rel="noopener nofollow" target="_blank" href="https://www.uzpg.me/">Uzay</a> for reviewing an earlier draft of this post!
+(It has been sitting on my hard drive for way to long.)</p>
+</div>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

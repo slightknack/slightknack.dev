@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            All You Need are Coroutines and Pattern Matching · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                            <strong
+                                > Passerine </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/4_sunglasses.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">All You Need are Coroutines and Pattern Matching</h1>
+<p class="tag">2020-07-10 · About 7 minutes long</p>
+<blockquote>
+<h2 id="note">Note</h2>
+<p>This is an old post I wrote a while back. My opinions on the subject have changed slightly but this post has historical merit. The date is not entirely accurate, this article coincides with around the time I started seriously implementing Passerine.</p>
+</blockquote>
+<h2 id="abstract">Abstract</h2>
+<p>The average programmer just wants to write code [citation needed]. Language designers, on the other hand, want to <em>write</em> code, that is, programming languages. Ever since the first lisp interpreter sputtered through it’s first s-exp, there’s been a quest to build a ‘perfect’ programming language. The field of language design remains open, at least in the sense that a better language can always be built. <strong>No matter how hard you try, there is no language that won’t make you clarify your ideas.</strong></p>
+<span id="continue-reading"></span>
+<p>In this work we present a language that can be bootstrapped from coroutines and mono-variadic lambdas, with types defined by structure rather than by name. Additionally, we show how a simple safe-yet-rich macro system can be built to leverage code clarity and convenience.</p>
+<blockquote>
+<p>This document predates <a rel="noopener nofollow" target="_blank" href="https://github.com/vrtbl/passerine">Passerine</a>, which is an attempt to build a language based on the concepts discussed in this document.</p>
+</blockquote>
+<h2 id="what-is-a-coroutine">What is a Coroutine?</h2>
+<p>Many may already be familiar with coroutines. In essence, a coroutine is a function call executed in a separate light-weight self-contained process that can pass data back-and-forth with the process that called it.</p>
+<p>Although there is much more to be said on this topic, this basic definition is all that’s needed to understand the work laid out in this document.</p>
+<h2 id="pattern-matching">Pattern Matching</h2>
+<p><em>Pattern Matching</em> is the action of <em>matching</em> a data-structure against a <em>pattern</em> to extract specific data. Most of the time, a pattern can be thought of as a mirror version of the data-structure that data is being extracted from. For example, the pattern:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>(x, y)
+</span></code></pre>
+<p>would successfully match against the data-structure:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>(1, (2, 3))
+</span></code></pre>
+<p>and produce the bindings:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>x = 1
+</span><span>y = (2, 3)
+</span></code></pre>
+<p>Additionally, patterns can have <em>guards</em> which check that the data extracted from the data is valid. Guards should be read as <em>where</em> in most cases; for example, the pattern:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>x | x &gt; 0
+</span></code></pre>
+<p>Will match any value <code>x</code> where <code>x</code> is greater than <code>0</code>. If a pattern match fails, due to poorly structured data or a failed guard check, an error will be returned.</p>
+<h2 id="a-few-more-things">A Few More Things</h2>
+<p>Pattern matching is useless unless the extracted data can be used. A <em>lambda</em> matches a pattern and maps the bindings to a new <em>environment</em>. This environment is used to run the lambda’s <em>expression</em> in a new coroutine. A lambda is defined in the following manner:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&lt;pattern&gt; -&gt; &lt;expression&gt;
+</span></code></pre>
+<p>and is called with the form:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&lt;lambda&gt; &lt;expression&gt;
+</span></code></pre>
+<p>Each lambda takes only one argument, and can yield or return at most one item. Luckily, through the use of algebraic datatypes (<em>tuples</em>, etc.) and pattern matching, this is not much of a problem.</p>
+<p>Here’s an example definition and call:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>(num -&gt; num + num) 7
+</span></code></pre>
+<p>This function doubles the passed value - the above expression would evaluate to <code>14</code>.</p>
+<p>By design, lambdas are <em>anonymous</em>. To attach a name to a value (as lambdas are values), <em>assignment</em> is used. Assignment is similar to a lambda expression, in the sense that it matches a pattern and binds variables. However, rather than creating the bindings in a new environment, the bound values become available in the current scope. Here’s an assignment:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&lt;pattern&gt; = &lt;expression&gt;
+</span></code></pre>
+<p>Let’s create a named lambda, that <code>decrement</code>s a number by 1:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>decrement = x -&gt; x - 1
+</span></code></pre>
+<p>And calling it on <code>13</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>decrement 13
+</span></code></pre>
+<p>Would give us <code>12</code>.</p>
+<p>If a lambda needs to evaluate some list of operations in sequence, a <em>block</em> is used. A block is a list of expressions delimited between curly braces separated by semicolons or newlines. A block may also contain a <code>return</code> expression, which stops the current coroutine and immediately returns a value. Otherwise, the value of the last evaluated expression in the block is returned.</p>
+<p>Here is a function that models a linear correlation:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>linear = (m, x, b) -&gt; {    
+</span><span>    proportional = m * x    
+</span><span>    return proportional + b    
+</span><span>    -- alternatively, omit `return`    
+</span><span>    -- as this is the last statement in the block
+</span><span>}
+</span></code></pre>
+<p>In practice, this could be a one-liner; this is a merely a trivial example used to demonstrate the semantics of the construct.</p>
+<h2 id="conditionals">Conditionals</h2>
+<p>An if-expression is a feature common in many languages - our language doesn’t even have those yet. To get started with conditionals, we’ll build simplified version of an if-expression: if a condition is truthy, an expression is evaluated; otherwise, do nothing. Here’s a short example:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>if true {    
+</span><span>    1 + 1
+</span><span>}
+</span></code></pre>
+<p>In this case, <code>if</code> would evaluate to <code>2</code>. We’re going to implement <code>if</code> first as a lambda, and then as a <em>macro</em>. There is some syntactic sugar at play in the above example, which will become clear shortly. Anyway, the lambda version of <code>if</code> will take a tuple of two arguments:</p>
+<ul>
+<li>An expression which might be truthy.</li>
+<li>A lambda that takes no arguments.</li>
+</ul>
+<p>We’ll call the unsugared lambda definition of <code>if</code> ‘<code>iffer</code>’. Here’s how <code>iffer</code> would be used. This example has the same semantics as the previous <code>if</code> expression.</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>iffer (true, () -&gt; {1 + 1})
+</span></code></pre>
+<p>Before we write the definition of <code>iffer</code>, we need to deepen out understanding of how coroutines work in our language.</p>
+<p>Let’s start by discussing <em>yielding</em>. The <code>yield</code> expression, when called inside a coroutine, suspends the current coroutine and returns some value. When the suspended coroutine is again, the <code>yield</code> function evaluates to those values, and continues running. For example, consider:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>foo = () -&gt; {    
+</span><span>    print &quot;Start&quot;    
+</span><span>    x = yield &quot;Yielding&quot;    
+</span><span>    print x    
+</span><span>    print &quot;End&quot;
+</span><span>}
+</span><span>
+</span><span>x = foo ()
+</span><span>-- prints &quot;Start&quot;
+</span><span>print (x &quot;Resume&quot;)
+</span><span>-- prints &quot;Resume&quot;
+</span><span>-- prints &quot;End&quot;
+</span><span>-- prints &quot;Yielding&quot;
+</span></code></pre>
+<p><code>"Yielding"</code> is printed last because <code>yield "Yielding"</code> sets the value of the call <code>(x "Resume")</code> to <code>"Yielding"</code>, which is only printed after the coroutine finishes.</p>
+<p>Let’s talk and <em>trying</em> and <em>erring</em>. <code>try</code> will evaluate a coroutine; if the coroutine fails, try will return the error as a value. If the coroutine succeeds its value will be returned as normal. With this in mind, here is a naive implementation of <code>iffer</code>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>iffer = (condition, then) -&gt; {    
+</span><span>    do_or_fail = c | c is not false -&gt; then ()    
+</span><span>    try (do_or_fail condition)    
+</span><span>    return ()
+</span><span>}
+</span></code></pre>
+<p>Here’s the break-down. As mentioned before, <code>iffer</code> is a function that takes two arguments. <code>do_or_fail</code> will only execute <code>then</code> if <code>c</code> is not falsy, because trying to evaluate <code>do_or_fail</code> where <code>c</code> is false will throw an error, which is caught by <code>try</code>. Finally, we return an empty tuple (aka <em>unit</em>), indicating that the function doesn’t produce a value.</p>
+<p>Great! Now that we have the definition for <code>iffer</code>, let’s write the macro <code>if</code>. <code>if</code> transforms an <code>if</code> expression into an <code>iffer</code> function call:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>if = cond do ~&gt; iffer (cond, () -&gt; do)
+</span></code></pre>
+<p>Macros are made using a squiggly-arrow, <code>~&gt;</code>. The arguments aren’t a pattern, they actually follow a small expressive templating language, which we’ll delve into deeper later. Anyway, the only thing we really do in this macro is hide the fact that the body after the if is actually a nullary function.</p>
+<p>For now, let’s see this <code>if</code> in action:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>coroutines = &quot;cool&quot;
+</span><span>
+</span><span>if (coroutines == &quot;cool&quot;) {    
+</span><span>    print &quot;Heck yeah!&quot;
+</span><span>}
+</span></code></pre>
+<p>Obviously, <code>"Heck yeah!"</code> would be printed in this case.</p>
+<h2 id="loops-and-generators">Loops and Generators</h2>
+<blockquote>
+<p>To do.</p>
+</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
+</span></code></pre>
+<h2 id="building-a-match-statement">Building a Match Statement</h2>
+<p>In many languages, such thing as a match statement exists.This statement matches a value against a variety of patterns, and returns the value of the first one it matches.</p>
+<p>This might look something like:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>match x {    
+</span><span>    true  -&gt; 1    
+</span><span>    false -&gt; 0
+</span><span>}
+</span></code></pre>
+<p>We’re going to implement match first as a function, and then as a macro. the function will take a tuple of two arguments:</p>
+<ul>
+<li>the value we want to match</li>
+<li>and a list of lambdas that can be matched against</li>
+</ul>
+<p>So, the above will be written as:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>matcher (x, [true -&gt; 1, false -&gt; 0])
+</span></code></pre>
+<p>We’re using the name <code>matcher</code> for this function to avoid confusion with the match macro we’ll implement later on. Here’s how we might start a naive definition for matcher:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>matcher = (value, mappings) -&gt; {    
+</span><span>    for value in mappings {        
+</span><span>        result = try (mappings value)        
+</span><span>        if result is not Error {            
+</span><span>            return result        
+</span><span>        }   
+</span><span>    }    
+</span><span>    error &quot;Nothing was matched!&quot;
+</span><span>}
+</span></code></pre>
+<blockquote>
+<p>To-do: Summary and closing thoughts</p>
+</blockquote>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>

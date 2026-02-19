@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Using Proof-of-Work to Manage Backpressure · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                             Daily 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                            <strong
+                                > Blog </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+
+<a href="..">
+    <div class="artbit">
+        <img class="pixel-sidebar" src="/hypercard-artbits/1_mousetrap.png" alt="Jump back up a level"/>
+    </div>
+</a>
+
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<!-- <div> -->
+<h1 class="title" style="margin-top: 0;">Using Proof-of-Work to Manage Backpressure</h1>
+<p class="tag">2021-12-01 · About 6 minutes long</p>
+<blockquote>
+<p><strong>Note:</strong> This is a quick piece that assumes some prior knowledge of PoW and backpressure. If you want to build up an intuition about backpressure before jumping in, you could read <a rel="noopener nofollow" target="_blank" href="https://medium.com/@jayphelps/backpressure-explained-the-flow-of-data-through-software-2350b3e77ce7"><em>this piece</em></a> or <a rel="noopener nofollow" target="_blank" href="https://www.tedinski.com/2019/03/05/backpressure.html"><em>that one</em></a>. If you’d like to learn more about PoW in the context of this article, check out <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Hashcash"><em>this article</em></a> (and <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Proof_of_work"><em>that one as well</em></a>).</p>
+</blockquote>
+<p>On the bus this afternoon, I was reading up on backpressure in distributed systems. Backpressure, long story short, is the backward force acting on data as it moves through a system.</p>
+<h1 id="what-s-backpressure">What’s Backpressure?</h1>
+<p>Maintaining a healthy level of backpressure is important for creating a well-running system monolithic, microservice, distributed, or otherwise. Too little backpressure and services will be spending time idle waiting for work to arrive. Too much backpressure, on the other hand, can lead to a buildup of work and fatal system resets.</p>
+<p>One of the first mistakes I made when first building distributed systems was not paying attention to the backpressure bottlenecks of the system. Although there are many ways to classify, manage, and build systems that main consistent backpressure, one system I want to focus on is proof-of-work based rate limiting.</p>
+<h1 id="proof-of-work">Proof of Work</h1>
+<p>Proof-of-work (PoW) is nothing new. Now primarily associated with consensus mechanisms used BitCoin et al., PoW was first used an obscure email tool used to rate-limit spam and DoS attacks. In no small part due to the popularity of BitCoin, PoW has found a number of other uses.</p>
+<p>I was prompted to write this post after re-reading the <a rel="noopener nofollow" target="_blank" href="http://pest.bitdash.io/whitepaper.html">Pest</a> specification, a distributed IRC-like protocol that uses PoW to maintain a steady influx of messages.</p>
+<h1 id="managing-backpressure">Managing Backpressure</h1>
+<p>When managing backpressure, there are essentially two things that can be going wrong:</p>
+<ol>
+<li>You’re not receiving enough messages, meaning there’s probably a <em>bottleneck</em> somewhere else in the system.</li>
+<li>You’re receiving too many messages, meaning <em>you’re</em> probably the bottleneck in the system.</li>
+</ol>
+<p>It’s important to remember that not all messages sent in a distributed system are necessary for the healthy operation of the system. When a service gets too stressed, services calling that service can reduce the number of messages they’re sending to improve the latency of the system (while maintaining consistent throughput).</p>
+<h1 id="pow-and-backpressure">PoW and Backpressure</h1>
+<p>The PoW Backpressure scheme I propose is pretty simple. Whenever a node—let’s call it the <em>client</em>—establishes a connection with a service it relies on—the <em>server</em>—the server returns a nonce and a work level for use in the next request. We’ll call this the <em>challenge</em>:</p>
+<pre data-lang="json" style="background-color:#151515;color:#e8e8d3;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>    </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">nonce</span><span style="color:#556633;">&quot;</span><span>: </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">C9B76FBD</span><span style="color:#556633;">&quot;</span><span>,
+</span><span>    </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">work</span><span style="color:#556633;">&quot;</span><span>:  </span><span style="color:#cf6a4c;">3</span><span>,
+</span><span>}
+</span></code></pre>
+<p>To make a request, the client must complete the challenge. To do so, it must calculate the hash of the request it wants to send, append the nonce, and compute <code>N</code> rounds of proof of work (e.g. repeated hashing) until the specified work level has been met. The response and corresponding <em>proof</em> are then sent to the server for processing:</p>
+<pre data-lang="json" style="background-color:#151515;color:#e8e8d3;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>    </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">nonce</span><span style="color:#556633;">&quot;</span><span>: </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">C9B76FBD</span><span style="color:#556633;">&quot;</span><span>,
+</span><span>    </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">N</span><span style="color:#556633;">&quot;</span><span>:     </span><span style="color:#cf6a4c;">456</span><span>,
+</span><span>    </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">req</span><span style="color:#556633;">&quot;</span><span>:   { </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">...</span><span style="color:#556633;">&quot; </span><span>}
+</span><span>}
+</span></code></pre>
+<p>PoW proofs are cheap to verify. If the server tries to validate the PoW and finds it to be invalid (incorrect <code>nonce</code> or incorrect <code>N</code>), it simply drops the message. If the proof is valid, however, the server unwraps the inner request <code>req</code> from the client and processes it as usual.</p>
+<blockquote>
+<p><strong>Aside:</strong> Whenever the server receives a message, it should <em>immediately</em> send a new challenge to the client.</p>
+</blockquote>
+<p>Proof-of-work acts as a natural rate limiter of requests. It requires the client to do the bulk of the work creating a valid request. This is especially important in the context of untrusted distributed contexts, where it is easy to increase the work attackers need to perform without impacting the work the server needs to do to validate correctly formed packets.</p>
+<h1 id="adjusting-the-rate-limit">Adjusting the rate limit</h1>
+<p>In the last section, we know how PoW can act as a rate limit. In this section I want to talk about adjusting that rate limit.</p>
+<p>When the backpressure is too low, the work limit should be decreased; when it is to high, it should be increased. Say we have a queue of unprocessed requests <code>B</code>. We can set the backpressure as a function of the length of <code>B</code>:</p>
+<p>Each successive work factor is twice as hard as the previous one: <code>2</code> is twice as much work as <code>1</code>, just as <code>11</code> is twice as much work as <code>10</code>. We can quantify the rate of incoming messages as:</p>
+<pre data-lang="js" style="background-color:#151515;color:#e8e8d3;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#ffb964;">incoming </span><span>= </span><span style="color:#ffb964;">network_capacity </span><span>* (</span><span style="color:#cf6a4c;">2 </span><span>^ -</span><span style="color:#ffb964;">work_factor</span><span>)
+</span></code></pre>
+<p>So at a rate of <code>1000</code> messages per second when the work factor is <code>0</code>, changing the work factor to <code>3</code> would change the rate of incoming messages to <code>1000 * (1/8)</code>, or <code>125</code>, messages per second.</p>
+<p>Let’s say we want to maintain a backpressure of <code>K</code> items in queue <code>B</code>, out of the length of our queue, <code>len(B)</code>. We know we can send <code>outgoing</code> messages per second, and can estimate the network capacity given the current work factor. To calculate the work factor we want to set, we could use something like:</p>
+<pre data-lang="js" style="background-color:#151515;color:#e8e8d3;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#fad07a;">log_2</span><span>((</span><span style="color:#ffb964;">network_capacity </span><span>/ </span><span style="color:#ffb964;">outgoing</span><span>) * (</span><span style="color:#fad07a;">len</span><span>(</span><span style="color:#ffb964;">B</span><span>) / </span><span style="color:#ffb964;">K</span><span>))
+</span></code></pre>
+<p>This equation will try to match the throughput of the input, times some adjustment used to maintain constant backpressure. Let’s try out an example.</p>
+<p>Let’s say we’re receiving <code>1000</code> messages per second, we want <code>100</code> in queue, and we process <code>200</code> per second. Our queue currently has <code>800</code> messages in it. What should we set our work factor to be?</p>
+<pre data-lang="js" style="background-color:#151515;color:#e8e8d3;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#fad07a;">log_2</span><span>((</span><span style="color:#ffb964;">network_capacity </span><span>/ </span><span style="color:#ffb964;">outgoing</span><span>) * (</span><span style="color:#fad07a;">len</span><span>(</span><span style="color:#ffb964;">B</span><span>) / </span><span style="color:#ffb964;">K</span><span>))
+</span><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#fad07a;">log_2</span><span>((            </span><span style="color:#cf6a4c;">1000 </span><span>/ </span><span style="color:#cf6a4c;">200     </span><span>) * (   </span><span style="color:#cf6a4c;">800 </span><span>/ </span><span style="color:#cf6a4c;">100</span><span>))
+</span><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#fad07a;">log_2</span><span>(</span><span style="color:#cf6a4c;">40</span><span>)
+</span><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#cf6a4c;">5.32
+</span><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#cf6a4c;">5 </span><span style="color:#888888;">// rounded
+</span></code></pre>
+<p>Once the target backpressure is restored, this work factor will decrease until a steady state is reached. Once the state is reached (i.e. <code>len(B) == K</code>), in the above example, the work factor will decrease to <code>2</code>:</p>
+<pre data-lang="js" style="background-color:#151515;color:#e8e8d3;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#fad07a;">log_2</span><span>((</span><span style="color:#cf6a4c;">1000 </span><span>/ </span><span style="color:#cf6a4c;">200</span><span>) * (</span><span style="color:#cf6a4c;">100 </span><span>/ </span><span style="color:#cf6a4c;">100</span><span>)) </span><span style="color:#888888;">// len(B) == K
+</span><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#fad07a;">log_2</span><span>(</span><span style="color:#cf6a4c;">5</span><span>)
+</span><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#cf6a4c;">2.32
+</span><span style="color:#ffb964;">work_factor </span><span>= </span><span style="color:#cf6a4c;">2 </span><span style="color:#888888;">// rounded
+</span></code></pre>
+<p>This work factor is quick to calculate and will adjust to automatically. For <em>servers</em> that can scale horizontally, it can also be a good metric as to when to spin up more instances (if you want to maintain low latency without rate limiting your users).</p>
+<h1 id="dynamic-rate-limiting">Dynamic Rate Limiting</h1>
+<p>There is nothing that requires that PoW be universal across all clients. Servers can be selective and choose to increase work for IPs exhibiting DoS-like behavior, clients sending too many messages, or untrusted clients in a distributed network.</p>
+<p>There’s a lot more that can be explored now, but it’s getting late and I value my sleep. :P</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>I hope you’ve found this little piece interesting. If you’re ever dealing with managing backpressure, I hope that you’ll find PoW-based rate limiting to be a useful tool in your toolbox. Until next time!</p>
+
+<!-- </div> -->
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>
