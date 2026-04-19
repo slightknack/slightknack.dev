@@ -15,6 +15,7 @@ I'm trying to write a note a day from here going forward. Either about an intere
 
 # Things to write about
 
+- Perfect day
 - Symbolic grounding
 - Provenance
 - Asymptotics and internal structure
