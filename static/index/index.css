@@ -1,14 +1,25 @@
+html {
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
     background: linear-gradient(#00ACE6, #CAECF7);
-    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    touch-action: none;
 }
 
 .layers {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
     overflow: hidden;
 }
 

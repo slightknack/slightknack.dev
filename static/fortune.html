@@ -8,13 +8,17 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Fortune Cookie</title>
 <style>
+@font-face{font-family:"Ibarra";src:url("/fonts/ibarra-variable.ttf");font-display:swap;size-adjust:115%}
+@font-face{font-family:"Ibarra";src:url("/fonts/ibarra-variable-italic.ttf");font-style:italic;font-display:swap;size-adjust:115%}
+@font-face{font-family:"Texturina";src:url("/fonts/texturina-variable.ttf");font-display:swap}
+html{height:100%;overflow:hidden;position:fixed;width:100%}
 *{margin:0;padding:0;box-sizing:border-box}
-body{height:100vh;display:flex;align-items:center;justify-content:center;font-family:Palatino,"Palatino Linotype","Book Antiqua",serif;overflow:hidden;background:#000}
+body{height:100%;display:flex;align-items:center;justify-content:center;font-family:"Ibarra",serif;overflow:hidden;background:#000;position:fixed;width:100%;touch-action:none}
 .create{background:#111;width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
-.create textarea{width:320px;height:120px;padding:12px;font-size:16px;border:1px solid #333;background:#1a1a1a;color:#fff;resize:none;border-radius:4px;font-family:inherit}
+.create textarea{width:320px;height:120px;padding:12px;font-size:16px;border:1px solid #333;background:#1a1a1a;color:#fff;resize:none;border-radius:4px;font-family:inherit;line-height:1.7}
 .create button{padding:10px 32px;font-size:16px;background:#fff;border:none;cursor:pointer;border-radius:4px;font-family:inherit}
 .cookie-stage{background:#000;width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
 .sky-sunset,.sky-day{position:absolute;inset:0;pointer-events:none}
