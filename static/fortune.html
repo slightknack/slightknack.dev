@@ -1,0 +1,104 @@
+<!--
+  name: Fortune Cookie
+  description: Send secret fortunes hidden in a URL
+  author: Isaac Clayton (https://isaac.sh)
+  tools: Claude Code, Claude Opus 4.6
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fortune Cookie</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{height:100vh;display:flex;align-items:center;justify-content:center;font-family:Palatino,"Palatino Linotype","Book Antiqua",serif;overflow:hidden;background:#000}
+.create{background:#111;width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.create textarea{width:320px;height:120px;padding:12px;font-size:16px;border:1px solid #333;background:#1a1a1a;color:#fff;resize:none;border-radius:4px;font-family:inherit}
+.create button{padding:10px 32px;font-size:16px;background:#fff;border:none;cursor:pointer;border-radius:4px;font-family:inherit}
+.cookie-stage{background:#000;width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.sky-sunset,.sky-day{position:absolute;inset:0;pointer-events:none}
+.sky-sunset{background:linear-gradient(180deg,#684971,#a06389,#cb7ca2,#e1aea4,#f9d8a1,#ffecb2,#fffcf1);opacity:0}
+.sky-day{background:linear-gradient(180deg,#2c6fbb,#4a90d9,#7ec8e3,#b8e4f0);opacity:0}
+.cookie{font-size:80px;transition:transform 0.15s ease-out;user-select:none}
+.cookie.shake{animation:shake 0.6s ease-in-out}
+@keyframes shake{
+0%,100%{transform:translate(0,0) rotate(0) scale(var(--s,1))}
+10%{transform:translate(-12px,6px) rotate(-8deg) scale(var(--s,1))}
+20%{transform:translate(10px,-8px) rotate(6deg) scale(var(--s,1))}
+30%{transform:translate(-14px,4px) rotate(-10deg) scale(var(--s,1))}
+40%{transform:translate(8px,-10px) rotate(8deg) scale(var(--s,1))}
+50%{transform:translate(-10px,8px) rotate(-6deg) scale(var(--s,1))}
+60%{transform:translate(12px,-4px) rotate(10deg) scale(var(--s,1))}
+70%{transform:translate(-8px,6px) rotate(-8deg) scale(var(--s,1))}
+80%{transform:translate(6px,-6px) rotate(4deg) scale(var(--s,1))}
+90%{transform:translate(-4px,2px) rotate(-2deg) scale(var(--s,1))}
+}
+.overlay{position:fixed;inset:0;background:#fff;pointer-events:none;z-index:20;opacity:0}
+.new-link{position:fixed;bottom:16px;left:16px;z-index:25;color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;letter-spacing:0.5px}
+.new-link:hover{color:rgba(255,255,255,0.8)}
+.fortune-card{background:#fff;padding:14px 48px;max-width:480px;box-shadow:0 8px 32px rgba(0,0,0,0.18);text-align:center;font-size:20px;line-height:1.6;color:#111;border-radius:2px;position:relative;z-index:2;animation:flutter-y 4s ease-in-out infinite,flutter-r 4s ease-in-out -1s infinite}
+@keyframes flutter-y{0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}}
+@keyframes flutter-r{0%,100%{rotate:-2deg}50%{rotate:2deg}}
+</style>
+</head>
+<body>
+<script>
+function enc(s){return btoa(unescape(encodeURIComponent(s))).split('').reverse().join('').replace(/=/g,'~')}
+function dec(s){try{return decodeURIComponent(escape(atob(s.replace(/~/g,'=').split('').reverse().join(''))))}catch(e){return'?'}}
+
+const hash=location.hash.slice(1);
+if(!hash){
+  document.body.innerHTML=`<div class="create"><textarea placeholder="Write a fortune…" autofocus></textarea><button onclick="go()">Create & Copy Link</button></div>`;
+}else{
+  document.body.innerHTML=`<div class="cookie-stage" id="stage"><div class="sky-sunset" id="ss"></div><div class="sky-day" id="sd"></div><span class="cookie" id="ck">🥠</span><div class="fortune-card" id="fc" style="display:none"></div></div><div class="overlay" id="ov"></div><a class="new-link" href="${location.pathname}">new fortune</a>`;
+  const ck=document.getElementById('ck'),stage=document.getElementById('stage'),fc=document.getElementById('fc'),ov=document.getElementById('ov'),ss=document.getElementById('ss'),sd=document.getElementById('sd');
+  let opened=false;
+  stage.addEventListener('mousemove',e=>{
+    if(opened)return;
+    const cx=window.innerWidth/2,cy=window.innerHeight/2;
+    const dx=e.clientX-cx,dy=e.clientY-cy;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    const maxDist=Math.sqrt(cx*cx+cy*cy);
+    const s=1+2.5*(1-dist/maxDist);
+    ck.style.transform=`scale(${s})`;
+    ck.style.setProperty('--s',s);
+  });
+  stage.addEventListener('mouseleave',()=>{if(!opened){ck.style.transform='scale(1)';ck.style.setProperty('--s',1)}});
+  stage.addEventListener('click',()=>{
+    if(opened)return;
+    opened=true;
+    ck.classList.add('shake');
+    setTimeout(()=>{
+      // snap overlay to white
+      ov.style.opacity='1';
+      // swap content behind the overlay
+      setTimeout(()=>{
+        ck.style.display='none';
+        fc.textContent=dec(hash);
+        fc.style.display='';
+        ss.style.opacity='1';
+        sd.style.transition='opacity 18s ease';
+        sd.style.opacity='1';
+        // fade overlay out
+        requestAnimationFrame(()=>{
+          ov.style.transition='opacity 3s cubic-bezier(0.4,0,0.2,1)';
+          requestAnimationFrame(()=>ov.style.opacity='0');
+        });
+      },100);
+    },650);
+  });
+}
+
+function go(){
+  const t=document.querySelector('textarea').value.trim();
+  if(!t)return;
+  const url='https://isaac.sh/fortune.html#'+enc(t);
+  navigator.clipboard.writeText(url).then(()=>{
+    location.hash=enc(t);
+    location.reload();
+  });
+}
+</script>
+</body>
+</html>
