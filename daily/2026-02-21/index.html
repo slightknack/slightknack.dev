@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+        />
+        <meta name="description" content="A cozy little corner of the web." />
+        <title>
+            Programming as theory building is true now more than ever · Isaac Clayton
+        </title>
+        <link rel="preload stylesheet" href="/fonts.css" as="style" />
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/layout.css" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="alternate" type="application/atom+xml" href="https://slightknack.dev/atom.xml" />
+        <script data-goatcounter="https://slightknack.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+        <!-- <script async defer type="text/javascript"
+        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js">
+        </script> -->
+        <!-- <script type="text/javascript" src="/elasticlunr.min.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search_index.en.js" defer></script> -->
+        <!-- <script type="text/javascript" src="/search.js" defer></script> -->
+
+        <!-- maybe one day I'll bother to get these working... -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script> -->
+        <!-- <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script> -->
+
+         
+    </head>
+
+    <body style="overflow-x: hidden">
+        
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
+    </div> -->
+    <div class="content" id="top">
+        <div class="narrow">
+            <div class="navigation">
+                <ul class="menu">
+                    <li class="pill pill-square">
+                        <a class="tag" href="/"><strong>IC</strong></a>
+                    </li>
+                      
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;about&#x2F;">
+                             About 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;daily&#x2F;">
+                            <strong
+                                > Daily </strong
+                            >
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;archive&#x2F;">
+                             Archive 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;blog&#x2F;">
+                             Blog 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;passerine&#x2F;">
+                             Passerine 
+                        </a>
+                    </li>
+                     
+                    <li class="pill">
+                        <a class="tag" href="https:&#x2F;&#x2F;slightknack.dev&#x2F;gallery&#x2F;">
+                             Gallery 
+                        </a>
+                    </li>
+                    
+                    
+<li class="pill">
+    <a class="tag" href="/aerocode.html">Aerocode ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="/fortune.html">Fortune ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://goto.isaac.sh">Goto ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://stats.isaac.sh">Stats ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://git.isaac.sh">Github ↬</a>
+</li>
+<li class="pill">
+    <a class="tag" href="https://slightknack.dev/atom.xml">RSS ↬</a>
+</li>
+
+                </ul>
+
+                <div>
+</div>
+            </div>
+
+            <!-- <div class="text-input-container">
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Jump to..."
+                    autocomplete="off"
+                />
+                <div class="search-results" style="display: none">
+                    <div class="search-results__items"></div>
+                </div>
+            </div> -->
+
+            
+<h1 class="title" style="margin-top: 0;"><span class="pill"><a class="tag" href="..">21</a></span><br>Programming as theory building is true now more than ever</h1>
+<p class="tag">2026-02-21 · 1446 words</p>
+<p><span class=aside>These past two days have been something of a whirlwind, as I made a couple of important life decisions. The decisions were, in a strange way, very small, but in a “marble rolling down a saddle” sort-of way that might compound and drastically change the side of the saddle my timeline will spill down… we shall see!</span></p>
+<p>I’ve repeatedly brought up the paper <a rel="noopener nofollow" target="_blank" href="https://pages.cs.wisc.edu/~remzi/Naur.pdf"><em>Programming as Theory Building</em></a> in conversation with friends this past week, so I figured it would be good to write up the common thread of these conversations and discuss how the ideas in the paper are relevant today.</p>
+<p>The paper was written in 1985 by Peter Naur. The main thrust of the argument is that when you program, you are doing two things:</p>
+<ol>
+<li>Producing the artifact of text, or source code, on disk.</li>
+<li>Producing the model of a system in your mind. This is “theory building”.</li>
+</ol>
+<p>Programming, Naur argues, should be framed as theory building. The real value of what is produced is precisely the model that lives in the programmer’s mind. The mental model is what allows you to debug, extend, and collaborate on a codebase; not the source code.</p>
+<h1 id="why-the-theory-building-angle-is-useful">Why the theory building angle is useful</h1>
+<p>I really like the way a few insights that naturally follow as a consequence of thinking of programming as theory building. I’ll run through them now.</p>
+<p>First, a <em>bug</em> occurs when your mental model of the system’s behavior disagrees with what the code does. As programs do exactly what you write down, a bug isn’t <em>wrong code</em>; it’s doing exactly what you wrote. A bug happens when your code doesn’t match your theory, or your theory doesn’t match the code. Fixing a bug, then, requires either refining your mental model or refining the code. Often it’s both. <span class=aside>In this sense, to a customer, if an app doesn’t work the way they expect it to, that’s a <em>bug</em>, to them. UX bugs occur when we do a poor job of theory building with our user.</span></p>
+<p>Second, source code is a medium of reflection against which further theory can be built. When you have an abstract notion of a system, you can only hold so much of the theory in your head, or in design documents. Producing source code grounds theory, and allows the programmer to explore and discover the right way to extend their existing theories, so new systems can be developed and features can be implemented.</p>
+<p>Finally, theory building provides a good framework to think about working on code with others. As the source code is not the artifact, and rather the theory is, a lot of programming <em>on a team</em> boils down to communicating the theory you have built up, and asking good questions to learn the theory your teammates have built up. Different team members hold expert theories for different parts of the codebase. Becase of this, <em>interfaces</em> are clean boundaries where you can communicate a crisp and neatly-packaged theory to a teammate, which packages complexity to become a sharp tool with which to carve whatever code they need to write. Documentation, pair programming, demonstrations are all means through which a body of theory is built <em>and</em> communicated.</p>
+<h1 id="pair-programming-is-great-for-theory-building">Pair programming is great for theory building</h1>
+<p>In high school, I wrote a lot of code on my own. The first time I really had the opportunity to work on a team on projects with a bus factor bigger than one was when I was an intern at <a rel="noopener nofollow" target="_blank" href="https://zed.dev">Zed</a>, in 2022. I spent a lot of time pair programming with Antonio, who taught me a lot about Rust and software engineering.</p>
+<p>I now realize that Antonio spent so much time pair programming with me because he was very invested in theory building: both in improving my understanding of the theory behind the editor and the tools we were using, and in improving his understanding of the code I was writing, so he could carry the theory we built together forward after my internship ended.</p>
+<p>I’m really grateful for this mentorship and I still think back to a lot of the lessons I learned about e.g. async Rust minutiae Antonio patiently taught me along the way.</p>
+<h1 id="vibecoding-is-antithetical-to-theory-building">Vibecoding is antithetical to theory building</h1>
+<p>Now, the AI tie in. Great. Sure. I saw it coming from a mile away. Here it is: Sometimes AI tools can produce a better code <em>artifact</em>; however, better code that was <em>generated</em> doesn’t help <em>you</em>, as the programmer, to build a better <em>theory</em>.</p>
+<p>Taking a step back, the idea of programming as theory building doesn’t materially change because of AI tools that write code now exist. (A follow-on paper that thoroughly investigates the effects of AI tooling on theory building would be interesting to read.) The issue is that it’s easy to convince yourself that you’ve built theory when you haven’t: It’s easy to fall into the trap or classical fantasy of “texting your nerdy eager-to-please friend an app idea and watching it get written”.</p>
+<p>First, if you want to be engaged in building theory when using tools, you need to be engaged. If you treat tools as teammates, they will invariably go off and build theory on their own. The model will not go out of its way to teach you its assumptions. You need to understand the theory that has been generated if you wish to extend the artifact of the code.</p>
+<p>Second, AI tools have no qualms picking interfaces and invariants for you. The interfaces they choose will often be those interfaces that are the most plausible for what you are trying to do. However, these interfaces are not always the <em>best</em> interfaces for whatever it is that you are specifically working on. Sometimes they’re worse. Sometimes they’re better! Regardless of ontological merit, any interface sucks if you don’t understand it.</p>
+<p>Finally, for both of these issues, it is not enough to simply read and write more documentation, as Naur argued back in 1985. Documentation is a poor substitute for theory. AI generated documentation for AI generated code does not necessarily build the right theory in your mind.</p>
+<h1 id="lessons-for-collaborating-on-code">Lessons for collaborating on code</h1>
+<p>With these problems in mind, what can we do? I write here in the context of AI tools that write code, but this is true of collaboration with human teammates as well. (A lot of these ideas are lessons I indirectly learned through Antonio, though we were not using AI generated code at the time.) I’ve learned a few things:</p>
+<p>First, you should really care about good, pedagogical documentation and good API design. When you design an interface, you have the opportunity to both build your theory of the system <em>and</em> specify the exact interfaces and invariants you require (instead of letting a teammate, or some <em>other</em> collaborator, choose for you). I find that writing system documentation, writing out types, writing an API, writing property-based tests <em>by hand, before</em> letting an AI implement what is left, produces better results.</p>
+<p>Second, you should pay <em>extra attention and slow down</em> when you realize your theory for something you are working on is slipping. When working with AI collaborators, it is easy for experienced engineers to vibe-code a simple app, because the theory is something they already understand fully. The issue arises when a programmer <em>then</em> starts working on extending or developing new aspects of the system <em>without</em> having the <a href="https://slightknack.dev/daily/2026-02-18/">symbolic grounding</a> to close that feedback loop, and develop the theory you require.</p>
+<p>Finally, you can always ask these tools, as you would a colleague, to be watchful of when your theory is slipping, and to help you understand what you’re missing. AI tools can generate lots of ungrounded theory, yes, but they can also work to answer questions and determine the correctness of your existing theories.</p>
+<h1 id="one-last-note">One last note</h1>
+<p>Importantly, while talking about theory building in the context of AI tools, I should mention that I believe it to be bad to “go off to build thought palaces alone”. Humans communicate differently with other people than they communicate with AI. Having real-life people care about what you’re working on, anxiously engaged with your code, provides the human perspective you miss out on when writing software alone (or with a tool).</p>
+<p>That’s it for today! I probably won’t blog tomorrow because it’s Sunday. If you’d like a story about someone who wrote no code but was great at collaborative theory building, you should read:</p>
+<div class=boxed>
+<p><strong>Daily reading: <a rel="noopener nofollow" target="_blank" href="https://dannorth.net/blog/the-worst-programmer">The Worst Programmer I Know</a></strong></p>
+</div>
+
+
+        </div>
+        <div class="narrow-unpadded">
+            <p class="tag" style="text-wrap: balance;">
+                Padded so you can keep scrolling. I know. I love you.
+                How about we take you <a href="#top">back up to the top of this page</a>?
+                All prose on this website is written by me, Isaac. I feel very strongly about preserving my voice, and will not use AI to publish prose under my name.
+            </p>
+        </div>
+    </div>
+<!-- </div> -->
+
+    </body>
+</html>
