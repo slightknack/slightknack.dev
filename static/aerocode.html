@@ -1388,9 +1388,11 @@ document.querySelector('button').onclick = () => {
             if (hasCodeMirror) {
                 PANELS.forEach(lang => {
                     const textarea = document.getElementById(`code-${lang}`);
-                    // Sync content from textarea to CodeMirror
                     if (editors[lang]) {
-                        editors[lang].setValue(textarea.value);
+                        // Only sync textarea → CM when coming from plain mode
+                        if (prevMode === 'plain') {
+                            editors[lang].setValue(textarea.value);
+                        }
                         editors[lang].getWrapperElement().style.display = '';
                         editors[lang].setOption('keyMap', mode);
                         editors[lang].refresh();
