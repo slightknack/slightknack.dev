@@ -1664,7 +1664,47 @@ document.querySelector('button').onclick = () => {
             heights: { ...startState.heights }
         };
 
-        if (startState.minimized[draggedPanel]) return newState;
+        if (startState.minimized[draggedPanel]) {
+            // Minimized panel acts as a divider — dragging moves space between neighbors
+            if (delta < 0) {
+                // Dragging up: shrink panel above, grow panel below
+                let toMove = -delta;
+                for (let i = panelIdx - 1; i >= 0 && toMove > 0; i--) {
+                    const p = PANELS[i];
+                    if (startState.minimized[p]) continue;
+                    const canTake = newState.heights[p] - MIN_H;
+                    const take = Math.min(canTake, toMove);
+                    newState.heights[p] -= take;
+                    toMove -= take;
+                }
+                const moved = -delta - toMove;
+                for (let i = panelIdx + 1; i < PANELS.length; i++) {
+                    const p = PANELS[i];
+                    if (startState.minimized[p]) continue;
+                    newState.heights[p] = startState.heights[p] + moved;
+                    break;
+                }
+            } else if (delta > 0) {
+                // Dragging down: shrink panel below, grow panel above
+                let toMove = delta;
+                for (let i = panelIdx + 1; i < PANELS.length && toMove > 0; i++) {
+                    const p = PANELS[i];
+                    if (startState.minimized[p]) continue;
+                    const canTake = newState.heights[p] - MIN_H;
+                    const take = Math.min(canTake, toMove);
+                    newState.heights[p] -= take;
+                    toMove -= take;
+                }
+                const moved = delta - toMove;
+                for (let i = panelIdx - 1; i >= 0; i--) {
+                    const p = PANELS[i];
+                    if (startState.minimized[p]) continue;
+                    newState.heights[p] = startState.heights[p] + moved;
+                    break;
+                }
+            }
+            return newState;
+        }
 
         if (delta < 0) {
             let toGrow = -delta;
@@ -1682,8 +1722,14 @@ document.querySelector('button').onclick = () => {
             newState.heights[draggedPanel] = startState.heights[draggedPanel] + (-delta - toGrow);
 
         } else if (delta > 0) {
-            // Dragging down: shrink this panel AND push panels below
-            // First, shrink this panel
+            // Dragging down: shrink this panel, give space to panel above
+            // If no open panel above, do nothing
+            let recipient = null;
+            for (let i = panelIdx - 1; i >= 0; i--) {
+                if (!startState.minimized[PANELS[i]]) { recipient = PANELS[i]; break; }
+            }
+            if (!recipient) return newState;
+
             const canShrink = startState.heights[draggedPanel] - MIN_H;
             const shrinkSelf = Math.min(canShrink, delta);
             newState.heights[draggedPanel] = startState.heights[draggedPanel] - shrinkSelf;
@@ -1700,20 +1746,8 @@ document.querySelector('button').onclick = () => {
                 remaining -= take;
             }
 
-            // Give the freed space to nearest open panel (prefer above, then below)
             const freedSpace = delta - remaining;
-            let recipient = null;
-            for (let i = panelIdx - 1; i >= 0; i--) {
-                if (!startState.minimized[PANELS[i]]) { recipient = PANELS[i]; break; }
-            }
-            if (!recipient) {
-                for (let i = panelIdx + 1; i < PANELS.length; i++) {
-                    if (!startState.minimized[PANELS[i]]) { recipient = PANELS[i]; break; }
-                }
-            }
-            if (recipient) {
-                newState.heights[recipient] = startState.heights[recipient] + freedSpace;
-            }
+            newState.heights[recipient] += freedSpace;
         }
 
         return newState;
@@ -1763,6 +1797,7 @@ document.querySelector('button').onclick = () => {
                 }
 
                 const startY = e.clientY;
+                const wasMinimized = state.minimized[panel];
                 const startState = {
                     minimized: { ...state.minimized },
                     heights: { ...state.heights }
