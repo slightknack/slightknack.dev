@@ -30,11 +30,15 @@ I started programming in 2013 ([scratch.mit.edu](https://scratch.mit.edu) ♡). 
 
 In 2017, I became obsessed with shaders and GPUs (thank you, Iñigo Quilez). In 2019, I learned Rust to develop a compiler for [Passerine](/passerine). I keep a [blog](/blog).
 
-In 2021, I was a software engineering intern at [tonari.no](https://tonari.no), where I prototyped real-time depth estimation on the GPU. In 2022, I interned at [zed.dev](https://zed.dev), where I developed a webassembly extension runtime for e.g. adding new languages to the editor.
+In 2021, I was a software engineering intern at [tonari.no](https://tonari.no), where I prototyped real-time depth estimation on the GPU. In 2022, I interned at [zed.dev](https://zed.dev), where I developed a webassembly [extension](https://zed.dev/extensions) runtime for e.g. adding new languages to the editor.
 
 I graduated highschool in 2022. I deferred my enrollment and proceeded to live in Brazil for two years. I didn't use the Internet and learned a lot. (After two years offline, I realized that the Internet is overrated.)
 
-In 2024, when I got back from Brazil, I started at MIT. After my first year, in 2025, I (once again) worked at a startup, and a wrote _a lot_ of Rust. I am now in my second year of school. This year, I am helping run [Prod](https://prod.so).
+In 2024, when I got back from Brazil, I started at MIT. I joined the men's lightweight crew. After my first year, in 2025, I (once again) worked at a startup, and a wrote _a lot_ of Rust. 
+
+During my second year of school, I helped run Cohort 5 of [Prod](https://prod.so). In 2026, I worked at [Flapping Airplanes](https://flappingairplanes.com) on megakernels and data-efficient RL.
+
+I am now in my third and final year of school. I plan to graduate a year early, pack my wagon, and migrate west. Wish me luck!
 
 I love making art and taking photos! I have played basketball/soccer on 4 of 7 continents to date. I enjoy hiking and skiing with my family. Também falo português, meu rei. Y español.
 
@@ -48,7 +52,6 @@ I also have accounts on:
 - "Twitter": [slightknack](https://x.com/slightknack)
 - HN: [slightknack](https://news.ycombinator.com/threads?id=slightknack)
 - Lobsters: [slightknack](https://lobste.rs/~slightknack/threads)
-- Discord: `slightknack`
 - *... and so on*
 
 <!--Advice: programs should be built from small, composable parts that you understand and control. Find where an N×M problem hides internal structure, and factor it into a N×1 and 1×M, make the 1 as small and clear as possible.-->
