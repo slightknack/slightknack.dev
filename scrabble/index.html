@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang=en-us>
+
+<head>
+    <meta charset=utf-8>
+    <meta content="text/html; charset=utf-8" http-equiv=Content-Type>
+    <title>math scrabble game thing</title>
+    <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    .container {
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    canvas {
+      padding-right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      background-color: #000;
+      max-height: 100vh;
+      max-width: calc(100% - 2px);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas>
+    </div>
+    <script>
+        var Module = {
+            print: ((...t) => {}),
+            canvas: (() => {
+                var e = document.getElementById("canvas");
+                return e.addEventListener("webglcontextlost", (e => {
+                    alert("WebGL context lost. You will need to reload the page."), e.preventDefault()
+                }), !1), e
+            })(),
+            setStatus: (e => {}),
+            totalDependencies: 0,
+            monitorRunDependencies: e => {}
+        };
+    </script>
+    <script async src="index.js"></script>
+</body>
+
+</html>
