@@ -208,6 +208,28 @@ a.plain {
     padding-right: 6pt;
 }
 
+/* Center the handwriting's x-height band, not its ascender/descender box. */
+.pill > .tag,
+.pill-active > .tag {
+    display: inline-block;
+    line-height: 1;
+    /* Metric-based fallback for engines without text-box trimming. */
+    padding-top: 0.2234375em;
+    padding-bottom: 0.1765625em;
+}
+
+@supports (text-box-edge: ex alphabetic) and (text-box-trim: trim-both) {
+    .pill > .tag,
+    .pill-active > .tag {
+        text-box-trim: trim-both;
+        text-box-edge: ex alphabetic;
+        /* Dear Ariella's design x-height is 480/1024 em. CSS ex includes
+           the marker's upper ink overshoot; compensate without moving text. */
+        padding-top: calc(0.5em - (1ex - 0.46875em) / 2);
+        padding-bottom: calc(0.5em + (1ex - 0.46875em) / 2);
+    }
+}
+
 .epigraph {
     font-style: italic;
     opacity: 0.7;
