@@ -38,7 +38,7 @@ I graduated highschool in 2022. I deferred my enrollment and proceeded to live i
 
 In 2024, when I got back from Brazil, I started at MIT. I joined the men's lightweight crew. After my first year, in 2025, I (once again) worked at a startup, and a wrote _a lot_ of Rust. 
 
-During my second year of school, I helped run Cohort 5 of [Prod](https://prod.so). In 2026, I worked at [Flapping Airplanes](https://flappingairplanes.com) on megakernels and data-efficient RL.
+During my second year of school, I helped run Cohort 5 of [prod.so](https://prod.so). In 2026, I worked at [flappingairplanes.com](https://flappingairplanes.com) on megakernels and data-efficient RL.
 
 I am now in my third and final year of school. I plan to graduate a year early, pack my wagon, and migrate west. Wish me luck!
 
