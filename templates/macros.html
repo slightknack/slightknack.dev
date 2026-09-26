@@ -28,6 +28,10 @@
 </li>
 {% endmacro extranav %}
 
+{% macro gallery_image(page, id="") %}
+<img{% if id %} id="{{ id }}"{% endif %}{% if page.extra.pixel_art | default(value=false) %} class="pixel-art"{% endif %} src="{{ page.extra.image }}" alt="{{ page.title }}" />
+{% endmacro gallery_image %}
+
 {% macro gallery(image) %}
 <style>
 body {

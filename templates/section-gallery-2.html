@@ -11,7 +11,7 @@
         <h1 style="margin-top: 20pt">
             <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
         </h1>
-        <img src="{{ page.extra.image }}" />
+        {{ macros::gallery_image(page=page) }}
         {% if page.description %}
             <p>{{ page.description }}<p>
         {% endif %}

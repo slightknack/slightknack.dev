@@ -60,7 +60,7 @@ body {
 </div>
 
 <div id="gallery-div">
-    <img id="gallery-img" src="{{ page.extra.image }}">
+    {{ macros::gallery_image(page=page, id="gallery-img") }}
 </div>
 
 <div id="gallery-spacer"></div>
