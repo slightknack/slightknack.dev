@@ -46,7 +46,8 @@ body {
 /* Inner container for parallax movement */
 /* Image width: min(80vw, 86.33vh) ensures mountains stay below 2/3 screen height */
 .layer-inner {
-    --img-width: clamp(max(50vh, 50vw), 80vw, 86.33vh);
+    /* The 16px floor preserves seam allowance even in a tiny viewport. */
+    --img-width: clamp(max(50vh, 50vw, 16px), 80vw, 86.33vh);
     position: absolute;
     bottom: 0;
     left: calc(50% - var(--img-width) * 1.5);

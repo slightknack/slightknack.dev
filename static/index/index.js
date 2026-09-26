@@ -1,46 +1,66 @@
 document.addEventListener('DOMContentLoaded', function() {
     const layers = {
-        clouds: { element: document.querySelector('.layer-clouds'), speedX: -0.1, speedY: 0.4 },
-        mountains: { element: document.querySelector('.layer-mountains'), speedX: 0.2, speedY: 0.5 },
-        field: { element: document.querySelector('.layer-field'), speedX: 0.6, speedY: 0.6 }
+        clouds: { element: document.querySelector('.layer-clouds'), depth: 2 },
+        mountains: { element: document.querySelector('.layer-mountains'), depth: 1 },
+        field: { element: document.querySelector('.layer-field'), depth: 0.4 }
     };
 
     function getImgWidth() {
         const vw = window.innerWidth / 100;
         const vh = window.innerHeight / 100;
 
-        // Replicate: clamp(max(50vh, 50vw), 80vw, 86.33vh)
-        const minWidth = Math.max(50 * vh, 50 * vw);
+        // Replicate: clamp(max(50vh, 50vw, 16px), 80vw, 86.33vh)
+        const minWidth = Math.max(50 * vh, 50 * vw, 16);
         const preferredWidth = 80 * vw;
         const maxWidth = 86.33 * vh;
-        return Math.min(Math.max(minWidth, preferredWidth), maxWidth);
+        // CSS clamp gives the minimum precedence when minWidth > maxWidth.
+        return Math.max(minWidth, Math.min(preferredWidth, maxWidth));
     }
 
     function updateParallax(mouseX, mouseY) {
         const imgWidth = getImgWidth();
         const vw = window.innerWidth / 100;
-        const vh = window.innerHeight / 100;
+        // The idle orbit can exceed the viewport range on wide screens.
+        mouseX = Math.max(0, Math.min(1, mouseX));
+        mouseY = Math.max(0, Math.min(1, mouseY));
 
         // X: Base offset calculation (opposite to mouse movement)
         const maxOffsetX = (50 * vw) - (imgWidth / 2);
         const baseOffsetX = (0.5 - mouseX) * maxOffsetX * 2;
+        // A centered 3W strip covers viewport V iff |translation| <= (3W-V)/2.
+        // Reserve 6px for negative picture margins / feathering (index.css).
+        // W >= V/2 and W >= 16 imply 3W-V >= W >= 16, so this is positive.
+        const safeTravelX = (3 * imgWidth - window.innerWidth) / 2 - 6;
+        const foregroundX = Math.max(-safeTravelX, Math.min(safeTravelX, baseOffsetX * 0.6));
 
-        // Y: Vertical parallax
-        // When mouse at top: field is below bottom (negative offset)
-        // When mouse at bottom: field is at bottom (offset 0)
-        // Field speed is 0.6, so we scale the max offset accordingly
+        // Approximate lateral camera translation while tracking the mountains:
+        // relative screen motion is proportional to (1 / depth - 1 / referenceDepth).
+        // These are artistic depth estimates, not measured distances in the painting.
         const fieldHeight = imgWidth * (1998 / 3200);
-        const maxOffsetY = fieldHeight * 0.3 / 0.6;
-        // mouseY goes from 0 (top) to 1 (bottom)
-        // When mouseY = 0 (top), offset should be -maxOffsetY
-        // When mouseY = 1 (bottom), offset should be 0
-        const baseOffsetY = (mouseY - 1) * maxOffsetY;
+        const restY = {
+            clouds: -fieldHeight * 0.2,
+            mountains: -fieldHeight * 0.25 + imgWidth * 0.04,
+            field: -fieldHeight * 0.3
+        };
+        const referenceInverseDepth = 1 / layers.mountains.depth;
+        const foregroundMotion = 1 / layers.field.depth - referenceInverseDepth;
+        // Interpolate the field's bottom directly in [-0.3H, 0]. This cannot
+        // overshoot zero through cancellation, even at the travel endpoint.
+        const foregroundY = restY.field * (1 - mouseY);
+        const cameraTravelY = (foregroundY - restY.field) / foregroundMotion;
 
-        // Apply to each layer with their speeds
+        // Keep the existing foreground travel; derive other motion from depth.
         for (const [name, layer] of Object.entries(layers)) {
             if (layer.element) {
-                const offsetX = baseOffsetX * layer.speedX;
-                const offsetY = baseOffsetY * layer.speedY;
+                const relativeMotion = 1 / layer.depth - referenceInverseDepth;
+                // A small horizontal camera drift lets the mountain reference move
+                // too. Normalize so the foreground still stays within safeTravelX.
+                const horizontalDrift = 0.15;
+                const offsetX = foregroundX * (relativeMotion + horizontalDrift)
+                    / (foregroundMotion + horizontalDrift);
+                const offsetY = name === 'field'
+                    ? foregroundY
+                    : restY[name] + cameraTravelY * relativeMotion;
                 layer.element.style.setProperty('--parallax-x', offsetX);
                 layer.element.style.setProperty('--parallax-y', offsetY);
             }
@@ -70,8 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const angle = progress * Math.PI * 2;
 
         // Smooth mouse position
-        smoothMouseX += (targetMouseX - smoothMouseX) * 0.03;
-        smoothMouseY += (targetMouseY - smoothMouseY) * 0.03;
+        smoothMouseX += (targetMouseX - smoothMouseX) * 0.12;
+        smoothMouseY += (targetMouseY - smoothMouseY) * 0.12;
 
         // Circle centered at (0.5, 0.5) with radius 0.15
         // Account for aspect ratio so circle appears circular in screen space
