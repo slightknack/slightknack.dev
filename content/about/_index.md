@@ -26,6 +26,8 @@ A friend of free software, pushing bits around as an undergrad at MIT. Intereste
     </img>
 </div>
 
+# About me
+
 I started programming in 2013 ([scratch.mit.edu](https://scratch.mit.edu) ♡). In 2015, I learned Python when my uncle told me it was easier to write neural networks if you didn't ... uh ... hardcode the matrix multiplication routines.
 
 In 2017, I became obsessed with shaders and GPUs (thank you, Iñigo Quilez). In 2019, I learned Rust to develop a compiler for [Passerine](/passerine). I keep a [blog](/blog).
@@ -41,6 +43,25 @@ During my second year of school, I helped run Cohort 5 of [Prod](https://prod.so
 I am now in my third and final year of school. I plan to graduate a year early, pack my wagon, and migrate west. Wish me luck!
 
 I love making art and taking photos! I have played basketball/soccer on 4 of 7 continents to date. I enjoy hiking and skiing with my family. Também falo português, meu rei. Y español.
+
+# About this website
+
+I've been running this personal website since around 2020. I point the domain [slightknack.dev](https://slightknack.dev) at it, but [isaac.sh](https://isaac.sh) redirects here too.
+
+This website is static and compiled with [Zola](https://www.getzola.org/). It uses a custom theme that I wrote from scratch and have been incrementally tuning over the years. I currently host this website on GitHub pages; you can peruse its source code [here](https://github.com/slightknack/slightknack.dev).
+
+The fonts used on this website are:
+
+<ol>
+    <li><code style="font-family: var(--font-body); font-weight: 400;">Ibarra Real Nova</code> for body text.</li>
+    <li><code style="font-family: var(--font-title); font-weight: 900;">Texturina</code> for headings.</li>
+    <li><code style="font-family: var(--font-mono); font-weight: 400;">IBM Plex Mono</code> for code.</li>
+    <li><code style="font-family: var(--font-narrow); font-weight: 400;">Dear Ariella</code> for subtitles.</li>
+</ol>
+
+I love typography, as my uncle (the one who hooked me on Python) happens to be a [type designer](https://en.wikipedia.org/wiki/Roboto).
+
+# Contact
 
 Let's chat! I will respond to all emails sent to:
 
