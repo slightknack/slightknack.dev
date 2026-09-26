@@ -48,8 +48,11 @@ body {
 .layer-inner {
     --img-width: clamp(max(50vh, 50vw), 80vw, 86.33vh);
     position: absolute;
-    bottom: calc(var(--parallax-y) * 1px);
-    left: calc(50% - var(--img-width) * 1.5 + var(--parallax-x) * 1px);
+    bottom: 0;
+    left: calc(50% - var(--img-width) * 1.5);
+    /* Positive parallax-y previously increased bottom, moving the layer up. */
+    transform: translate(calc(var(--parallax-x) * 1px), calc(var(--parallax-y) * -1px));
+    will-change: transform;
     display: flex;
     flex-direction: row;
     width: calc(var(--img-width) * 3);
@@ -171,8 +174,8 @@ body {
 
 .layer-clouds .layer-inner {
     --cloud-margin: calc(max(50vw - var(--img-width) / 2, var(--img-width) / 2 - 50vw) * -0.1);
-    bottom: calc(var(--img-width) * 0.57 + var(--parallax-y) * 1px);
-    left: calc(var(--cloud-margin) + var(--parallax-x) * 1px);
+    bottom: calc(var(--img-width) * 0.57);
+    left: var(--cloud-margin);
     width: var(--img-width);
 }
 
@@ -181,15 +184,11 @@ body {
 }
 
 .layer-mountains .layer-inner {
-    bottom: calc(var(--img-width) * 0.38 + var(--parallax-y) * 1px);
+    bottom: calc(var(--img-width) * 0.38);
 }
 
 .layer-field {
     z-index: 3;
-}
-
-.layer-field .layer-inner {
-    bottom: calc(0px + var(--parallax-y) * 1px);
 }
 
 .navbar-overlay {
