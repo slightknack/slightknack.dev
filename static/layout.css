@@ -35,7 +35,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .pixel-art,
     .pixel-sidebar {
         filter: invert(1);
     }
