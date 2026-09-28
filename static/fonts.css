@@ -2,8 +2,8 @@
 
 @font-face {
     font-family: "Dear Ariella";
-    src: url("/fonts/Dear-Ariella-Regular.woff2?v=2.002") format("woff2"),
-         url("/fonts/Dear-Ariella-Regular.ttf?v=2.002") format("truetype");
+    src: url("/fonts/Dear-Ariella-Regular.woff2?v=2.003") format("woff2"),
+         url("/fonts/Dear-Ariella-Regular.ttf?v=2.003") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -11,8 +11,8 @@
 
 @font-face {
     font-family: "Dear Ariella";
-    src: url("/fonts/Dear-Ariella-Bold.woff2?v=2.002") format("woff2"),
-         url("/fonts/Dear-Ariella-Bold.ttf?v=2.002") format("truetype");
+    src: url("/fonts/Dear-Ariella-Bold.woff2?v=2.003") format("woff2"),
+         url("/fonts/Dear-Ariella-Bold.ttf?v=2.003") format("truetype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
