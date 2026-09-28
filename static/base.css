@@ -123,14 +123,6 @@ code {
     /* font-size: 0.93em; */
 }
 
-/* Specimen backgrounds share a line height, regardless of the sampled font.
-   Ordinary inline code and code blocks keep their existing treatment. */
-.font-sample {
-    display: inline-block;
-    line-height: inherit;
-    overflow: visible;
-}
-
 pre code {
     white-space: pre;
     background: none;

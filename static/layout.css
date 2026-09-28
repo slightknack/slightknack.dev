@@ -174,11 +174,6 @@
     white-space: nowrap;
 }
 
-/* Wrapped menu rows need their own gap; line leading is not item spacing. */
-.menu > .pill {
-    margin-block: 0.2em;
-}
-
 a.plain {
     background-image: none;
     background-color: none;
@@ -210,14 +205,6 @@ a.plain {
 .pill-square a {
     padding-left: 6pt;
     padding-right: 6pt;
-}
-
-/* Paint the background around a complete line box, not an inline font box.
-   Inherit the site's reading rhythm so accents and descenders have room. */
-.pill > .tag,
-.pill-active > .tag {
-    display: inline-block;
-    line-height: inherit;
 }
 
 .epigraph {

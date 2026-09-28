@@ -80,6 +80,12 @@ I also have accounts on:
 <!-- For a full list of my accounts, keypairs, and domains, check [elsewhere](https://elsewhere.isaac.sh). -->
 
 <style>
+    .font-sample {
+        display: inline-block;
+        line-height: inherit;
+        overflow: visible;
+    }
+
     .shader * {
         margin: 0;
         padding: 0;
