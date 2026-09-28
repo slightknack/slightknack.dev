@@ -53,10 +53,10 @@ This website is static and compiled with [Zola](https://www.getzola.org/). It us
 The fonts used on this website are:
 
 <ol>
-    <li><code style="font-family: var(--font-body); font-weight: 400;">Ibarra Real Nova</code> for body text.</li>
-    <li><code style="font-family: var(--font-title); font-weight: 900;">Texturina</code> for headings.</li>
-    <li><code style="font-family: var(--font-mono); font-weight: 400;">IBM Plex Mono</code> for code.</li>
-    <li><code style="font-family: var(--font-narrow); font-weight: 400;">Dear Ariella</code> for subtitles.</li>
+    <li><code class="font-sample" style="font-family: var(--font-body); font-weight: 400;">Ibarra Real Nova</code> for body text.</li>
+    <li><code class="font-sample" style="font-family: var(--font-title); font-weight: 900;">Texturina</code> for headings.</li>
+    <li><code class="font-sample" style="font-family: var(--font-mono); font-weight: 400;">IBM Plex Mono</code> for code.</li>
+    <li><code class="font-sample" style="font-family: var(--font-narrow); font-weight: 400;">Dear Ariella</code> for labels.</li>
 </ol>
 
 I love typography, as my uncle (the one who hooked me on Python) happens to be a [type designer](https://en.wikipedia.org/wiki/Roboto).

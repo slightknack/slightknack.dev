@@ -1,9 +1,9 @@
-/* Dear Ariella */
+/* Dear Ariella (formerly Dear Ariella Pro) */
 
 @font-face {
     font-family: "Dear Ariella";
-    src: url("/fonts/Dear-Ariella.woff2?v=1.304") format("woff2"),
-         url("/fonts/Dear-Ariella.ttf?v=1.304") format("truetype");
+    src: url("/fonts/Dear-Ariella-Regular.woff2?v=2.000-renamed") format("woff2"),
+         url("/fonts/Dear-Ariella-Regular.ttf?v=2.000-renamed") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -11,8 +11,8 @@
 
 @font-face {
     font-family: "Dear Ariella";
-    src: url("/fonts/Dear-Ariella-Bold.woff2?v=1.304") format("woff2"),
-         url("/fonts/Dear-Ariella-Bold.ttf?v=1.304") format("truetype");
+    src: url("/fonts/Dear-Ariella-Bold.woff2?v=2.000-renamed") format("woff2"),
+         url("/fonts/Dear-Ariella-Bold.ttf?v=2.000-renamed") format("truetype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
