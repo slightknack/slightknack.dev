@@ -1,0 +1,6 @@
+{
+  "identity": "hf:ed25519:542b44edb55526c9d46bbea47a3fbd5135c3dbba5f148fa8378cec163a4b6633",
+  "handle": "auth~slightknack.dev",
+  "homeservers": ["https://home.isaac.sh"],
+  "devices": []
+}
